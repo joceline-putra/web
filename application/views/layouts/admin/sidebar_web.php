@@ -1,0 +1,53 @@
+<?php
+$icon = 'none;';
+// $icon = 'inline;';
+?>
+<div id="main-menu" class="page-sidebar col-md-2" style="padding-bottom: 30px!important;display: block!important;">
+    <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
+        <p class="menu-title sm" style="padding-top:0px!important;margin:0px 0px 0px!important;">
+        </p>
+        <ul id="sidebar" class="sidebarz">        
+            <li class="start"> 
+                <a href="<?php echo base_url('admin'); ?>">
+                    <i class="fas fa-home"></i>
+                    <span class="title">Website</span> <span class="selected"></span>
+                </a> 
+                <li class="start open">
+                    <ul class="open sub-menu" style="display:block;">
+                        <li><a href="<?php echo site_url('article/article')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Artikel</a></li>
+                        <li><a href="<?php echo site_url('product/product')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Produk</a></li>                                        
+                    </ul>
+                </li>                       
+            </li>            
+            <li class="start"> 
+                <a href="<?php echo base_url('admin'); ?>">
+                    <i class="fas fa-cogs"></i>
+                    <span class="title">Content</span> <span class="selected"></span>
+                </a> 
+                <li class="start open">
+                    <ul class="open sub-menu" style="display:block;">
+                        <li><a href="<?php echo site_url('webpage/portofolio')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Portofolio</a></li>
+                        <li><a href="<?php echo site_url('webpage/team')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Team</a></li>                           
+                        <li><a href="<?php echo site_url('webpage/project')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Project</a></li>    
+                    </ul>
+                </li>                       
+            </li>  
+            <li class="start"> 
+                <a href="<?php echo base_url('admin'); ?>">
+                    <i class="fas fa-cogs"></i>
+                    <span class="title">Pengaturan</span> <span class="selected"></span>
+                </a> 
+                <li class="start open">
+                    <ul class="open sub-menu" style="display:block;">
+                        <li><a href="<?php echo site_url('webpage/menu')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Menu</a></li>                                              
+                        <li><a href="<?php echo site_url('webpage/contact')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Contact</a></li>
+                    </ul>
+                </li>                       
+            </li>              
+        </ul>
+        <div class="clearfix"></div>
+        <br><br>
+    </div>
+</div>
+<!-- <a href="#" class="scrollup">Scroll</a> -->
+
