@@ -73,7 +73,7 @@
                 <div class="col-md-12 col-lg-4 col-xl-4">
                     <div class="widget footer-widget">
                         <div class="widget__logo">
-                            <img src="<?php echo $asset; ?>assets/img/logo.png" alt="logo">
+                            <img src="<?php echo site_url(); ?>upload/branch/default_logo.png" alt="logo">
                         </div>
                         <div class="vs-widget-about">
                             <p class="footer-text">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 col-lg-4 col-xl-4">
-                    <div class="widget widget_nav_menu footer-widget">
+                    <!-- <div class="widget widget_nav_menu footer-widget">
                         <h3 class="widget_title">JOIN NEWSLETTER</h3>
                         <div class="vs-widget-about">
                             <p class="vs-widget-about__text">Subscribe and get latest news.</p>
@@ -103,7 +103,7 @@
                                     saved for the purpose of making contact</label>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-md-12 col-lg-4 col-xl-4">
                     <div class="widget footer-widget">
@@ -113,7 +113,7 @@
                             if(!empty($link)){
                                 foreach($link['social'] as $v){
                                 ?>
-                                <a href="<?php echo $v['url'];?>" target="_blank"><i class="<?php echo $v['icon'];?>"></i></a>
+                                <a href="<?php echo $v['url'];?>" target="_blank"><i class="fab fa-<?php echo strtolower($v['name']);?>"></i></a>
                                 <?php 
                                 }
                             }
@@ -136,7 +136,7 @@
                             <ul class="menu justify-content-center justify-content-lg-end">
                                 <li><a href="<?php echo $link['privacy']; ?>">PRIVACY</a></li>
                                 <li><a href="<?php echo $link['term_and_condition']; ?>">TERMS & CONDITION</a></li>
-                                <li><a href="<?php echo $link['about']; ?>">About Us</a></li>
+                                <li><a href="<?php echo $link['about']; ?>">Tentang Kami</a></li>
                             </ul>
                         </div>
                     </div>

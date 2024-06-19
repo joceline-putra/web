@@ -33,7 +33,7 @@
                     <div class="row justify-content-center justify-content-sm-between align-items-center gx-sm-0">
                         <div class="col-lg-3 col-md-4 col-auto">
                             <div class="header-logo">
-                                <a href="<?php echo site_url();?>"><img src="<?php echo $asset; ?>assets/img/logo.png" alt="TechBiz" class="logo"></a>
+                                <a href="<?php echo site_url();?>"><img src="<?php echo site_url(); ?>upload/branch/default_logo.png" alt="<?php echo $link['brand'];?>" class="logo"></a>
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-8 col-auto">
@@ -85,18 +85,18 @@
                             <nav class="main-menu d-none d-lg-block">
                                 <ul class="main-menu__list">
                                     <li>
-                                        <a href="<?php echo $link['about']; ?>">Home</a>
+                                        <a href="<?php echo $link['home']; ?>">Home</a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo $link['about']; ?>">About</a>
+                                        <a href="<?php echo $link['about']; ?>">Tentang Kami</a>
                                     </li>                                                        
                                     <li class="menu-item-has-children">
-                                      <a href="<?php echo $asset; ?>services.html">Articles</a>
+                                      <a href="#">Blog</a>
                                       <ul class="sub-menu">
                                         <?php 
                                         if(!empty($link['article_category'])){
                                             foreach($link['article_category'] as $v){
-                                                echo "<li><a href=".site_url('article').'/'.$v['category_url'].">".$v['category_name']."</a>"; 
+                                                echo "<li><a href=".site_url($link['routing']['blog']).'/'.$v['category_url'].">".$v['category_name']."</a>"; 
                                             }
                                         }
                                         ?>
@@ -176,9 +176,9 @@
                                         </svg>
                                     </i>
                                 </button>
-                                <a href="<?php echo site_url(); ?>" class="vs-btn d-none d-vc-sm-block">
+                                <a href="https://wa.me/<?php echo $link['contact']['phone'][0]['phone']; ?>" class="vs-btn d-none d-vc-sm-block">
                                     <span class="vs-btn__bar"></span>
-                                    Call Us
+                                    <span class="fab fa-whatsapp"></span> Hubungi Kami
                                 </a>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <div class="row">
     <div class="col-md-12">
-        <?php include '_navigation.php'; ?>
+        <?php include '_navigation_article.php'; ?>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
                 <div id="div-form-trans" style="display:none;" class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">

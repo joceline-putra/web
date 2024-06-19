@@ -1,4 +1,5 @@
-<section class="hero hero--layout3">
+<!-- 
+ <section class="hero hero--layout3">
     <div class="vs-carousel vsslider1" data-slide-show="1" data-fade="true" data-arrows="false">
         <div>
             <div class="hero-inner">
@@ -12,7 +13,7 @@
                                 <p class="hero-text">Consik is a construction and architecture most
                                     responsible for any kinds of themes.</p>
                                 <div class="hero-btns">
-                                    <a href="<?php echo $asset; ?>about.html" class="vs-btn">
+                                    <a href="#" class="vs-btn">
                                         <span class="vs-btn__bar"></span>
                                         START CONSULTING
                                     </a>
@@ -56,62 +57,45 @@
         </div>
     </div>
 </section>
+-->
 <!--==============================
   Category Area
   ==============================-->
 <div class="cate--layout1 space-top space-extra-bottom">
     <div class="container">
+        <div class="row">
+                <div class="col-xl-6 col-lg-8 mx-auto">
+                    <div class="title-area text-center">
+                        <span class="sec-subtitle2">Kategori Blog</span>
+                        <h2 class="sec-title">Recent Category</h2>
+                    </div>
+                </div>
+            </div>        
         <div class="row justify-content-center">
+            <?php 
+            foreach ($result['category'] as $v) {
+            // $set_url = $pages['sitelink']['categories']['url'] . '/' . $v['news_url'];
+            $set_image = !empty($v['image']) ? $v['image'] : site_url('upload/noimage.image');
+            $set_title = substr($v['title'], 0, 20);
+            ?>     
             <div class="col-lg-3 col-md-4 col-auto">
                 <div class="cate-block--style">
                     <div class="cate-block__img">
-                        <img src="<?php echo $asset; ?>assets/img/cate/cate-1-1.jpg" alt="cate">
-                        <div class="cate-block__icon">
-                            <img src="<?php echo $asset; ?>assets/img/icons/cate-icon-1-1.svg" alt="cate icon">
-                        </div>
+                        <img src="<?php echo $set_image;?>" alt="cate">
                     </div>
-                    <h3 class="cate-block__title"><a href="<?php echo $asset; ?>cate-details.html">Education</a></h3>
+                    <h3 class="cate-block__title"><a href="<?php echo $v['url'];?>"><?php echo $set_title;?></a></h3>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-auto">
-                <div class="cate-block--style">
-                    <div class="cate-block__img">
-                        <img src="<?php echo $asset; ?>assets/img/cate/cate-1-2.jpg" alt="cate">
-                        <div class="cate-block__icon">
-                            <img src="<?php echo $asset; ?>assets/img/icons/cate-icon-1-2.svg" alt="cate icon">
-                        </div>
-                    </div>
-                    <h3 class="cate-block__title"><a href="<?php echo $asset; ?>cate-details.html">Commercial</a></h3>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-auto">
-                <div class="cate-block--style">
-                    <div class="cate-block__img">
-                        <img src="<?php echo $asset; ?>assets/img/cate/cate-1-3.jpg" alt="cate">
-                        <div class="cate-block__icon">
-                            <img src="<?php echo $asset; ?>assets/img/icons/cate-icon-1-3.svg" alt="cate icon">
-                        </div>
-                    </div>
-                    <h3 class="cate-block__title"><a href="<?php echo $asset; ?>cate-details.html">Residental</a></h3>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-auto">
-                <div class="cate-block--style">
-                    <div class="cate-block__img">
-                        <img src="<?php echo $asset; ?>assets/img/cate/cate-1-4.jpg" alt="cate">
-                        <div class="cate-block__icon">
-                            <img src="<?php echo $asset; ?>assets/img/icons/cate-icon-1-4.svg" alt="cate icon">
-                        </div>
-                    </div>
-                    <h3 class="cate-block__title"><a href="<?php echo $asset; ?>cate-details.html">Industrial</a></h3>
-                </div>
-            </div>
+            <?php 
+            }
+            ?>
         </div>
     </div>
 </div>
 <!--==============================
   About Area
   ==============================-->
+  <!--
 <section class="about--layout3 space-extra-bottom position-relative overflow-hidden">
     <div class="position-absolute end-0 bottom-0">
         <img src="<?php echo $asset; ?>assets/img/about/ab-3-3.png" alt="about">
@@ -204,9 +188,81 @@
         </div>
     </div>
 </section>
+-->
+
+<section class="project--layout1 blog--layout1 space-top z-index-common">
+    <div class="container">
+        <div class="space-extra-bottom">
+            <div class="row">
+                <div class="col-xl-6 col-lg-8 mx-auto">
+                    <div class="title-area text-center">
+                        <span class="sec-subtitle2">Terbaru Kami</span>
+                        <h2 class="sec-title">Blog Terbaru</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center ">
+                <?php 
+                foreach ($result['news']['news_new'] as $v) {
+                // $set_url = $pages['sitelink']['categories']['url'] . '/' . $v['news_url'];
+                $set_image = !empty($v['image']) ? $v['image'] : site_url('upload/noimage.png');
+                $set_title = substr($v['title'], 0, 20);
+                ?>                   
+                <div class="col-lg-4 col-md-6">
+                    <div class="vs-blog blog-style5" data-bg-src="<?php echo $set_image; ?>">
+                        <div class="blog-shape">
+                            <img src="<?php echo $asset; ?>assets/img/textures/texture-1.png" alt="texture">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-header">
+                                <span class="blog-date"><?php echo date("d M Y", strtotime($v['created']))?></span>
+                                <h2 class="blog-title"><a href="<?php echo $v['url']; ?>"><?php echo $set_title; ?></a>
+                                </h2>
+                                <p class="blog-text"><?php echo $v['content']; ?></p>
+                            </div>
+                            <div class="blog-footer">
+                                <div class="blog-meta">
+                                    <a class="blog-meta__link" href="<?php echo $v['url']; ?>">by <span class="blog-meta__highlight"><?php echo $v['author']; ?></span></a>
+                                </div>
+                                <!-- <a href="<?php echo $v['url']; ?>" class="link-btn">
+                                    <i class="fal fa-plus"></i>
+                                </a> -->
+                            </div>
+                        </div>
+                        <div class="blog-content overlay">
+                            <div class="blog-header">
+                                <span class="blog-date"><?php echo date("d M Y", strtotime($v['created']))?></span>
+                                <h2 class="blog-title"><a href="<?php echo $v['url']; ?>"><?php echo $set_title; ?></a>
+                                </h2>
+                            </div>
+                            <div class="blog-footer">
+                                <div class="blog-meta">
+                                    <a class="blog-meta__link" href="<?php echo $v['url']; ?>">by <span class="blog-meta__highlight"><?php echo $v['author']; ?></span></a>
+                                </div>
+                                <!-- <a href="<<?php echo $v['url']; ?>" class="link-btn">
+                                    <i class="fal fa-plus"></i>
+                                </a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php 
+                }
+                ?>
+            </div>
+            <!-- <div class="section-button pt-5 d-flex justify-content-center text-center">
+                <a href="# class="vs-btn style2" tabindex="0">
+                    <span class="vs-btn__bar"></span>
+                    VIEW ALL NEWS
+                </a>
+            </div> -->
+        </div>
+    </div>
+</section>
 <!--==============================
   Projects Area
   ==============================-->
+<!--
 <section class="project--layout3 z-index-common space-top space-extra-bottom overflow-hidden">
     <div class="start-0 bottom-0 position-absolute z-index-n1">
         <img src="<?php echo $asset; ?>assets/img/project/element-2.png" alt="Project">
@@ -223,9 +279,6 @@
         <div class="row align-items-center">
             <div class="col-lg-8 col-md-9 mx-auto">
                 <div class="title-area text-center">
-                    <span class="sec-icon">
-                        <img src="<?php echo $asset; ?>assets/img/icons/logo-icon.png" alt="icon">
-                    </span>
                     <span class="sec-subtitle2">OUR WORK SHOWCASE</span>
                     <h2 class="sec-title">EXPLORE RECENT PROJECTS</h2>
                 </div>
@@ -357,9 +410,11 @@
         </div>
     </div>
 </section>
+-->
 <!--==============================
   Team Area
   ==============================-->
+<!--
 <section class="vsteam--layout1 space-top z-index-common overflow-hidden">
     <div class="end-0 bottom-0 position-absolute z-index-n1 opacity-10">
         <img src="<?php echo $asset; ?>assets/img/team/team-backlay-1.jpg" alt="Project">
@@ -464,9 +519,11 @@
         </div>
     </div>
 </section>
+-->
 <!--==============================
   Our Banner Widget
   ==============================-->
+<!--
 <div class="space-extra-top space-extra-bottom">
     <div class="container">
         <div class="row">
@@ -523,10 +580,12 @@
         </div>
     </div>
 </div>
+-->
 <!--==============================
   Our Sucess
   ==============================-->
-<section class="sucess--layout1 z-index-common space-top" data-bg-src="<?php echo $asset; ?>assets/img/bg/bg-2.jpg">
+<!--
+<section class="sucess--layout1 z-index-common space-top" data-bg-src="<?php #echo $asset; ?>assets/img/bg/bg-2.jpg">
     <div class="sucess__overlay"></div>
     <div class="sucess__shape"></div>
     <div class="sucess__element1 position-absolute top-0 start-0 z-index-n1">
@@ -590,9 +649,11 @@
         </div>
     </div>
 </section>
+-->
 <!--==============================
   Client Area
   ==============================-->
+<!--
 <section class="client--layout2 space-top space-extra-bottom">
     <div class="container">
         <div class="row align-items-center">
@@ -718,10 +779,11 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!--==============================
   Pricing
   ==============================-->
+<!--
 <div class="price space-extra-bottom">
     <div class="container">
         <div class="row">
@@ -822,10 +884,11 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <!--==============================
   Request Quote Form
   ==============================-->
+<!--
 <div class="quote--layout1 z-index-common overflow-hidden" data-bg-src="<?php echo $asset; ?>assets/img/bg/bg-1.jpg">
     <div class="quote__shape position-absolute start-0 top-0 bottom-0 z-index-n1">
         <svg width="929" height="771.999" viewBox="0 0 929 771.999">
@@ -882,157 +945,4 @@
         </div>
     </div>
 </div>
-<section class="blog--layout1 space-top z-index-common">
-    <div class="container">
-        <div class="space-extra-bottom">
-            <div class="row">
-                <div class="col-xl-6 col-lg-8 mx-auto">
-                    <div class="title-area text-center">
-                        <span class="sec-icon">
-                            <img src="<?php echo $asset; ?>assets/img/icons/logo-icon.png" alt="icon">
-                        </span>
-                        <span class="sec-subtitle2">UPDATES AND NEWS</span>
-                        <h2 class="sec-title">RECENT ARTICLES</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center ">
-                <div class="col-lg-4 col-md-6">
-                    <div class="vs-blog blog-style5" data-bg-src="<?php echo $asset; ?>assets/img/blog/blog-s-2-1.jpg">
-                        <div class="blog-shape">
-                            <img src="<?php echo $asset; ?>assets/img/textures/texture-1.png" alt="texture">
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-header">
-                                <span class="blog-date">12 JANUARY 2024</span>
-                                <h2 class="blog-title"><a href="<?php echo $asset; ?>blog-details.html">Rest of us Avoid Common
-                                        Issues to get stuck</a>
-                                </h2>
-                                <p class="blog-text">Lorem ipsum dolor sit amet, coaliq Aenean sollicitudi, lo bi We reossibl dolor sit
-                                    ctor.</p>
-                            </div>
-                            <div class="blog-footer">
-                                <div class="blog-meta">
-                                    <a class="blog-meta__link" href="<?php echo $asset; ?>blog.html">by <span class="blog-meta__highlight">Jakki
-                                            James</span></a>
-                                </div>
-                                <a href="<?php echo $asset; ?>blog-details.html" class="link-btn">
-                                    <i class="fal fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-content overlay">
-                            <div class="blog-header">
-                                <span class="blog-date">25 FEBRUARY 2024</span>
-                                <h2 class="blog-title"><a href="<?php echo $asset; ?>blog-details.html">Rest of us Avoid Common
-                                        Issues to get stuck</a>
-                                </h2>
-                            </div>
-                            <div class="blog-footer">
-                                <div class="blog-meta">
-                                    <a class="blog-meta__link" href="<?php echo $asset; ?>blog.html">by <span class="blog-meta__highlight">Jakki
-                                            James</span></a>
-                                </div>
-                                <a href="<?php echo $asset; ?>blog-details.html" class="link-btn">
-                                    <i class="fal fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="vs-blog blog-style5" data-bg-src="<?php echo $asset; ?>assets/img/blog/blog-s-2-1.jpg">
-                        <div class="blog-shape">
-                            <img src="<?php echo $asset; ?>assets/img/textures/texture-1.png" alt="texture">
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-header">
-                                <span class="blog-date">28 MARCH 2023</span>
-                                <h2 class="blog-title"><a href="<?php echo $asset; ?>blog-details.html">Rest of us Avoid Common
-                                        Issues to get stuck</a>
-                                </h2>
-                                <p class="blog-text">Lorem ipsum dolor sit amet, coaliq Aenean sollicitudi, lo bi We reossibl dolor sit
-                                    ctor.</p>
-                            </div>
-                            <div class="blog-footer">
-                                <div class="blog-meta">
-                                    <a class="blog-meta__link" href="<?php echo $asset; ?>blog.html">by <span class="blog-meta__highlight">Jakki
-                                            James</span></a>
-                                </div>
-                                <a href="<?php echo $asset; ?>blog-details.html" class="link-btn">
-                                    <i class="fal fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-content overlay">
-                            <div class="blog-header">
-                                <span class="blog-date">27 FEBRUARY 2023</span>
-                                <h2 class="blog-title"><a href="<?php echo $asset; ?>blog-details.html">Rest of us Avoid Common
-                                        Issues to get stuck</a>
-                                </h2>
-                            </div>
-                            <div class="blog-footer">
-                                <div class="blog-meta">
-                                    <a class="blog-meta__link" href="<?php echo $asset; ?>blog.html">by <span class="blog-meta__highlight">Jakki
-                                            James</span></a>
-                                </div>
-                                <a href="<?php echo $asset; ?>blog-details.html" class="link-btn">
-                                    <i class="fal fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="vs-blog blog-style5" data-bg-src="<?php echo $asset; ?>assets/img/blog/blog-s-2-1.jpg">
-                        <div class="blog-shape">
-                            <img src="<?php echo $asset; ?>assets/img/textures/texture-1.png" alt="texture">
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-header">
-                                <span class="blog-date">21 DECEMBER 2023</span>
-                                <h2 class="blog-title"><a href="<?php echo $asset; ?>blog-details.html">Rest of us Avoid Common
-                                        Issues to get stuck</a>
-                                </h2>
-                                <p class="blog-text">Lorem ipsum dolor sit amet, coaliq Aenean sollicitudi, lo bi We reossibl dolor sit
-                                    ctor.</p>
-                            </div>
-                            <div class="blog-footer">
-                                <div class="blog-meta">
-                                    <a class="blog-meta__link" href="<?php echo $asset; ?>blog.html">by <span class="blog-meta__highlight">Jakki
-                                            James</span></a>
-                                </div>
-                                <a href="<?php echo $asset; ?>blog-details.html" class="link-btn">
-                                    <i class="fal fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-content overlay">
-                            <div class="blog-header">
-                                <span class="blog-date">12 DECEMBER 2024</span>
-                                <h2 class="blog-title"><a href="<?php echo $asset; ?>blog-details.html">Rest of us Avoid Common
-                                        Issues to get stuck</a>
-                                </h2>
-                            </div>
-                            <div class="blog-footer">
-                                <div class="blog-meta">
-                                    <a class="blog-meta__link" href="<?php echo $asset; ?>blog.html">by <span class="blog-meta__highlight">Jakki
-                                            James</span></a>
-                                </div>
-                                <a href="<?php echo $asset; ?>blog-details.html" class="link-btn">
-                                    <i class="fal fa-plus"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section-button pt-5 d-flex justify-content-center text-center">
-                <a href="<?php echo $asset; ?>blog.html" class="vs-btn style2" tabindex="0">
-                    <span class="vs-btn__bar"></span>
-                    VIEW ALL NEWS
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+-->

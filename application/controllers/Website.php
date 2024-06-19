@@ -5,7 +5,7 @@ class Website extends MY_Controller{
 
     public $asset; public $layout; public $controller;
     
-    public $product_routing; public $blog_routing; public $contact_routing;
+    public $product_routing; public $blog_routing; public $contact_routing; public $gallery_routing; public $project_routing;
     public $dir; public $nav;
     
     public $header_file; public $content_file; public $footer_file;
@@ -32,8 +32,10 @@ class Website extends MY_Controller{
 
         //Routing
         $this->product_routing  = 'produk';
-        $this->blog_routing     = 'article'; //blog
+        $this->blog_routing     = 'blog'; //blog
         $this->contact_routing  = 'agent';
+        $this->gallery_routing  = 'gallery';
+        $this->project_routing  = 'project';                
 
         //Website Map
         $this->header_file      = 'header';
@@ -124,7 +126,13 @@ class Website extends MY_Controller{
         // echo json_encode($json);die;
         $json_social = [];
         foreach($json['social_media'] as $v){
-            $json_social[] = ['name' => $v['name'], 'url' => $v['link'], 'icon' => 'social-icon social-'.strtolower($v['name']).' icon-'.strtolower($v['name']).''];
+            if(strlen($v['link']) > 0){
+                $json_social[] = [
+                    'name' => $v['name'], 
+                    'url' => $v['link'], 
+                    'icon' => 'social-icon social-'.strtolower($v['name']).' icon-'.strtolower($v['name']).''
+                ];
+            }
         }        
         $a = array(
             'brand' => $b['branch_name'],
@@ -172,6 +180,13 @@ class Website extends MY_Controller{
                 )
             ),
             'social' => $json_social,
+            'routing' => [
+                'blog' => $this->blog_routing,
+                'product' => $this->product_routing,
+                'contact' => $this->contact_routing,
+                'project' => $this->project_routing,
+                'gallery' => $this->gallery_routing
+            ],
             'article_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>2,'category_flag'=>1],null,10,0,'category_name','asc'),
             'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,10,0,'category_name','asc'),
             'newsticker' => $json['header_title']
@@ -583,72 +598,115 @@ class Website extends MY_Controller{
                 $news_new_data          = array();
 
                 /* News */
-                $get_news_banner = $this->News_model->get_all_newss(array('news_flag'=> 1),null,8,0,'news_date_created','asc');
-                foreach($get_news_banner as $b):
-                    $url_category = $b['category_url'];
-                    $url_news = $b['news_url'];
-                    $news_banner_data[] = array(
-                        'title' => $b['news_title'],
-                        'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
-                        'category' => array(
-                            'category_name' => $b['category_name'],
-                            'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
-                        ),
-                        'author' => ucfirst($b['user_username']),
-                        'image' => site_url().$b['news_image'],
-                        'short' => $b['news_short'],
-                        // 'content' => $b['news_content'],
-                        'tags' => $b['news_tags'],
-                        'keywords' => $b['news_tags'],
-                        'visitor' => intval($b['news_visitor']),
-                        'created' => date('d-F-Y', strtotime($b['news_date_created'])),
-                        'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
-                        // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
-                    );
-                endforeach;
+                    $get_news_banner = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=> 1,'news_position'=>1),null,8,0,'news_date_created','asc');
+                    foreach($get_news_banner as $b):
+                        $url_category = $b['category_url'];
+                        $url_news = $b['news_url'];
+                        $news_banner_data[] = array(
+                            'title' => $b['news_title'],
+                            'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
+                            'category' => array(
+                                'category_name' => $b['category_name'],
+                                'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
+                            ),
+                            'author' => ucfirst($b['user_username']),
+                            'image' => !empty($b['news_image']) ? site_url().$b['news_image'] : site_url('upload/noimage.png'),
+                            'short' => $b['news_short'],
+                            'content' => substr(strip_tags($b['news_content']),0,40),
+                            'tags' => $b['news_tags'],
+                            'keywords' => $b['news_tags'],
+                            'visitor' => intval($b['news_visitor']),
+                            'created' => $b['news_date_created'],
+                            'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
+                            // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
+                        );
+                    endforeach;
+                /* End of News */
+
+                /* News New */
+                    $get_news_new = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=> 1),null,4,0,'news_date_created','asc');
+                    foreach($get_news_new as $b):
+                        $url_category = $b['category_url'];
+                        $url_news = $b['news_url'];
+                        $news_new_data[] = array(
+                            'title' => $b['news_title'],
+                            'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
+                            'category' => array(
+                                'category_name' => $b['category_name'],
+                                'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
+                            ),
+                            'author' => ucfirst($b['user_username']),
+                            'image' => !empty($b['news_image']) ? site_url().$b['news_image'] : site_url('upload/noimage.png'),
+                            'short' => $b['news_short'],
+                            'content' => substr(strip_tags($b['news_content']),0,40),
+                            'tags' => $b['news_tags'],
+                            'keywords' => $b['news_tags'],
+                            'visitor' => intval($b['news_visitor']),
+                            'created' => $b['news_date_created'],
+                            'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
+                            // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
+                        );
+                    endforeach;                
+                /* End of News New */
+
+                /* News Popular */
+                    $get_news_pp = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=> 1),null,4,0,'news_visitor','asc');
+                    foreach($get_news_pp as $b):
+                        $url_category = $b['category_url'];
+                        $url_news = $b['news_url'];
+                        $news_popular_data[] = array(
+                            'title' => $b['news_title'],
+                            'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
+                            'category' => array(
+                                'category_name' => $b['category_name'],
+                                'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
+                            ),
+                            'author' => ucfirst($b['user_username']),
+                            'image' => !empty($b['news_image']) ? site_url().$b['news_image'] : site_url('upload/noimage.png'),
+                            'short' => $b['news_short'],
+                            'content' => substr(strip_tags($b['news_content']),0,40),
+                            'tags' => $b['news_tags'],
+                            'keywords' => $b['news_tags'],
+                            'visitor' => intval($b['news_visitor']),
+                            'created' => $b['news_date_created'],
+                            'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
+                            // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
+                        );
+                    endforeach;                
+                /* End of News Popular */                
 
                 /* Categories */
-                $params_category = array('category_type' => 1,'category_flag'=>1);
-                $get_category = $this->Kategori_model->get_all_categoriess($params_category,null,10,0,'category_name','asc');
-                foreach($get_category as $v):
-                    $category_data[] = array(
-                            'id' => $v['category_id'],
-                            'url' => site_url($this->product_routing).'/'.$v['category_url'],
-                            'title' => $v['category_name'],
-                            'flag' => intval($v['category_flag']),
-                            'product_count' => intval($v['category_count'])
-                    );
-                endforeach;
-                //End of Categories Data 
+                    $get_category = $this->Kategori_model->get_all_categoriess(array('category_type' => 2,'category_flag'=>1),null,10,0,'category_name','asc');
+                    foreach($get_category as $v):
+                        $category_data[] = array(
+                                'id' => $v['category_id'],
+                                'url' => site_url($this->blog_routing).'/'.$v['category_url'],
+                                'title' => $v['category_name'],
+                                'flag' => intval($v['category_flag']),
+                                'product_count' => intval($v['category_count']),
+                                'image' => !empty($v['category_image']) ? site_url().$v['category_image'] : site_url('upload/noimage.png'),
+                        );
+                    endforeach;
+                /* End of Categories Data */ 
 
                 /* Product */
-                $params_product = array('product_flag' => 1);
-                $get_product = $this->Produk_model->get_all_produks($params_product,null,30,0,'product_id','asc');
-                foreach($get_product as $v):
-                    $product_data[] = array(
-                            'id' => $v['product_id'],
-                            'url' => site_url($this->product_routing).'/'.$v['category_url'].'/'.$v['product_url'],
-                            'code' => $v['product_code'],
-                            'title' => $v['product_name'],
-                            'flag' => $v['product_flag'] == 1 ? 'Tersedia' : 'Tidak Tersedia',
-                            // 'ref' => $v['product_ref_id'],
-                            'price' => !empty($v['product_price_sell']) ? floatval($v['product_price_sell']) : 0,
-                            'price_discount' => !empty($v['product_price_promo']) ? floatval($v['product_price']) : 0,
-                            // 'note' => $v['product_note'],
-                            'type' => $this->product_type($v['product_type'],null),
-                            // 'bedroom' =>  $v['product_bedroom'] > 0 ? $v['product_bedroom'] : '-',
-                            // 'bathroom' => $v['product_bathroom'] > 0 ? $v['product_bathroom'] : '-',
-                            // 'garage' => $v['product_garage'] > 0 ? $v['product_garage'] : '-',
-                            // 'square_size' => $v['product_square_size'] > 0 ? $v['product_square_size'].' m2' : '-',
-                            // 'building_size' => $v['product_building_size'] > 0 ? $v['product_building_size'].' m2' : '-',
-                            // 'location' => $map = $this->Map_model->get_city(
-                            //     array(
-                            //         'city_id' => $v['product_city_id']
-                            //     )
-                            // ),
-                            'image' => site_url().$v['product_image']
-                    );
-                endforeach;
+                    $params_product = array('product_flag' => 1);
+                    $get_product = $this->Produk_model->get_all_produks($params_product,null,4,0,'product_id','asc');
+                    foreach($get_product as $v):
+                        $product_data[] = array(
+                                'id' => $v['product_id'],
+                                'url' => site_url($this->product_routing).'/'.$v['category_url'].'/'.$v['product_url'],
+                                'code' => $v['product_code'],
+                                'title' => $v['product_name'],
+                                'flag' => $v['product_flag'] == 1 ? 'Tersedia' : 'Tidak Tersedia',
+                                // 'ref' => $v['product_ref_id'],
+                                'price' => !empty($v['product_price_sell']) ? floatval($v['product_price_sell']) : 0,
+                                'price_discount' => !empty($v['product_price_promo']) ? floatval($v['product_price']) : 0,
+                                // 'note' => $v['product_note'],
+                                'type' => $this->product_type($v['product_type'],null),
+                                'image' => site_url().$v['product_image']
+                        );
+                    endforeach;
                 //End of Product Data 
 
                 //Final Data to Front End
@@ -676,10 +734,23 @@ class Website extends MY_Controller{
     }
 
     function about(){
-        $data['title']          = 'About';
-        $data['author']         = 'John Doe';
-        $data['description']    = 'Its not about news, talk to each other something special from this site';
-        $data['keywords']       = 'website, john doe, homepage';
+
+        $params_check = array(
+            'news_type' => 0,
+            'news_flag' => 1,
+            'news_url' => 'about'
+        );
+        $get_news   = $this->News_model->get_news_by_url($params_check);
+        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+        // $this->News_model->update_news($get_news['news_id'],array('news_visitor' => $get_news['news_visitor']+1));
+                
+        // var_dump($get_news);die;
+        $data['title']          = 'Tentang Kami';
+        $data['author']         = ucwords($get_author['user_username']);
+        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
+        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
+        $data['description']    = $get_news['news_content'];        
+        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
 
         $data['asset_folder']   = $this->nav['web']['asset']['folder'];
         $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
@@ -1028,7 +1099,7 @@ class Website extends MY_Controller{
         $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
         $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
         $data['link']           = $this->sitelink();
-        var_dump($data['link']);die;
+        // var_dump($data['link']);die;
         if($view == 'article'){ //www.any.com/article/param1/param2
             $data['title']          = $data['pages']['sitelink']['article']['title'];
             $data['author']         = $data['pages']['sitelink']['article']['author'];

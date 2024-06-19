@@ -45,8 +45,8 @@ class News extends MY_Controller{
             $data['_route'] = $this->blog_route;            
             $data['identity'] = 1;            
             $data['title'] = 'Blog';
-            $data['_view'] = 'layouts/admin/menu/article/article';
-            $file_js = 'layouts/admin/menu/article/article_js.php';
+            $data['_view'] = 'layouts/admin/menu/webpage/article';
+            $file_js = 'layouts/admin/menu/webpage/article_js.php';
         }
 
         if($identity == 2){ //Template Promo

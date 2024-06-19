@@ -168,12 +168,12 @@
     if ($(".sticky-active").hasClass("active")) {
       var logo = $(".header-logo .logo");
       if (logo.hasClass("logo-white")) {
-        logo.attr("src", "assets/consix/assets/img/logo-black.png");
+        logo.attr("src", "upload/branch/default_logo.png");
       } else if (logo.hasClass("logo-black")) {
-        logo.attr("src", "assets/consix/assets/img/logo.png");
+        logo.attr("src", "upload/branch/default_logo.png");
       }
     } else {
-      $(".header-logo .logo").attr("src", "assets/consix/assets/img/logo.png");
+      $(".header-logo .logo").attr("src", "upload/branch/default_logo.png");
     }
   }
 

@@ -4,22 +4,48 @@
 <div class="breadcumb-wrapper" data-bg-src="<?php echo $asset; ?>assets/img/breadcumb/breadcumb-bg.jpg">
     <div class="container z-index-common">
         <div class="breadcumb-content">
-            <h1 class="breadcumb-title">About Us</h1>
-            <p class="breadcumb-text">construction and
-                architecture environmentally most responsible for any kinds of themes.</p>
+            <h1 class="breadcumb-title"><?php echo $title; ?></h1>
+            <p class="breadcumb-text">
+                <?php echo $short; ?>
+            </p>
             <div class="breadcumb-menu-wrap">
                 <ul class="breadcumb-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li>About Us</li>
+                    <li><a href="<?php echo base_url(); ?>">Home</a></li>
+                    <li><?php echo $title; ?></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+<section class="space-top space-extra-bottom z-index-common overflow-hidden">
+    <div class="about-overlay--style2 position-absolute start-0 bottom-0">
+        <img src="<?php echo $asset; ?>assets/img/about/ab-2-4.png" alt="about">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="title-area text-center">
+                    <span class="sec-icon">
+                        <img src="<?php echo site_url(); ?>upload/branch/default_logo.png" alt="icon">
+                    </span>
+                    <!-- <span class="sec-subtitle2">WELCOME TO OUR COMPANY</span>
+                    <h2 class="sec-title">
+                        WE ARE QUALIFIED IN EVERY WORKING DEPARTMENTS
+                    </h2> -->
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="about-content">
+                    <?php echo $description; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!--==============================
   About Area
   ==============================-->
-<section class="space-top space-extra-bottom z-index-common overflow-hidden">
+<!-- <section class="space-top space-extra-bottom z-index-common overflow-hidden">
     <div class="about-overlay--style2 position-absolute start-0 bottom-0">
         <img src="<?php echo $asset; ?>assets/img/about/ab-2-4.png" alt="about">
     </div>
@@ -88,97 +114,11 @@
             </div>
         </div>
     </div>
-</section>
-<!--==============================
-  About History
-  ==============================-->
-<section class="space-top space-extra-bottom z-index-common overflow-hidden">
-    <div class="element--history position-absolute bottom-0 z-index-n1">
-        <img src="<?php echo $asset; ?>assets/img/about/ab-4-1.png" alt="about">
-    </div>
-    <div class="container">
-        <div class="row align-items-end justify-content-center">
-            <div class="col-xl-8 col-lg-10">
-                <div class="title-area">
-                    <span class="sec-subtitle2">COMPANY HISTORY</span>
-                    <h2 class="sec-title">
-                        A TEAM OF RELIABLE AND EXPERIENCED CONTRACTORS
-                    </h2>
-                </div>
-                <div class="history-style d-flex align-items-start">
-                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">1990</button>
-                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">2010</button>
-                        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">2010</button>
-                        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">2018</button>
-                        <button class="nav-link" id="v-pills-2022-tab" data-bs-toggle="pill" data-bs-target="#v-pills-2022" type="button" role="tab" aria-controls="v-pills-2022" aria-selected="false">2022</button>
-                    </div>
-                    <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
-                            <div class="history-block">
-                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
-                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
-                                    iscing elit, sed do eiusmod tempor incididunt ut
-                                    dolore magna aliqua.
-                                </p>
-                                <span class="history-block__year">1990</span>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-                            <div class="history-block">
-                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
-                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
-                                    iscing elit, sed do eiusmod tempor incididunt ut
-                                    dolore magna aliqua.
-                                </p>
-                                <span class="history-block__year">2010</span>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
-                            <div class="history-block">
-                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
-                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
-                                    iscing elit, sed do eiusmod tempor incididunt ut
-                                    dolore magna aliqua.
-                                </p>
-                                <span class="history-block__year">2010</span>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
-                            <div class="history-block">
-                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
-                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
-                                    iscing elit, sed do eiusmod tempor incididunt ut
-                                    dolore magna aliqua.
-                                </p>
-                                <span class="history-block__year">2018</span>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="v-pills-2022" role="tabpanel" aria-labelledby="v-pills-2022-tab" tabindex="0">
-                            <div class="history-block">
-                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
-                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
-                                    iscing elit, sed do eiusmod tempor incididunt ut
-                                    dolore magna aliqua.
-                                </p>
-                                <span class="history-block__year">2022</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-8 col-md-9">
-                <div class="history-img">
-                    <img src="<?php echo $asset; ?>assets/img/about/ab-4-2.jpg" alt="about">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+</section> -->
 <!--==============================
   Service Area
   ==============================-->
-<section class="service--layout4 space-top space-extra-bottom">
+<!-- <section class="service--layout4 space-top space-extra-bottom">
     <div class="container">
         <div class="title-area text-center">
             <span class="sec-icon">
@@ -290,10 +230,94 @@
             </div>
         </div>
     </div>
-</section>
-<!--==============================
-  FAQ's Area
-  ==============================-->
+</section> -->
+
+<!--
+<section class="space-top space-extra-bottom z-index-common overflow-hidden">
+    <div class="element--history position-absolute bottom-0 z-index-n1">
+        <img src="<?php echo $asset; ?>assets/img/about/ab-4-1.png" alt="about">
+    </div>
+    <div class="container">
+        <div class="row align-items-end justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+                <div class="title-area">
+                    <span class="sec-subtitle2">COMPANY HISTORY</span>
+                    <h2 class="sec-title">
+                        A TEAM OF RELIABLE AND EXPERIENCED CONTRACTORS
+                    </h2>
+                </div>
+                <div class="history-style d-flex align-items-start">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">1990</button>
+                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">2010</button>
+                        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">2010</button>
+                        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">2018</button>
+                        <button class="nav-link" id="v-pills-2022-tab" data-bs-toggle="pill" data-bs-target="#v-pills-2022" type="button" role="tab" aria-controls="v-pills-2022" aria-selected="false">2022</button>
+                    </div>
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
+                            <div class="history-block">
+                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
+                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
+                                    iscing elit, sed do eiusmod tempor incididunt ut
+                                    dolore magna aliqua.
+                                </p>
+                                <span class="history-block__year">1990</span>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
+                            <div class="history-block">
+                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
+                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
+                                    iscing elit, sed do eiusmod tempor incididunt ut
+                                    dolore magna aliqua.
+                                </p>
+                                <span class="history-block__year">2010</span>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
+                            <div class="history-block">
+                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
+                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
+                                    iscing elit, sed do eiusmod tempor incididunt ut
+                                    dolore magna aliqua.
+                                </p>
+                                <span class="history-block__year">2010</span>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
+                            <div class="history-block">
+                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
+                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
+                                    iscing elit, sed do eiusmod tempor incididunt ut
+                                    dolore magna aliqua.
+                                </p>
+                                <span class="history-block__year">2018</span>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-2022" role="tabpanel" aria-labelledby="v-pills-2022-tab" tabindex="0">
+                            <div class="history-block">
+                                <h3 class="history-block__title">Provide Guaranteed Quality in Construction</h3>
+                                <p class="history-block__text">Lorem ipsum dolor sit amet, consectetur adip
+                                    iscing elit, sed do eiusmod tempor incididunt ut
+                                    dolore magna aliqua.
+                                </p>
+                                <span class="history-block__year">2022</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-8 col-md-9">
+                <div class="history-img">
+                    <img src="<?php echo $asset; ?>assets/img/about/ab-4-2.jpg" alt="about">
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+-->
+<!--
 <section class="vsfaqs--layout1 space-top space-extra-bottom z-index-common">
     <div class="vsfaqs__img1">
         <img src="<?php echo $asset; ?>assets/img/faq/faq-1-3.png" alt="">
@@ -377,3 +401,4 @@
         </div>
     </div>
 </section>
+-->
