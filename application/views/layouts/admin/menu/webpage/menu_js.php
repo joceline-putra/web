@@ -11,7 +11,7 @@
         $(".nav-tabs").find('li[class="active"]').removeClass('active');
         $(".nav-tabs").find('li[data-name="article/article"]').addClass('active');
         // console.log(view);
-        $("#img-preview1").attr('src', url_image);
+        // $("#img-preview1").attr('src', url_image);
         $("select").select2();
         $(".date").datepicker({
             // defaultDate: new Date(),
@@ -133,27 +133,15 @@
                         if (parseInt(row.news_flag) === 0) {
                             dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-success"';
                             dsp += 'data-nama="' + row.news_title + '" data-kode="' + row.news_title + '" data-id="' + data + '" data-flag="' + row.news_flag + '">';
-                            dsp += '<span class="fas fa-check-square primary"></span> Aktifkan</button>';
+                            dsp += '<span class="fas fa-check-square primary"></span> </button>';
                         } else {
                             dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-danger"';
                             dsp += 'data-nama="' + row.news_title + '" data-kode="' + row.news_title + '" data-id="' + data + '" data-flag="' + row.news_flag + '">';
-                            dsp += '<span class="fas fa-times danger"></span> Nonaktifkan</button>';
+                            dsp += '<span class="fas fa-times danger"></span> </button>';
                         }
                         return dsp;
                     }
                 }]
-        });
-        $('#table-data').on('page.dt', function () {
-            var info = index.page.info();
-            // console.log( 'Showing page: '+info.page+' of '+info.pages);
-            var limit_start = info.start;
-            var limit_end = info.end;
-            var length = info.length;
-            var page = info.page;
-            var pages = info.pages;
-            console.log(limit_start, limit_end);
-            $("#table-data").attr('data-limit-start', limit_start);
-            $("#table-data").attr('data-limit-end', limit_end);
         });
         //Datatable Config
         $("#table-data_filter").css('display', 'none');
@@ -168,73 +156,6 @@
             if (parseInt(ln) > 3) {
                 index.ajax.reload();
             }
-        });
-
-        $('#categories').select2({
-            placeholder: '--- Pilih ---',
-            minimumInputLength: 0,
-            ajax: {
-                type: "get",
-                url: "<?= base_url('search/manage'); ?>",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    var query = {
-                        search: params.term,
-                        tipe: 2, //1=Produk, 2=News
-                        source: 'categories'
-                    }
-                    return query;
-                },
-                processResults: function (data) {
-                    return {
-                        results: data
-                    };
-                },
-                cache: true
-            },
-            templateSelection: function (data, container) {
-                // Add custom attributes to the <option> tag for the selected option
-                // $(data.element).attr('data-custom-attribute', data.customValue);
-                // $("input[name='satuan']").val(data.satuan);
-                return data.text;
-            }
-        });
-        $('#filter_categories').select2({
-            placeholder: '--- Pilih ---',
-            minimumInputLength: 0,
-            ajax: {
-                type: "get",
-                url: "<?= base_url('search/manage'); ?>",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    var query = {
-                        search: params.term,
-                        tipe: 2, //1=Produk, 2=News
-                        source: 'categories'
-                    }
-                    return query;
-                },
-                processResults: function (data) {
-                    return {
-                        results: data
-                    };
-                },
-                cache: true
-            },
-            templateSelection: function (data, container) {
-                // Add custom attributes to the <option> tag for the selected option
-                // $(data.element).attr('data-custom-attribute', data.customValue);
-                // $("input[name='satuan']").val(data.satuan);
-                return data.text;
-            }
-        });
-        $(document).on("change", "#filter_categories", function (e) {
-            index.ajax.reload();
-        });
-        $(document).on("change", "#filter_flag", function (e) {
-            index.ajax.reload();
         });
 
         $("#title").on("input", function () {
@@ -407,12 +328,12 @@
                 next = false;
             }
 
-            if (next == true) {
-                if ($("select[id='categories']").find(':selected').val() == 0) {
-                    notif(0, 'Categories wajib dipilih');
-                    next = false;
-                }
-            }
+            // if (next == true) {
+            //     if ($("select[id='categories']").find(':selected').val() == 0) {
+            //         notif(0, 'Categories wajib dipilih');
+            //         next = false;
+            //     }
+            // }
 
             if (next == true) {
                 // var prepare = {
@@ -454,12 +375,12 @@
                     beforeSend: function () {},
                     success: function (d) {
                         if (parseInt(d.status) == 1) {
-                            $("#btn-new").show();
-                            $("#btn-save").hide();
-                            $("#btn-update").hide();
-                            $("#btn-cancel").hide();
-                            $("#form-master input").val();
-                            formMasterSetDisplay(1);
+                            // $("#btn-new").show();
+                            // $("#btn-save").hide();
+                            // $("#btn-update").hide();
+                            // $("#btn-cancel").hide();
+                            // $("#form-master input").val();
+                            // formMasterSetDisplay(1);
                             notif(1, d.message);
                             index.ajax.reload(null, false);
                         } else {
@@ -642,24 +563,6 @@
             // btnNew.classList.remove('animate__animated', 'animate__fadeOutRight');    
             $("#div-form-trans").hide(300);
         });
-
-        $('#upload1').change(function (e) {
-            var fileName = e.target.files[0].name;
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#img-preview1').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(this.files[0]);
-        });
-        // function readURL(input) {
-        //   if (input.files && input.files[0]) {
-        //     var reader = new FileReader();
-        //     reader.onload = function (e) {
-        //         $('.uploadpdf').text(input.files[0].name);
-        //     }
-        //     reader.readAsDataURL(input.files[0]);
-        //   }
-        // }  
     });
 
     function formNew() {
@@ -688,7 +591,6 @@
         var attrInput = [
             "tags",
             "keywords",
-            "title",
         ];
 
         for (var i = 0; i <= attrInput.length; i++) {

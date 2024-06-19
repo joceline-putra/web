@@ -34,7 +34,7 @@
                                         <div class="col-md-12">
                                             <input id="id_document" name="id_document" type="hidden" value="" placeholder="id" readonly>
                                         </div>
-                                        <div class="col-md-4 col-sm-12 col-xs-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <!-- <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Gambar*</label>
@@ -52,48 +52,31 @@
                                                         </label>
                                                     </div>                                                  
                                                 </div>
-                                            </div>                                    -->
-                                            <div class="col-md-6 col-xs-6 col-sm-12 padding-remove-side">
-                                                <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-left">
-                                                    <div class="form-group">
-                                                        <label>Tagar *</label>
-                                                        <input id="tags" name="tags" type="text" value="" class="form-control" readonly='true'/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--
-                                            <div class="col-md-6 col-xs-6 col-sm-12 padding-remove-side">
-                                              <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-left">
-                                                <div class="form-group">
-                                                  <label>Keywords *</label>
-                                                  <input id="keywords" name="keywords" type="text" value="" class="form-control" readonly='true'/>
-                                                </div>
-                                              </div>  
-                                            </div>
-                                            -->                      
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                            </div>                                    -->                
+                                            <div class="col-lg-3 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Judul *</label>
                                                     <input id="title" name="title" type="text" value="" class="form-control" readonly='true'/>
                                                 </div>
                                             </div> 
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                            <div class="col-lg-3 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Url *</label>
                                                     <input id="url" name="url" type="text" value="" class="form-control" readonly='true'/>
                                                 </div>
                                             </div>   
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                            <div class="col-lg-3 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Penempatan <?php echo $title; ?></label>
                                                     <select id="posisi" name="posisi" class="form-control" disabled readonly>
-                                                        <option value="1">Menu Header</option>
+                                                        <option value="0">Pilih</option>
+                                                        <option value="1">Header</option>
                                                         <option value="2">Footer</option>
                                                         <option value="3">Header & Footer</option>                                                        
                                                     </select>
                                                 </div>
                                             </div>                                                
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                            <div class="col-lg-3 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Status</label>
                                                     <select id="status" name="status" class="form-control" disabled readonly>
@@ -103,7 +86,7 @@
                                                 </div>
                                             </div>                                                                                                                                  
                                         </div>
-                                        <div class="col-md-8 col-sm-12 col-xs-12">                     
+                                        <div class="col-md-12 col-sm-12 col-xs-12">                     
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Deskripsi Singkat</label>
@@ -163,11 +146,11 @@
                             </div>
                             <div class="col-md-6 col-xs-12 col-sm-12 padding-remove-right">
                                 <div class="pull-right">      
-                                    <button id="btn-new" onClick="" class="btn btn-success btn-small" type="button"
+                                    <!-- <button id="btn-new" onClick="" class="btn btn-success btn-small" type="button"
                                             style="display: inline;">
                                         <i class="fas fa-plus"></i>
                                         Buat <?php echo $title; ?> Baru
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                         </div>
@@ -176,6 +159,7 @@
                                 <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                                     <label class="form-label">Status</label>
                                     <select id="filter_flag" name="filter_flag" class="form-control">
+                                        <option value="All">Semua</option>
                                         <option value="1">Aktif</option>
                                         <option value="0">Nonaktif</option>
                                     </select>
