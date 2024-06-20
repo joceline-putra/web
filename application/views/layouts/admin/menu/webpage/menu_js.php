@@ -1,6 +1,6 @@
 
 <script>
-    $.getScript("https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js");
+    // $.getScript("https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js");
     
     $(document).ready(function () {
         var url = "<?= base_url('news/manage'); ?>";
@@ -32,23 +32,28 @@
 
         // new AutoNumeric('#harga_jual', autoNumericOption);
         // new AutoNumeric('#harga_beli', autoNumericOption);    
-        setTimeout(() => {
-            $('#content-description').summernote({
-                placeholder: 'Content description here!',
-                tabsize: 4,
-                height: 350,
-                toolbar: [
-                    ["style", ["style"]],
-                    ["font", ["bold", "underline", "clear"]],
-                    ["fontname", ["fontname"]],
-                    ["color", ["color"]],
-                    ["para", ["ul", "ol", "paragraph"]],
-                    ["table", ["table"]],
-                    ["insert", ["link"]],
-                    ["view", ["fullscreen", "codeview", "help"]]
-                ]
+        // setTimeout(() => {
+            // $('#content-description').summernote({
+            //     placeholder: 'Content description here!',
+            //     tabsize: 4,
+            //     height: 350,
+            //     toolbar: [
+            //         ["style", ["style"]],
+            //         ["font", ["bold", "underline", "clear"]],
+            //         ["fontname", ["fontname"]],
+            //         ["color", ["color"]],
+            //         ["para", ["ul", "ol", "paragraph"]],
+            //         ["table", ["table"]],
+            //         ["insert", ["link"]],
+            //         ["view", ["fullscreen", "codeview", "help"]]
+            //     ]
+            // });
+            const quill = new Quill('#news_content', {
+                theme: 'snow'
             });
-        }, 3000);
+
+            // CKEDITOR.replace('news_content');     
+        // }, 3000);
 
         var index = $("#table-data").DataTable({
             // "processing": true,
@@ -277,8 +282,8 @@
                         $("#form-master input[name='url']").val(d.result.news_url);
                         $("#form-master textarea[name='short']").val(d.result.news_short);
                         var markupStr = d.result.news_content;
-                        $('#content-description').summernote('code', markupStr);
-
+                        // $('#content-description').summernote('code', markupStr);
+                        // CKEDITOR.instances.news_content.setData(markupStr);
                         //News Image
                         // if (d.result.news_images == undefined) {
                         //     $('#img-preview1').attr('src', url_image);
@@ -357,7 +362,8 @@
                 formDataUpdate.append('tags', $('#tags').val());
                 formDataUpdate.append('keywords', $('#keywords').val());
                 formDataUpdate.append('short', $('#short').val());
-                formDataUpdate.append('content', $('#content-description').val());
+                // formDataUpdate.append('content', $('#content-description').val());
+                formDataUpdate.append('content', CKEDITOR.instances.news_content.getData());                
                 formDataUpdate.append('posisi', $('#posisi').find(':selected').val());
                 // var prepare_data = JSON.stringify(prepare);
                 // var data = {

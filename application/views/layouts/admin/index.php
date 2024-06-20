@@ -505,7 +505,8 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
 	<script src="<?php echo base_url();?>assets/core/plugins/base64.js" type="text/javascript"></script>  
 	<script src="<?php echo base_url();?>assets/core/plugins/jquery.redirect.js" type="text/javascript"></script>   
 	<script src="<?php echo base_url();?>assets/core/plugins/magnific-popup/jquery.magnific-popup.js" type="text/javascript"></script> 
-
+	<script src="<?php echo base_url();?>assets/core/plugins/ckeditor-4.22/ckeditor.js" type="text/javascript"></script>  
+	<!-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js" type="text/javascript"></script>   -->
 	<!-- Third Party -->    
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>  
@@ -515,7 +516,8 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
 	<!-- <script src="<?php #echo base_url();?>assets/webarch/plugins/jquery-qrcode/jquery.qrcode.js"></script> -->	
 	<!-- <script src="<?php #echo base_url();?>assets/webarch/js/form_elements.js" type="text/javascript"></script> -->
 	<!-- <script src="<?php #cho base_url();?>assets/webarch/js/support_ticket.js" type="text/javascript"></script> -->
-
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
   	<script type="text/javascript">
 		$(document).ready(function() {
