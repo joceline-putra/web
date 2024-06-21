@@ -53,7 +53,9 @@ $route['search']                = "search/index";
 	$route['masuk']                 = "website/signin";
 	$route['faqs']                  = "website/faqs";
 	$route['firebase']              = "website/firebase";
-	// $route['map']                = "website/map";		
+	// $route['map']                = "website/map";	
+	$route['privacy']               = "website/privacy";
+	$route['term-of-service']       = "website/term";			
 
     // Shop
 	$route['cart']      	        = "website/cart";

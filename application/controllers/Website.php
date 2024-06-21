@@ -145,7 +145,7 @@ class Website extends MY_Controller{
             'contact_us' => site_url('contact-us'),//NotUsed
             'career' => site_url('career'),//NotUsed
             'privacy' => site_url('privacy'),//NotUsed               
-            'term_and_condition' => site_url('term-and-condition'),//NotUsed            
+            'term_of_service' => site_url('term-of-service'),//NotUsed            
             'faqs' => site_url('faqs'),//NotUsed                        
             'tracking' => site_url('tracking'), //NotUsed
             'shipping' => site_url('shipping'),//NotUsed
@@ -763,6 +763,64 @@ class Website extends MY_Controller{
 
         $this->load->view($this->nav['web']['index'],$data);
     }
+    function privacy(){
+
+        $params_check = array(
+            'news_type' => 0,
+            'news_flag' => 1,
+            'news_url' => 'privacy'
+        );
+        $get_news   = $this->News_model->get_news_by_url($params_check);
+        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+                
+        // var_dump($get_news);die;
+        $data['title']          = 'Kebijakan Privasi';
+        $data['author']         = ucwords($get_author['user_username']);
+        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
+        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
+        $data['description']    = $get_news['news_content'];        
+        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
+
+        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
+        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
+        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+        $data['link']           = $this->sitelink();
+
+        $data['_header']        = $this->nav['web']['header'];
+        $data['_footer']        = $this->nav['web']['footer'];
+        $data['_content']       = $this->nav['web']['layout'].$this->pp_file;
+
+        $this->load->view($this->nav['web']['index'],$data);
+    }    
+    function term(){
+
+        $params_check = array(
+            'news_type' => 0,
+            'news_flag' => 1,
+            'news_url' => 'term-of-service'
+        );
+        $get_news   = $this->News_model->get_news_by_url($params_check);
+        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+                
+        // var_dump($get_news);die;
+        $data['title']          = 'Syarat dan Ketentuan';
+        $data['author']         = ucwords($get_author['user_username']);
+        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
+        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
+        $data['description']    = $get_news['news_content'];        
+        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
+
+        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
+        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
+        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+        $data['link']           = $this->sitelink();
+
+        $data['_header']        = $this->nav['web']['header'];
+        $data['_footer']        = $this->nav['web']['footer'];
+        $data['_content']       = $this->nav['web']['layout'].$this->tos_file;
+
+        $this->load->view($this->nav['web']['index'],$data);
+    }    
     function contact_us(){ //Not
         $data['title']          = 'Hubungi Kami';
         $data['author']         = 'John Doe';

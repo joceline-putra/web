@@ -55,9 +55,10 @@
                     </div>
                     <div class="media-body">
                         <div class="footer-info_link">
-                            <?php echo $link['contact']['address']['office']; ?><br>
-                            <?php echo $link['contact']['address']['city']; ?>, 
-                            <?php echo $link['contact']['address']['state']; ?>                            
+                            <?php echo $link['contact']['address']['office']; ?>
+                            <!-- <br> -->
+                            <?php #echo $link['contact']['address']['city']; ?>, 
+                            <?php #echo $link['contact']['address']['state']; ?>                            
                         </div>
                     </div>
                 </div>
@@ -134,8 +135,8 @@
                     <div class="widget widget_nav_menu footer-widget">
                         <div class="menu-all-pages-container">
                             <ul class="menu justify-content-center justify-content-lg-end">
-                                <li><a href="<?php echo $link['privacy']; ?>">PRIVACY</a></li>
-                                <li><a href="<?php echo $link['term_and_condition']; ?>">TERMS & CONDITION</a></li>
+                                <li><a href="<?php echo $link['privacy']; ?>">Kebijakan Privasi</a></li>
+                                <li><a href="<?php echo $link['term_of_service']; ?>">Syarat & Ketentuan</a></li>
                                 <li><a href="<?php echo $link['about']; ?>">Tentang Kami</a></li>
                             </ul>
                         </div>
