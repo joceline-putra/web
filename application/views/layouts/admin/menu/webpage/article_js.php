@@ -36,17 +36,17 @@
         setTimeout(() => {
             $('#content-description').summernote({
                 placeholder: 'Content description here!',
+                dialogsInBody:true,
                 tabsize: 4,
                 height: 350,
                 toolbar: [
-                    ["style", ["style"]],
-                    ["font", ["bold", "underline", "clear"]],
+                    ["font", ["bold", "italic", "underline", "clear"]],
                     ["fontname", ["fontname"]],
-                    ["color", ["color"]],
-                    ["para", ["ul", "ol", "paragraph"]],
-                    ["table", ["table"]],
-                    ["insert", ["link"]],
-                    ["view", ["fullscreen", "codeview", "help"]]
+                    ['fontsize', ['fontsize']],
+                    ["style", ["color","style"]],
+                    ["para", ["ul", "ol", "paragraph","height"]],
+                    ["insert", ["table","link",,"hr"]],
+                    ["view", ["fullscreen","codeview", "help"]],
                 ]
             });
         }, 3000);

@@ -4,7 +4,7 @@
         <?php #include '_navigation.php'; ?>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
-                <div id="div-form-trans" style="display:inline;" class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
+                <div id="div-form-trans" style="display:none;" class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                     <div class="grid simple">
                         <div class="hidden grid-title">
                             <div class="tools">

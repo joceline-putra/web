@@ -34,89 +34,85 @@
                                         <div class="col-md-12">
                                             <input id="id_document" name="id_document" type="hidden" value="" placeholder="id" readonly>
                                         </div>
-                                        <div class="col-md-4 col-sm-12 col-xs-12">
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Gambar*</label>
-                                                    <img id="img-preview1" class="img-responsive" 
-                                                         data-is-new="0"
-                                                         style="width:100%"
-                                                         src=""/>
-                                                    <div class="custom-file">
-                                                        <input class="form-control" id="upload1" name="upload1" type="file" tabindex="1">
-                                                        <label class="custom-file-label">
-                                                            <?php
-                                                            echo "Ukuran Max File : " . ($allowed_file_size / 1000) . " MB<br>";
-                                                            echo "Format Diizinkan: " . str_replace('|', ', ', $allowed_file_type);
-                                                            ?>
-                                                        </label>
-                                                    </div>                                                  
-                                                </div>
-                                            </div>                      
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">                        
-                                                    <label>Kategori *</label>
-                                                    <select id="categories" name="categories" class="form-control" disabled readonly>
-                                                        <option value="0">-- Pilih --</option>                    
-                                                    </select>
-                                                </div>
-                                            </div>                                  
-                                            <div class="col-md-6 col-xs-6 col-sm-12 padding-remove-side">
-                                                <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-left">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-md-3 col-sm-12 col-xs-12">
+                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                     <div class="form-group">
-                                                        <label>Tagar *</label>
-                                                        <input id="tags" name="tags" type="text" value="" class="form-control" readonly='true'/>
+                                                        <label>Gambar*</label>
+                                                        <img id="img-preview1" class="img-responsive" 
+                                                            data-is-new="0"
+                                                            style="width:100%"
+                                                            src=""/>
+                                                        <div class="custom-file">
+                                                            <input class="form-control" id="upload1" name="upload1" type="file" tabindex="1">
+                                                            <label class="custom-file-label">
+                                                                <?php
+                                                                echo "Ukuran Max File : " . ($allowed_file_size / 1000) . " MB<br>";
+                                                                #echo "Format Diizinkan: " . str_replace('|', ', ', $allowed_file_type);
+                                                                ?>
+                                                            </label>
+                                                        </div>                                                  
+                                                    </div>
+                                                </div>      
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 col-xs-12">                
+                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                    <div class="form-group">                        
+                                                        <label>Kategori *</label>
+                                                        <select id="categories" name="categories" class="form-control" disabled readonly>
+                                                            <option value="0">-- Pilih --</option>                    
+                                                        </select>
+                                                    </div>
+                                                </div>                                  
+                                                <div class="col-md-6 col-xs-6 col-sm-12 padding-remove-side">
+                                                    <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-left">
+                                                        <div class="form-group">
+                                                            <label>Tagar *</label>
+                                                            <input id="tags" name="tags" type="text" value="" class="form-control" readonly='true'/>
+                                                        </div>
+                                                    </div>
+                                                </div>   
+                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                    <div class="form-group">
+                                                        <label>Penempatan <?php echo $title; ?></label>
+                                                        <select id="posisi" name="posisi" class="form-control" disabled readonly>
+                                                            <option value="1">Home</option>
+                                                            <option value="2">Slider</option>
+                                                        </select>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!--
-                                            <div class="col-md-6 col-xs-6 col-sm-12 padding-remove-side">
-                                              <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-left">
-                                                <div class="form-group">
-                                                  <label>Keywords *</label>
-                                                  <input id="keywords" name="keywords" type="text" value="" class="form-control" readonly='true'/>
-                                                </div>
-                                              </div>  
-                                            </div>
-                                            -->                      
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Judul *</label>
-                                                    <input id="title" name="title" type="text" value="" class="form-control" readonly='true'/>
-                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                    <div class="form-group">
+                                                        <label>Status</label>
+                                                        <select id="status" name="status" class="form-control" disabled readonly>
+                                                            <option value="1">Tampil di Website</option>
+                                                            <option value="0">Tidak tampil di Website</option>                            
+                                                        </select>
+                                                    </div>
+                                                </div>    
                                             </div> 
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Url *</label>
-                                                    <input id="url" name="url" type="text" value="" class="form-control" readonly='true'/>
-                                                </div>
-                                            </div>   
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Penempatan <?php echo $title; ?></label>
-                                                    <select id="posisi" name="posisi" class="form-control" disabled readonly>
-                                                        <option value="1">Home</option>
-                                                        <option value="2">Slider</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Status</label>
-                                                    <select id="status" name="status" class="form-control" disabled readonly>
-                                                        <option value="1">Tampil di Website</option>
-                                                        <option value="0">Tidak tampil di Website</option>                            
-                                                    </select>
-                                                </div>
-                                            </div>                                                                                                                                  
+                                            <div class="col-md-6 col-sm-12 col-xs-12"> 
+                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                    <div class="form-group">
+                                                        <label>Judul *</label>
+                                                        <input id="title" name="title" type="text" value="" class="form-control" readonly='true'/>
+                                                    </div>
+                                                </div>     
+                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                    <div class="form-group">
+                                                        <label>Url *</label>
+                                                        <input id="url" name="url" type="text" value="" class="form-control" readonly='true'/>
+                                                    </div>
+                                                </div>   
+                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                    <div class="form-group">
+                                                        <label>Deskripsi Singkat</label>
+                                                        <textarea id="short" name="short" type="text" class="form-control" readonly='true' rows="4"/></textarea>
+                                                    </div>
+                                                </div>     
+                                            </div>                                                                                                                                                                          
                                         </div>
-                                        <div class="col-md-8 col-sm-12 col-xs-12">                     
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Deskripsi Singkat</label>
-                                                    <textarea id="short" name="short" type="text" class="form-control" readonly='true' rows="4"/></textarea>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">    
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Deskripsi</label>
