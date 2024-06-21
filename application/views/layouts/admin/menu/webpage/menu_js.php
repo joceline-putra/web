@@ -1,6 +1,6 @@
 
 <script>
-    $.getScript("https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js");
+    // $.getScript("https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js");
     
     $(document).ready(function () {
         var url = "<?= base_url('news/manage'); ?>";
@@ -35,29 +35,46 @@
         setTimeout(() => {
 
             // Summernote
-            $('#news_content').summernote({
-                placeholder: 'Content description here!',
-                dialogsInBody:true,
-                tabsize: 4,
-                height: 350,
-                toolbar: [
-                    ["font", ["bold", "italic", "underline", "clear"]],
-                    ["fontname", ["fontname"]],
-                    ['fontsize', ['fontsize']],
-                    ["style", ["color","style"]],
-                    ["para", ["ul", "ol", "paragraph","height"]],
-                    ["insert", ["table","link",,"hr"]],
-                    ["view", ["fullscreen","codeview", "help"]],
-                ]
-            });
+            // $('#news_content').summernote({
+            //     placeholder: 'Content description here!',
+            //     dialogsInBody:true,
+            //     tabsize: 4,
+            //     height: 350,
+            //     toolbar: [
+            //         ["font", ["bold", "italic", "underline", "clear"]],
+            //         ["fontname", ["fontname"]],
+            //         ['fontsize', ['fontsize']],
+            //         ["style", ["color","style"]],
+            //         ["para", ["ul", "ol", "paragraph","height"]],
+            //         ["insert", ["table","link",,"hr"]],
+            //         ["view", ["fullscreen","codeview", "help"]],
+            //     ]
+            // });
 
             // Quill Js
             // const quill = new Quill('#news_content', {
-            //     theme: 'snow'
-            // });
+            //     modules: {
+            //         toolbar: [
+            //             ['bold', 'italic', 'underline'],        // toggled buttons
+            //             [{ 'font': [] }],
+            //             [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            //             [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            //             [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
+            //             ['link', 'image', 'video'],
+            //             [{ 'list': 'bullet'}, { 'list': 'ordered'}],
+            //             [{ 'align': [] }],
+            //             ['blockquote', 'code-block'],
+            //             // [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+            //             // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+            //             // [{ 'direction': 'rtl' }],                         // text direction
+            //             // ['clean']                                         // remove formatting button
+            //         ]
+            //     },
+            //     theme: 'snow'
+            // });      
             // CKeditor
-            // CKEDITOR.replace('news_content');     
+            CKEDITOR.replace('news_content');     
         }, 3000);
 
         var index = $("#table-data").DataTable({
@@ -287,7 +304,7 @@
                         $("#form-master input[name='url']").val(d.result.news_url);
                         $("#form-master textarea[name='short']").val(d.result.news_short);
                         var markupStr = d.result.news_content;
-                        $('#news_content').summernote('code', markupStr);
+                        // $('#news_content').summernote('code', markupStr);
                         // smr.code(markupStr);
                         // CKEDITOR.instances.news_content.setData(markupStr);
                         //News Image

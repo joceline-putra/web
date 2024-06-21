@@ -10,7 +10,7 @@ $sidebar_logo = !empty($session['user_data']['branch']['branch_logo_sidebar']) ?
         width: 132px;*/
         /*height: 34px;*/
         /*width: 134px;      */
-        width: 200px;
+        width: 174px;
     }
     #logo-system-2{
         margin-top: 1px;
@@ -39,7 +39,7 @@ $sidebar_logo = !empty($session['user_data']['branch']['branch_logo_sidebar']) ?
     }
     @media (max-width: 767px){
         #logo-system {
-            margin-top: 14px!important;
+            margin-top: 8px!important;
         }
     }
 

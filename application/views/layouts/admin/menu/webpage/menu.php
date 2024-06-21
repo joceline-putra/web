@@ -94,9 +94,14 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                <div id="toolbar">
+                                                </div>
+                                            </div>                                            
+                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Deskripsi</label>
                                                     <textarea id="news_content" name="news_content" type="text" class="form-control" rows="4"/></textarea>
+                                                    <!-- <div id="news_content"></div> -->
                                                 </div>
                                             </div>
 

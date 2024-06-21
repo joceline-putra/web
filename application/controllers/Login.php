@@ -55,16 +55,16 @@ class Login extends My_Controller{
         $this->load->model('App_package_model');
 
         //Get Branch
-        // $get_branch = $this->Branch_model->get_branch(1);
+        $get_branch = $this->Branch_model->get_branch(1);
         // $this->app_name = $get_branch['branch_name'];
         $this->app_name     = 'Cloud System';
         $this->app_url      = site_url();  
         $this->package_id   = 3;
         $this->package_name = 'Enterprise';
-        // $this->app_logo = site_url().$get_branch['branch_logo'];
-        // $this->app_logo_sidebar = site_url().$get_branch['branch_logo_sidebar'];      
-        $this->app_logo     = site_url().'upload/branch/default_logo.png';
-        $this->app_logo_sidebar = site_url().'upload/branch/default_sidebar.png';        
+        $this->app_logo = site_url().$get_branch['branch_logo'];
+        $this->app_logo_sidebar = site_url().$get_branch['branch_logo_sidebar'];      
+        // $this->app_logo     = site_url().'upload/branch/default_logo.png';
+        // $this->app_logo_sidebar = site_url().'upload/branch/default_sidebar.png';        
         
         $this->default_menu_cashier = site_url().'sales/pos3';
     }
