@@ -128,7 +128,7 @@
     }
 
     // Upload File
-    function upload_file_source($path = "", $file = "") { // for $_FILES['source']
+    function upload_file_source($path = "", $file = "") { // APPROVAL.php for $_FILES['source']
         if(!empty($file) and ($file !== 'undefined')){
             
             $image_height = 250;
@@ -252,7 +252,7 @@
         }
         return $return;
     }   
-    function upload_file_upload1($path = "", $file = "") { // for $_FILES['upload1'] //Disable Compress
+    function upload_file_upload1($path = "", $file = "") { // NEWS.php for $_FILES['upload1'] //Disable Compress
         if(!empty($file) and ($file !== 'undefined')){
             
             $image_height = 250;
@@ -315,6 +315,7 @@
         return $return;
     }     
     function upload_file_files($path = "", $file = "") { // for $_FILES['files']
+        // var_dump($file);die;
         if(!empty($file) and ($file !== 'undefined')){
             
             $image_height = 250;
@@ -375,7 +376,44 @@
             $return['message'] = 'File not ready';
         }
         return $return;
-    }   
+    } 
+    function upload_file_array($path = "", $file) { // NEWS.php for ALL $_FILES['?'] Array
+        if(count($file) > 0){
+            
+            // Make Directory if Not Exists
+                $folder = FCPATH . $path;
+                if(!file_exists($folder)){
+                    mkdir($folder, 0775, true);
+                }
+
+                foreach ($file['tmp_name'] as $key => $tmp_name) {
+                    $file_name     = basename($file['name'][$key]);  
+                    $file_size     = $file['size'][$key];                      
+                    $file_new_name = date('YmdHis') . '_' . uniqid() . '.' . strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                    $file_ext      = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+                    if (move_uploaded_file($file['tmp_name'][$key], $path . $file_new_name)) {
+                        $result[] = array(
+                            'file_directory' => $path,
+                            'file_name' => $file_new_name,
+                            'file_old_name' => $file_name,
+                            'file_ext' => $file_ext,
+                            'file_location' => $path . $file_new_name,
+                            'file_size' => $file_size,
+                        ); 
+                    } else {
+                        $errors[] = "Failed to upload $file_name.";
+                    }
+                }
+                $return['status'] = 1;
+                $return['message'] = 'Success'; 
+                $return['result'] = $result;
+        }else{
+            $return['status'] = 0;
+            $return['message'] = 'File not ready';
+        }
+        return $return;
+    }       
 
     // Blowfish Hash
     function blowfish_test(){
@@ -401,61 +439,7 @@
         return crypt($input, sprintf('$2a$%02d$', $rounds) . $salt);
     }  
 
-    //Backup
-    function upload_image2($path = "", $file = "", $image_width = 250, $image_height = 250) { die; //Not Used
-        $ci = &get_instance();
-        $path = (substr($path, -1) != "/" ? $path . "/" : $path); // konfig directory data
-        $path_data = FCPATH . $path;
-        $type_data = "gif|jpg|png|jpeg";
-    
-        if (empty($path)) {
-            return "";
-        }
-        if (empty($file)) {
-            return "";
-        }
-    
-        $config = [
-            'image_library' => 'gd2',
-            'upload_path' => $path_data,
-            'allowed_types' => $type_data
-        ];
-        $ci->load->library('upload', $config);
-        $ci->upload->initialize($config);
-    
-        if ($ci->upload->do_upload($file)) {
-            $file_data = $ci->upload->data();
-            $raw_photo = date("YmdHis") . $file_data['file_ext'];
-            $old_name = $file_data['full_path'];
-            $new_name = $path_data . $raw_photo;
-    
-            // renaming file
-            if (rename($old_name, $new_name)) {
-                $compress = [
-                    'image_library' => 'gd2',
-                    'source_image' => $path . $raw_photo,
-                    'create_thumb' => FALSE,
-                    'maintain_ratio' => TRUE,
-                    'width' => $image_width,
-                    'height' => $image_height,
-                    'new_image' => $path . $raw_photo
-                ];
-                $ci->load->library('image_lib', $compress);
-    
-                // resize ukuran image
-                if ($ci->image_lib->resize()) {
-                    // return $path . $raw_photo;
-                    return $raw_photo;				
-                } else {
-                    return "";
-                }
-            } else {
-                return "";
-            }
-        } else {
-            return "";
-        }
-    }    
+    //Backup   
     function day_calculate($date_1,$date_2){
         $d1 = strtotime($date_1);
         $d2 = strtotime($date_2);

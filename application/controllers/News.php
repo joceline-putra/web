@@ -7,10 +7,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class News extends MY_Controller{
 
     public $folder_upload = 'upload/news/';
+    public $folder_upload_project = 'upload/project/';    
     public $allowed_types = 'jpg|png|jpeg|mp4';
     public $image_width   = 250;
     public $image_height  = 250;
-    public $allowed_file_size     = 5000; // 5 MB -> 5000 KB
+    public $allowed_file_size; // 5 MB -> 5000 KB
     var $blog_route = 'blog';
     var $project_route = 'project'; 
     var $gallery_route = 'gallery';        
@@ -21,6 +22,7 @@ class News extends MY_Controller{
             redirect(base_url("login"));
         }
         $this->load->model('User_model');
+        $this->load->model('File_model');        
         $this->load->model('News_model');
         $this->load->model('Kategori_model');
         $this->load->model('Aktivitas_model');
@@ -468,31 +470,28 @@ class News extends MY_Controller{
                 case "create_project_or_gallery":
                     $next = true;
 
-                    $files_count = count($_FILES['files']['name']);
-                    // var_dump($files_count);die;
-                    if($files_count > 0){
-                        for($i=0; $i<$files_count; $i++){
-                            if(intval($_FILES['files']['size'][$i]) > $this->allowed_file_size){
-                                $next = false;
-                            }else{
-                                var_dump('as');die;
+                    // Cek if any Files
+                    if(!empty($_FILES['files'])){
+                        $files_count = count($_FILES['files']['name']);
+                        if($files_count > 0){
+                            for($i=0; $i<$files_count; $i++){
+                                if(intval($_FILES['files']['size'][$i]) > ($this->allowed_file_size * $this->allowed_file_size)){
+                                    $next = false;
+                                    $set_msg = 'Gagal, ukuran melebihi '.($this->allowed_file_size / 1024).' Mb'; $next = false;
+                                }else{
+                                    $next = true;
+                                }
                             }
                         }
-                        
                     }
-                    var_dump($files_count);die;
 
                     if($next){
-                        $post_data = $this->input->post('data');
-                        // $data = base64_decode($post_data);
-                        $data = json_decode($post_data, TRUE);
-
                         $title = !empty($this->input->post('title')) ? $this->safe($this->input->post('title')) : '';
                         $url = $this->generate_seo_link($title);                
                         
                         if(strlen($title) > 0){
                             $params = array(
-                                'news_type' => !empty($this->input->post('tipe')) ? intval($this->input->post('tipe')) : 1,
+                                'news_type' => !empty($this->input->post('tipe')) ? intval($this->input->post('tipe')) : 5,
                                 'news_category_id' => !empty($this->input->post('categories')) ? $this->input->post('categories') : null,
                                 'news_title' => $title,
                                 'news_url' => $url,
@@ -511,47 +510,49 @@ class News extends MY_Controller{
                             //Check Data Exist
                             $params_check = array(
                                 'news_title' => $title,
-                                'news_url' => $url
+                                'news_url' => $url,
+                                'news_type' => 5
                             );
                             $check_exists = $this->News_model->check_data_exist($params_check);
                             if($check_exists==false){
-
                                 if($next){
-
-                                    // Call Helper for Upload
-                                    if(!empty($_FILES['upload1'])){
-                                        if(intval($_FILES['upload1']['size']) > $this->allowed_file_size){
-
-                                            //Process for Upload
-                                            $upload_helper = upload_file_upload1($this->folder_upload, $_FILES['upload1']);
-                                            if ($upload_helper['status'] == 1) {
-
-                                                //Add Image for params before update
-                                                $params['news_image'] = $this->folder_upload.$upload_helper['file'];
-
-                                                //Delete old files
-                                                /*
-                                                    if (!empty($datas['news_image'])) {
-                                                        if (file_exists(FCPATH . $datas['news_image'])) {
-                                                            unlink(FCPATH . $datas['news_image']);
-                                                        }
-                                                    }
-                                                */
-                                                $set_msg = 'Berhasil menyimpan dengan Gambar'; $next = true;
-                                            }else{
-                                                $set_msg = 'Error: '.$upload_helper['message']; $next = false;
-                                            }
-                                        }else{
-                                            $set_msg = 'Gagal, ukuran melebihi '.($this->allowed_file_size / 1024).' Mb'; $next = false;
-                                        }
-                                    } else{
-                                        $set_msg = 'Menyimpan tanpa gambar';
-                                    }   
-                                    // End Call Helper for Upload 
 
                                     if($next){
                                         $set_data=$this->News_model->add_news($params);
                                         $data = $this->News_model->get_news($set_data);
+
+                                        // Call Helper for Upload
+                                        if(!empty($_FILES['files'])){
+                                            //Process for Upload
+                                            $upload_helper = upload_file_array($this->folder_upload_project, $_FILES['files']);
+                                            if ($upload_helper['status'] == 1) {
+
+                                                foreach($upload_helper['result'] as $v){
+                                                    $file_session = $this->random_session(20);
+                                                    $params = array(
+                                                        'file_from_table' => 'news',
+                                                        'file_from_id' => $set_data,
+                                                        'file_session' => $file_session,
+                                                        'file_date_created' => date("YmdHis"),
+                                                        'file_user_id' => $session_user_id,
+                                                        'file_type' => 1,
+                                                        'file_name' => $v['file_old_name'],
+                                                        'file_format' => $v['file_ext'],
+                                                        'file_url' => $v['file_location'],
+                                                        'file_size' => $v['file_size']                                                                        
+                                                    );
+                                                    $save_data = $this->File_model->add_file($params);
+                                                }
+                                                //Add Image for params before update
+                                                // $params['news_image'] = $this->folder_upload_project.$upload_helper['file'];
+                                                $set_msg = 'Berhasil menyimpan dengan Gambar';
+                                            }else{
+                                                $set_msg = 'Error: '.$upload_helper['message'];
+                                            }  
+                                        } else{
+                                            $set_msg = 'Menyimpan tanpa gambar';
+                                        }   
+                                        // End Call Helper for Upload 
 
                                         $return->status=1;
                                         $return->message='Berhasil menambahkan';
@@ -585,8 +586,8 @@ class News extends MY_Controller{
                             $return->message = 'Title harus diisi';
                         }
                     }else{
-                        $return->message = 'Gagal, ukuran melebihi '.($this->allowed_file_size / 1024).' Mb'; $next = false;
-                    }
+                        $return->message = $set_msg;
+                    }                    
                     break;         
                 case "read":
                     // $post_data = $this->input->post('data');

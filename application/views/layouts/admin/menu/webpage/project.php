@@ -61,39 +61,15 @@
                                             }
                                             ?>      -->
                                         </div>
-                                        <div class="col-md-4 col-sm-12 col-xs-12">                         
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
-                                                    <label>Nama Project *</label>
+                                                    <label class="form-label">Nama Project *</label>
                                                     <input id="title" name="title" type="text" value="" class="form-control" readonly='true'/>
-                                                </div>
-                                            </div> 
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Url *</label>
-                                                    <input id="url" name="url" type="text" value="" class="form-control" readonly='true'/>
-                                                </div>
-                                            </div>   
-                                            <!-- <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Penempatan <?php #echo $title; ?></label>
-                                                    <select id="posisi" name="posisi" class="form-control" disabled readonly>
-                                                        <option value="1">Home</option>
-                                                        <option value="2">Slider</option>
-                                                    </select>
-                                                </div>
-                                            </div> -->
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Status</label>
-                                                    <select id="status" name="status" class="form-control" disabled readonly>
-                                                        <option value="1">Tampil di Website</option>
-                                                        <option value="0">Tidak tampil di Website</option>                            
-                                                    </select>
                                                 </div>
                                             </div>                                                                                                                                  
                                         </div>
-                                        <div class="col-md-8 col-sm-12 col-xs-12">                     
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <!-- <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Deskripsi Singkat</label>
@@ -108,6 +84,23 @@
                                             </div>
 
                                         </div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-lg-6 col-md-6 col-xs-12 padding-remove-side">
+                                                <div class="form-group">
+                                                    <label class="form-label">Url *</label>
+                                                    <input id="url" name="url" type="text" value="" class="form-control" readonly='true'/>
+                                                </div>
+                                            </div>   
+                                            <div class="col-lg-6 col-md-6 col-xs-12 padding-remove-side">
+                                                <div class="form-group">
+                                                    <label class="form-label">Status</label>
+                                                    <select id="status" name="status" class="form-control" disabled readonly>
+                                                        <option value="1">Tampil di Website</option>
+                                                        <option value="0">Tidak tampil di Website</option>                            
+                                                    </select>
+                                                </div>
+                                            </div>                                                                                                                                  
+                                        </div>                                        
                                         <div class="clearfix"></div>
                                         <div class="col-md-12 col-xs-12 col-sm-12" style="margin-top: 10px;">
                                             <div class="form-group">

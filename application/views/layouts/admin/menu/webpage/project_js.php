@@ -3,7 +3,6 @@
     $.getScript("https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js");
     
     $(document).ready(function () {
-        $.alert("pending create_project");
         let identity = "<?php echo $identity; ?>";
         var blog_routing = "<?php echo $_route; ?>";
         var url = "<?= base_url('news/manage'); ?>";
@@ -11,9 +10,7 @@
         var url_image = '<?= base_url('upload/noimage.png'); ?>';
         var url_preview = '<?php echo site_url(); ?>' + blog_routing +'/';
         var view = "<?php echo $_view; ?>";
-        // $(".nav-tabs").find('li[class="active"]').removeClass('active');
-        // $(".nav-tabs").find('li[data-name="blog/project"]').addClass('active');
-        // console.log(view);
+
         $(".img_preview").attr('src', url_image);
         $("select").select2();
         $(".date").datepicker({
@@ -38,17 +35,17 @@
         setTimeout(() => {
             $('#content-description').summernote({
                 placeholder: 'Content description here!',
+                dialogsInBody:true,
                 tabsize: 4,
                 height: 350,
                 toolbar: [
-                    ["style", ["style"]],
-                    ["font", ["bold", "underline", "clear"]],
+                    ["font", ["bold", "italic", "underline", "clear"]],
                     ["fontname", ["fontname"]],
-                    ["color", ["color"]],
-                    ["para", ["ul", "ol", "paragraph"]],
-                    ["table", ["table"]],
-                    ["insert", ["link"]],
-                    ["view", ["fullscreen", "codeview", "help"]]
+                    ['fontsize', ['fontsize']],
+                    ["style", ["color","style"]],
+                    ["para", ["ul", "ol", "paragraph","height"]],
+                    ["insert", ["table","link","picture","hr"]],
+                    ["view", ["fullscreen","codeview", "help"]],
                 ]
             });
         }, 3000);
@@ -530,7 +527,8 @@
             // btnNew.classList.remove('animate__animated', 'animate__fadeOutRight');    
             $("#div-form-trans").hide(300);
         });
-
+        
+        /*
         $('#upload1').change(function (e) {
             var fileName = e.target.files[0].name;
             var reader = new FileReader();
@@ -539,6 +537,7 @@
             };
             reader.readAsDataURL(this.files[0]);
         });
+        */
     });
 
     function formNew() {
