@@ -1,6 +1,6 @@
 <?php
 $branch_logo = !empty($branch['branch_logo_login']) ? $branch['branch_logo_login'] : site_url() . 'upload/branch/default_logo.png';
-// var_dump($branch_logo);die;
+// var_dump($branch['branch_logo_login']);die;
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 

@@ -116,7 +116,8 @@ class Login extends My_Controller{
             'branch_logo' => $this->app_logo,
             'branch_logo_login' => $this->app_logo,
             'branch_logo_sidebar' => $this->app_logo_sidebar          
-        );                       
+        );            
+        // var_dump($data['branch']);die;           
         $this->load->view($data['view'],$data);
     }
     function manage(){

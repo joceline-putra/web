@@ -74,7 +74,7 @@
                 <div class="col-md-12 col-lg-4 col-xl-4">
                     <div class="widget footer-widget">
                         <div class="widget__logo">
-                            <img src="<?php echo site_url(); ?>upload/branch/default_logo.png" alt="logo">
+                            <img src="<?php echo $link['logo']; ?>" alt="logo">
                         </div>
                         <div class="vs-widget-about">
                             <p class="footer-text">

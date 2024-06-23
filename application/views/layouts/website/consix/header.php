@@ -33,7 +33,7 @@
                     <div class="row justify-content-center justify-content-sm-between align-items-center gx-sm-0">
                         <div class="col-lg-3 col-md-4 col-auto">
                             <div class="header-logo">
-                                <a href="<?php echo site_url();?>"><img src="<?php echo site_url(); ?>upload/branch/default_logo.png" alt="<?php echo $link['brand'];?>" class="logo"></a>
+                                <a href="<?php echo site_url();?>"><img src="<?php echo $link['logo']; ?>" alt="<?php echo $link['brand'];?>" class="logo"></a>
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-8 col-auto">
@@ -86,13 +86,10 @@
                                 <ul class="main-menu__list">
                                     <li>
                                         <a href="<?php echo $link['home']; ?>">Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo $link['about']; ?>">Tentang Kami</a>
-                                    </li>                                                        
-                                    <li class="menu-item-has-children">
-                                      <a href="#">Blog</a>
-                                      <ul class="sub-menu">
+                                    </li>                                                      
+                                    <!-- <li class="menu-item-has-children"> -->
+                                      <!-- <a href="#">Blog</a> -->
+                                      <!-- <ul class="sub-menu"> -->
                                         <?php 
                                         if(!empty($link['article_category'])){
                                             foreach($link['article_category'] as $v){
@@ -100,11 +97,14 @@
                                             }
                                         }
                                         ?>
-                                      </ul>
-                                    </li>
+                                      <!-- </ul> -->
+                                    <!-- </li> -->
                                     <li>
+                                        <a href="<?php echo $link['about']; ?>">Tentang Kami</a>
+                                    </li>                                      
+                                    <!-- <li>
                                         <a href="<?php echo $link['login']; ?>">Login</a>
-                                    </li>    
+                                    </li>     -->
                                     <!--
                                     <li class="menu-item-has-children mega-menu-wrap">
                                       <a href="<?php echo $asset; ?>#">Pages</a>

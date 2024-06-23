@@ -136,6 +136,7 @@ class Website extends MY_Controller{
         }        
         $a = array(
             'brand' => $b['branch_name'],
+            'logo' => !empty($b['branch_logo_login']) ? $b['branch_logo_login'] : site_url() . 'upload/branch/default_logo.png',
             'home' => site_url(),
                 'products' => site_url('products'),
                 'product' => site_url('product'),

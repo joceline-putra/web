@@ -1,4 +1,9 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<style>
+    .note-group-select-from-files{
+        display: none;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <?php #include '_navigation.php'; ?>

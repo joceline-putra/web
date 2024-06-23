@@ -1,21 +1,20 @@
-<!-- 
+
  <section class="hero hero--layout3">
     <div class="vs-carousel vsslider1" data-slide-show="1" data-fade="true" data-arrows="false">
         <div>
             <div class="hero-inner">
-                <div class="hero-bg3" data-bg-src="<?php echo $asset; ?>assets/img/hero/hero-3-1.jpg"></div>
+                <div class="hero-bg3" data-bg-src="<?php echo site_url('upload/penginapan.jpg'); ?>"></div>
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-7 col-lg-9">
                             <div class="hero-content3">
-                                <span class="hero-subtitle">AN EXTENSIVE RA NGE OF SERVICES</span>
-                                <h1 class="hero-title">Residential and commercial Solution</h1>
-                                <p class="hero-text">Consik is a construction and architecture most
-                                    responsible for any kinds of themes.</p>
+                                <span class="hero-subtitle">Penginapan</span>
+                                <h1 class="hero-title">Penginapan dengan Beragam bentuk</h1>
+                                <p class="hero-text">Kunjungi kawasan kami dengan keluarga anda tercinta</p>
                                 <div class="hero-btns">
-                                    <a href="#" class="vs-btn">
+                                    <a href="<?php echo site_url('blog/penginapan');?>" class="vs-btn">
                                         <span class="vs-btn__bar"></span>
-                                        START CONSULTING
+                                        Jelajahi Selengkapnya
                                     </a>
                                 </div>
                             </div>
@@ -26,19 +25,18 @@
         </div>
         <div>
             <div class="hero-inner">
-                <div class="hero-bg" data-bg-src="<?php echo $asset; ?>assets/img/hero/hero-1-1.jpg"></div>
+                <div class="hero-bg" data-bg-src="<?php echo site_url('upload/restaurant.jpg'); ?>"></div>
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-7">
                             <div class="hero-content3">
-                                <span class="hero-subtitle">AN EXTENSIVE RA NGE OF SERVICES</span>
-                                <h1 class="hero-title">Residential and commercial Solution</h1>
-                                <p class="hero-text">Consik is a construction and architecture most
-                                    responsible for any kinds of themes.</p>
+                                <span class="hero-subtitle">Restaurant</span>
+                                <h1 class="hero-title">Varian menu yang lezat</h1>
+                                <p class="hero-text">Kunjungi kawasan kami dengan keluarga anda tercinta</p>
                                 <div class="hero-btns">
-                                    <a href="<?php echo $asset; ?>about.html" class="vs-btn">
+                                    <a href="<?php echo site_url('blog/restaurant');?>" class="vs-btn">
                                         <span class="vs-btn__bar"></span>
-                                        START CONSULTING
+                                        Jelajahi Selengkapnya
                                     </a>
                                 </div>
                             </div>
@@ -57,7 +55,6 @@
         </div>
     </div>
 </section>
--->
 <!--==============================
   Category Area
   ==============================-->
@@ -66,7 +63,7 @@
         <div class="row">
                 <div class="col-xl-6 col-lg-8 mx-auto">
                     <div class="title-area text-center">
-                        <span class="sec-subtitle2">Kategori Blog</span>
+                        <span class="sec-subtitle2">Kategori</span>
                         <h2 class="sec-title">Recent Category</h2>
                     </div>
                 </div>
@@ -197,7 +194,7 @@
                 <div class="col-xl-6 col-lg-8 mx-auto">
                     <div class="title-area text-center">
                         <span class="sec-subtitle2">Terbaru Kami</span>
-                        <h2 class="sec-title">Blog Terbaru</h2>
+                        <h2 class="sec-title">Cerita Terbaru</h2>
                     </div>
                 </div>
             </div>

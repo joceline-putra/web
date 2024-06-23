@@ -33,18 +33,18 @@
         <?php include "link_css.php"; ?>
     </head>
     <body>
-        <div class="preloader">
+        <!-- <div class="preloader">
             <button class="vs-btn preloaderCls">Cancel Preloader </button>
             <div class="preloader-inner">
-                <img src="<?php echo site_url(); ?>upload/branch/default_logo.png" alt="logo">
+                <img src="<?= base_url(); ?>upload/branch/default_logo.png" alt="logo">
                 <span class="loader"></span>
             </div>
-        </div>
+        </div> -->
         <div class="vs-menu-wrapper">
             <div class="vs-menu-area text-center">
                 <button class="vs-menu-toggle"><i class="fal fa-times"></i></button>
                 <div class="mobile-logo">
-                    <a href="<?php echo site_url(); ?>"><img src="<?php echo site_url(); ?>upload/branch/default_logo.png" alt="Consik" class="logo"></a>
+                    <a href="<?php echo site_url(); ?>"><img src="<?= base_url(); ?>upload/branch/default_logo.png" alt="Consik" class="logo"></a>
                 </div>
                 <div class="vs-mobile-menu">
                     <ul>
@@ -79,7 +79,7 @@
                 <div class="widget  ">
                     <div class="vs-widget-about">
                         <div class="footer-logo">
-                            <a href="<?php echo base_url(); ?>"><img src="<?php echo site_url(); ?>upload/branch/default_logo.png" alt="Consik" class="logo"></a>
+                            <a href="<?php echo base_url(); ?>"><img src="<?= base_url(); ?>upload/branch/default_logo.png" alt="Consik" class="logo"></a>
                         </div>
                         <p>
                             <?php echo $link['contact']['address']['office']; ?><br>
