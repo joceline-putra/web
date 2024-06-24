@@ -19,7 +19,7 @@
 </div>
 <section class="space-top space-extra-bottom z-index-common overflow-hidden">
     <div class="about-overlay--style2 position-absolute start-0 bottom-0">
-        <img src="<?php echo $asset; ?>assets/img/about/ab-2-4.png" alt="about">
+        <!-- <img src="<?php #echo $asset; ?>assets/img/about/ab-2-4.png" alt="about"> -->
     </div>
     <div class="container">
         <div class="row">

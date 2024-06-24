@@ -32,6 +32,15 @@
         <meta name="theme-color" content="#ffffff">
         <?php include "link_css.php"; ?>
     </head>
+    <style>
+        .footer-widget .footer-social a{
+            min-height: 0;
+            min-width: 0;    
+            padding:15.4px;        
+            color: var(--white-color)!important;
+            /* background-color: ; */
+        }
+    </style>
     <body>
         <!-- <div class="preloader">
             <button class="vs-btn preloaderCls">Cancel Preloader </button>

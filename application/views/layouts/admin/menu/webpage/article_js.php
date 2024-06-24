@@ -45,7 +45,7 @@
                     ['fontsize', ['fontsize']],
                     ["style", ["color","style"]],
                     ["para", ["ul", "ol", "paragraph","height"]],
-                    ["insert", ["table","link",,"hr"]],
+                    ["insert", ["table","link","picture","hr"]],
                     ["view", ["fullscreen","codeview", "help"]],
                 ]
             });

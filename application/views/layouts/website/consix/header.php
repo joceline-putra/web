@@ -36,7 +36,7 @@
                                 <a href="<?php echo site_url();?>"><img src="<?php echo $link['logo']; ?>" alt="<?php echo $link['brand'];?>" class="logo"></a>
                             </div>
                         </div>
-                        <div class="col-lg-9 col-md-8 col-auto">
+                        <!-- <div class="col-lg-9 col-md-8 col-auto">
                             <div class="header-infos">
                                 <div class="header-info">
                                     <div class="header-info_icon"><i><img src="<?php echo $asset; ?>assets/img/icons/phone.svg"
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
