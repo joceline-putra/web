@@ -190,68 +190,6 @@
         }
         return $return;
     }
-    function upload_file_upload($path = "", $file = "") { // for $_FILES['upload']
-        if(!empty($file) and ($file !== 'undefined')){
-            
-            $image_height = 250;
-            $image_width = 250;
-
-            $ci = &get_instance();             
-            $file_config = array(
-                'upload_path' => FCPATH . $path,
-                'allowed_types' => '*'
-            ); 
-            $ci->load->library('upload', $file_config);
-            $ci->upload->initialize($file_config);
-
-            //Make Directory if Not Exists
-            $folder = FCPATH . $path;
-            if(!file_exists($folder)){
-                mkdir($folder, 0775, true);
-            }
-
-            if ($ci->upload->do_upload('upload')) {
-                $upload = $ci->upload->data();
-                $raw_file = date("YmdHis") . $upload['file_ext']; //1231232.png
-                // $old_name = $upload['full_path']; // abc/uoload/ABC.png
-                // $new_name = $path . $raw_photo; // abc/upload/1231232.png
-
-                if (rename($upload['full_path'], $path . $raw_file)) {
-                    
-                    if($upload['is_image'] == 1){ //If Data IMAGE
-                        $file_compress = [
-                            'image_library' => 'gd2',
-                            'source_image' => $path . $raw_file,
-                            'create_thumb' => FALSE,
-                            'maintain_ratio' => TRUE,
-                            'width' => $image_width,
-                            'height' => $image_height,
-                            'new_image' => $path . $raw_file
-                        ];                                    
-                        $ci->load->library('image_lib', $file_compress);
-                        $ci->image_lib->resize();
-
-                        $file_size = ($upload['is_image'] == 1) ? filesize($path . $raw_file) : $upload['file_size'];
-                        $file_size = $file_size / 1024;                        
-                    }else{
-                        $file_size = $upload['file_size'];
-                    }
-                }
-                $return['status'] = 1;
-                $return['message'] = 'Success'; 
-                $return['result'] = $upload;      
-                $return['file'] = $raw_file;     
-                $return['size'] = $file_size;
-            }else{
-                $return['status'] = 0;
-                $return['message'] = $ci->upload->display_errors();
-            }
-        }else{
-            $return['status'] = 0;
-            $return['message'] = 'File not ready';
-        }
-        return $return;
-    }   
     function upload_file_upload1($path = "", $file = "") { // NEWS.php for $_FILES['upload1'] //Disable Compress
         if(!empty($file) and ($file !== 'undefined')){
             
@@ -314,70 +252,64 @@
         }
         return $return;
     }     
-    function upload_file_files($path = "", $file = "") { // for $_FILES['files']
-        // var_dump($file);die;
-        if(!empty($file) and ($file !== 'undefined')){
+    function upload_file_files($path, $file, $compress = null) { // ATTENDANCE.php for $_FILES['file']
+        if(!empty($file)){
             
-            $image_height = 250;
-            $image_width = 250;
+            // Make Directory if Not Exists
+                $folder = FCPATH . $path;
+                if(!file_exists($folder)){
+                    mkdir($folder, 0775, true);
+                }
 
-            $ci = &get_instance();             
-            $file_config = array(
-                'upload_path' => FCPATH . $path,
-                'allowed_types' => '*'
-            ); 
-            $ci->load->library('upload', $file_config);
-            $ci->upload->initialize($file_config);
+                $file_name     = basename($_FILES['file']['name']);  
+                $file_size     = $_FILES['file']['size'];                      
+                $file_new_name = date('YmdHis') . '_' . uniqid() . '.' . strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                $file_ext      = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-            //Make Directory if Not Exists
-            $folder = FCPATH . $path;
-            if(!file_exists($folder)){
-                mkdir($folder, 0775, true);
-            }
-
-            if ($ci->upload->do_upload('files')) {
-                $upload = $ci->upload->data();
-                $raw_file = date("YmdHis") . $upload['file_ext']; //1231232.png
-                // $old_name = $upload['full_path']; // abc/uoload/ABC.png
-                // $new_name = $path . $raw_photo; // abc/upload/1231232.png
-
-                if (rename($upload['full_path'], $path . $raw_file)) {
+                if (move_uploaded_file($_FILES['file']['tmp_name'], $path . $file_new_name)) {
                     
-                    if($upload['is_image'] == 1){ //If Data IMAGE
-                        $file_compress = [
-                            'image_library' => 'gd2',
-                            'source_image' => $path . $raw_file,
-                            'create_thumb' => FALSE,
-                            'maintain_ratio' => TRUE,
-                            'width' => $image_width,
-                            'height' => $image_height,
-                            'new_image' => $path . $raw_file
-                        ];                                    
-                        $ci->load->library('image_lib', $file_compress);
-                        $ci->image_lib->resize();
-
-                        $file_size = ($upload['is_image'] == 1) ? filesize($path . $raw_file) : $upload['file_size'];
-                        $file_size = $file_size / 1024;                        
-                    }else{
-                        $file_size = $upload['file_size'];
+                    //Compress Only if Image
+                    if((!empty($compress['compress'])) && ($compress['compress'] == 1)){
+                        $allowed_file_ext = array('jpg', 'gif', 'png', 'jpeg');
+                        if (in_array($file_ext, $allowed_file_ext)) {
+                            $ci = &get_instance();
+                            $config = [
+                                'image_library' => 'gd2',
+                                'source_image' => $path . $file_new_name,
+                                'new_image' => $path . $file_new_name,
+                                // 'create_thumb' => FALSE,
+                                'maintain_ratio' => TRUE,
+                                'width' => $compress['width'],
+                                'height' => $compress['height'],
+                                'quality' => '10%'
+                            ];                                    
+                            $ci->load->library('image_lib', $config);
+                            $ci->image_lib->resize();
+                        }
                     }
+                    //End of Compress
+
+                    $result = array(
+                        'file_directory' => $path,
+                        'file_name' => $file_new_name,
+                        'file_old_name' => $file_name,
+                        'file_ext' => $file_ext,
+                        'file_location' => $path . $file_new_name,
+                        'file_size' => $file_size,
+                    ); 
+                } else {
+                    $errors[] = "Failed to upload $file_name.";
                 }
                 $return['status'] = 1;
                 $return['message'] = 'Success'; 
-                $return['result'] = $upload;      
-                $return['file'] = $raw_file;     
-                $return['size'] = $file_size;
-            }else{
-                $return['status'] = 0;
-                $return['message'] = $ci->upload->display_errors();
-            }
+                $return['result'] = $result;
         }else{
             $return['status'] = 0;
             $return['message'] = 'File not ready';
         }
         return $return;
-    } 
-    function upload_file_array($path = "", $file) { // NEWS.php for ALL $_FILES['?'] Array
+    }
+    function upload_file_array($path, $file, $compress = null) { // NEWS.php for ALL $_FILES['?'] Array
         if(count($file) > 0){
             
             // Make Directory if Not Exists
@@ -393,6 +325,29 @@
                     $file_ext      = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
                     if (move_uploaded_file($file['tmp_name'][$key], $path . $file_new_name)) {
+
+                        //Compress Only if Image
+                        if((!empty($compress['compress'])) && ($compress['compress'] == 1)){
+                            // var_dump($compress['compress']);die;
+                            $allowed_file_ext = array('jpg', 'gif', 'png', 'jpeg');
+                            if (in_array($file_ext, $allowed_file_ext)) {
+                                $ci = &get_instance();
+                                $config = [
+                                    'image_library' => 'gd2',
+                                    'source_image' => $path . $file_new_name .'.'.$file_ext,
+                                    'new_image' => $path . $file_new_name .'.'.$file_ext,
+                                    // 'create_thumb' => FALSE,
+                                    'maintain_ratio' => TRUE,
+                                    'width' => $compress['width'],
+                                    'height' => $compress['height'],
+                                    'quality' => '10%'
+                                ];                                    
+                                $ci->load->library('image_lib', $config);
+                                $ci->image_lib->resize();
+                            }
+                        }
+                        //End of Compress
+                                                    
                         $result[] = array(
                             'file_directory' => $path,
                             'file_name' => $file_new_name,
@@ -414,6 +369,59 @@
         }
         return $return;
     }       
+    function upload_file_base64($path, $file, $compress = null){ // ATTENDANCE.php Base64 or Croppie
+
+        $d1 = explode(";", $file); // data:image/jpeg
+        $d2 = explode(",", $d1[1]); // base64,/9j/4AAQSkZJRgABAQAAAQ
+        
+        $file_st  = strrpos($d1[0], '/') + 1; // 11
+        $file_ext = substr($d1[0], $file_st); // .jpeg
+
+        $file_data = base64_decode($d2[1]); //akshfdESWiuhgkwe
+        $file_size = strlen($file_data);
+        $file_name = date("Ymdhis").uniqid(); // 20240628084856667ebf481038c
+
+        // Make Directory if Not Exists
+        $folder = FCPATH . $path;
+        if(!file_exists($folder)){
+            mkdir($folder, 0775, true);
+        }
+        
+        //File Success Move
+        if(file_put_contents($path . $file_name .'.'.$file_ext, $file_data)){
+
+            //Compress Only if Image
+            if((!empty($compress['compress'])) && ($compress['compress'] == 1)){
+                $allowed_file_ext = array('jpg', 'gif', 'png', 'jpeg');
+                if (in_array($file_ext, $allowed_file_ext)) {
+                    $ci = &get_instance();
+                    $config = [
+                        'image_library' => 'gd2',
+                        'source_image' => $path . $file_name .'.'.$file_ext,
+                        'new_image' => $path . $file_name .'.'.$file_ext,
+                        // 'create_thumb' => FALSE,
+                        'maintain_ratio' => TRUE,
+                        'width' => $compress['width'],
+                        'height' => $compress['height'],
+                        'quality' => '10%'
+                    ];                                    
+                    $ci->load->library('image_lib', $config);
+                    $ci->image_lib->resize();
+                }
+            }
+            //End of Compress
+
+            $return['status'] = 1;
+            $return['result'] = array(
+                'file_directory' => $path, /* upload/product/ */
+                'file_name' => $file_name, /* 1231421*/
+                'file_ext' => $file_ext, /* .png */
+                'file_location' => $path . $file_name . '.'. $file_ext,
+                'file_size' => $file_size / 1024
+            );
+        }
+        return $return;
+    }
 
     // Blowfish Hash
     function blowfish_test(){

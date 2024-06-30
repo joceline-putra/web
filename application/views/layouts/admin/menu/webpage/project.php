@@ -1,4 +1,9 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<style>
+    .note-editable{
+        height: 400px;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <?php #include '_navigation_project.php'; ?>
@@ -34,38 +39,28 @@
                                         <div class="col-md-12">
                                             <input id="id_document" name="id_document" type="hidden" value="" placeholder="id" readonly>
                                         </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12">
+                                            <div class="gambar"></div>
+                                        </div>  
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <input type="file" id="files" name="files[]" multiple>
-                                            <!-- <?php 
-                                            for($a=1; $a<5; $a++){
-                                            ?>
-                                            <div class="col-lg-3 col-md-3 col-xs-12">
-                                                <div class="form-group">
-                                                    <label>Gambar <?php echo $a; ?></label>
-                                                    <img id="img-preview<?php echo $a;?>" class="img-responsive img_preview" 
-                                                         data-is-new="0"
-                                                         style="width:100%"
-                                                         src=""/>
-                                                    <div class="custom-file">
-                                                        <input class="form-control" id="upload<?php echo $a;?>" name="upload<?php echo $a;?>" type="file" tabindex="1">
-                                                        <label class="custom-file-label">
-                                                            <?php
-                                                            echo "Ukuran Max File : " . ($allowed_file_size / 1000) . " MB<br>";
-                                                            echo "Format Diizinkan: " . str_replace('|', ', ', $allowed_file_type);
-                                                            ?>
-                                                        </label>
-                                                    </div>                                                  
+                                            <div class="form-group">
+                                                <label>Gambar </label>
+                                                <div class="custom-file">
+                                                    <input type="file" id="files" name="files[]" multiple class="form-control">
+                                                    <label class="custom-file-label">
+                                                        <?php
+                                                        echo "Ukuran Max per File : " . ($allowed_file_size / 1024) . " MB<br>";
+                                                        #echo "Format Diizinkan: " . str_replace('|', ', ', $allowed_file_type);
+                                                        ?>
+                                                    </label>
                                                 </div>
                                             </div>
-                                            <?php 
-                                            }
-                                            ?>      -->
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
-                                                    <label class="form-label">Nama Project *</label>
-                                                    <input id="title" name="title" type="text" value="" class="form-control" readonly='true'/>
+                                                    <label class="form-label">Nama <?php echo $title; ?> *</label>
+                                                    <input id="title" name="title" type="text" value="" class="form-control">
                                                 </div>
                                             </div>                                                                                                                                  
                                         </div>
@@ -79,7 +74,7 @@
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Deskripsi</label>
-                                                    <textarea id="content-description" name="content-description" type="text" class="form-control" readonly='true' rows="4"/></textarea>
+                                                    <textarea id="content-description" name="content-description" type="text" class="form-control" readonly='true' rows="4" style="height:200px;"></textarea>
                                                 </div>
                                             </div>
 
@@ -105,15 +100,15 @@
                                         <div class="col-md-12 col-xs-12 col-sm-12" style="margin-top: 10px;">
                                             <div class="form-group">
                                                 <div class="pull-right">          
-                                                    <button id="btn-cancel" onClick="formCancel" class="btn btn-warning btn-small" type="button" style="display:none;">
+                                                    <button id="btn-cancel" class="btn btn-warning btn-small" type="button" style="display:none;">
                                                         <i class="fas fa-ban"></i>                                 
                                                         Batal
                                                     </button>                                                                                 
-                                                    <button id="btn-save" onClick="" class="btn btn-primary btn-small" type="button" style="display:none;">
+                                                    <button id="btn-save" onClick="" class="btn-save btn btn-primary btn-small" type="button" style="display:none;">
                                                         <i class="fas fa-save"></i>                                 
                                                         Save
                                                     </button>                                        
-                                                    <button id="btn-update" class="btn btn-info btn-small" type="button" style="display: none;">
+                                                    <button id="btn-update" class="btn-save btn btn-info btn-small" type="button" style="display: none;">
                                                         <i class="fas fa-edit"></i> 
                                                         Update
                                                     </button> 
@@ -155,7 +150,11 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side" style="padding-top:8px;">
-                            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 form-group padding-remove-left">
+                            <div class="col-lg-8 col-md-3 col-xs-12 col-sm-12 form-group padding-remove-left">
+                                <label class="form-label">Cari</label>
+                                <input id="filter_search" name="filter_search" type="text" value="" class="form-control" placeholder="Pencarian" />
+                            </div>                          
+                            <div class="col-lg-2 col-md-3 col-xs-12 col-sm-12 form-group padding-remove-left">
                                 <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                                     <label class="form-label">Status</label>
                                     <select id="filter_flag" name="filter_flag" class="form-control">
@@ -164,11 +163,7 @@
                                         <option value="All">Semua</option>                                        
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-3 col-xs-12 col-sm-12 form-group padding-remove-left">
-                                <label class="form-label">Cari</label>
-                                <input id="filter_search" name="filter_search" type="text" value="" class="form-control" placeholder="Pencarian" />
-                            </div>                                 
+                            </div>                               
                             <div class="col-lg-2 col-md-2 col-xs-12 col-sm-12 form-group padding-remove-side">
                                 <label class="form-label">Tampil</label>
                                 <select id="filter_length" name="filter_length" class="form-control">

@@ -65,7 +65,7 @@
         </div>
     </div> -->
 </div>
-<footer class="footer-wrapper footer-layout3" data-bg-src="<?php echo $asset; ?>assets/img/footer/footer-bg.jpg">
+<footer class="footer-wrapper footer-layout3" data-bg-src="<?php echo site_url(); ?>upload/restaurant.jpg">
     <div class="footer-layout3__overlay"></div>
     <div class="widget-area">
         <div class="container">
@@ -159,7 +159,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <p class="copyright-text text-center text-lg-start">© <?php echo date("Y")." ".$link['brand'];?>. All Rights Reserved By <a href="#">UBR</a></p>
+                    <p class="copyright-text text-center text-lg-start">© <?php echo date("Y")." ".$link['brand'];?>. All Rights Reserved<a href="#"></a></p>
                 </div>
                 <div class="col-lg-6">
                     <div class="widget widget_nav_menu footer-widget">

@@ -37,6 +37,7 @@ $route['search']                = "search/index";
 	$route['message/template'] 				= "news/pages/2";
 	$route['blog/project'] 					= "news/pages/5";
 	$route['blog/gallery'] 					= "news/pages/6";
+	$route['blog/portofolio'] 				= "news/pages/7";	
 	// $route['blog/product'] 					= "news/pages/6";			
 	$route['message/device'] 				= "device";    
 	$route['message/survey'] 				= "survey";

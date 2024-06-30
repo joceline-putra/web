@@ -10,6 +10,9 @@
         var url_image = '<?= base_url('upload/noimage.png'); ?>';
         var url_preview = '<?php echo site_url(); ?>' + blog_routing +'/';
         var view = "<?php echo $_view; ?>";
+        var set_url = "<?php echo base_url(); ?>";
+
+        var projectID = 0;
 
         $(".img_preview").attr('src', url_image);
         $("select").select2();
@@ -163,7 +166,6 @@
                 index.ajax.reload();
             }
         });
-
         $(document).on("change", "#filter_flag", function (e) {
             index.ajax.reload();
         });
@@ -177,7 +179,7 @@
         });
 
         // Save Button
-        $(document).on("click", "#btn-save", function (e) {
+        $(document).on("click", ".btn-save", function (e) {
             e.preventDefault();
             var next = true;
 
@@ -211,7 +213,10 @@
                 let files = document.getElementById('files').files;
                 for (let i = 0; i < files.length; i++) {
                     form.append('files[]', files[i]);
-                }                
+                }      
+                if(projectID > 0){
+                    form.append('id',projectID);
+                }          
                 // form.append('upload1', $('#upload1')[0].files[0]);                
                 form.append('status', $('#status').find(':selected').val());
                 form.append('title', $('#title').val());
@@ -225,8 +230,8 @@
                     type: "POST",
                     url: url,
                     data: form,
-                    // dataType: 'json',
-                    // cache: false,
+                    dataType: 'json',
+                    cache: false,
                     contentType: false,
                     processData: false,
                     beforeSend: function () {},
@@ -234,9 +239,21 @@
                         if (parseInt(d.status) == 1) { /* Success Message */
                             notif(1, d.message);
                             index.ajax.reload();
+                            loadFiles(d.result.id);
+                            projectID = d.result.id;
                         } else { //Error
                             notif(0, d.message);
                         }
+
+                        $("#files").val('');
+                        if(projectID > 0){
+                            $("#btn-save").hide();
+                            $("#btn-update").show();                            
+                        }else{
+                            $("#btn-save").show();
+                            $("#btn-update").hide();                            
+                        }
+                        console.log(projectID);
                     },
                     error: function (xhr, Status, err) {
                         notif(0, 'Error');
@@ -266,6 +283,7 @@
                 success: function (d) {
                     if (parseInt(d.status) == 1) { /* Success Message */
                         $("#div-form-trans").show(300);
+                        projectID = d.result.news_id;
                         $("#form-master input[name='id_document']").val(d.result.news_id);
                         $("#form-master input[name='title']").val(d.result.news_title);
                         $("#form-master input[name='url']").val(d.result.news_url);
@@ -274,14 +292,16 @@
                         $('#content-description').summernote('code', markupStr);
 
                         //News Image
-                        if ((d.result.news_image != undefined) || (d.result.news_image != null)) {
-                            var image = "<?php echo site_url(); ?>" + d.result.news_image;
-                            $('#img-preview1').attr('src', image);
-                            console.log(image);                                             
-                        } else {           
-                            $('#img-preview1').attr('src', url_image);
-                            console.log(url_image);
-                        }
+                        // if ((d.result.news_image != undefined) || (d.result.news_image != null)) {
+                        //     var image = "<?php echo site_url(); ?>" + d.result.news_image;
+                        //     $('#img-preview1').attr('src', image);
+                        //     console.log(image);                                             
+                        // } else {           
+                        //     $('#img-preview1').attr('src', url_image);
+                        //     console.log(url_image);
+                        // }
+                        loadFiles(projectID);
+
                         $("#btn-new").hide();
                         $("#btn-save").hide();
                         $("#btn-update").show();
@@ -295,69 +315,6 @@
                     notif(0, 'Error');
                 }
             });
-        });
-
-        // Update Button
-        $(document).on("click", "#btn-update", function (e) {
-            e.preventDefault();
-            var next = true;
-            var id = $("#form-master input[name='id_dokumen']").val();
-            var title = $("#form-master input[name='title']");
-
-            if (id == '') {
-                notif(0, 'ID tidak ditemukan');
-                next = false;
-            }
-
-            if (title.val().length == 0) {
-                notif(0, 'Nama Project wajib diisi');
-                title.focus();
-                next = false;
-            }
-
-            if (next == true) {
-                var formDataUpdate = new FormData($("#form-master")[0]);
-                formDataUpdate.append('action', 'update');
-                formDataUpdate.append('id', $('#id_document').val());
-                // formDataUpdate.append('upload1', $('#upload1')[0].files[0]);
-                // formDataUpdate.append('categories', $('#categories').find(':selected').val());
-                // formDataUpdate.append('status', $('#status').find(':selected').val());
-                // formDataUpdate.append('title', $('#title').val());
-                // formDataUpdate.append('url', $('#url').val());
-                // formDataUpdate.append('tags', $('#tags').val());
-                // formDataUpdate.append('keywords', $('#keywords').val());
-                // formDataUpdate.append('short', $('#short').val());
-                // formDataUpdate.append('content', $('#content-description').val());
-                // formDataUpdate.append('posisi', $('#posisi').find(':selected').val());
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: formDataUpdate,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    beforeSend: function () {},
-                    success: function (d) {
-                        if (parseInt(d.status) == 1) {
-                            // $("#btn-new").show();
-                            // $("#btn-save").hide();
-                            // $("#btn-update").hide();
-                            // $("#btn-cancel").hide();
-                            $("#form-master input").val();
-                            formMasterSetDisplay(1);
-                            notif(1, d.message);
-                            index.ajax.reload(null, false);
-                        } else {
-                            notif(0, d.message);
-                        }
-                    },
-                    error: function (xhr, Status, err) {
-                        notif(0, 'Error');
-                    }
-                });
-            }
-
         });
 
         // Delete Button
@@ -375,7 +332,7 @@
                         text: 'Ya',
                         action: function () {
                             var data = {
-                                action: 'remove',
+                                action: 'remove_with_files',
                                 id: id
                             }
                             $.ajax({
@@ -405,7 +362,48 @@
                 }
             });
         });
-
+        $(document).on("click", ".btn_remove_file", function () {
+            event.preventDefault();
+            var id = $(this).attr("data-id");
+            $.confirm({
+                title: 'Hapus!',
+                content: 'Apakah anda ingin menghapus gambar ini ?',
+                buttons: {
+                    confirm: {
+                        btnClass: 'btn-danger',
+                        text: 'Ya',
+                        action: function () {
+                            var data = {
+                                action: 'remove_file',
+                                id: id
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: data,
+                                dataType: 'json',
+                                cache: false,                                
+                                success: function (d) {
+                                    if (parseInt(d.status) == 1) {
+                                        // notif(1, d.message);
+                                        $("#gambar_"+id).remove();
+                                    } else {
+                                        notif(0, d.message);
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    cancel: {
+                        btnClass: 'btn-success',
+                        text: 'Batal',
+                        action: function () {
+                            // $.alert('Canceled!');
+                        }
+                    }
+                }
+            });
+        });
         // Set Flag Button
         $(document).on("click", ".btn-set-active", function (e) {
             e.preventDefault();
@@ -511,20 +509,16 @@
         });
 
         $(document).on("click", "#btn-new", function (e) {
-            formNew();
-            // $("#div-form-trans").show(300);
+            formReset();
+            projectID = 0;
             $("#div-form-trans").show(300);
             $(this).hide();
-            // animateCSS('#btn-new', 'backOutLeft','true');
-
-            // btnNew.classList.add('animate__animated', 'animate__fadeOutRight');
         });
         // Cancel Button
         $(document).on("click", "#btn-cancel", function (e) {
-            e.preventDefault();
-            $("#btn-new").css('display', 'inline');
-            // formTransCancel();
-            // btnNew.classList.remove('animate__animated', 'animate__fadeOutRight');    
+            formReset();
+            projectID = 0;
+            $("#btn-new").css('display', 'inline'); 
             $("#div-form-trans").hide(300);
         });
         
@@ -538,22 +532,52 @@
             reader.readAsDataURL(this.files[0]);
         });
         */
+        function loadFiles(news_id){
+            var data = {
+                action: 'read_files',
+                id: news_id
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: 'json',
+                cache: false,
+                beforeSend: function () {},
+                success: function (d) {
+                    if (parseInt(d.status) == 1) { /* Success Message */
+                        let rr = d.result;
+                        if(rr.length > 0){
+                            $(".gambar").html('');
+                            var dsp = '';
+                            rr.forEach(async (v, i) => {
+                        
+                                dsp += '<div class="col-md-3 col-sm-6" id="gambar_'+v['file_id']+'">';
+                                    dsp += '<button class="btn btn-danger btn_remove_file" style="position:absolute;" data-id="'+v['file_id']+'"><i class="fas fa-trash"></i> Hapus</button>';
+                                    dsp += '<img class="img-responsive" src="'+set_url + v['file_url']+'" style="width:100%;">';
+                                dsp += '</div>';
+                        
+                            });
+                            $(".gambar").html(dsp);
+                        }                        
+                    }
+                },
+                error: function (xhr, Status, err) {
+                    notif(0, 'Error');
+                }
+            });                    
+       }
     });
 
-    function formNew() {
+    function formReset() {
         formMasterSetDisplay(0);
-        $("#form-master input").val();
+        $('#content-description').summernote('code', '');
+        $("#form-master input").val('');
         $("#btn-new").hide();
+        $("#btn-update").hide();        
         $("#btn-save").show();
         $("#btn-cancel").show();
-    }
-    function formCancel() {
-        formMasterSetDisplay(1);
-        $("#form-master input").val();
-        $("#btn-new").show();
-        $("#btn-save").hide();
-        $("#btn-update").hide();
-        $("#btn-cancel").hide();
+        $(".gambar").html('');
     }
     function formMasterSetDisplay(value) { // 1 = Untuk Enable/ ditampilkan, 0 = Disabled/ disembunyikan
         if (value == 1) {

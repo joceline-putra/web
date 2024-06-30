@@ -1,7 +1,7 @@
 <?php
 $site = $pages['sitelink'];
 ?>
-<div class="breadcumb-wrapper" data-bg-src="<?php echo $asset; ?>assets/img/breadcumb/breadcumb-bg.jpg">
+<div class="breadcumb-wrapper" data-bg-src="<?php echo site_url(); ?>upload/penginapan.jpg">
     <div class="container z-index-common">
         <div class="breadcumb-content">
             <h1 class="breadcumb-title"><?php echo $title; ?></h1>

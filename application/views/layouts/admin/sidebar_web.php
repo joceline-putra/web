@@ -15,9 +15,9 @@ $icon = 'none;';
                 <li class="start open">
                     <ul class="open sub-menu" style="display:block;">
                         <li><a href="<?php echo site_url('blog/article')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Blog</a></li>
-                        <li><a href="<?php echo site_url('blog/project')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> - Project</a></li>   
-                        <li><a href="<?php echo site_url('blog/gallery')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> - Gallery</a></li>   
-                        <li><a href="<?php echo site_url('blog/product')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> - Produk</a></li>                                        
+                        <li><a href="<?php echo site_url('blog/project')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Project</a></li>   
+                        <li><a href="<?php echo site_url('blog/gallery')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Gallery</a></li> 
+                        <li><a href="<?php echo site_url('blog/portofolio')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Portofolio</a></li>                                                                
                     </ul>
                 </li>                       
             </li>            
@@ -28,7 +28,7 @@ $icon = 'none;';
                 </a> 
                 <li class="start open">
                     <ul class="open sub-menu" style="display:block;">
-                        <li><a href="<?php echo site_url('webpage/portofolio')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> - Portofolio</a></li>
+                        <li><a href="<?php echo site_url('blog/product')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> - Produk</a></li>  
                         <li><a href="<?php echo site_url('webpage/team')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> - Team</a></li>                           
                         <li><a href="<?php echo site_url('webpage/faq')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> - FAq</a></li>                            
                     </ul>

@@ -47,7 +47,7 @@
                                                             <input class="form-control" id="upload1" name="upload1" type="file" tabindex="1">
                                                             <label class="custom-file-label">
                                                                 <?php
-                                                                echo "Ukuran Max File : " . ($allowed_file_size / 1000) . " MB<br>";
+                                                                echo "Ukuran Max File : " . ($allowed_file_size / 1024) . " MB<br>";
                                                                 #echo "Format Diizinkan: " . str_replace('|', ', ', $allowed_file_type);
                                                                 ?>
                                                             </label>
