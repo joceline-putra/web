@@ -6,19 +6,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class News extends MY_Controller{
 
-    public $folder_upload = 'upload/news/';
-    public $folder_upload_project = 'upload/project/';    
-    public $folder_upload_portofolio = 'upload/portofolio/';    
+    public $folder_upload            = 'upload/news/'; // 1
+    public $folder_upload_project    = 'upload/project/'; // 5   
+    public $folder_upload_gallery    = 'upload/gallery/'; // 6
+    public $folder_upload_portofolio = 'upload/portofolio/'; // 7
+    public $folder_upload_team       = 'upload/team/'; // 8
+
     public $allowed_types = 'jpg|png|jpeg|mp4';
-    public $image_width;
-    public $image_height;
+    public $image_width = 480;
+    public $image_height = 480;
+
     public $portofolio_width = 200;
     public $portofolio_height = 80;    
-    public $allowed_file_size; // 5 MB -> 5000 KB
-    var $blog_route = 'blog';
-    var $project_route = 'project'; 
-    var $gallery_route = 'gallery';
-    var $portofolio_route = 'portofolio';            
+    
+    public $allowed_file_size = 1024; // 5 MB -> 5000 KB
+
+    var $blog_route         = 'blog';
+    var $project_route      = 'project'; 
+    var $gallery_route      = 'gallery';
+    var $portofolio_route   = 'portofolio'; 
+    var $team_route         = 'team';                
 
     function __construct(){
         parent::__construct();
@@ -34,11 +41,11 @@ class News extends MY_Controller{
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $this->folder_upload = 'upload/news/';
-        $this->allowed_types = 'jpg|png|jpeg|mp4';
-        $this->image_width   = 480;
-        $this->image_height  = 480;
-        $this->allowed_file_size     = 1024; // 5 MB -> 5000 KB
+        // $this->folder_upload = 'upload/news/';
+        // $this->allowed_types = 'jpg|png|jpeg|mp4';
+        // $this->image_width   = 480;
+        // $this->image_height  = 480;
+        // $this->allowed_file_size     = 1024; // 5 MB -> 5000 KB
     }
     function pages($identity){
         $data['session'] = $this->session->userdata();     
@@ -90,6 +97,18 @@ class News extends MY_Controller{
 
             $data['portofolio_width'] = intval($this->portofolio_width);
             $data['portofolio_height'] = intval($this->portofolio_height);
+        }
+        
+        if($identity == 8){ //Team
+
+            $data['_route'] = $this->team_route;            
+            $data['identity'] = 8;            
+            $data['title'] = 'Team';
+            $data['_view'] = 'layouts/admin/menu/webpage/team';
+            $file_js = 'layouts/admin/menu/webpage/team_js.php';
+
+            $data['portofolio_width'] = intval($this->image_width);
+            $data['portofolio_height'] = intval($this->image_height);
         }        
 
         $data['image_width'] = intval($this->image_width);
@@ -644,7 +663,7 @@ class News extends MY_Controller{
                         }
                     }                   
                     break;  
-                case "create_portofolio":
+                case "create_portofolio_or_team":
                     $params_check = array(
                         'news_type' => $data['tipe'],
                         'news_title' => ucwords($data['nama']),
@@ -675,10 +694,16 @@ class News extends MY_Controller{
                         $set_data=$this->News_model->add_news($params);
                         if($set_data==true){
 
+                            if($data['tipe'] == 7){ //Portofolio
+                                $folder = $this->folder_upload_portofolio;
+                            }else if($data['tipe'] == 8){ //Team
+                                $folder = $this->folder_upload_team;
+                            }
+
                             //Croppie Upload Image
                             $post_upload = !empty($data['upload1']) ? $data['upload1'] : "";
                             if(strlen($post_upload) > 10){
-                                $upload_process = upload_file_base64($this->folder_upload_portofolio,$post_upload,null);
+                                $upload_process = upload_file_base64($folder,$post_upload,null);
                                 if($upload_process['status'] == 1){
                                         $get_cat = $this->News_model->get_news($set_data);
                                         $params_image = array(
@@ -841,7 +866,7 @@ class News extends MY_Controller{
                         $return->message = 'Title harus diisi';
                     }
                     break;
-                case "update_portofolio":
+                case "update_portofolio_or_team":
                     $where = array(
                         'news_type' => $data['tipe'],
                         'news_id' => $data['id'],
@@ -875,11 +900,17 @@ class News extends MY_Controller{
                         $set_data = $data['id'];
 
                         if($set_data==true){
+                            
+                            if($data['tipe'] == 7){ //Portofolio
+                                $folder = $this->folder_upload_portofolio;
+                            }else if($data['tipe'] == 8){ //Team
+                                $folder = $this->folder_upload_team;
+                            }
 
                             //Croppie Upload Image
                             $post_upload = !empty($data['upload1']) ? $data['upload1'] : "";
                             if(strlen($post_upload) > 10){
-                                $upload_process = upload_file_base64($this->folder_upload_portofolio,$post_upload,null);
+                                $upload_process = upload_file_base64($folder,$post_upload,null);
                                 if($upload_process['status'] == 1){
                                         $get_cat = $this->News_model->get_news($set_data);
                                         $params_image = array(
