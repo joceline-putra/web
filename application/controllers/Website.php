@@ -27,8 +27,8 @@ class Website extends MY_Controller{
         $this->load->helper(array('cookie', 'url'));         
 
         //Configuration
-        $this->layout           = 'consix'; /* layouts/website/?  */
-        $this->asset            = 'consix'; /* assets/? */
+        $this->layout           = 'bemet'; /* layouts/website/?  */
+        $this->asset            = 'bemet'; /* assets/? */
 
         //Routing
         $this->product_routing  = 'produk';
@@ -53,7 +53,7 @@ class Website extends MY_Controller{
 
         $this->products_dir     = 'products';
             $this->products_file    = 'products';
-            $this->product_file     = 'product_v2';
+            $this->product_file     = 'product';
 
         $this->contacts_dir     = 'contacts'; //Not Used
             $this->contacts_file    = 'agents';   //Not Used
@@ -107,6 +107,7 @@ class Website extends MY_Controller{
         $this->load->model('Kategori_model');
         $this->load->model('Map_model');
         $this->load->model('Transaksi_model');
+        $this->load->model('File_model');        
 
         //Set Cookie if Not Exists
         if(empty($this->input->cookie('trans_session'))){
@@ -1197,7 +1198,10 @@ class Website extends MY_Controller{
         $news_created = ''; 
         $news_author = ''; 
         $news_status = '';
-        
+
+        $pro_update = ''; $pro_price = ''; $pro_stock = ''; $pro_unit = '';
+        $pro_images = [];
+
         $other_category = array(); 
         $other_news     = array(); 
         $final_url      = '';
@@ -1263,14 +1267,21 @@ class Website extends MY_Controller{
                 
                 $author = $this->User_model->get_user($get_news['product_user_id']);
                 // $news_short = $get_news['news_short'];
-                // $news_content = $get_news['news_content'];
+                $news_content = $get_news['product_note'];
                 // $news_tags = $get_news['news_tags'];
                 // $news_keywords = $get_news['news_keywords'];
                 $news_image = $get_news['product_image'];
-                // $news_visitor = $get_news['news_visitor'];
+                $news_visitor = $get_news['product_visitor'];
                 $news_created = date("d-M-Y",strtotime($get_news['product_date_created']));
                 $news_author = ucwords($author['user_username']);
                 $news_status = $get_news['product_flag'];
+
+                $pro_update = $get_news['product_date_updated'];
+                $pro_price = $get_news['product_price_sell'];
+                $pro_stock = $get_news['product_stock'];
+                $pro_unit = $get_news['product_unit'];                
+
+                $pro_images = $this->File_model->get_all_file(['file_from_table' => 'products', 'file_from_id' => $get_news['product_id']],null,null,null,'file_id','asc');
 
                 $params_check = array(
                     'category_parent_id' => 0,
@@ -1321,6 +1332,7 @@ class Website extends MY_Controller{
                     'title' => $url_news_title,
                     'author' => $news_author,
                     'image' => site_url($news_image),
+                    'images' => $pro_images,
                     'short' => $news_short,
                     'content' => $news_content,
                     'tags' => $news_tags,
@@ -1328,6 +1340,10 @@ class Website extends MY_Controller{
                     'keywords' => $news_keywords,
                     'visitor' => $news_visitor,
                     'created' => $news_created,
+                        'updated' => $pro_update,
+                        'price' => $pro_price,
+                        'stock' => $pro_stock,
+                        'unit' => $pro_unit,
                     'publish' => ($news_status == 1) ? 'Publish' : '',
                     // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
                 ),
@@ -1335,7 +1351,7 @@ class Website extends MY_Controller{
             'final_url' => $final_url,
             'view' => $view
         );
-        // echo json_encode($data['pages']);die;
+        echo json_encode($data['pages']);die;
 
         $data['_header']        = $this->nav['web']['header'];
         $data['_footer']        = $this->nav['web']['footer'];
@@ -1357,7 +1373,7 @@ class Website extends MY_Controller{
             $data['_content']       = $this->nav['web']['layout'].$this->products_dir.'/'.$this->product_file;
             $this->load->view($this->nav['web']['index'],$data);                         
         
-        }else if($view == 'categories'){ //www.any.com/article/param1
+        }else if($view == 'categories'){ //www.any.com/product/param1
             $data['title']          = $data['pages']['sitelink']['categories']['title'];
             $data['author']         = 'John Doe';
             $data['description']    = 'Its not about news, talk to each other something special from this site';
