@@ -484,18 +484,20 @@ class Product extends MY_Controller{
                         } 
                     }
                     break;
-                case "update_stock":
+                case "update_stock_price":
                     $this->form_validation->set_rules('product_id', 'product_id', 'required');
                     $this->form_validation->set_rules('product_stock', 'product_stock', 'required');
+                    $this->form_validation->set_rules('product_price_sell', 'product_price_sell', 'required');                    
                     $this->form_validation->set_message('required', '{field} wajib diisi');
                     if($this->form_validation->run() == FALSE){
                         $return->message = validation_errors();
                     }else{
                         $product_id = !empty($post['product_id']) ? $post['product_id'] : 0;
-                        if(intval($product_id) > 1){
+                        if(intval($product_id) > 0){
                             
                             $params = array(
                                 'product_stock' => !empty($post['product_stock']) ? intval($post['product_stock']) : 0,
+                                'product_price_sell' => !empty($post['product_price_sell']) ? intval($post['product_price_sell']) : 0                                
                             );
                             
                             $where = array(
@@ -505,7 +507,7 @@ class Product extends MY_Controller{
                             $set_update=$this->Product_model->update_product_custom($where,$params);
                             if($set_update){
                                 $return->status  = 1;
-                                $return->message = 'Stok -> '.intval($post['product_stock']);
+                                $return->message = 'Stok -> '.intval($post['product_stock'].' Harga -> '. $post['product_price_sell']);
                             }else{
                                 $return->message='Gagal ';
                             }

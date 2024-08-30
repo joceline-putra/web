@@ -134,11 +134,11 @@
                     render: function (data, meta, row) {
                         var dsp = "";
                         // return row.product_id+' <i class="fas fa-eye"></i>';
-                        // if (parseInt(data) > 0) {
-                            dsp += '<a href="#" class="btn_edit_stock" style="cursor:pointer;" data-id="'+row.product_id+'" data-name="'+row.product_name+'" data-satuan="'+row.product_unit+'" data-stok="'+row.product_stock+'">' + numberWithCommas(data) + '</a>';
-                        // } else {
-                        //     dsp += '-';
-                        // }
+                        if (parseInt(data) > 0) {
+                            dsp += '<a href="#" class="btn_edit_stock" style="cursor:pointer;" data-id="'+row.product_id+'" data-name="'+row.product_name+'" data-satuan="'+row.product_unit+'" data-stok="'+row.product_stock+'" data-price="'+row.product_price_sell+'"><b>' + numberWithCommas(data) + ' ' + row.product_unit+'</b></a>';
+                        } else {
+                            dsp += '<a href="#" class="btn_edit_stock" style="cursor:pointer;" data-id="'+row.product_id+'" data-name="'+row.product_name+'" data-satuan="'+row.product_unit+'" data-stok="'+row.product_stock+'" data-price="'+row.product_price_sell+'"><b>-</b></a>';
+                        }
                         return dsp;
                     }
                 }, {
@@ -677,7 +677,8 @@
             let id      = $(this).attr('data-id');
             let name    = $(this).attr('data-name');
             let stok    = $(this).attr('data-stok');
-            let satuan    = $(this).attr('data-satuan');            
+            let satuan    = $(this).attr('data-satuan');
+            let harga    = $(this).attr('data-price');                        
 
             let title   = 'Perbarui Stok';
             $.confirm({
@@ -701,6 +702,12 @@
                         dsp += '        <input id="jc_input" name="jc_input" class="form-control" value="'+stok+'">';
                         dsp += '    </div>';
                         dsp += '</div>';
+                        dsp += '<div class="col-md-8 col-xs-8 col-sm-8 padding-remove-side">';
+                        dsp += '    <div class="form-group">';
+                        dsp += '    <label class="form-label">Harga</label>';
+                        dsp += '        <input id="jc_input_2" name="jc_input_2" class="form-control" value="'+harga+'">';
+                        dsp += '    </div>';
+                        dsp += '</div>';                        
                         dsp += '<div class="col-md-4 col-xs-4 col-sm-4 padding-remove-side">';
                         dsp += '    <div class="form-group">';
                         dsp += '    <label class="form-label">Satuan</label>';
@@ -728,15 +735,20 @@
                             let self      = this;
         
                             let input     = self.$content.find('#jc_input').val();
+                            let input2     = self.$content.find('#jc_input_2').val();                            
                             
                             if(!input){
                                 notif(0,'Qty mohon diisi dahulu');
                                 return false;
+                            } else if(!input2){
+                                notif(0,'Harga mohon diisi dahulu');
+                                return false;
                             } else{
                                 let form = new FormData();
-                                form.append('action', 'update_stock');
+                                form.append('action', 'update_stock_price');
                                 form.append('product_id',id);
                                 form.append('product_stock', input);
+                                form.append('product_price_sell', input2);                                
                                 $.ajax({
                                     type: "post",
                                     url: url,
