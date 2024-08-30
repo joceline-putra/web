@@ -6,7 +6,7 @@
 </style>
 <div class="row">
     <div class="col-md-12">
-        <?php #include '_navigation_project.php'; ?>
+        <?php include '_navigation_product.php'; ?>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
                 <div id="div-form-trans" style="display:none;" class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
@@ -57,22 +57,43 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">                                        
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                            <div class="col-lg-3 col-md-3 col-xs-4 padding-remove-left">
                                                 <div class="form-group">                        
-                                                    <label>Kategori *</label>
-                                                    <select id="categories" name="categories" class="form-control" disabled readonly>
+                                                    <label class="form-label">Kategori *</label>
+                                                    <select id="categories" name="categories" class="form-control">
                                                         <option value="0">-- Pilih --</option>                    
                                                     </select>
                                                 </div>
-                                            </div>                                     
-                                        </div>   
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                            </div>   
+                                            <div class="col-lg-3 col-md-3 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
-                                                    <label class="form-label">Nama <?php echo $title; ?> *</label>
+                                                    <label class="form-label">Nama</label>
                                                     <input id="title" name="title" type="text" value="" class="form-control">
                                                 </div>
-                                            </div>                                                                                                                                  
+                                            </div>              
+                                            <div class="col-md-2 col-xs-2 col-sm-12 padding-remove-side">
+                                                <div class="form-group">
+                                                    <label class="form-label">Satuan *</label>
+                                                    <select id="satuan" name="satuan" class="form-control">
+                                                        <option value="0">-- Pilih --</option>
+                                                    </select>
+                                                </div>
+                                            </div>                                                                           
+                                            <div class="col-md-2 col-sm-2 col-xs-4 padding-remove-seide">
+                                                <div class="form-group">
+                                                    <label class="form-label">Harga</label>
+                                                    <input id="harga_jual" name="harga_jual" type="text" value="" class="form-control">
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-2 col-sm-2 col-xs-4 padding-remove-right">
+                                                <div class="form-group">
+                                                    <label class="form-label">Stok</label>
+                                                    <input id="stok" name="stok" type="text" value="" class="form-control">
+                                                </div>
+                                            </div>                                                                                                                          
+                                        </div>   
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                                                                 
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <!-- <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">

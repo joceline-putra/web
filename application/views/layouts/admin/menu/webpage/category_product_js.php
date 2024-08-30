@@ -5,8 +5,9 @@
         var view = "<?php echo $_view; ?>";
         var url_image = "<?= site_url('upload/noimage.png'); ?>";
         var url_dir = "<?= base_url(); ?>";        
+
         $(".nav-tabs").find('li[class="active"]').removeClass('active');
-        $(".nav-tabs").find('li[data-name="' + view + '"]').addClass('active');
+        $(".nav-tabs").find('li[data-name="category/product"]').addClass('active');
         
         let image_width = "<?= $image_width;?>";
         let image_height = "<?= $image_height;?>"; 

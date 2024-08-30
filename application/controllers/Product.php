@@ -147,7 +147,7 @@ class Product extends MY_Controller{
                     $return->recordsTotal        = $return->total_records;
                     $return->recordsFiltered     = $return->total_records;
                     break;
-                case "create_project_or_gallery":
+                case "create_update":
                     $next = true;
 
                     // Cek if any Files
@@ -177,54 +177,40 @@ class Product extends MY_Controller{
                                 'product_category_id' => !empty($this->input->post('categories')) ? $this->input->post('categories') : null,
                                 'product_type' => 1,
                                 'product_name' => $title,
-                                // 'product_unit' => !empty($post['product_unit']) ? $post['product_unit'] : null,
+                                'product_unit' => !empty($post['satuan']) ? $post['satuan'] : null,
                                 'product_note' => !empty($this->input->post('content')) ? $this->input->post('content') : null,
                                 // 'product_price_buy' => !empty($post['product_price_buy']) ? intval($post['product_price_buy']) : null,
-                                // 'product_price_sell' => !empty($post['product_price_sell']) ? intval($post['product_price_sell']) : null,
+                                'product_price_sell' => !empty($post['harga']) ? intval($post['harga']) : null,
                                 // 'product_image' => !empty($post['product_image']) ? $post['product_image'] : null,
                                 'product_url' => $url,
                                 'product_user_id' => $session_user_id,
                                 'product_date_created' => date("YmdHis"),
                                 // 'product_date_updated' => date("YmdHis"),
                                 'product_flag' => !empty($this->input->post('status')) ? $this->input->post('status') : 0,
-                                // 'product_stock' => !empty($post['product_stock']) ? intval($post['product_stock']) : 0,
+                                'product_stock' => !empty($post['stok']) ? intval($post['stok']) : 0,
                                 // 'product_visitor' => !empty($post['product_visitor']) ? intval($post['product_visitor']) : 0,
                                 // 'product_reminder' => !empty($post['product_reminder']) ? $post['product_reminder'] : null,
                                 // 'product_reminder_date' => !empty($post['product_reminder_date']) ? $post['product_reminder_date'] : null,
-                            );            
-                            // var_dump($params);die;                
-                            // $params_save = array(
-                            //     'news_type' => !empty($this->input->post('tipe')) ? intval($this->input->post('tipe')) : 5,
-                            //     'news_category_id' => !empty($this->input->post('categories')) ? $this->input->post('categories') : null,
-                            //     'news_title' => $title,
-                            //     'news_url' => $url,
-                            //     'news_short' => !empty($this->input->post('short')) ? $this->input->post('short') : null,
-                            //     'news_content' => !empty($this->input->post('content')) ? $this->input->post('content') : null,
-                            //     'news_tags' => !empty($this->input->post('tags')) ? $this->input->post('tags') : null,
-                            //     'news_keywords' => !empty($this->input->post('keywords')) ? $this->input->post('keywords') : null,
-                            //     'news_date_created' => date("YmdHis"),
-                            //     'news_date_updated' => date("YmdHis"),
-                            //     'news_user_id' => $session_user_id,    
-                            //     'news_branch_id' => $session_branch_id,              
-                            //     'news_flag' => !empty($this->input->post('status')) ? $this->input->post('status') : 0,
-                            //     'news_position' => !empty($this->input->post('posisi')) ? $this->input->post('posisi') : null
-                            // );
-
-                            // $params_update = array(
-                            //     'news_category_id' => !empty($this->input->post('categories')) ? $this->input->post('categories') : null,
-                            //     'news_title' => $title,
-                            //     'news_url' => $url,
-                            //     'news_short' => !empty($this->input->post('short')) ? $this->input->post('short') : null,
-                            //     'news_content' => !empty($this->input->post('content')) ? $this->input->post('content') : null,
-                            //     'news_tags' => !empty($this->input->post('tags')) ? $this->input->post('tags') : null,
-                            //     'news_keywords' => !empty($this->input->post('keywords')) ? $this->input->post('keywords') : null,
-                            //     'news_date_updated' => date("YmdHis"),
-                            //     // 'news_user_id' => $session_user_id,    
-                            //     // 'news_branch_id' => $session_branch_id,              
-                            //     'news_flag' => !empty($this->input->post('status')) ? $this->input->post('status') : 0,
-                            //     'news_position' => !empty($this->input->post('posisi')) ? $this->input->post('posisi') : null
-                            // );
-
+                            );
+                            $params_update = array(
+                                'product_category_id' => !empty($this->input->post('categories')) ? $this->input->post('categories') : null,
+                                'product_type' => 1,
+                                'product_name' => $title,
+                                'product_unit' => !empty($post['satuan']) ? $post['satuan'] : null,
+                                'product_note' => !empty($this->input->post('content')) ? $this->input->post('content') : null,
+                                // 'product_price_buy' => !empty($post['product_price_buy']) ? intval($post['product_price_buy']) : null,
+                                'product_price_sell' => !empty($post['harga']) ? intval($post['harga']) : null,
+                                // 'product_image' => !empty($post['product_image']) ? $post['product_image'] : null,
+                                'product_url' => $url,
+                                // 'product_user_id' => $session_user_id,
+                                // 'product_date_created' => date("YmdHis"),
+                                'product_date_updated' => date("YmdHis"),
+                                'product_flag' => !empty($this->input->post('status')) ? $this->input->post('status') : 0,
+                                'product_stock' => !empty($post['stok']) ? intval($post['stok']) : 0,
+                                // 'product_visitor' => !empty($post['product_visitor']) ? intval($post['product_visitor']) : 0,
+                                // 'product_reminder' => !empty($post['product_reminder']) ? $post['product_reminder'] : null,
+                                // 'product_reminder_date' => !empty($post['product_reminder_date']) ? $post['product_reminder_date'] : null,
+                            );                                        
                             //Check Data Exist UPDATE
                             if(!empty($this->input->post('id')) && ($this->input->post('id') > 0)){
                                 $operator = 2; $mes = 'memperbarui';
@@ -300,7 +286,7 @@ class Product extends MY_Controller{
                                     $return->message='Berhasil '.$mes;
                                     $return->result= array(
                                         'id' => $set_data,
-                                        'title' => $data['product_name']
+                                        'title' => $title
                                     );  
 
                                     /* Start Activity */
@@ -309,8 +295,8 @@ class Product extends MY_Controller{
                                         'activity_action' => ($operator==1) ? 2 : 4,
                                         'activity_table' => 'product',
                                         'activity_table_id' => $set_data,                            
-                                        'activity_text_1' => strtoupper($data['product_name']),
-                                        'activity_text_2' => ucwords(strtolower($data['product_name'])),                        
+                                        'activity_text_1' => strtoupper($title),
+                                        'activity_text_2' => ucwords(strtolower($title)),                        
                                         'activity_date_created' => date('YmdHis'),
                                         'activity_flag' => 1
                                     );
@@ -324,84 +310,6 @@ class Product extends MY_Controller{
                             $return->message = 'Nama Produk harus diisi';
                         }
                     }                   
-                    break;
-                case "create_update":
-                    $this->form_validation->set_rules('product_id', 'product_id', 'required');
-                    $this->form_validation->set_message('required', '{field} wajib diisi');
-                    if ($this->form_validation->run() == FALSE){
-                        $return->message = validation_errors();
-                    }else{
-
-                        if(intval($post['product_id']) > 0){ /* Update if Exist */ // if( (!empty($post['product_session'])) && (strlen($post['product_session']) > 10) ){ /* Update if Exist */
-
-                            /* Check Existing Data */
-                            $where_not = [
-                                'product_id' => intval($post['product_id']),
-                            ];
-                            $where_new = [
-                                'product_name' => $product_name
-                            ];
-                            $check_exists = $this->Product_model->check_data_exist_two_condition($where_not,$where_new);
-
-                            /* Continue Update if not exist */
-                            if(!$check_exists){
-                                $where = array(
-                                    'product_id' => intval($post['product_id']),
-                                );
-                                $params = array(
-                                    'product_name' => $product_name,
-                                    'product_flag' => !empty($post['product_flag']) ? $post['product_flag'] : 0
-                                );
-                                $update = $this->Product_model->update_product_custom($where,$params);
-                                if($update){
-                                    $get_product = $this->Product_model->get_product_custom($where);
-                                    $return->status  = 1;
-                                    $return->message = 'Berhasil memperbarui '.$product_name;
-                                    $return->result= array(
-                                        'product_id' => $update,
-                                        'product_name' => $get_product['product_name'],
-                                        'product_session' => $get_product['product_session']
-                                    );
-                                }else{
-                                    $return->message = 'Gagal memperbarui '.$product_name;
-                                }
-                            }else{
-                                $return->message = 'Data sudah digunakan';
-                            }
-                        }else{ /* Save New Data */
-
-                            /* Check Existing Data */
-                            $params_check = [
-                                'product_name' => $product_name
-                            ];
-                            $check_exists = $this->Product_model->check_data_exist($params_check);
-
-                            /* Continue Save if not exist */
-                            if(!$check_exists){
-                                $product_session = strtoupper(substr(hash('sha256', date_timestamp_get(date_create())),0,20));
-                                $params = array(
-                                    'product_session' => $product_session,
-                                    'product_name' => $product_name,
-                                    'product_flag' => !empty($post['product_flag']) ? $post['product_flag'] : 0
-                                );
-                                $create = $this->Product_model->add_product($params);
-                                if($create){
-                                    $get_product = $this->Product_model->get_product($create);
-                                    $return->status  = 1;
-                                    $return->message = 'Berhasil menambahkan '.$product_name;
-                                    $return->result= array(
-                                        'product_id' => $create,
-                                        'product_name' => $get_product['product_name'],
-                                        'product_session' => $get_product['product_session']
-                                    );
-                                }else{
-                                    $return->message = 'Gagal menambahkan '.$product_name;
-                                }
-                            }else{
-                                $return->message = 'Data sudah ada';
-                            }
-                        }
-                    }
                     break;
                 case "read":
                     $this->form_validation->set_rules('product_id', 'product_id', 'required');
@@ -571,6 +479,36 @@ class Product extends MY_Controller{
                             }else{
                                 $return->message='Gagal mendapatkan data';
                             }   
+                        }else{
+                            $return->message = 'Tidak ada data';
+                        } 
+                    }
+                    break;
+                case "update_stock":
+                    $this->form_validation->set_rules('product_id', 'product_id', 'required');
+                    $this->form_validation->set_rules('product_stock', 'product_stock', 'required');
+                    $this->form_validation->set_message('required', '{field} wajib diisi');
+                    if($this->form_validation->run() == FALSE){
+                        $return->message = validation_errors();
+                    }else{
+                        $product_id = !empty($post['product_id']) ? $post['product_id'] : 0;
+                        if(intval($product_id) > 1){
+                            
+                            $params = array(
+                                'product_stock' => !empty($post['product_stock']) ? intval($post['product_stock']) : 0,
+                            );
+                            
+                            $where = array(
+                                'product_id' => !empty($post['product_id']) ? intval($post['product_id']) : 0,
+                            );
+                            
+                            $set_update=$this->Product_model->update_product_custom($where,$params);
+                            if($set_update){
+                                $return->status  = 1;
+                                $return->message = 'Stok -> '.intval($post['product_stock']);
+                            }else{
+                                $return->message='Gagal ';
+                            }
                         }else{
                             $return->message = 'Tidak ada data';
                         } 

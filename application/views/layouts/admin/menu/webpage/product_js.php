@@ -12,6 +12,9 @@
         var view = "<?php echo $_view; ?>";
         var set_url = "<?php echo base_url(); ?>";
 
+        $(".nav-tabs").find('li[class="active"]').removeClass('active');
+        $(".nav-tabs").find('li[data-name="blog/product"]').addClass('active');
+
         var projectID = 0;
 
         $(".img_preview").attr('src', url_image);
@@ -33,7 +36,19 @@
             watchExternalChanges: true //!!!        
         };
 
-        // new AutoNumeric('#harga_jual', autoNumericOption);
+        let mHARGA = new AutoNumeric('#harga_jual', autoNumericOption);
+        let mSTOK = new AutoNumeric('#stok', autoNumericOption);        
+        /* Autonumeric */
+        /* Init */
+        // const autoNumericOption = {
+        //     digitGroupSeparator : ',', decimalCharacter  : '.', decimalCharacterAlternative: '.',
+        //     decimalPlaces: 0, watchExternalChanges: true
+        // };
+        // let variable = new AutoNumeric('#selector_id', autoNumericOption);
+        // /* Get*/
+        // alert(variable.rawValue);
+        // /* Set*/
+        // alert(variable.set(123000););
         // new AutoNumeric('#harga_beli', autoNumericOption);    
         setTimeout(() => {
             $('#content-description').summernote({
@@ -78,16 +93,17 @@
                 }
             },
             "columnDefs": [
-                {"targets": 0, "title": "Judul", "searchable": true, "orderable": false},
+                {"targets": 0, "title": "Nama", "searchable": true, "orderable": false},
                 {"targets": 1, "title": "Kategori", "searchable": true, "orderable": false},
-                {"targets": 2, "title": "Penempatan", "searchable": true, "orderable": false},
-                {"targets": 3, "title": "Kunjungan", "searchable": true, "orderable": false, "className": 'dt-body-right'},
+                {"targets": 2, "title": "Harga", "searchable": true, "orderable": false, "className": 'dt-body-right'},
+                {"targets": 3, "title": "Stok", "searchable": true, "orderable": false, "className": 'dt-body-right'},
                 {"targets": 4, "title": "Action", "searchable": true, "orderable": false, "className": 'dt-body-right'}
             ],
             "order": [
                 [0, 'asc']
             ],
-            "columns": [{
+            "columns": [
+                {
                     'data': 'product_name',
                     className: 'text-left',
                     render: function (data, meta, row) {
@@ -102,22 +118,28 @@
                     'data': 'category_name'
                 }, {
                     'data': 'product_id',
-                    className: 'text-left',
+                    className: 'text-right',
                     render: function (data, meta, row) {
                         var dsp = '';
-                        // if (parseInt(row.news_position) === 1) {
-                            dsp += 'Home';
-                        // } else {
-                        //     dsp += 'Slider';
-                        // }
+                        if (parseInt(row.product_price_sell) > 0) {
+                            dsp += numberWithCommas(row.product_price_sell);
+                        } else {
+                            dsp += '-';
+                        }
                         return dsp;
                     }
                 }, {
-                    'data': 'product_id',
+                    'data': 'product_stock',
                     className: 'text-right',
                     render: function (data, meta, row) {
+                        var dsp = "";
                         // return row.product_id+' <i class="fas fa-eye"></i>';
-                        return row.product_id;
+                        // if (parseInt(data) > 0) {
+                            dsp += '<a href="#" class="btn_edit_stock" style="cursor:pointer;" data-id="'+row.product_id+'" data-name="'+row.product_name+'" data-satuan="'+row.product_unit+'" data-stok="'+row.product_stock+'">' + numberWithCommas(data) + '</a>';
+                        // } else {
+                        //     dsp += '-';
+                        // }
+                        return dsp;
                     }
                 }, {
                     'data': 'product_id',
@@ -226,6 +248,53 @@
                 return data.text;
             }
         });
+        $('#satuan').select2({
+            placeholder: '--- Pilih ---',
+            minimumInputLength: 0,
+            ajax: {
+                type: "get",
+                url: "<?= base_url('search/manage'); ?>",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        source: 'units'
+                    }
+                    return query;
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            templateResult: function (datas) { //When Select on Click
+                if (!datas.id) {
+                    return datas.text;
+                }
+                // return '<i class="fas fa-balance-scale '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                if ($.isNumeric(datas.id) == true) {
+                    // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                    // return datas.text;          
+                } else {
+                    // return '<i class="fas fa-plus '+datas.id.toLowerCase()+'"></i> '+datas.text;    
+                }
+                return datas.text;
+            },
+
+            templateSelection: function (datas) { //When Option on Click
+                // if (!datas.id) { 
+                return datas.text;
+                // }
+                //Custom Data Attribute         
+                // return '<i class="fas fa-balance-scale '+datas.id.toLowerCase()+'"></i> '+datas.text;
+            }
+        });        
         $(document).on("change", "#filter_categories", function (e) {
             index.ajax.reload();
         });        
@@ -271,7 +340,7 @@
 
             if (next == true) {
                 var form = new FormData();
-                form.append('action', 'create_project_or_gallery');
+                form.append('action', 'create_update');
                 form.append('tipe', identity);
                 let files = document.getElementById('files').files;
                 for (let i = 0; i < files.length; i++) {
@@ -282,13 +351,16 @@
                 }          
                 // form.append('upload1', $('#upload1')[0].files[0]);                
                 form.append('status', $('#status').find(':selected').val());
+                form.append('categories', $('#categories').find(':selected').val());                
                 form.append('title', $('#title').val());
                 form.append('url', $('#url').val());
                 // form.append('tags', $('#tags').val());
                 // form.append('keywords', $('#keywords').val());
                 // form.append('short', $('#short').val());
                 form.append('content', $('#content-description').val());
-                // form.append('posisi', $('#posisi').find(':selected').val());
+                form.set('harga',mHARGA.rawValue);
+                form.set('stok',mSTOK.rawValue);                
+                form.set('satuan', $('#satuan').find(':selected').val());
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -363,12 +435,21 @@
                         //     $('#img-preview1').attr('src', url_image);
                         //     console.log(url_image);
                         // }
+                        $("select[id='satuan']").append('' +
+                                '<option value="' + d.result.product_unit + '">' +
+                                d.result.product_unit +
+                                '</option>');
+                        $("select[id='satuan']").val(d.result.product_unit).trigger('change');
+
                         $("#form-master select[name='status']").val(d.result.product_flag).trigger('change');
                         $("select[name='categories']").append('' +
                                 '<option value="' + d.result.category_id + '">' +
                                 d.result.category_name +
                                 '</option>');
-                        $("select[name='categories']").val(d.result.category_id).trigger('change');                        
+                        $("select[name='categories']").val(d.result.category_id).trigger('change');        
+                        mHARGA.set(d.result.product_price_sell);
+                        mSTOK.set(d.result.product_stock);
+                        
                         loadFiles(projectID);
 
                         $("#btn-new").hide();
@@ -591,6 +672,107 @@
             $("#div-form-trans").hide(300);
         });
         
+        $(document).on("click",".btn_edit_stock", function(e) {
+            
+            let id      = $(this).attr('data-id');
+            let name    = $(this).attr('data-name');
+            let stok    = $(this).attr('data-stok');
+            let satuan    = $(this).attr('data-satuan');            
+
+            let title   = 'Perbarui Stok';
+            $.confirm({
+                title: title,
+                columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
+                autoClose: 'button_2|20000',
+                closeIcon: true, closeIconClass: 'fas fa-times', 
+                animation:'zoom', closeAnimation:'bottom', animateFromElement:false, useBootstrap:true,
+                content: function(){
+                },
+                onContentReady: function(e){
+                    let self    = this;
+                    let content = '';
+                    let dsp     = '';
+        
+                    /* dsp += '<div>Content is ready after process !</div>'; */
+                    dsp += '<form id="jc_form">';
+                        dsp += '<div class="col-md-8 col-xs-8 col-sm-8 padding-remove-side">';
+                        dsp += '    <div class="form-group">';
+                        dsp += '    <label class="form-label">Stok Sekarang</label>';
+                        dsp += '        <input id="jc_input" name="jc_input" class="form-control" value="'+stok+'">';
+                        dsp += '    </div>';
+                        dsp += '</div>';
+                        dsp += '<div class="col-md-4 col-xs-4 col-sm-4 padding-remove-side">';
+                        dsp += '    <div class="form-group">';
+                        dsp += '    <label class="form-label">Satuan</label>';
+                        dsp += '        <input id="jc_input2" name="jc_input2" class="form-control" value="'+satuan+'" readonly>';
+                        dsp += '    </div>';
+                        dsp += '</div>';                        
+                    dsp += '</form>';
+                    content = dsp;
+                    self.setContentAppend(content);
+                    // self.buttons.button_1.disable();
+                    // self.buttons.button_2.disable();
+        
+                    // this.$content.find('form').on('submit', function (e) {
+                    //      e.preventDefault();
+                    //      self.$$formSubmit.trigger('click'); // reference the button and click it
+                    // });
+                    // let mSTOK2 = new AutoNumeric('#jc_input', autoNumericOption);
+                },
+                buttons: {
+                    button_1: {
+                        text:'Update',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function(e){
+                            let self      = this;
+        
+                            let input     = self.$content.find('#jc_input').val();
+                            
+                            if(!input){
+                                notif(0,'Qty mohon diisi dahulu');
+                                return false;
+                            } else{
+                                let form = new FormData();
+                                form.append('action', 'update_stock');
+                                form.append('product_id',id);
+                                form.append('product_stock', input);
+                                $.ajax({
+                                    type: "post",
+                                    url: url,
+                                    data: form, dataType: 'json',
+                                    cache: 'false', contentType: false, processData: false,
+                                    beforeSend:function(x){
+                                        // x.setRequestHeader('Authorization',"Bearer " + bearer_token);
+                                        // x.setRequestHeader('X-CSRF-TOKEN',csrf_token);
+                                    },
+                                    success: function(d) {
+                                        let s = d.status;
+                                        let m = d.message;
+                                        let r = d.result;
+                                        if(parseInt(s) == 1){
+                                            notif(s, m);
+                                            index.ajax.reload(null,false);
+                                        }else{
+                                            // notif(s,m);
+                                        }
+                                    },
+                                    error: function(xhr, status, err) {}
+                                });
+                            }
+                        }
+                    },
+                    button_2: {
+                        text: 'Cancel',
+                        btnClass: 'btn-danger',
+                        keys: ['Escape'],
+                        action: function(){
+                            //Close
+                        }
+                    }
+                }
+            });
+        });
         /*
         $('#upload1').change(function (e) {
             var fileName = e.target.files[0].name;

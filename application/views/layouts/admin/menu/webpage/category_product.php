@@ -46,7 +46,7 @@
 </style>
 <div class="row">
     <div class="col-md-12">
-        <?php include '_navigation.php'; ?>
+        <?php include '_navigation_product.php'; ?>
         <div class="tools">
             <a href="javascript:;" class="collapse"></a>
             <a href="#grid-config" data-toggle="modal" class="config"></a>
