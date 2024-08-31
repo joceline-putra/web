@@ -553,6 +553,47 @@ class Product extends MY_Controller{
             $this->load->view('layouts/admin/menu/webpage/product_js.php',$data);
         }
     }
+    function reload(){
+        $return = new \stdClass();
+        $return->status = 0;
+        $return->message = '';
+        $return->result = '';
+
+        $cat  = $this->input->post('categories');
+        // $end    = $this->input->post('end');
+        // $user   = $this->input->post('user');  
+
+        $limit_start = !empty($this->input->post('limit_start')) ? $this->input->post('limit_start') : 1;
+        $limit_end = !empty($this->input->post('limit_end')) ? $this->input->post('limit_end') : 4;
+
+        $limit = ($limit_start * $limit_end) - $limit_end;
+        // $limit_start = $this->input->post('limit_start');
+        // $limit_end = $this->input->post('limit_end');         
+
+          // $limit_start = 5; // jumlah item yg akan ditampilkan
+          // $limit_end = ($this->input->post('limit_start') * $limit_end) - $limit_end; // pagination
+        // var_dump($limit_start,$limit_end);die;
+        // date("Y-m-d",strtotime($start)),date("Y-m-d",strtotime($end))
+        $params = [
+            'product_type' => 1,
+            'product_category_id' => $cat,
+            'product_flag' => 1
+        ];
+        $get_data=$this->Product_model->get_all_product($params,null,$limit_end,$limit_start,'product_id','asc');
+        if(isset($get_data)){ //Data exist
+        //     $data_source=$datas; $total=count($datas);
+            $return->status=1; $return->message='Loaded'; $return->total_records=count($get_data);
+            $return->result=$get_data;        
+        //     $return->get_data=$get_data;
+        }else{ 
+        //     $data_source=0; $total=0; 
+            $return->status=0; $return->message='No data'; $return->total_records=count($get_data);
+            $return->result=0;    
+        }
+        $return->limit=$limit_start.','.$limit_end;  
+        $return->site = base_url().'produk';
+        echo json_encode($return);      
+    }
 }
 
 ?>

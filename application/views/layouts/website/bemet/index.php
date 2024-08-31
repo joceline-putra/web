@@ -43,6 +43,9 @@
             #include "content.php";
             include "footer.php";
             include "link_js.php"; 
+            if (!empty($_js)) {
+                $this->load->view($_js);
+            }            
         ?>
     </body>
 </html>

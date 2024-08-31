@@ -101,6 +101,7 @@ class Website extends MY_Controller{
         $this->load->model('Aktivitas_model');
         $this->load->model('News_model');
         $this->load->model('Produk_model');
+        $this->load->model('Product_model');        
         $this->load->model('Product_item_model');
         $this->load->model('Kontak_model');
         $this->load->model('User_model');
@@ -1204,6 +1205,7 @@ class Website extends MY_Controller{
 
         $other_category = array(); 
         $other_news     = array(); 
+        $other_count    = 0;
         $final_url      = '';
 
         $url_news = '';
@@ -1217,16 +1219,12 @@ class Website extends MY_Controller{
         $get_all_category = $this->Kategori_model->get_all_categoriess($params,null,null,null,'category_name','asc');
         foreach ($get_all_category as $value) {
             $category_data[] = array(
+                'category_id' => $value['category_id'],
                 'category_name' => $value['category_name'],
                 'category_url' => $value['category_url'],
                 'category_url' => site_url($this->product_routing).'/'.$value['category_url'],
                 'category_count' => $value['category_count']                
             );
-        }
-
-        if(empty($categories_url) and empty($produk_url)){
-            // $other_category = $this->News_model->get_all_newss(array('news_flag'=>1),'',20,0,'news_date_created','asc');            
-            // $view = 'blog';
         }
 
         //Param URL Categories not Empty
@@ -1240,10 +1238,17 @@ class Website extends MY_Controller{
             // $url_news_category_title = '';                
             $get_categories = $this->Kategori_model->get_categories_by_params($params_check);
             if($get_categories){
+                $cat_id = $get_categories['category_id'];
                 $url_news_category          = '/'.$get_categories['category_url'];
                 $url_news_category_title    = ucwords($get_categories['category_name']);      
                 $final_url                  = '/'.$get_categories['category_url'];
-                // $other_category = $this->News_model->get_all_newss(array('category_id'=>$get_categories['category_id']),'',4,0,'news_visitor','asc');
+                $params_set = array(
+                    'product_type' => 1,
+                    'product_flag' => 1,
+                    'product_category_id'=>$get_categories['category_id']
+                );
+                $other_category = $this->Product_model->get_all_product($params_set,null,4,0,'product_id','asc');
+                $other_count = $this->Product_model->get_all_product_count($params_set,null);
                 // $other_new = $this->News_model->get_all_newss(array('news_flag'=>1),'',8,0,'news_date_created','desc');                
             }
             $view = 'categories';
@@ -1252,11 +1257,10 @@ class Website extends MY_Controller{
         //Param URL News not Empty
         if(!empty($produk_url)){
             $params_check = array(
-                // 'news_flag' => 0,
                 'product_category_id' => $get_categories['category_id'],
                 'product_url' => $produk_url
             );
-            $get_news = $this->Produk_model->get_product_custom($params_check);
+            $get_news = $this->Product_model->get_product_custom($params_check);
 
             if($get_news){
                 // $this->News_model->update_news($get_news['news_id'],array('news_visitor' => $get_news['news_visitor']+1));
@@ -1323,10 +1327,12 @@ class Website extends MY_Controller{
                     'url' => site_url()
                 ),
                 'categories' => array(
+                    'id' => $cat_id,
                     'url' => site_url($this->product_routing).$url_news_category,
                     'title' => $url_news_category_title,
                     'result' => $category_data,
-                    // 'other_news' => $other_category,
+                    'other_product' => $other_category,
+                    'other_count' => $other_count
                 ),
                 'product' => array(
                     'url' => site_url($this->product_routing).$url_news_category.$url_news,
@@ -1353,7 +1359,7 @@ class Website extends MY_Controller{
             'final_url' => $final_url,
             'view' => $view
         );
-        // echo json_encode($data['pages']);die;
+        echo json_encode($data['pages']);die;
 
         $data['_header']        = $this->nav['web']['header'];
         $data['_footer']        = $this->nav['web']['footer'];
@@ -1384,6 +1390,7 @@ class Website extends MY_Controller{
             $data['url'] = $final_url;
 
             $data['_content']       = $this->nav['web']['layout'].$this->products_dir.'/'.$this->products_file;
+            $data['_js']            = $this->nav['web']['layout'].$this->products_dir.'/'.$this->products_file.'_js';       
             $this->load->view($this->nav['web']['index'],$data);                          
         
         }else{
