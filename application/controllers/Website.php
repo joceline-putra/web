@@ -1199,7 +1199,7 @@ class Website extends MY_Controller{
         $news_author = ''; 
         $news_status = '';
 
-        $pro_update = ''; $pro_price = ''; $pro_stock = ''; $pro_unit = '';
+        $pro_update = ''; $pro_price = ''; $pro_stock = ''; $pro_unit = ''; $pro_code = '';
         $pro_images = [];
 
         $other_category = array(); 
@@ -1276,6 +1276,7 @@ class Website extends MY_Controller{
                 $news_author = ucwords($author['user_username']);
                 $news_status = $get_news['product_flag'];
 
+                $pro_code = $get_news['product_code'];
                 $pro_update = $get_news['product_date_updated'];
                 $pro_price = $get_news['product_price_sell'];
                 $pro_stock = $get_news['product_stock'];
@@ -1340,6 +1341,7 @@ class Website extends MY_Controller{
                     'keywords' => $news_keywords,
                     'visitor' => $news_visitor,
                     'created' => $news_created,
+                        'code' => $pro_code,
                         'updated' => $pro_update,
                         'price' => $pro_price,
                         'stock' => $pro_stock,
@@ -1351,7 +1353,7 @@ class Website extends MY_Controller{
             'final_url' => $final_url,
             'view' => $view
         );
-        echo json_encode($data['pages']);die;
+        // echo json_encode($data['pages']);die;
 
         $data['_header']        = $this->nav['web']['header'];
         $data['_footer']        = $this->nav['web']['footer'];
@@ -1360,7 +1362,7 @@ class Website extends MY_Controller{
         $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
         $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
         $data['link']           = $this->sitelink();
-
+        // echo json_encode($data['link']);die;
         if($view == 'product'){ //www.any.com/product/param1/param2
             $data['title']          = $data['pages']['sitelink']['product']['title'];
             $data['author']         = $data['pages']['sitelink']['product']['author'];
