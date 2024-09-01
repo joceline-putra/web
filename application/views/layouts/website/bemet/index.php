@@ -5,11 +5,12 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Bemet - Butcher & Meat Shop HTML Template</title>
-        <meta name="description" content="Bemet - Butcher & Meat Shop HTML Template">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><?php echo $title; ?></title>
+        <meta name="keywords" content="<?php echo strip_tags($keywords); ?>"/>
+        <meta name="description" content="<?php echo strip_tags($description); ?>">
+        <meta name="author" content="<?php echo strip_tags($author); ?>">
 
-		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $asset; ?>assets/img/favicon.png">
         <!-- Place favicon.ico in the root directory -->
 
         <!-- CSS here -->

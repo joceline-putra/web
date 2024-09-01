@@ -1,13 +1,13 @@
         <!-- footer-area -->
         <footer>
             <div class="footer-area">
-                <div class="footer-logo-area">
+                <!-- <div class="footer-logo-area">
                     <div class="container">
                         <div class="footer-logo-wrap">
                             <ul class="list-wrap">
                                 <li class="order-0 order-lg-2">
                                     <div class="footer-logo">
-                                        <a href="index.html"><img src="<?php echo $asset;?>assets/img/logo/w_logo.png" alt=""></a>
+                                        <a href="<?php echo base_url(); ?>"><img src="<?php echo $link['logo']; ?>" alt=""></a>
                                     </div>
                                 </li>
                                 <li>
@@ -32,71 +32,88 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="footer-top">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-sm-6">
                                 <div class="footer-widget">
-                                    <h4 class="fw-title">about andspa</h4>
+                                    <h4 class="fw-title"><?php echo $link['brand']; ?></h4>
+                                    <div class="" style="padding:0px 13px 10px 0px;">
+                                        <a href="<?php echo base_url(); ?>"><img src="<?php echo $link['logo']; ?>" alt="" style="width:164px;"></a>
+                                    </div>
                                     <div class="footer-contact">
                                         <ul class="list-wrap">
-                                            <li>Centerl Park West La, New York</li>
-                                            <li><a href="tel:0123456789">+0 333 999 8899</a></li>
-                                            <li><a href="mailto:info@bemet.com">info@bemet.com</a></li>
+                                            <li><?php echo $link['contact']['address']['office']; ?></li>
+                                            <li><a href="tel:<?php echo $link['contact']['phone'][0]['phone']; ?>"><?php echo $link['contact']['phone'][0]['phone']; ?></a></li>
+                                            <li><a href="mailto:<?php echo $link['contact']['email'][0]['email']; ?>"><?php echo $link['contact']['email'][0]['email']; ?>m</a></li>
                                         </ul>
                                     </div>
                                     <div class="footer-content">
-                                        <h4 class="title">Open Hours</h4>
-                                        <p>Sunday to Friday <span>06:00-18:00</span></p>
+                                        <h4 class="title">Jam Operasional</h4>
+                                        <p><?php echo $link['contact']['work_hour']; ?></p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-6">
                                 <div class="footer-widget">
-                                    <h4 class="fw-title">Important Links</h4>
+                                    <h4 class="fw-title">Produk</h4>
                                     <div class="footer-link">
                                         <ul class="list-wrap">
-                                            <li><a href="contact.html">CURATION</a></li>
-                                            <li><a href="about.html">ABOUT US</a></li>
-                                            <li><a href="contact.html">MY ACCOUNT</a></li>
-                                            <li><a href="contact.html">CONTACT</a></li>
-                                            <li><a href="contact.html">SHIPPING & RETURNS</a></li>
+                                            <?php 
+                                                if(!empty($link)){
+                                                foreach($link['product_category'] as $a => $v){
+                                                    if($a < 5){
+                                                ?>
+                                                    <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'];?>"><?php echo $v['category_name'];?></a></li>
+                                                <?php 
+                                                    }
+                                                }
+                                                if(count($link['product_category']) > 5){ ?>
+                                                    <li><a href="<?php echo base_url().$link['routing']['product'];?>">Lainnya ...</a></li>
+                                                    <?php }
+                                                }
+                                            ?>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-6 col-sm-4">
+                            <div class="col-lg-3 col-md-6 col-sm-4">
                                 <div class="footer-widget">
-                                    <h4 class="fw-title">CATEGORIES</h4>
+                                    <h4 class="fw-title">Informasi</h4>
                                     <div class="footer-link">
                                         <ul class="list-wrap">
-                                            <li><a href="contact.html">How to Order</a></li>
-                                            <li><a href="contact.html">Delivery Info</a></li>
-                                            <li><a href="contact.html">FAQs</a></li>
-                                            <li><a href="contact.html">Terms</a></li>
-                                            <li><a href="contact.html">Privacy Policy</a></li>
+                                        <?php 
+                                            if(!empty($link)){
+                                            foreach($link['menu'] as $v){
+                                            ?>
+                                                <li><a href="<?php echo base_url().$v['news_url'];?>"><?php echo $v['news_title'];?></a></li>
+                                            <?php 
+                                            }
+                                            }
+                                        ?>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-8">
+                            <div class="col-lg-3 col-md-6 col-sm-4">
                                 <div class="footer-widget">
-                                    <h4 class="fw-title">instagram</h4>
-                                    <div class="footer-instagram">
+                                    <h4 class="fw-title">Social Media</h4>
+                                    <div class="footer-link">
                                         <ul class="list-wrap">
-                                            <li><a href="#"><img src="<?php echo $asset;?>assets/img/images/footer_insta01.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="<?php echo $asset;?>assets/img/images/footer_insta02.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="<?php echo $asset;?>assets/img/images/footer_insta03.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="<?php echo $asset;?>assets/img/images/footer_insta04.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="<?php echo $asset;?>assets/img/images/footer_insta05.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="<?php echo $asset;?>assets/img/images/footer_insta06.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="<?php echo $asset;?>assets/img/images/footer_insta07.jpg" alt=""></a></li>
-                                            <li><a href="#"><img src="<?php echo $asset;?>assets/img/images/footer_insta08.jpg" alt=""></a></li>
+                                        <?php 
+                                            if(!empty($link)){
+                                            foreach($link['menu'] as $v){
+                                            ?>
+                                                <li><a href="<?php echo base_url().$v['news_url'];?>"><?php echo $v['news_title'];?></a></li>
+                                            <?php 
+                                            }
+                                            }
+                                        ?>
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -105,12 +122,12 @@
                         <div class="row align-items-center">
                             <div class="col-lg-6 col-md-7">
                                 <div class="copyright-text">
-                                    <p>© 2023 By <a href="index.html">Bemet</a>, All Rights Reserved</p>
+                                    <p>© <?php echo date("Y");?> By <a href="<?php echo base_url(); ?>"><?php echo $link['brand']; ?></a>, All Rights Reserved</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-5">
                                 <div class="footer-card text-end">
-                                    <img src="<?php echo $asset;?>assets/img/images/card.png" alt="">
+                                    <!-- <img src="<?php #echo $asset;?>assets/img/images/card.png" alt=""> -->
                                 </div>
                             </div>
                         </div>

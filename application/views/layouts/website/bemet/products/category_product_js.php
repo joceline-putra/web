@@ -6,13 +6,14 @@
         // Dashboard Scroll Product
             var limit_start = 4;
             var next_ = true; // true = data ada dimuat kembali & false = data tidak ada!
+            
+            /*
             if (next_ == true) { //Start on Refresh Page
                 // next_ = false;
                 // loadProduct(limit_start);
             }
             $(window).on("scroll", function (e) {
                 var scrollTop = Math.round($(window).scrollTop());
-                // console.log(scrollTop);
                 var height = Math.round($(window).height());
                 var dashboardHeight = Math.round($(document).height());
                 if ($(window).scrollTop() + $(window).height() > ($(document).height() - 100) && next_ == true) {
@@ -21,6 +22,15 @@
                     loadProduct(limit_start);
                 }
             });
+            */
+            $(document).on("click","#btn_load_more", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                next_ = false;
+                limit_start = limit_start + 4;
+                loadProduct(limit_start);
+            });
+            
         // End of Dashboard Product
 
         function loadProduct(limit_start){
@@ -28,18 +38,21 @@
             var data = {
                 // action: 'dashboard',
                 categories: "<?php echo $pages['sitelink']['categories']['id'];?>",
-                total_row: "",
+                total_row: "<?php echo $pages['sitelink']['categories']['other_count'];?>",
                 limit_start: limit_start,
                 limit_end: 4,
             };
             $.ajax({
                 type: "post",
-                url: "<?= base_url('product/reload/'); ?>",
+                url: "<?= base_url('website/produk_reload/'); ?>",
                 data: data,
                 dataType: 'json',
                 cache: false,
                 beforeSend: function () {
-                    $("#div_product_loading").append("<div class='loading-pages text-center' style='color: black;padding-top:10px'><i class='fas fa-spinner fa-spin m-2'></i> Sedang Memuat...</div>");
+                    var dd = `<a href="#" id="btn_load_more" class="buy-btn" data-total-row="${data.total_row}">
+                        <i class='fas fa-spinner fa-spin'></i> Please wait...
+                    </a>`;
+                    $("#div_product_loading").html(dd);
                 },
                 success: function (d) {
                     if (parseInt(d.total_records) > 0) {
@@ -65,7 +78,7 @@
                                         <a href="${surl}"><img src="${pimg}" alt=""></a>
                                     </div>
                                     <div class="product-content-three">
-                                        <a href="${curl}" class="tag">${val.product_id} , ${val.category_name}</a>
+                                        <a href="${curl}" class="tag">${val.category_name}</a>
                                         <h2 class="title"><a href="${surl}">${val.product_name}</a></h2>
                                         <h2 class="price">${numberWithCommas(Math.floor(val.product_price_sell))} / ${val.product_unit}</h2>
                                         ${dd}
@@ -77,15 +90,19 @@
                                     </div>
                                 </div>
                             </div>`;                            
-                            $("#div_product_loading").append(dsp);
+                            $("#div_product").append(dsp);
                         });
+                        var dd = `<a href="#" id="btn_load_more" class="buy-btn" data-total-row="${data.total_row}">
+                            Load more
+                        </a>`;
+                        $("#div_product_loading").html(dd);                        
                         next_ = true;
                     } else {
                         next_ = false;
                         limit_start = 1;
                         $(".loading-pages").remove();
-                        alert('here');
-                        $("#div_product_loading").append("<div class='loading-pages text-center' style='color: black;padding-top:10px'>Data sudah dimuat semua</div>");
+                        var dd = ``;
+                        $("#div_product_loading").html(dd);
                     }
                 },
                 error: function (data) {

@@ -57,7 +57,8 @@ $route['search']                = "search/index";
 	$route['firebase']              = "website/firebase";
 	// $route['map']                = "website/map";	
 	$route['privacy']               = "website/privacy";
-	$route['term-of-service']       = "website/term";			
+	$route['term-of-service']       = "website/term";
+	$route['career']       			= "website/career";				
 
     // Shop
 	$route['cart']      	        = "website/cart";
@@ -72,6 +73,7 @@ $route['search']                = "search/index";
 	$route['article']               = "website/article";
 
     // Pages View REAL
+	$route['produk']  				= "website/produk";	    	// produk
 	$route['produk/(:any)']  		= "website/produk/$1";	    // produk/sncak
 	$route['produk/(:any)/(:any)']  = "website/produk/$1/$2";	// produk/sncak/anekagetuk
     $route['blog/(:any)']        	= "website/blog/$1";	    // article/olahraga

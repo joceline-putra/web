@@ -22,7 +22,7 @@
                             <div class="header-top-right">
                                 <div class="header-top-menu">
                                     <ul class="list-wrap">
-                                        <li><a href="<?php echo $link['about']; ?>">Tentang Kami</a></li>
+                                        <li><a href="<?php echo $link['term_of_service']; ?>">Syarat & Ketentuan</a></li>
                                         <li><a href="<?php echo $link['privacy']; ?>">Kebijakan Privasy</a></li>         
                                     </ul>
                                 </div>
@@ -60,35 +60,32 @@
                                     </div>
                                     <div class="navbar-wrap main-menu d-none d-lg-flex">
                                         <ul class="navigation">
-                                            <li class="active menu-item-has-children"><a href="#">Home</a>
+                                            <li class="active menu-item-has-children"><a href="#">Home</a></li>
+                                            <li class="menu-item-has-children"><a href="#">Produk</a>
                                                 <ul class="sub-menu">
-                                                    <li class="active"><a href="index.html">Home One</a></li>
-                                                    <li><a href="index-2.html">Home Two</a></li>
-                                                    <li><a href="index-3.html">Home Three</a></li>
+                                                <li><a href="<?php echo base_url().$link['routing']['product'];?>">Semua</a></li>
+                                                <?php 
+                                                    if(!empty($link)){
+                                                    foreach($link['product_category'] as $v){
+                                                    ?>
+                                                        <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'];?>"><?php echo $v['category_name'];?></a></li>
+                                                    <?php 
+                                                    }
+                                                    }
+                                                ?>
                                                 </ul>
                                             </li>
-                                            <li><a href="about.html">ABOUT US</a></li>
-                                            <li class="menu-item-has-children"><a href="#">PRODUCTS</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="shop.html">Shop One</a></li>
-                                                    <li><a href="shop-2.html">Shop Two</a></li>
-                                                    <li><a href="shop-details.html">Shop Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children"><a href="#">BLOG</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="blog.html">Our Blog</a></li>
-                                                    <li><a href="blog-details.html">Blog Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children"><a href="#">PAGES</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="services.html">Services Page</a></li>
-                                                    <li><a href="services-details.html">Services Details</a></li>
-                                                    <li><a href="team-details.html">Team Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <?php 
+                                                if(!empty($link)){
+                                                foreach($link['menu'] as $v){
+                                                    if(($v['news_id'] < 2) or ($v['news_id'] > 3)){
+                                                ?>
+                                                    <li><a href="<?php echo base_url().$v['news_url'];?>"><?php echo $v['news_title'];?></a></li>
+                                                <?php 
+                                                    }
+                                                }
+                                                }
+                                            ?>                                            
                                         </ul>
                                     </div>
                                     <div class="header-action d-none d-md-block">

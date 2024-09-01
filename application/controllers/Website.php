@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Website extends MY_Controller{
+class Website extends CI_Controller{
 
     public $asset; public $layout; public $controller;
     
@@ -18,7 +18,7 @@ class Website extends MY_Controller{
     public $contacts_dir; public $contacts_file; public $contact_file;
     
     public $about_file; public $cart_file; public $checkout_file; public $contact_us_file; 
-    public $login_file; public $wishlist_file; public $faq_file; public $tos_file; public $pp_file; public $payment_file;
+    public $login_file; public $wishlist_file; public $faq_file; public $tos_file; public $pp_file; public $payment_file; public $career_file;
 
     function __construct(){
         parent::__construct();
@@ -52,7 +52,7 @@ class Website extends MY_Controller{
             $this->blog_file        = 'article';
 
         $this->products_dir     = 'products';
-            $this->products_file    = 'products';
+            $this->products_file    = 'category_product';
             $this->product_file     = 'product';
 
         $this->contacts_dir     = 'contacts'; //Not Used
@@ -69,7 +69,8 @@ class Website extends MY_Controller{
 
         $this->faq_file         = $this->site_dir.'/'.'faqs';
         $this->tos_file         = $this->site_dir.'/'.'term_of_service';
-        $this->pp_file          = $this->site_dir.'/'.'privacy_policy';         
+        $this->pp_file          = $this->site_dir.'/'.'privacy_policy';
+        $this->career_file      = $this->site_dir.'/'.'career';                 
 
         //New Concept
 		$this->nav = array(
@@ -190,8 +191,9 @@ class Website extends MY_Controller{
                 'project' => $this->project_routing,
                 'gallery' => $this->gallery_routing
             ],
-            'article_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>2,'category_flag'=>1],null,10,0,'category_name','asc'),
-            'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,10,0,'category_name','asc'),
+            // 'article_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>2,'category_flag'=>1],null,10,0,'category_name','asc'),
+            'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,null,null,'category_name','asc'),
+            'menu' => $this->News_model->get_all_newss(['news_type'=>0,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'newsticker' => $json['header_title']
         );
         return $a;
@@ -306,7 +308,7 @@ class Website extends MY_Controller{
                         'product_price_promo' => 'Rp. '.number_format($v['product_price_promo'],0),
                         'product_flag' => $v['product_flag'] == 1 ? 'Tersedia' : 'Tidak Tersedia',
                         'product_ref' => $v['product_ref_id'] == 1 ? 'Jual' : 'Sewa',
-                        'product_type' => $this->product_type($v['product_type'],null)
+                        // 'product_type' => $this->product_type($v['product_type'],null)
                     );
                 }
                 // echo json_encode($data_source);die;
@@ -601,85 +603,85 @@ class Website extends MY_Controller{
                 $news_new_data          = array();
 
                 /* News */
-                    $get_news_banner = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=> 1,'news_position'=>1),null,8,0,'news_date_created','asc');
-                    foreach($get_news_banner as $b):
-                        $url_category = $b['category_url'];
-                        $url_news = $b['news_url'];
-                        $news_banner_data[] = array(
-                            'title' => $b['news_title'],
-                            'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
-                            'category' => array(
-                                'category_name' => $b['category_name'],
-                                'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
-                            ),
-                            'author' => ucfirst($b['user_username']),
-                            'image' => !empty($b['news_image']) ? site_url().$b['news_image'] : site_url('upload/noimage.png'),
-                            'short' => $b['news_short'],
-                            'content' => substr(strip_tags($b['news_content']),0,40),
-                            'tags' => $b['news_tags'],
-                            'keywords' => $b['news_tags'],
-                            'visitor' => intval($b['news_visitor']),
-                            'created' => $b['news_date_created'],
-                            'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
-                            // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
-                        );
-                    endforeach;
+                    // $get_news_banner = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=> 1,'news_position'=>1),null,8,0,'news_date_created','asc');
+                    // foreach($get_news_banner as $b):
+                    //     $url_category = $b['category_url'];
+                    //     $url_news = $b['news_url'];
+                    //     $news_banner_data[] = array(
+                    //         'title' => $b['news_title'],
+                    //         'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
+                    //         'category' => array(
+                    //             'category_name' => $b['category_name'],
+                    //             'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
+                    //         ),
+                    //         'author' => ucfirst($b['user_username']),
+                    //         'image' => !empty($b['news_image']) ? site_url().$b['news_image'] : site_url('upload/noimage.png'),
+                    //         'short' => $b['news_short'],
+                    //         'content' => substr(strip_tags($b['news_content']),0,40),
+                    //         'tags' => $b['news_tags'],
+                    //         'keywords' => $b['news_tags'],
+                    //         'visitor' => intval($b['news_visitor']),
+                    //         'created' => $b['news_date_created'],
+                    //         'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
+                    //         // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
+                    //     );
+                    // endforeach;
                 /* End of News */
 
                 /* News New */
-                    $get_news_new = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=> 1),null,4,0,'news_date_created','asc');
-                    foreach($get_news_new as $b):
-                        $url_category = $b['category_url'];
-                        $url_news = $b['news_url'];
-                        $news_new_data[] = array(
-                            'title' => $b['news_title'],
-                            'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
-                            'category' => array(
-                                'category_name' => $b['category_name'],
-                                'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
-                            ),
-                            'author' => ucfirst($b['user_username']),
-                            'image' => !empty($b['news_image']) ? site_url().$b['news_image'] : site_url('upload/noimage.png'),
-                            'short' => $b['news_short'],
-                            'content' => substr(strip_tags($b['news_content']),0,40),
-                            'tags' => $b['news_tags'],
-                            'keywords' => $b['news_tags'],
-                            'visitor' => intval($b['news_visitor']),
-                            'created' => $b['news_date_created'],
-                            'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
-                            // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
-                        );
-                    endforeach;                
+                    // $get_news_new = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=> 1),null,4,0,'news_date_created','asc');
+                    // foreach($get_news_new as $b):
+                    //     $url_category = $b['category_url'];
+                    //     $url_news = $b['news_url'];
+                    //     $news_new_data[] = array(
+                    //         'title' => $b['news_title'],
+                    //         'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
+                    //         'category' => array(
+                    //             'category_name' => $b['category_name'],
+                    //             'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
+                    //         ),
+                    //         'author' => ucfirst($b['user_username']),
+                    //         'image' => !empty($b['news_image']) ? site_url().$b['news_image'] : site_url('upload/noimage.png'),
+                    //         'short' => $b['news_short'],
+                    //         'content' => substr(strip_tags($b['news_content']),0,40),
+                    //         'tags' => $b['news_tags'],
+                    //         'keywords' => $b['news_tags'],
+                    //         'visitor' => intval($b['news_visitor']),
+                    //         'created' => $b['news_date_created'],
+                    //         'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
+                    //         // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
+                    //     );
+                    // endforeach;                
                 /* End of News New */
 
                 /* News Popular */
-                    $get_news_pp = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=> 1),null,4,0,'news_visitor','asc');
-                    foreach($get_news_pp as $b):
-                        $url_category = $b['category_url'];
-                        $url_news = $b['news_url'];
-                        $news_popular_data[] = array(
-                            'title' => $b['news_title'],
-                            'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
-                            'category' => array(
-                                'category_name' => $b['category_name'],
-                                'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
-                            ),
-                            'author' => ucfirst($b['user_username']),
-                            'image' => !empty($b['news_image']) ? site_url().$b['news_image'] : site_url('upload/noimage.png'),
-                            'short' => $b['news_short'],
-                            'content' => substr(strip_tags($b['news_content']),0,40),
-                            'tags' => $b['news_tags'],
-                            'keywords' => $b['news_tags'],
-                            'visitor' => intval($b['news_visitor']),
-                            'created' => $b['news_date_created'],
-                            'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
-                            // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
-                        );
-                    endforeach;                
+                    // $get_news_pp = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=> 1),null,4,0,'news_visitor','asc');
+                    // foreach($get_news_pp as $b):
+                    //     $url_category = $b['category_url'];
+                    //     $url_news = $b['news_url'];
+                    //     $news_popular_data[] = array(
+                    //         'title' => $b['news_title'],
+                    //         'url' => site_url($this->blog_routing).'/'.$url_category.'/'.$url_news,
+                    //         'category' => array(
+                    //             'category_name' => $b['category_name'],
+                    //             'category_url' => site_url($this->blog_routing).'/'.$b['category_url']
+                    //         ),
+                    //         'author' => ucfirst($b['user_username']),
+                    //         'image' => !empty($b['news_image']) ? site_url().$b['news_image'] : site_url('upload/noimage.png'),
+                    //         'short' => $b['news_short'],
+                    //         'content' => substr(strip_tags($b['news_content']),0,40),
+                    //         'tags' => $b['news_tags'],
+                    //         'keywords' => $b['news_tags'],
+                    //         'visitor' => intval($b['news_visitor']),
+                    //         'created' => $b['news_date_created'],
+                    //         'publish' => ($b['news_flag'] == 1) ? 'Publish' : '',
+                    //         // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
+                    //     );
+                    // endforeach;                
                 /* End of News Popular */                
 
                 /* Categories */
-                    $get_category = $this->Kategori_model->get_all_categoriess(array('category_type' => 2,'category_flag'=>1),null,10,0,'category_name','asc');
+                    $get_category = $this->Kategori_model->get_all_categoriess(array('category_type' => 1,'category_flag'=>1),null,10,0,'category_name','asc');
                     foreach($get_category as $v):
                         $category_data[] = array(
                                 'id' => $v['category_id'],
@@ -693,28 +695,26 @@ class Website extends MY_Controller{
                 /* End of Categories Data */ 
 
                 /* Product */
-                    $params_product = array('product_flag' => 1);
-                    $get_product = $this->Produk_model->get_all_produks($params_product,null,4,0,'product_id','asc');
-                    foreach($get_product as $v):
-                        $product_data[] = array(
-                                'id' => $v['product_id'],
-                                'url' => site_url($this->product_routing).'/'.$v['category_url'].'/'.$v['product_url'],
-                                'code' => $v['product_code'],
-                                'title' => $v['product_name'],
-                                'flag' => $v['product_flag'] == 1 ? 'Tersedia' : 'Tidak Tersedia',
-                                // 'ref' => $v['product_ref_id'],
-                                'price' => !empty($v['product_price_sell']) ? floatval($v['product_price_sell']) : 0,
-                                'price_discount' => !empty($v['product_price_promo']) ? floatval($v['product_price']) : 0,
-                                // 'note' => $v['product_note'],
-                                'type' => $this->product_type($v['product_type'],null),
-                                'image' => site_url().$v['product_image']
-                        );
-                    endforeach;
+                    // $params_product = array('product_flag' => 1);
+                    // $get_product = $this->Produk_model->get_all_produks($params_product,null,4,0,'product_id','asc');
+                    // foreach($get_product as $v):
+                    //     $product_data[] = array(
+                    //             'id' => $v['product_id'],
+                    //             'url' => site_url($this->product_routing).'/'.$v['category_url'].'/'.$v['product_url'],
+                    //             'code' => $v['product_code'],
+                    //             'title' => $v['product_name'],
+                    //             'flag' => $v['product_flag'] == 1 ? 'Tersedia' : 'Tidak Tersedia',
+                    //             // 'ref' => $v['product_ref_id'],
+                    //             'price' => !empty($v['product_price_sell']) ? floatval($v['product_price_sell']) : 0,
+                    //             'price_discount' => !empty($v['product_price_promo']) ? floatval($v['product_price']) : 0,
+                    //             // 'note' => $v['product_note'],
+                    //             // 'type' => $this->product_type($v['product_type'],null),
+                    //             'image' => site_url().$v['product_image']
+                    //     );
+                    // endforeach;
                 //End of Product Data 
 
                 //Final Data to Front End
-                // $data['navigation'] = $this->product_type(null,null);
-                // $data['menus'] = $menu_data;
                 $data['product'] = $product_data;
                 $data['category'] = $category_data;
                 $data['news'] = array(
@@ -722,10 +722,11 @@ class Website extends MY_Controller{
                     'news_new' => $news_new_data,
                     'news_popular' => $news_popular_data 
                 );
+
                 $data['result'] = array(
-                    'product' => $data['product'],
-                    'category' => $data['category'],
-                    'news' => $data['news']
+                    'product' => !empty($data['product']) ? $data['product'] : [],
+                    'category' => !empty($data['category']) ? $data['category'] : [],
+                    'news' => !empty($data['news']) ? $data['news'] : [],
                 );
                 
                 // echo json_encode($data['result']);die;
@@ -737,7 +738,6 @@ class Website extends MY_Controller{
     }
 
     function about(){
-
         $params_check = array(
             'news_type' => 0,
             'news_flag' => 1,
@@ -745,10 +745,8 @@ class Website extends MY_Controller{
         );
         $get_news   = $this->News_model->get_news_by_url($params_check);
         $get_author = $this->User_model->get_user($get_news['news_user_id']);
-        // $this->News_model->update_news($get_news['news_id'],array('news_visitor' => $get_news['news_visitor']+1));
-                
-        // var_dump($get_news);die;
-        $data['title']          = 'Tentang Kami';
+        
+        $data['title']          = ucwords($get_news['news_title']);
         $data['author']         = ucwords($get_author['user_username']);
         $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
         // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
@@ -767,7 +765,6 @@ class Website extends MY_Controller{
         $this->load->view($this->nav['web']['index'],$data);
     }
     function privacy(){
-
         $params_check = array(
             'news_type' => 0,
             'news_flag' => 1,
@@ -776,8 +773,7 @@ class Website extends MY_Controller{
         $get_news   = $this->News_model->get_news_by_url($params_check);
         $get_author = $this->User_model->get_user($get_news['news_user_id']);
                 
-        // var_dump($get_news);die;
-        $data['title']          = 'Kebijakan Privasi';
+        $data['title']          = ucwords($get_news['news_title']);
         $data['author']         = ucwords($get_author['user_username']);
         $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
         // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
@@ -796,7 +792,6 @@ class Website extends MY_Controller{
         $this->load->view($this->nav['web']['index'],$data);
     }    
     function term(){
-
         $params_check = array(
             'news_type' => 0,
             'news_flag' => 1,
@@ -805,8 +800,7 @@ class Website extends MY_Controller{
         $get_news   = $this->News_model->get_news_by_url($params_check);
         $get_author = $this->User_model->get_user($get_news['news_user_id']);
                 
-        // var_dump($get_news);die;
-        $data['title']          = 'Syarat dan Ketentuan';
+        $data['title']          = ucwords($get_news['news_title']);
         $data['author']         = ucwords($get_author['user_username']);
         $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
         // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
@@ -823,7 +817,35 @@ class Website extends MY_Controller{
         $data['_content']       = $this->nav['web']['layout'].$this->tos_file;
 
         $this->load->view($this->nav['web']['index'],$data);
-    }    
+    } 
+    function career(){
+
+        $params_check = array(
+            'news_type' => 0,
+            'news_flag' => 1,
+            'news_url' => 'career'
+        );
+        $get_news   = $this->News_model->get_news_by_url($params_check);
+        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+
+        $data['title']          = ucwords($get_news['news_title']);
+        $data['author']         = ucwords($get_author['user_username']);
+        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
+        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
+        $data['description']    = $get_news['news_content'];        
+        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
+
+        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
+        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
+        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+        $data['link']           = $this->sitelink();
+
+        $data['_header']        = $this->nav['web']['header'];
+        $data['_footer']        = $this->nav['web']['footer'];
+        $data['_content']       = $this->nav['web']['layout'].$this->career_file;
+
+        $this->load->view($this->nav['web']['index'],$data);
+    }        
     function contact_us(){ //Not
         $data['title']          = 'Hubungi Kami';
         $data['author']         = 'John Doe';
@@ -1021,7 +1043,7 @@ class Website extends MY_Controller{
         $data['template'] = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';  
         $data['asset']    = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';     
         
-        $data['navigation'] = $this->product_type(null,null);        
+        // $data['navigation'] = $this->product_type(null,null);        
         $data['title'] = 'Contact Us';
         $data['author'] = 'John Doe';
         $data['description'] = 'Its not about news, talk to each other something special from this site';
@@ -1037,16 +1059,8 @@ class Website extends MY_Controller{
 
     /* Dynamic Page */
     function blog($categories_url = '',$news_url = ''){ // Production
-        $view = '';
-        $news_short = ''; 
-        $news_content = ''; 
-        $news_tags = ''; 
-        $news_keywords = ''; 
-        $news_image = ''; 
-        $news_visitor = ''; 
-        $news_created = ''; 
-        $news_author = ''; 
-        $news_status = '';
+        $view = '';$news_short = ''; $news_content = ''; $news_tags = ''; $news_keywords = ''; 
+        $news_image = ''; $news_visitor = ''; $news_created = ''; $news_author = ''; $news_status = '';
         
         $other_category     = array(); 
         $other_popular      = array(); 
@@ -1189,16 +1203,8 @@ class Website extends MY_Controller{
         }
     }
     function produk($categories_url = '',$produk_url = ''){ // Production
-        $view = '';
-        $news_short = ''; 
-        $news_content = ''; 
-        $news_tags = ''; 
-        $news_keywords = ''; 
-        $news_image = ''; 
-        $news_visitor = ''; 
-        $news_created = ''; 
-        $news_author = ''; 
-        $news_status = '';
+        $view = ''; $news_short = ''; $news_content = ''; $news_tags = ''; 
+        $news_keywords = ''; $news_image = ''; $news_visitor = ''; $news_created = ''; $news_author = ''; $news_status = '';
 
         $pro_update = ''; $pro_price = ''; $pro_stock = ''; $pro_unit = ''; $pro_code = '';
         $pro_images = [];
@@ -1214,17 +1220,24 @@ class Website extends MY_Controller{
         //Get All Categories
         $category_data = array();
         $params = array(
-            'category_type' => 1
+            'category_type' => 1,
+            'category_flag' => 1
         );
         $get_all_category = $this->Kategori_model->get_all_categoriess($params,null,null,null,'category_name','asc');
         foreach ($get_all_category as $value) {
             $category_data[] = array(
                 'category_id' => $value['category_id'],
                 'category_name' => $value['category_name'],
-                'category_url' => $value['category_url'],
                 'category_url' => site_url($this->product_routing).'/'.$value['category_url'],
-                'category_count' => $value['category_count']                
+                'category_count' => $value['category_count'],
+                'category_image' => !empty($value['category_image']) ? base_url().$value['category_image'] : base_url('upload/noimage2.png')               
             );
+        }
+
+        if((empty($categories_url)) && (empty($produk_url))){
+            $cat_id = 0;
+            $url_news_category = '';
+            $url_news_category_title = ucfirst($this->product_routing);
         }
 
         //Param URL Categories not Empty
@@ -1359,7 +1372,7 @@ class Website extends MY_Controller{
             'final_url' => $final_url,
             'view' => $view
         );
-        echo json_encode($data['pages']);die;
+        // echo json_encode($data['pages']);die;
 
         $data['_header']        = $this->nav['web']['header'];
         $data['_footer']        = $this->nav['web']['footer'];
@@ -1391,10 +1404,59 @@ class Website extends MY_Controller{
 
             $data['_content']       = $this->nav['web']['layout'].$this->products_dir.'/'.$this->products_file;
             $data['_js']            = $this->nav['web']['layout'].$this->products_dir.'/'.$this->products_file.'_js';       
-            $this->load->view($this->nav['web']['index'],$data);                          
-        
+            $this->load->view($this->nav['web']['index'],$data); 
         }else{
-            echo 1;die;
+            $data['title']          = $data['pages']['sitelink']['categories']['title'];
+            $data['author']         = 'John Doe';
+            $data['description']    = 'Its not about news, talk to each other something special from this site';
+            $data['keywords']       = 'website, john doe, homepage';
+
+            $data['url'] = $final_url;
+
+            $data['_content']       = $this->nav['web']['layout'].$this->products_dir.'/'.$this->products_dir;
+            // $data['_js']            = $this->nav['web']['layout'].$this->products_dir.'/'.$this->products_dir.'_js';       
+            $this->load->view($this->nav['web']['index'],$data);
         }
-    }    
+    }   
+    function produk_reload(){
+        $return = new \stdClass();
+        $return->status = 0;
+        $return->message = '';
+        $return->result = '';
+
+        $cat  = $this->input->post('categories');
+        // $end    = $this->input->post('end');
+        // $user   = $this->input->post('user');  
+
+        $limit_start = !empty($this->input->post('limit_start')) ? $this->input->post('limit_start') : 1;
+        $limit_end = !empty($this->input->post('limit_end')) ? $this->input->post('limit_end') : 4;
+
+        $limit = ($limit_start * $limit_end) - $limit_end;
+        // $limit_start = $this->input->post('limit_start');
+        // $limit_end = $this->input->post('limit_end');         
+
+          // $limit_start = 5; // jumlah item yg akan ditampilkan
+          // $limit_end = ($this->input->post('limit_start') * $limit_end) - $limit_end; // pagination
+        // var_dump($limit_start,$limit_end);die;
+        // date("Y-m-d",strtotime($start)),date("Y-m-d",strtotime($end))
+        $params = [
+            'product_type' => 1,
+            'product_category_id' => $cat,
+            'product_flag' => 1
+        ];
+        $get_data=$this->Product_model->get_all_product($params,null,$limit_end,$limit_start,'product_id','asc');
+        if(isset($get_data)){ //Data exist
+        //     $data_source=$datas; $total=count($datas);
+            $return->status=1; $return->message='Loaded'; $return->total_records=count($get_data);
+            $return->result=$get_data;        
+        //     $return->get_data=$get_data;
+        }else{ 
+        //     $data_source=0; $total=0; 
+            $return->status=0; $return->message='No data'; $return->total_records=count($get_data);
+            $return->result=0;    
+        }
+        $return->limit=$limit_start.','.$limit_end;  
+        $return->site = base_url().'produk';
+        echo json_encode($return);      
+    }     
 }
