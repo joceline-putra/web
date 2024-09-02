@@ -1,7 +1,26 @@
 <main>
-    <section class="blog-post-area">
+    <!-- breadcrumb-area -->
+    <section class="breadcrumb-area tg-motion-effects breadcrumb-bg" data-background="<?php echo $asset; ?>assets/img/bg/breadcrumb_bg.jpg">
         <div class="container">
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-content">
+                        <h2 class="title"><?php echo $title; ?></h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="<?php echo site_url(); ?>">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb-area-end -->
+    <section class="blog-post-area">
+        <div class="container">
+            <!-- <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title text-center mb-70">
                         <span class="sub-title">Latest News</span>
@@ -9,7 +28,7 @@
                         <div class="title-shape" data-background="<?php echo $asset;?>assets/img/images/title_shape.png"></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="row justify-content-center">
                 <?php 
                     if(count($pages['sitelink']['categories']['result']) > 0){

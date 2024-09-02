@@ -23,7 +23,7 @@
             <!-- breadcrumb-area-end -->
 
             <!-- shop-area -->
-            <section class="shop-area shop-bg" data-background="assets/img/bg/shop_bg.jpg">
+            <section class="shop-area shop-bg" data-background="<?php echo $asset; ?>assets/img/bg/shop_bg.jpg">
                 <div class="container custom-container-five">
                     <div class="shop-inner-wrap">
                         <div class="row">

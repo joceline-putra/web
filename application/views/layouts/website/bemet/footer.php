@@ -65,7 +65,13 @@
                                                 foreach($link['product_category'] as $a => $v){
                                                     if($a < 5){
                                                 ?>
-                                                    <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'];?>"><?php echo $v['category_name'];?></a></li>
+                                                    <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'];?>">
+                                                    <?php 
+                                                    echo $v['category_name'];
+                                                    if($v['category_count'] > 0){
+                                                        echo '&nbsp;&nbsp;['.$v['category_count'].']';
+                                                    }
+                                                    ?></a></li>
                                                 <?php 
                                                     }
                                                 }
@@ -103,13 +109,13 @@
                                         <ul class="list-wrap">
                                         <?php 
                                             if(!empty($link)){
-                                            foreach($link['menu'] as $v){
-                                            ?>
-                                                <li><a href="<?php echo base_url().$v['news_url'];?>"><?php echo $v['news_title'];?></a></li>
-                                            <?php 
+                                                foreach($link['social'] as $v){
+                                                ?>
+                                                    <li><a href="<?php echo $v['url'];?>" target="_blank"><i class="<?php echo $v['icon'];?>"></i><?php echo $v['name'];?></a></li>
+                                                <?php 
+                                                }
                                             }
-                                            }
-                                        ?>
+                                        ?> 
                                         </ul>
                                     </div>
                                 </div>

@@ -56,11 +56,11 @@
                                 <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
                                 <nav class="menu-nav">
                                     <div class="logo">
-                                        <a href="<?php echo site_url(); ?>"><img src="<?php echo $link['logo']; ?>" alt="Logo"></a>
+                                        <a href="<?php echo base_url(); ?>"><img src="<?php echo $link['logo']; ?>" alt="Logo"></a>
                                     </div>
                                     <div class="navbar-wrap main-menu d-none d-lg-flex">
                                         <ul class="navigation">
-                                            <li class="active menu-item-has-children"><a href="#">Home</a></li>
+                                            <li class="active menu-item-has-children"><a href="<?php echo base_url(); ?>">Home</a></li>
                                             <li class="menu-item-has-children"><a href="#">Produk</a>
                                                 <ul class="sub-menu">
                                                 <li><a href="<?php echo base_url().$link['routing']['product'];?>">Semua</a></li>
@@ -68,7 +68,13 @@
                                                     if(!empty($link)){
                                                     foreach($link['product_category'] as $v){
                                                     ?>
-                                                        <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'];?>"><?php echo $v['category_name'];?></a></li>
+                                                        <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'];?>">
+                                                        <?php 
+                                                            echo $v['category_name'];
+                                                            if($v['category_count'] > 0){
+                                                                echo '&nbsp;&nbsp;['.$v['category_count'].']';
+                                                            }
+                                                        ?></a></li>
                                                     <?php 
                                                     }
                                                     }

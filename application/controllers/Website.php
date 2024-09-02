@@ -586,6 +586,7 @@ class Website extends CI_Controller{
                 echo json_encode($return);
                 break;                                           
             default:
+                redirect('produk','refresh');
                 $this_file              = $this->content_file;
                 $data['title']          = 'Website Template';
                 $data['author']         = 'John Doe';
@@ -731,6 +732,7 @@ class Website extends CI_Controller{
                 
                 // echo json_encode($data['result']);die;
                 $data['_content']       = $this->nav['web']['layout'].$this_file;
+                // $data['_js']            = $this->nav['web']['layout'].$this_file.'_js';    
                 $this->load->view($this->nav['web']['index'],$data);
                 
             // End of default
