@@ -24,6 +24,7 @@ class Website extends CI_Controller{
         parent::__construct();
         $this->load->library('form_validation');                  
         $this->load->helper('form');        
+        $this->load->helper('string');
         $this->load->helper(array('cookie', 'url'));         
 
         //Configuration
@@ -115,7 +116,7 @@ class Website extends CI_Controller{
         if(empty($this->input->cookie('trans_session'))){
             $cookie = array(
                 'name' => 'trans_session',
-                'value' => $this->random_code(20),
+                'value' => random_string('alnum', 20),
                 'expire' => strtotime('+30 day'),
                 'path' => '/'                    
             );
