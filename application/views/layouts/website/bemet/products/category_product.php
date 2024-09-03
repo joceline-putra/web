@@ -63,13 +63,13 @@
                                         if(count($pages['sitelink']['categories']['other_product']) > 0){
                                             $res = $pages['sitelink']['categories']['other_product'];
                                             foreach($res as $v){
-                                                $curl = site_url().'/'.$v['category_url'];
-                                                $surl = site_url().'/'.$v['category_url'].'/'.$v['product_url'];
+                                                $curl = site_url('produk').'/'.$v['category_url'];
+                                                $surl = site_url('produk').'/'.$v['category_url'].'/'.$v['product_url'];
                                             ?>
                                             <div class="col-xl-3 col-lg-4 col-md-6">
                                                 <div class="product-item-three inner-product-item" style="height:420px;">
                                                     <div class="product-thumb-three">
-                                                        <a href="<?php echo $surl; ?>"><img src="<?php echo $asset; ?>assets/img/product/inner_product01.png" alt=""></a>
+                                                        <a href="<?php echo $surl; ?>"><img src="<?php echo base_url().$v['product_image'];?>" alt=""></a>
  
                                                     </div>
                                                     <div class="product-content-three">

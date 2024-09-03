@@ -36,8 +36,8 @@ class Product extends MY_Controller{
 
         // $this->folder_upload = 'upload/news/';
         // $this->allowed_types = 'jpg|png|jpeg|mp4';
-        // $this->image_width   = 480;
-        // $this->image_height  = 480;
+        $this->image_width   = 480;
+        $this->image_height  = 480;
         // $this->allowed_file_size     = 1024; // 5 MB -> 5000 KB
     }
     function index(){
@@ -62,7 +62,8 @@ class Product extends MY_Controller{
                 case "load":
                     $columns = array(
                         '0' => 'product_id',
-                        '1' => 'product_name'
+                        '1' => 'product_name',
+                        '2' => 'category_name'
                     );
 
                     $limit     = !empty($post['length']) ? $post['length'] : 10;

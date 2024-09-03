@@ -172,7 +172,7 @@
 <!-- shop-details-area-end -->
 
 <!-- product-area -->
-<section class="related-product-area pb-70">
+<!-- <section class="related-product-area pb-70">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -313,7 +313,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- product-area-end -->
 
 </main>
