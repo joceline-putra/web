@@ -17,7 +17,7 @@ class Product extends MY_Controller{
     // var $blog_route         = 'blog';
     // var $project_route      = 'project'; 
     // var $gallery_route      = 'gallery'; 
-    var $product_route      = 'product';               
+    var $product_route      = 'produk';               
 
     function __construct(){
         parent::__construct();
