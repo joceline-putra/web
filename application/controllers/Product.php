@@ -150,23 +150,23 @@ class Product extends MY_Controller{
                     break;
                 case "create_update":
                     $next = true;
-
+                    // die;
                     // Cek if any Files
-                    if(!empty($_FILES['files'])){
-                        $files_count = count($_FILES['files']['name']);
-                        if($files_count > 0){
-                            for($i=0; $i<$files_count; $i++){
-                                if(intval($_FILES['files']['size'][$i] / 1024) > ($this->allowed_file_size)){
-                                    $next = false;
-                                    $set_msg = 'Gagal, ukuran melebihi '.($this->allowed_file_size / 1024).' Mb'; $next = false;
-                                    $return->message = $set_msg;
-                                    echo json_encode($return); die;
-                                }else{
-                                    $next = true;
-                                }
-                            }
-                        }
-                    }
+                    // if(!empty($_FILES['files'])){
+                    //     $files_count = count($_FILES['files']['name']);
+                    //     if($files_count > 0){
+                    //         for($i=0; $i<$files_count; $i++){
+                    //             if(intval($_FILES['files']['size'][$i] / 1024) > ($this->allowed_file_size)){
+                    //                 $next = false;
+                    //                 $set_msg = 'Gagal, ukuran melebihi '.($this->allowed_file_size / 1024).' Mb'; $next = false;
+                    //                 $return->message = $set_msg;
+                    //                 echo json_encode($return); die;
+                    //             }else{
+                    //                 $next = true;
+                    //             }
+                    //         }
+                    //     }
+                    // }
 
                     if($next){
                         $title = !empty($this->input->post('title')) ? $this->safe($this->input->post('title')) : '';
@@ -243,20 +243,23 @@ class Product extends MY_Controller{
                                         $set_data = $this->input->post('id');
                                     }
 
-                                    // Call Helper for Upload
-                                    if(!empty($_FILES['files'])){
-                                        //Process for Upload
-                                        $image_config=array(
-                                            'compress' => 1,
-                                            'width'=>$this->image_width,
-                                            'height'=>$this->image_height
-                                        );
-                                        $folder = $this->folder_upload_product;
+                                    //Process for Upload
+                                    $image_config=array(
+                                        'compress' => 1,
+                                        'width'=>$this->image_width,
+                                        'height'=>$this->image_height
+                                    );
+                                    $watermark = [
+                                        'text_1' => 'avista.id',
+                                        'text_2' => 'Property'                           
+                                    ];                                    
+                                    $folder = $this->folder_upload_product;
 
-                                        $upload_helper = upload_file_array($folder, $_FILES['files'],$image_config);
-                                        if ($upload_helper['status'] == 1) {
-
-                                            foreach($upload_helper['result'] as $v){
+                                    //Croppie Upload Image
+                                    $post_upload_1 = !empty($this->input->post('files_1')) ? $this->input->post('files_1') : "";
+                                    if(strlen($post_upload_1) > 10){
+                                        $upload_process = upload_file_base64_watermark($folder,$post_upload_1,$image_config,$watermark);
+                                        if($upload_process['status'] == 1){
                                                 $file_session = $this->random_session(20);
                                                 $params = array(
                                                     'file_from_table' => 'products',
@@ -265,23 +268,87 @@ class Product extends MY_Controller{
                                                     'file_date_created' => date("YmdHis"),
                                                     'file_user_id' => $session_user_id,
                                                     'file_type' => 1,
-                                                    'file_name' => $v['file_old_name'],
-                                                    'file_format' => $v['file_ext'],
-                                                    'file_url' => $v['file_location'],
-                                                    'file_size' => $v['file_size']                                                                        
+                                                    'file_name' => $upload_process['result']['file_name'],
+                                                    'file_format' => $upload_process['result']['file_ext'],
+                                                    'file_url' => $upload_process['result']['file_location'],
+                                                    'file_size' => $upload_process['result']['file_size']
                                                 );
                                                 $save_data = $this->File_model->add_file($params);
-                                            }
-                                            //Add Image for params before update
-                                            // $params['news_image'] = $this->folder_upload_project.$upload_helper['file'];
-                                            $set_msg = 'Berhasil menyimpan dengan Gambar';
                                         }else{
-                                            $set_msg = 'Error: '.$upload_helper['message'];
-                                        }  
-                                    } else{
-                                        $set_msg = 'Menyimpan tanpa gambar';
-                                    }   
-                                    // End Call Helper for Upload 
+                                            $return->message = 'Fungsi Gambar gagal';
+                                        }
+                                    }
+
+                                    $post_upload_2 = !empty($this->input->post('files_2')) ? $this->input->post('files_2') : "";
+                                    if(strlen($post_upload_2) > 10){
+                                        $upload_process = upload_file_base64_watermark($folder,$post_upload_2,$image_config,$watermark);
+                                        if($upload_process['status'] == 1){
+                                                $file_session = $this->random_session(20);
+                                                $params = array(
+                                                    'file_from_table' => 'products',
+                                                    'file_from_id' => $set_data,
+                                                    'file_session' => $file_session,
+                                                    'file_date_created' => date("YmdHis"),
+                                                    'file_user_id' => $session_user_id,
+                                                    'file_type' => 1,
+                                                    'file_name' => $upload_process['result']['file_name'],
+                                                    'file_format' => $upload_process['result']['file_ext'],
+                                                    'file_url' => $upload_process['result']['file_location'],
+                                                    'file_size' => $upload_process['result']['file_size']
+                                                );
+                                                $save_data = $this->File_model->add_file($params);
+                                        }else{
+                                            $return->message = 'Fungsi Gambar gagal';
+                                        }
+                                    }
+                                    
+                                    $post_upload_3 = !empty($this->input->post('files_3')) ? $this->input->post('files_3') : "";
+                                    if(strlen($post_upload_3) > 10){
+                                        $upload_process = upload_file_base64_watermark($folder,$post_upload_3,$image_config,$watermark);
+                                        if($upload_process['status'] == 1){
+                                                $file_session = $this->random_session(20);
+                                                $params = array(
+                                                    'file_from_table' => 'products',
+                                                    'file_from_id' => $set_data,
+                                                    'file_session' => $file_session,
+                                                    'file_date_created' => date("YmdHis"),
+                                                    'file_user_id' => $session_user_id,
+                                                    'file_type' => 1,
+                                                    'file_name' => $upload_process['result']['file_name'],
+                                                    'file_format' => $upload_process['result']['file_ext'],
+                                                    'file_url' => $upload_process['result']['file_location'],
+                                                    'file_size' => $upload_process['result']['file_size']
+                                                );
+                                                $save_data = $this->File_model->add_file($params);
+                                        }else{
+                                            $return->message = 'Fungsi Gambar gagal';
+                                        }
+                                    }
+                                    
+                                    $post_upload_4 = !empty($this->input->post('files_4')) ? $this->input->post('files_4') : "";
+                                    if(strlen($post_upload_4) > 10){
+                                        $upload_process = upload_file_base64_watermark($folder,$post_upload_4,$image_config,$watermark);
+                                        if($upload_process['status'] == 1){
+                                                $file_session = $this->random_session(20);
+                                                $params = array(
+                                                    'file_from_table' => 'products',
+                                                    'file_from_id' => $set_data,
+                                                    'file_session' => $file_session,
+                                                    'file_date_created' => date("YmdHis"),
+                                                    'file_user_id' => $session_user_id,
+                                                    'file_type' => 1,
+                                                    'file_name' => $upload_process['result']['file_name'],
+                                                    'file_format' => $upload_process['result']['file_ext'],
+                                                    'file_url' => $upload_process['result']['file_location'],
+                                                    'file_size' => $upload_process['result']['file_size']
+                                                );
+                                                $save_data = $this->File_model->add_file($params);
+                                        }else{
+                                            $return->message = 'Fungsi Gambar gagal';
+                                        }
+                                    }                                        
+                                    //End of Croppie
+
                                     
                                     $return->status=1;
                                     $return->message='Berhasil '.$mes;

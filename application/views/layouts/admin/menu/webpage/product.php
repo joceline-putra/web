@@ -42,20 +42,39 @@
                                         <div class="col-lg-12 col-md-12 col-xs-12">
                                             <div class="gambar"></div>
                                         </div>  
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-12 col-md-12 col-xs-12">
+                                            <?php 
+                                            for($a=1; $a < 5; $a++){
+                                            ?>
+                                            <div class="col-lg-3 col-md-3 col-xs-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Gambar <?php echo $a;?> <?php echo $title; ?> <?php echo $image_width; ?> x <?php echo $image_height; ?> px</label>
+                                                    <a class="files_link_<?php echo $a;?>" href="<?= site_url('upload/noimage2.png'); ?>">
+                                                        <img id="files_preview_<?php echo $a;?>" src="<?= site_url('upload/noimage2.png'); ?>" class="img-responsive" height="<?php echo $image_width; ?>px" width="<?php echo $image_width; ?>px" style="margin-bottom:5px;"/>
+                                                    </a>
+                                                    <div class="custom-file">
+                                                        <input class="form-control files" id="files_<?php echo $a;?>" data-id="<?php echo $a;?>" name="files_<?php echo $a;?>" type="file" tabindex="1">
+                                                        <!-- <label class="custom-file-label">Pilih Gambar</label> -->
+                                                    </div>
+                                                </div>
+                                            </div>                  
+                                            <?php 
+                                            }
+                                            ?>                   
+                                        </div>   
+                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Gambar </label>
                                                 <div class="custom-file">
                                                     <input type="file" id="files" name="files[]" multiple class="form-control">
                                                     <label class="custom-file-label">
                                                         <?php
-                                                        echo "Ukuran Max per File : " . ($allowed_file_size / 1024) . " MB<br>";
-                                                        #echo "Format Diizinkan: " . str_replace('|', ', ', $allowed_file_type);
+                                                        #echo "Ukuran Max per File : " . ($allowed_file_size / 1024) . " MB<br>";
                                                         ?>
                                                     </label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-12 col-sm-12 col-xs-12">                                        
                                             <div class="col-lg-3 col-md-3 col-xs-4 padding-remove-left">
                                                 <div class="form-group">                        
@@ -217,3 +236,22 @@
         </div>	
     </div>
 </div>
+<?php 
+for($a=1; $a<5; $a++){
+?>
+<div class="modal fade" id="modal_croppie_<?php echo $a;?>" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="modal_croppie_canvas_<?php echo $a;?>"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal_croppie_save_<?php echo $a;?>" type="button" class="btn btn-primary"><span class="fas fa-crop"></span> Crop Gambar</button>                
+                <button id="modal_croppie_cancel_<?php echo $a;?>" type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fas fa-times"></span> Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php 
+}
+?>

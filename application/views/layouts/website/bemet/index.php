@@ -1,7 +1,19 @@
 <!doctype html>
 <html class="no-js" lang="en">
-    
-<!-- Mirrored from themegenix.net/html/bemet/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 28 Aug 2024 06:03:53 GMT -->
+<?php 
+if(!empty($pages['final_url'])){
+    $url = $pages['final_url'];
+}else{
+    $url = site_url();
+}
+
+if(!empty($pages['sitelink']['product']['image'])){
+    $img = $pages['sitelink']['product']['image'];
+    // var_dump($img);die;
+}else{
+    $img = base_url();
+}
+?>
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -10,6 +22,12 @@
         <meta name="description" content="<?php echo strip_tags($description); ?>">
         <meta name="author" content="<?php echo strip_tags($author); ?>">
 
+        <!-- Open Graph meta tags for Facebook and other platforms -->
+        <meta property="og:title" content="<?php echo $title; ?>">
+        <meta property="og:description" content="<?php echo strip_tags($description); ?>">
+        <meta property="og:image" content="<?php echo $img; ?>">
+        <meta property="og:url" content="<?php echo $url; ?>">
+                
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $asset; ?>assets/img/favicon.png">
         <!-- Place favicon.ico in the root directory -->
 

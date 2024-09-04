@@ -1287,7 +1287,15 @@ class Website extends CI_Controller{
                 
                 $author = $this->User_model->get_user($get_news['product_user_id']);
                 // $news_short = $get_news['news_short'];
-                $news_content = $get_news['product_note'];
+                $news_content = '';
+                if($get_news['product_stock'] > 0){
+                    // $news_content = 'Stok '.number_format($get_news['product_stock'],0).', ';
+                    $news_content .= 'In-Stock, '.$get_news['category_name'];
+                }else{
+                    $news_content .= $get_news['category_name'];
+                }
+
+                $news_content = $news_content.' '.$get_news['product_note'];
                 // $news_tags = $get_news['news_tags'];
                 // $news_keywords = $get_news['news_keywords'];
                 $news_image = $get_news['product_image'];
@@ -1409,10 +1417,11 @@ class Website extends CI_Controller{
             $data['_js']            = $this->nav['web']['layout'].$this->products_dir.'/'.$this->products_file.'_js';       
             $this->load->view($this->nav['web']['index'],$data); 
         }else{
-            $data['title']          = $data['pages']['sitelink']['categories']['title'];
-            $data['author']         = 'John Doe';
-            $data['description']    = 'Its not about news, talk to each other something special from this site';
-            $data['keywords']       = 'website, john doe, homepage';
+            // $data['title']          = $data['pages']['sitelink']['categories']['title'];
+            $data['title']          = 'Avista Supplier daging berkualitas di Kota Semarang';            
+            $data['author']         = 'Admin';
+            $data['description']    = 'Menyediakan daging sapi kualitas terbaik';
+            $data['keywords']       = 'daging sapi, daging, dagin impor, avista, daging murah semarang';
 
             $data['url'] = $final_url;
 

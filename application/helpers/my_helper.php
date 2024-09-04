@@ -422,6 +422,111 @@
         }
         return $return;
     }
+    function upload_file_base64_watermark($path, $file, $compress = null, $watermark){ // ATTENDANCE.php Base64 or Croppie
+
+        $d1 = explode(";", $file); // data:image/jpeg
+        $d2 = explode(",", $d1[1]); // base64,/9j/4AAQSkZJRgABAQAAAQ
+        
+        $file_st  = strrpos($d1[0], '/') + 1; // 11
+        $file_ext = substr($d1[0], $file_st); // .jpeg
+
+        $file_data = base64_decode($d2[1]); //akshfdESWiuhgkwe
+        $file_size = strlen($file_data);
+        $file_name = date("Ymdhis").uniqid(); // 20240628084856667ebf481038c
+
+        // Make Directory if Not Exists
+        $folder = FCPATH . $path;
+        if(!file_exists($folder)){
+            mkdir($folder, 0775, true);
+        }
+        
+        // Decode the base64 image string
+        // $imageData = base64_decode($file);
+        $imageData = $file_data;
+        // Create an image resource from the decoded image data
+        $image = imagecreatefromstring($imageData);
+
+        if ($image !== false) {
+            // Define the font size and path to a TTF font file
+            $fontSize = 20;
+            $fontFile = FCPATH . '/upload/font/ariblk.ttf'; // Path to your TTF font file
+
+            // Define the watermark text color
+            // $textColor = imagecolorallocate($image, 255, 255, 255, 64); // White color
+            $textColor = imagecolorallocatealpha($image, 255, 255, 255, 20); // 50% transparent
+
+            // Get the image dimensions
+            $imageWidth = imagesx($image);
+            $imageHeight = imagesy($image);
+
+            // Calculate the position for the watermark text
+            $textBox = imagettfbbox($fontSize, 0, $fontFile, $watermark['text_2']);
+            $textWidth = 0;
+            $textHeight = 0;
+            do {
+                $fontSize--;
+                $textBox = imagettfbbox($fontSize, 0, $fontFile, $watermark['text_2']);
+                $textWidth = $textBox[2] - $textBox[0];
+                $textHeight = $textBox[7] - $textBox[1];
+            } while ($textWidth > $imageWidth - 20 && $fontSize > 8); // Adjust 20 as needed for margin
+    
+            // Calculate position to center the watermark text
+            // $x = 10; // X-coordinate (left margin)
+            // $y = $imageHeight - 10; // Y-coordinate (bottom margin);
+            $x = ($imageWidth / 2) - ($textWidth / 2);
+            $y = ($imageHeight / 2) + ($textHeight / 2);
+
+            // Add the watermark text to the image
+            imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontFile, $watermark['text_2']);
+            imagettftext($image, $fontSize, 0, $x, $y-20, $textColor, $fontFile, $watermark['text_1']);            
+
+            // Output the watermarked image as base64
+            ob_start();
+            imagepng($image); // You can change to other formats like JPEG or GIF if needed
+            $outputImage = ob_get_clean();
+            imagedestroy($image);
+            // return base64_encode($outputImage);
+        } else {
+            return false; // Failed to create image resource
+        }
+
+        $file_data = $outputImage;
+        
+        //File Success Move
+        if(file_put_contents($path . $file_name .'.'.$file_ext, $file_data)){
+
+            //Compress Only if Image
+            if((!empty($compress['compress'])) && ($compress['compress'] == 1)){
+                $allowed_file_ext = array('jpg', 'gif', 'png', 'jpeg');
+                if (in_array($file_ext, $allowed_file_ext)) {
+                    $ci = &get_instance();
+                    $config = [
+                        'image_library' => 'gd2',
+                        'source_image' => $path . $file_name .'.'.$file_ext,
+                        'new_image' => $path . $file_name .'.'.$file_ext,
+                        // 'create_thumb' => FALSE,
+                        'maintain_ratio' => TRUE,
+                        'width' => $compress['width'],
+                        'height' => $compress['height'],
+                        'quality' => '20%'
+                    ];
+                    $ci->load->library('image_lib', $config);
+                    $ci->image_lib->resize();
+                }
+            }
+            //End of Compress
+
+            $return['status'] = 1;
+            $return['result'] = array(
+                'file_directory' => $path, /* upload/product/ */
+                'file_name' => $file_name, /* 1231421*/
+                'file_ext' => $file_ext, /* .png */
+                'file_location' => $path . $file_name . '.'. $file_ext,
+                'file_size' => $file_size / 1024
+            );
+        }
+        return $return;
+    }  
 
     // Blowfish Hash
     function blowfish_test(){

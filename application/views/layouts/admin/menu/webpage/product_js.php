@@ -7,7 +7,7 @@
         var blog_routing = "<?php echo $_route; ?>";
         var url = "<?= base_url('blog/product'); ?>";
         // var url_image = '<?= base_url('assets/webarch/img/default-user-image.png'); ?>';
-        var url_image = '<?= base_url('upload/noimage.png'); ?>';
+        var url_image = '<?= base_url('upload/noimage2.png'); ?>';
         var url_preview = '<?php echo site_url(); ?>' + blog_routing +'/';
         var view = "<?php echo $_view; ?>";
         var set_url = "<?php echo base_url(); ?>";
@@ -28,6 +28,36 @@
             todayHighlight: true,
             weekStart: 1
         });
+
+        let image_width = "<?= $image_width;?>";
+        let image_height = "<?= $image_height;?>";      
+        
+        //Croppie
+        var upload_crop_img_1 = $('#modal_croppie_canvas_1').croppie({
+            enableExif: true,
+            viewport: {width: image_width, height: image_height},
+            boundary: {width: parseInt(image_width)+10, height: parseInt(image_height)+10},
+            url: url_image,
+        });
+        var upload_crop_img_2 = $('#modal_croppie_canvas_2').croppie({
+            enableExif: true,
+            viewport: {width: image_width, height: image_height},
+            boundary: {width: parseInt(image_width)+10, height: parseInt(image_height)+10},
+            url: url_image,
+        });        
+        var upload_crop_img_3 = $('#modal_croppie_canvas_3').croppie({
+            enableExif: true,
+            viewport: {width: image_width, height: image_height},
+            boundary: {width: parseInt(image_width)+10, height: parseInt(image_height)+10},
+            url: url_image,
+        });
+        var upload_crop_img_4 = $('#modal_croppie_canvas_4').croppie({
+            enableExif: true,
+            viewport: {width: image_width, height: image_height},
+            boundary: {width: parseInt(image_width)+10, height: parseInt(image_height)+10},
+            url: url_image,
+        });                
+
         const autoNumericOption = {
             digitGroupSeparator: '.',
             decimalCharacter: ',',
@@ -342,21 +372,21 @@
                 var form = new FormData();
                 form.append('action', 'create_update');
                 form.append('tipe', identity);
-                let files = document.getElementById('files').files;
-                for (let i = 0; i < files.length; i++) {
-                    form.append('files[]', files[i]);
-                }      
+                // let files = document.getElementById('files').files;
+                // for (let i = 0; i < files.length; i++) {
+                //     form.append('files[]', files[i]);
+                // }    
+                form.append('files_1',$("#files_preview_1").attr('data-save-img'));
+                form.append('files_2',$("#files_preview_2").attr('data-save-img'));
+                form.append('files_3',$("#files_preview_3").attr('data-save-img'));
+                form.append('files_4',$("#files_preview_4").attr('data-save-img'));                                  
                 if(projectID > 0){
                     form.append('id',projectID);
-                }          
-                // form.append('upload1', $('#upload1')[0].files[0]);                
+                }                     
                 form.append('status', $('#status').find(':selected').val());
                 form.append('categories', $('#categories').find(':selected').val());                
                 form.append('title', $('#title').val());
                 form.append('url', $('#url').val());
-                // form.append('tags', $('#tags').val());
-                // form.append('keywords', $('#keywords').val());
-                // form.append('short', $('#short').val());
                 form.append('content', $('#content-description').val());
                 form.set('harga',mHARGA.rawValue);
                 form.set('stok',mSTOK.rawValue);                
@@ -795,6 +825,163 @@
             reader.readAsDataURL(this.files[0]);
         });
         */
+        //Image Croppie
+        $(document).on('change', '#files_1', function(e) {
+            if($("#files_1").val() == ''){
+                $("#files_preview_1").attr('src', url_image);
+                $("#files_link_1").attr('href', url_image);            
+                $("#files_preview_1").attr('data-save-img', '');              
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                upload_crop_img_1.croppie('bind', {
+                    url: e.target.result
+                }).then(function () {
+                    $("#modal_croppie_1").modal("show");                
+                    setTimeout(function(){$('#modal_croppie_canvas_1').croppie('bind');}, 300);
+                });
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+        $(document).on('change', '#files_2', function(e) {
+            if($("#files_2").val() == ''){
+                $("#files_preview_2").attr('src', url_image);
+                $("#files_link_2").attr('href', url_image);            
+                $("#files_preview_2").attr('data-save-img', '');              
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                upload_crop_img_2.croppie('bind', {
+                    url: e.target.result
+                }).then(function () {
+                    $("#modal_croppie_2").modal("show");                
+                    setTimeout(function(){$('#modal_croppie_canvas_2').croppie('bind');}, 300);
+                });
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+        $(document).on('change', '#files_3', function(e) {
+            if($("#files_3").val() == ''){
+                $("#files_preview_3").attr('src', url_image);
+                $("#files_link_3").attr('href', url_image);            
+                $("#files_preview_3").attr('data-save-img', '');              
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                upload_crop_img_3.croppie('bind', {
+                    url: e.target.result
+                }).then(function () {
+                    $("#modal_croppie_3").modal("show");                
+                    setTimeout(function(){$('#modal_croppie_canvas_3').croppie('bind');}, 300);
+                });
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+        $(document).on('change', '#files_4', function(e) {
+            if($("#files_4").val() == ''){
+                $("#files_preview_4").attr('src', url_image);
+                $("#files_link_4").attr('href', url_image);            
+                $("#files_preview_4").attr('data-save-img', '');              
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                upload_crop_img_4.croppie('bind', {
+                    url: e.target.result
+                }).then(function () {
+                    $("#modal_croppie_4").modal("show");                
+                    setTimeout(function(){$('#modal_croppie_canvas_4').croppie('bind');}, 300);
+                });
+            };
+            reader.readAsDataURL(this.files[0]);
+        });                
+        $(document).on('click', '#modal_croppie_cancel_1', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            $("#files_1").val('');
+            $("#files_preview_1").attr('data-save-img', '');
+            $("#files_preview_1").attr('src', url_image);
+            $("#files_link_1").attr('href', url_image);
+        });
+        $(document).on('click', '#modal_croppie_cancel_2', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            $("#files_2").val('');
+            $("#files_preview_2").attr('data-save-img', '');
+            $("#files_preview_2").attr('src', url_image);
+            $("#files_link_2").attr('href', url_image);
+        });     
+        $(document).on('click', '#modal_croppie_cancel_3', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            $("#files_3").val('');
+            $("#files_preview_3").attr('data-save-img', '');
+            $("#files_preview_3").attr('src', url_image);
+            $("#files_link_3").attr('href', url_image);
+        });
+        $(document).on('click', '#modal_croppie_cancel_4', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            $("#files_4").val('');
+            $("#files_preview_4").attr('data-save-img', '');
+            $("#files_preview_4").attr('src', url_image);
+            $("#files_link_4").attr('href', url_image);
+        });                
+        $(document).on('click', '#modal_croppie_save_1', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            upload_crop_img_1.croppie('result', {
+                type: 'canvas',
+                size: 'viewport',
+            }).then(function (resp) {
+                $("#files_preview_1").attr('src', resp);
+                $("#files_link_1").attr('href', resp);
+                $("#files_preview_1").attr('data-save-img', resp);
+                $("#modal_croppie_1").modal("hide");
+            });
+        });     
+        $(document).on('click', '#modal_croppie_save_2', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            upload_crop_img_2.croppie('result', {
+                type: 'canvas',
+                size: 'viewport',
+            }).then(function (resp) {
+                $("#files_preview_2").attr('src', resp);
+                $("#files_link_2").attr('href', resp);
+                $("#files_preview_2").attr('data-save-img', resp);
+                $("#modal_croppie_2").modal("hide");
+            });
+        });  
+        $(document).on('click', '#modal_croppie_save_3', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            upload_crop_img_3.croppie('result', {
+                type: 'canvas',
+                size: 'viewport',
+            }).then(function (resp) {
+                $("#files_preview_3").attr('src', resp);
+                $("#files_link_3").attr('href', resp);
+                $("#files_preview_3").attr('data-save-img', resp);
+                $("#modal_croppie_3").modal("hide");
+            });
+        });     
+        $(document).on('click', '#modal_croppie_save_4', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            upload_crop_img_4.croppie('result', {
+                type: 'canvas',
+                size: 'viewport',
+            }).then(function (resp) {
+                $("#files_preview_4").attr('src', resp);
+                $("#files_link_4").attr('href', resp);
+                $("#files_preview_4").attr('data-save-img', resp);
+                $("#modal_croppie_4").modal("hide");
+            });
+        });                          
         function loadFiles(product_id){
             var data = {
                 action: 'read_files',
@@ -829,7 +1016,7 @@
                     notif(0, 'Error');
                 }
             });                    
-       }
+        }
     });
 
     function formReset() {
