@@ -10,7 +10,7 @@
         var view = "<?php echo $_view; ?>";
 
         $(".nav-tabs").find('li[class="active"]').removeClass('active');
-        $(".nav-tabs").find('li[data-name="category/article"]').addClass('active');
+        $(".nav-tabs").find('li[data-name="blog/portofolio"]').addClass('active');
         
         let image_width = "<?= $portofolio_width;?>";
         let image_height = "<?= $portofolio_height;?>";      

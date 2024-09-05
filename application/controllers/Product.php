@@ -251,7 +251,7 @@ class Product extends MY_Controller{
                                     );
                                     $watermark = [
                                         'text_1' => 'avista.id',
-                                        'text_2' => 'Property'                           
+                                        'text_2' => 'property'                           
                                     ];                                    
                                     $folder = $this->folder_upload_product;
 

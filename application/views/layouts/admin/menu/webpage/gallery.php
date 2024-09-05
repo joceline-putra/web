@@ -6,7 +6,7 @@
 </style>
 <div class="row">
     <div class="col-md-12">
-        <?php #include '_navigation_project.php'; ?>
+    <?php include '_navigation_page.php'; ?>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
                 <div id="div-form-trans" style="display:none;" class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">

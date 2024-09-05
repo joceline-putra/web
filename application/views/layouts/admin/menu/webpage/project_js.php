@@ -11,7 +11,8 @@
         var url_preview = '<?php echo site_url(); ?>' + blog_routing +'/';
         var view = "<?php echo $_view; ?>";
         var set_url = "<?php echo base_url(); ?>";
-
+        $(".nav-tabs").find('li[class="active"]').removeClass('active');
+        $(".nav-tabs").find('li[data-name="blog/project"]').addClass('active');
         var projectID = 0;
 
         $(".img_preview").attr('src', url_image);

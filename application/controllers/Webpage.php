@@ -757,7 +757,7 @@ class Webpage extends MY_Controller{
         $data['allowed_file_type'] = $this->allowed_types;
         $data['allowed_file_size'] = $this->allowed_file_size;
 
-            $data['title'] = 'Menu';
+            $data['title'] = 'Halaman';
             $data['_view'] = 'layouts/admin/menu/webpage/menu';
             $file_js = 'layouts/admin/menu/webpage/menu_js.php';
         
@@ -864,7 +864,7 @@ class Webpage extends MY_Controller{
             $data['allowed_file_type'] = $this->allowed_types;
             $data['allowed_file_size'] = $this->allowed_file_size;
 
-                $data['title'] = 'Contact Info';
+                $data['title'] = 'Kontak';
                 $data['_view'] = 'layouts/admin/menu/webpage/web_contact';
                 $file_js = 'layouts/admin/menu/webpage/web_contact_js.php';
             
