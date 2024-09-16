@@ -55,6 +55,9 @@ $icon = 'none;';
                     <ul class="open sub-menu" style="display:block;">
                         <li><a href="<?php echo site_url('webpage/menu')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Halaman</a></li>                                              
                         <li><a href="<?php echo site_url('webpage/contact')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Kontak</a></li>
+                        <?php if($session['user_data']['user_id'] == 1) { ?>
+                        <li><a href="<?php echo site_url('webpage/user')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> User</a></li>
+                        <?php } ?>
                     </ul>
                 </li>                       
             </li>              
