@@ -5,7 +5,7 @@
     $(document).ready(function () {
         let identity = 1;
         var blog_routing = "<?php echo $_route; ?>";
-        var url = "<?= base_url('blog/product'); ?>";
+        var url = "<?= base_url('webpage/product'); ?>";
         // var url_image = '<?= base_url('assets/webarch/img/default-user-image.png'); ?>';
         var url_image = '<?= base_url('upload/noimage2.png'); ?>';
         var url_preview = '<?php echo site_url(); ?>' + blog_routing +'/';
@@ -62,7 +62,7 @@
             digitGroupSeparator: '.',
             decimalCharacter: ',',
             decimalCharacterAlternative: ',',
-            decimalPlaces: 0,
+            decimalPlaces: 1,
             watchExternalChanges: true //!!!        
         };
 
@@ -165,7 +165,7 @@
                         var dsp = "";
                         // return row.product_id+' <i class="fas fa-eye"></i>';
                         if (parseInt(data) > 0) {
-                            dsp += '<a href="#" class="btn_edit_stock" style="cursor:pointer;" data-id="'+row.product_id+'" data-name="'+row.product_name+'" data-satuan="'+row.product_unit+'" data-stok="'+row.product_stock+'" data-price="'+row.product_price_sell+'"><b>' + numberWithCommas(data) + ' ' + row.product_unit+'</b></a>';
+                            dsp += '<a href="#" class="btn_edit_stock" style="cursor:pointer;" data-id="'+row.product_id+'" data-name="'+row.product_name+'" data-satuan="'+row.product_unit+'" data-stok="'+row.product_stock+'" data-price="'+row.product_price_sell+'"><b>' + addCommas(data) + ' ' + row.product_unit+'</b></a>';
                         } else {
                             dsp += '<a href="#" class="btn_edit_stock" style="cursor:pointer;" data-id="'+row.product_id+'" data-name="'+row.product_name+'" data-satuan="'+row.product_unit+'" data-stok="'+row.product_stock+'" data-price="'+row.product_price_sell+'"><b>-</b></a>';
                         }
