@@ -8,6 +8,9 @@
         var url_image = '<?= base_url('upload/noimage.png'); ?>';
         var url_preview = '<?php echo site_url(); ?>';
         var view = "<?php echo $_view; ?>";
+        var set_url = "<?php echo base_url(); ?>";        
+        var newsID = 0;
+
         $(".nav-tabs").find('li[class="active"]').removeClass('active');
         $(".nav-tabs").find('li[data-name="article/article"]').addClass('active');
         // console.log(view);
@@ -35,6 +38,21 @@
         setTimeout(() => {
 
             // Summernote
+            $('#short').summernote({
+                placeholder: 'Short here!',
+                dialogsInBody:true,
+                tabsize: 4,
+                height: 350,
+                toolbar: [
+                    ["font", ["bold", "italic", "underline", "clear"]],
+                    ["fontname", ["fontname"]],
+                    ['fontsize', ['fontsize']],
+                    ["style", ["color","style"]],
+                    ["para", ["ul", "ol", "paragraph","height"]],
+                    ["insert", ["table","link","picture","hr"]],
+                    ["view", ["fullscreen","codeview", "help"]],
+                ]
+            });            
             $('#news_content').summernote({
                 placeholder: 'Content description here!',
                 dialogsInBody:true,
@@ -211,62 +229,132 @@
         });
 
         // Save Button
-        $(document).on("click", "#btn-save", function (e) {
+        // $(document).on("click", "#btn-save", function (e) {
+        //     e.preventDefault();
+        //     var next = true;
+
+        //     if (next == true) {
+        //         if ($("input[id='title']").val().length == 0) {
+        //             notif(0, 'Title wajib diisi');
+        //             $("#title").focus();
+        //             next = false;
+        //         }
+        //     }
+
+        //     if (next == true) {
+        //         if ($("input[id='url']").val().length == 0) {
+        //             notif(0, 'URL wajib diisi');
+        //             $("#url").focus();
+        //             next = false;
+        //         }
+        //     }
+
+        //     if (next == true) {
+        //         if ($("select[id='categories']").find(':selected').val() == 0) {
+        //             notif(0, 'Categories wajib dipilih');
+        //             next = false;
+        //         }
+        //     }
+
+        //     if (next == true) {
+        //         // var prepare = {
+        //         //   title: $("input[id='title']").val(),
+        //         //   tags: $("input[id='tags']").val(),
+        //         //   keywords: $("input[id='keywords']").val(),
+        //         //   url: $("input[id='url']").val(),                
+        //         //   content: $("textarea[id='content']").val(),
+        //         //   categories: $("select[id='categories']").find(':selected').val(),
+        //         //   status: $("select[id='status']").find(':selected').val()
+        //         // }
+        //         var form = new FormData();
+        //         form.append('action', 'create');
+        //         form.append('tipe', 0);                  
+        //         // form.append('upload1', $('#upload1')[0].files[0]);
+        //         // form.append('categories', $('#categories').find(':selected').val());
+        //         form.append('status', $('#status').find(':selected').val());
+        //         form.append('title', $('#title').val());
+        //         form.append('url', $('#url').val());
+        //         form.append('tags', $('#tags').val());
+        //         form.append('keywords', $('#keywords').val());
+        //         form.append('short', $('#short').val());
+        //         form.append('content', $('#news_content').val());
+        //         form.append('posisi', $('#posisi').find(':selected').val());
+        //         // var prepare_data = JSON.stringify(formData);
+        //         // var data = {
+        //         //   action: 'create',
+        //         //   data: prepare_data
+        //         // };
+        //         // console.log(data);
+        //         $.ajax({
+        //             type: "POST",
+        //             url: url,
+        //             data: form,
+        //             dataType: 'json',
+        //             cache: false,
+        //             contentType: false,
+        //             processData: false,
+        //             beforeSend: function () {},
+        //             success: function (d) {
+        //                 if (parseInt(d.status) == 1) { /* Success Message */
+        //                     notif(1, d.message);
+        //                     index.ajax.reload();
+        //                 } else { //Error
+        //                     notif(0, d.message);
+        //                 }
+        //             },
+        //             error: function (xhr, Status, err) {
+        //                 notif(0, 'Error');
+        //             }
+        //         });
+        //     }
+        // });
+        $(document).on("click", "#btn-update", function (e) {
             e.preventDefault();
             var next = true;
 
-            if (next == true) {
-                if ($("input[id='title']").val().length == 0) {
-                    notif(0, 'Title wajib diisi');
-                    $("#title").focus();
-                    next = false;
-                }
-            }
+            // if (next == true) {
+            //     if ($("input[id='title']").val().length == 0) {
+            //         notif(0, 'Title wajib diisi');
+            //         $("#title").focus();
+            //         next = false;
+            //     }
+            // }
+
+            // if (next == true) {
+            //     if ($("input[id='url']").val().length == 0) {
+            //         notif(0, 'URL wajib diisi');
+            //         $("#url").focus();
+            //         next = false;
+            //     }
+            // }
+
+            // if (next == true) {
+            //     if ($("select[id='categories']").find(':selected').val() == 0) {
+            //         notif(0, 'Categories wajib dipilih');
+            //         next = false;
+            //     }
+            // }
 
             if (next == true) {
-                if ($("input[id='url']").val().length == 0) {
-                    notif(0, 'URL wajib diisi');
-                    $("#url").focus();
-                    next = false;
-                }
-            }
-
-            if (next == true) {
-                if ($("select[id='categories']").find(':selected').val() == 0) {
-                    notif(0, 'Categories wajib dipilih');
-                    next = false;
-                }
-            }
-
-            if (next == true) {
-                // var prepare = {
-                //   title: $("input[id='title']").val(),
-                //   tags: $("input[id='tags']").val(),
-                //   keywords: $("input[id='keywords']").val(),
-                //   url: $("input[id='url']").val(),                
-                //   content: $("textarea[id='content']").val(),
-                //   categories: $("select[id='categories']").find(':selected').val(),
-                //   status: $("select[id='status']").find(':selected').val()
-                // }
                 var form = new FormData();
-                form.append('action', 'create');
+                form.append('action', 'create_project_or_gallery');
                 form.append('tipe', 0);
-                // form.append('upload1', $('#upload1')[0].files[0]);
-                // form.append('categories', $('#categories').find(':selected').val());
+                let files = document.getElementById('files').files;
+                for (let i = 0; i < files.length; i++) {
+                    form.append('files[]', files[i]);
+                }      
+                if(newsID > 0){
+                    form.append('id',newsID);
+                }          
+                // form.append('upload1', $('#upload1')[0].files[0]);                
                 form.append('status', $('#status').find(':selected').val());
                 form.append('title', $('#title').val());
                 form.append('url', $('#url').val());
-                form.append('tags', $('#tags').val());
-                form.append('keywords', $('#keywords').val());
+                // form.append('tags', $('#tags').val());
+                // form.append('keywords', $('#keywords').val());
                 form.append('short', $('#short').val());
-                form.append('content', $('#news_content').val());
-                form.append('posisi', $('#posisi').find(':selected').val());
-                // var prepare_data = JSON.stringify(formData);
-                // var data = {
-                //   action: 'create',
-                //   data: prepare_data
-                // };
-                // console.log(data);
+                form.append('content', $('#content-description').val());
+                // form.append('posisi', $('#posisi').find(':selected').val());
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -280,9 +368,21 @@
                         if (parseInt(d.status) == 1) { /* Success Message */
                             notif(1, d.message);
                             index.ajax.reload();
+                            loadFiles(d.result.id);
+                            projectID = d.result.id;
                         } else { //Error
                             notif(0, d.message);
                         }
+
+                        $("#files").val('');
+                        if(projectID > 0){
+                            $("#btn-save").hide();
+                            $("#btn-update").show();                            
+                        }else{
+                            $("#btn-save").show();
+                            $("#btn-update").hide();                            
+                        }
+                        console.log(projectID);
                     },
                     error: function (xhr, Status, err) {
                         notif(0, 'Error');
@@ -312,6 +412,8 @@
                 success: function (d) {
                     if (parseInt(d.status) == 1) { /* Success Message */
                         $("#div-form-trans").show(300);
+                        newsID = d.result.news_id;
+                        loadFiles(newsID);                        
                         // activeTab('tab1'); // Open/Close Tab By ID
                         // notif(1,d.result.id);ss
                         $("#form-master input[name='id_document']").val(d.result.news_id);
@@ -319,8 +421,10 @@
                         $("#form-master input[name='keywords']").val(d.result.news_keywords);
                         $("#form-master input[name='title']").val(d.result.news_title);
                         $("#form-master input[name='url']").val(d.result.news_url);
-                        $("#form-master textarea[name='short']").val(d.result.news_short);
-                        var markupStr = d.result.news_content;
+                        // $("#form-master textarea[name='short']").val(d.result.news_short);
+                        var markupShort = d.result.news_short;
+                        var markupStr = d.result.news_content;                        
+                        $('#short').summernote('code', markupShort);            
                         $('#news_content').summernote('code', markupStr);
                         // smr.code(markupStr);
                         // CKEDITOR.instances.news_content.setData(markupStr);
@@ -356,90 +460,94 @@
         });
 
         // Update Button
-        $(document).on("click", "#btn-update", function (e) {
-            e.preventDefault();
-            var next = true;
-            var id = $("#form-master input[name='id_dokumen']").val();
-            var title = $("#form-master input[name='title']");
+        // $(document).on("click", "#btn-update", function (e) {
+        //     e.preventDefault();
+        //     var next = true;
+        //     var id = $("#form-master input[name='id_dokumen']").val();
+        //     var title = $("#form-master input[name='title']");
 
-            if (id == '') {
-                notif(0, 'ID tidak ditemukan');
-                next = false;
-            }
+        //     if (id == '') {
+        //         notif(0, 'ID tidak ditemukan');
+        //         next = false;
+        //     }
 
-            if (title.val().length == 0) {
-                notif(0, 'Title wajib diisi');
-                title.focus();
-                next = false;
-            }
+        //     if (title.val().length == 0) {
+        //         notif(0, 'Title wajib diisi');
+        //         title.focus();
+        //         next = false;
+        //     }
 
-            // if (next == true) {
-            //     if ($("select[id='categories']").find(':selected').val() == 0) {
-            //         notif(0, 'Categories wajib dipilih');
-            //         next = false;
-            //     }
-            // }
+        //     // if (next == true) {
+        //     //     if ($("select[id='categories']").find(':selected').val() == 0) {
+        //     //         notif(0, 'Categories wajib dipilih');
+        //     //         next = false;
+        //     //     }
+        //     // }
 
-            if (next == true) {
-                // var prepare = {
-                //   id: $("input[id=id_document]").val(),
-                //   title: $("input[id='title']").val(),
-                //   tags: $("input[id='tags']").val(),
-                //   keywords: $("input[id='keywords']").val(),
-                //   url: $("input[id='url']").val(),                
-                //   content: $("textarea[id='content-description']").val(),
-                //   categories: $("select[id='categories']").find(':selected').val(),
-                //   status: $("select[id='status']").find(':selected').val()
-                // }      
-                var formDataUpdate = new FormData();
-                formDataUpdate.append('action', 'update');
-                formDataUpdate.append('id', $('#id_document').val());
-                // formDataUpdate.append('upload1', $('#upload1')[0].files[0]);
-                // formDataUpdate.append('categories', $('#categories').find(':selected').val());
-                formDataUpdate.append('status', $('#status').find(':selected').val());
-                formDataUpdate.append('title', $('#title').val());
-                formDataUpdate.append('url', $('#url').val());
-                formDataUpdate.append('tags', $('#tags').val());
-                formDataUpdate.append('keywords', $('#keywords').val());
-                formDataUpdate.append('short', $('#short').val());
-                formDataUpdate.append('content', $('#news_content').val());
-                // formDataUpdate.append('content', CKEDITOR.instances.news_content.getData());                
-                formDataUpdate.append('posisi', $('#posisi').find(':selected').val());
-                // var prepare_data = JSON.stringify(prepare);
-                // var data = {
-                //   action: 'update',
-                //   data: prepare_data
-                // };
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: formDataUpdate,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    beforeSend: function () {},
-                    success: function (d) {
-                        if (parseInt(d.status) == 1) {
-                            // $("#btn-new").show();
-                            // $("#btn-save").hide();
-                            // $("#btn-update").hide();
-                            // $("#btn-cancel").hide();
-                            // $("#form-master input").val();
-                            // formMasterSetDisplay(1);
-                            notif(1, d.message);
-                            index.ajax.reload(null, false);
-                        } else {
-                            notif(0, d.message);
-                        }
-                    },
-                    error: function (xhr, Status, err) {
-                        notif(0, 'Error');
-                    }
-                });
-            }
+        //     if (next == true) {
+        //         // var prepare = {
+        //         //   id: $("input[id=id_document]").val(),
+        //         //   title: $("input[id='title']").val(),
+        //         //   tags: $("input[id='tags']").val(),
+        //         //   keywords: $("input[id='keywords']").val(),
+        //         //   url: $("input[id='url']").val(),                
+        //         //   content: $("textarea[id='content-description']").val(),
+        //         //   categories: $("select[id='categories']").find(':selected').val(),
+        //         //   status: $("select[id='status']").find(':selected').val()
+        //         // }      
+        //         var formDataUpdate = new FormData();
+        //         formDataUpdate.append('action', 'update');
+        //         formDataUpdate.append('id', $('#id_document').val());
+        //         let files = document.getElementById('files').files;
+        //         for (let i = 0; i < files.length; i++) {
+        //             form.append('files[]', files[i]);
+        //         }
+        //         // formDataUpdate.append('upload1', $('#upload1')[0].files[0]);
+        //         // formDataUpdate.append('categories', $('#categories').find(':selected').val());
+        //         formDataUpdate.append('status', $('#status').find(':selected').val());
+        //         formDataUpdate.append('title', $('#title').val());
+        //         formDataUpdate.append('url', $('#url').val());
+        //         formDataUpdate.append('tags', $('#tags').val());
+        //         formDataUpdate.append('keywords', $('#keywords').val());
+        //         formDataUpdate.append('short', $('#short').val());
+        //         formDataUpdate.append('content', $('#news_content').val());
+        //         // formDataUpdate.append('content', CKEDITOR.instances.news_content.getData());                
+        //         formDataUpdate.append('posisi', $('#posisi').find(':selected').val());
+        //         // var prepare_data = JSON.stringify(prepare);
+        //         // var data = {
+        //         //   action: 'update',
+        //         //   data: prepare_data
+        //         // };
+        //         $.ajax({
+        //             type: "POST",
+        //             url: url,
+        //             data: formDataUpdate,
+        //             dataType: 'json',
+        //             cache: false,
+        //             contentType: false,
+        //             processData: false,
+        //             beforeSend: function () {},
+        //             success: function (d) {
+        //                 if (parseInt(d.status) == 1) {
+        //                     // $("#btn-new").show();
+        //                     // $("#btn-save").hide();
+        //                     // $("#btn-update").hide();
+        //                     // $("#btn-cancel").hide();
+        //                     // $("#form-master input").val();
+        //                     // formMasterSetDisplay(1);
+        //                     notif(1, d.message);
+        //                     index.ajax.reload(null, false);
+        //                 } else {
+        //                     notif(0, d.message);
+        //                 }
+        //             },
+        //             error: function (xhr, Status, err) {
+        //                 notif(0, 'Error');
+        //             }
+        //         });
+        //     }
 
-        });
+        // });
 
         // Delete Button
         $(document).on("click", ".btn-delete", function () {
@@ -484,7 +592,48 @@
                 }
             });
         });
-
+        $(document).on("click", ".btn_remove_file", function () {
+            event.preventDefault();
+            var id = $(this).attr("data-id");
+            $.confirm({
+                title: 'Hapus!',
+                content: 'Apakah anda ingin menghapus gambar ini ?',
+                buttons: {
+                    confirm: {
+                        btnClass: 'btn-danger',
+                        text: 'Ya',
+                        action: function () {
+                            var data = {
+                                action: 'remove_file',
+                                id: id
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: data,
+                                dataType: 'json',
+                                cache: false,                                
+                                success: function (d) {
+                                    if (parseInt(d.status) == 1) {
+                                        // notif(1, d.message);
+                                        $("#gambar_"+id).remove();
+                                    } else {
+                                        notif(0, d.message);
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    cancel: {
+                        btnClass: 'btn-success',
+                        text: 'Batal',
+                        action: function () {
+                            // $.alert('Canceled!');
+                        }
+                    }
+                }
+            });
+        });
         // Set Flag Button
         $(document).on("click", ".btn-set-active", function (e) {
             e.preventDefault();
@@ -609,6 +758,41 @@
             // btnNew.classList.remove('animate__animated', 'animate__fadeOutRight');    
             $("#div-form-trans").hide(300);
         });
+        function loadFiles(news_id){
+            var data = {
+                action: 'read_files',
+                id: news_id
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: 'json',
+                cache: false,
+                beforeSend: function () {},
+                success: function (d) {
+                    if (parseInt(d.status) == 1) { /* Success Message */
+                        let rr = d.result;
+                        if(rr.length > 0){
+                            $(".gambar").html('');
+                            var dsp = '';
+                            rr.forEach(async (v, i) => {
+                        
+                                dsp += '<div class="col-md-3 col-sm-6" id="gambar_'+v['file_id']+'">';
+                                    dsp += '<button class="btn btn-danger btn_remove_file" style="position:absolute;" data-id="'+v['file_id']+'"><i class="fas fa-trash"></i> Hapus</button>';
+                                    dsp += '<img class="img-responsive" src="'+set_url + v['file_url']+'" style="width:100%;">';
+                                dsp += '</div>';
+                        
+                            });
+                            $(".gambar").html(dsp);
+                        }                        
+                    }
+                },
+                error: function (xhr, Status, err) {
+                    notif(0, 'Error');
+                }
+            });                    
+        }        
     });
 
     function formNew() {

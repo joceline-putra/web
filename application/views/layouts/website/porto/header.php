@@ -288,43 +288,7 @@
                                 </ul>
                             </li> -->
                         </ul>
-                    </li>     
-                    <li>
-                        <a href="#">#Portofolio</a>
-                        <ul>
-                            <?php 
-                            if(!empty($link['portofolio'])){
-                                foreach($link['portofolio'] as $v){
-                                    echo "<li><a href=".site_url().$link['routing']['gallery'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
-                                }
-                            }
-                            ?>
-                            <!-- <li><a href="<?php #echo $link['articles'];?>">Blog</a>
-                                <ul>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog</a></li>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog Post</a></li>
-                                </ul>
-                            </li> -->
-                        </ul>
-                    </li>     
-                    <li>
-                        <a href="#">#Team</a>
-                        <ul>
-                            <?php 
-                            if(!empty($link['team'])){
-                                foreach($link['team'] as $v){
-                                    echo "<li><a href=".site_url().$link['routing']['gallery'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
-                                }
-                            }
-                            ?>
-                            <!-- <li><a href="<?php #echo $link['articles'];?>">Blog</a>
-                                <ul>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog</a></li>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog Post</a></li>
-                                </ul>
-                            </li> -->
-                        </ul>
-                    </li>      
+                    </li>        
                     <li>
                         <a href="#">Menu</a>
                         <ul>

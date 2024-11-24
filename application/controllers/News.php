@@ -602,6 +602,8 @@ class News extends MY_Controller{
                                             $folder = $this->folder_upload_project;
                                         }else if($post['tipe'] == 6){ //Gallery
                                             $folder = $this->folder_upload_gallery;
+                                        }else{
+                                            $folder = 'upload/page/';
                                         }
 
                                         $upload_helper = upload_file_array($folder, $_FILES['files'],$image_config);
@@ -638,7 +640,7 @@ class News extends MY_Controller{
                                     $return->message='Berhasil '.$mes;
                                     $return->result= array(
                                         'id' => $set_data,
-                                        'title' => $data['news_title']
+                                        'title' => $title
                                     );  
 
                                     /* Start Activity */
@@ -647,8 +649,8 @@ class News extends MY_Controller{
                                         'activity_action' => ($operator==1) ? 2 : 4,
                                         'activity_table' => 'news',
                                         'activity_table_id' => $set_data,                            
-                                        'activity_text_1' => strtoupper($data['news_title']),
-                                        'activity_text_2' => ucwords(strtolower($data['news_title'])),                        
+                                        'activity_text_1' => strtoupper($title),
+                                        'activity_text_2' => ucwords(strtolower($title)),                        
                                         'activity_date_created' => date('YmdHis'),
                                         'activity_flag' => 1
                                     );

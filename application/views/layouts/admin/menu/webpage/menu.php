@@ -39,25 +39,22 @@
                                         <div class="col-md-12">
                                             <input id="id_document" name="id_document" type="hidden" value="" placeholder="id" readonly>
                                         </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12">
+                                            <div class="gambar"></div>
+                                        </div>                                          
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <!-- <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
-                                                <div class="form-group">
-                                                    <label>Gambar*</label>
-                                                    <img id="img-preview1" class="img-responsive" 
-                                                         data-is-new="0"
-                                                         style="width:100%"
-                                                         src=""/>
-                                                    <div class="custom-file">
-                                                        <input class="form-control" id="upload1" name="upload1" type="file" tabindex="1">
-                                                        <label class="custom-file-label">
-                                                            <?php
-                                                            #echo "Ukuran Max File : " . ($allowed_file_size / 1000) . " MB<br>";
-                                                            #echo "Format Diizinkan: " . str_replace('|', ', ', $allowed_file_type);
-                                                            ?>
-                                                        </label>
-                                                    </div>                                                  
+                                            <div class="form-group">
+                                                <label>Gambar </label>
+                                                <div class="custom-file">
+                                                    <input type="file" id="files" name="files[]" multiple class="form-control">
+                                                    <label class="custom-file-label">
+                                                        <?php
+                                                        echo "Ukuran Max per File : " . ($allowed_file_size / 1024) . " MB<br>";
+                                                        #echo "Format Diizinkan: " . str_replace('|', ', ', $allowed_file_type);
+                                                        ?>
+                                                    </label>
                                                 </div>
-                                            </div>                                    -->                
+                                            </div>             
                                             <div class="col-lg-3 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Judul *</label>
@@ -77,7 +74,8 @@
                                                         <option value="0">Pilih</option>
                                                         <option value="1">Header</option>
                                                         <option value="2">Footer</option>
-                                                        <option value="3">Header & Footer</option>                                                        
+                                                        <option value="3">Header & Footer</option>  
+                                                        <option value="4">Homepage</option>                                                        
                                                     </select>
                                                 </div>
                                             </div>                                                
