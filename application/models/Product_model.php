@@ -56,7 +56,7 @@ class Product_model extends CI_Model{
         if ($order) {
             $this->db->order_by($order, $dir);
         } else {
-            $this->db->order_by('product_isd', "asc");
+            $this->db->order_by('product_id', "asc");
         }
 
         // if ($limit) {

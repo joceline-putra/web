@@ -124,7 +124,24 @@
                         return dsp;
                     }
                 }, {
-                    'data': 'news_short'
+                    'data': 'news_short',
+                    render: function (data, meta, row) {
+                        var dsp = '';
+                        var myString = row.news_short;
+                        // if(a.length > 0){
+                        //     a = a.substring(0, 20);
+                        // }  
+                        if (myString !== null) {  
+                            console.log(myString.length);
+                            myString = myString.substring(0, 20);
+                            dsp += myString;
+                        } else {  
+                            // console.log('myString is null');
+                            dsp += '';  
+                        }                          
+                        // return a;
+                        return dsp;
+                    }                    
                 }, {
                     'data': 'news_flag',
                     className: 'text-left',

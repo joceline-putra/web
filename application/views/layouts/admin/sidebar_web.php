@@ -7,7 +7,7 @@ $icon = 'none;';
         <p class="menu-title sm" style="padding-top:0px!important;margin:0px 0px 0px!important;">
         </p>
         <ul id="sidebar" class="sidebarz">        
-            <!-- <li class="start"> 
+            <li class="start"> 
                 <a href="<?php echo base_url('admin'); ?>">
                     <i class="fas fa-th"></i>
                     <span class="title">Page</span> <span class="selected"></span>
@@ -20,8 +20,8 @@ $icon = 'none;';
                         <li><a href="<?php echo site_url('blog/team')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Team</a></li>                           
                     </ul>
                 </li>                       
-            </li>             -->
-            <!-- <li class="start"> 
+            </li>            
+            <li class="start"> 
                 <a href="<?php echo base_url('admin'); ?>">
                     <i class="fas fa-rss"></i>
                     <span class="title">Blogs</span> <span class="selected"></span>
@@ -32,7 +32,7 @@ $icon = 'none;';
                         <li><a href="<?php echo site_url('category/article')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Kategori Blog</a></li>                     
                     </ul>
                 </li>                       
-            </li>   -->
+            </li>  
             <li class="start"> 
                 <a href="<?php echo base_url('admin'); ?>">
                     <i class="fas fa-shopping-cart"></i>

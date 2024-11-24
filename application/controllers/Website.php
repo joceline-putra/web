@@ -28,8 +28,8 @@ class Website extends CI_Controller{
         $this->load->helper(array('cookie', 'url'));         
 
         //Configuration
-        $this->layout           = 'bemet'; /* layouts/website/?  */
-        $this->asset            = 'bemet'; /* assets/? */
+        $this->layout           = 'porto'; /* layouts/website/?  */
+        $this->asset            = 'porto'; /* assets/? */
 
         //Routing
         $this->product_routing  = 'produk';
@@ -131,10 +131,15 @@ class Website extends CI_Controller{
         $json_social = [];
         foreach($json['social_media'] as $v){
             if(strlen($v['link']) > 0){
+                if($v['name']=='facebook'){ $icon = 'bx bxl-facebook-circle';} 
+                else if($v['name']=='twitter'){ $icon = 'bx bxl-twitter';} 
+                else if($v['name']=='instagram'){ $icon = 'bx bxl-instagram';} 
+                else if($v['name']=='tiktok'){ $icon = 'bx bxl-tiktok';} 
+                else if($v['name']=='youtube'){ $icon = 'bx bxl-youtube';}                                                                
                 $json_social[] = [
                     'name' => $v['name'], 
                     'url' => $v['link'], 
-                    'icon' => 'social-icon social-'.strtolower($v['name']).' icon-'.strtolower($v['name']).''
+                    'icon' => $icon
                 ];
             }
         }        
@@ -192,8 +197,13 @@ class Website extends CI_Controller{
                 'project' => $this->project_routing,
                 'gallery' => $this->gallery_routing
             ],
-            // 'article_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>2,'category_flag'=>1],null,10,0,'category_name','asc'),
-            'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,null,null,'category_name','asc'),
+            'article_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>2,'category_flag'=>1],null,10,0,'category_name','asc'),
+            'project' => $this->News_model->get_all_newss(['news_type'=>5,'news_flag'=> 1],null,10,0,'news_id','asc'),
+            'gallery' => $this->News_model->get_all_newss(['news_type'=>6,'news_flag'=> 1],null,10,0,'news_id','asc'),
+            'portofolio' => $this->News_model->get_all_newss(['news_type'=>7,'news_flag'=> 1],null,10,0,'news_id','asc'),
+            'team' => $this->News_model->get_all_newss(['news_type'=>8,'news_flag'=> 1],null,10,0,'news_id','asc'),                                 
+            'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,10,null,'category_name','asc'),
+            'products' => $this->Product_model->get_all_product(['product_flag'=>1,'product_type'=>1,'product_category_id > ' => 0],null,10,0,'product_id','asc'),
             'menu' => $this->News_model->get_all_newss(['news_type'=>0,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'newsticker' => $json['header_title']
         );
@@ -587,7 +597,7 @@ class Website extends CI_Controller{
                 echo json_encode($return);
                 break;                                           
             default:
-                redirect('produk','refresh');
+                // redirect('produk','refresh');
                 $this_file              = $this->content_file;
                 $data['title']          = 'Website Template';
                 $data['author']         = 'John Doe';
@@ -740,6 +750,7 @@ class Website extends CI_Controller{
         } // Enf of switch()
     }
 
+    /* Demo Page */
     function about(){
         $params_check = array(
             'news_type' => 0,
@@ -1020,11 +1031,6 @@ class Website extends CI_Controller{
         // var_dump($data);die;
         $this->load->view($this->nav['web']['index'],$data);
     }    
-
-    //Other
-    function notfound(){
-        show_404();          
-    }
     function payment(){ //Works
         $data['title']          = 'Payment';
         $data['author']         = 'John Doe';
@@ -1058,6 +1064,9 @@ class Website extends CI_Controller{
 
         $data['firebase'] = $this->get_firebase_config();
         $this->load->view($this->nav['admin']['layout'].'/firebase',$data);            
+    }
+    function notfound(){
+        show_404();          
     }
 
     /* Dynamic Page */

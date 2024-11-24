@@ -28,10 +28,10 @@ $route['search']                = "search/index";
 	// $route['admin/setup_account'] 			= "setup/account";
 
 /* ADMIN */
-    $route['admin'] = "index/index";
-    $route['session'] = "login/session";
-    // $route['login/'] = "auth";
-    // $route['report/(:any)'] = "report/manage/$1";
+	$route['admin'] = "index/index";
+	$route['session'] = "login/session";
+	// $route['login/'] = "auth";
+	// $route['report/(:any)'] = "report/manage/$1";
 
 	$route['blog/article'] 					= "news/pages/1";
 	$route['message/template'] 				= "news/pages/2";
@@ -42,7 +42,7 @@ $route['search']                = "search/index";
 	$route['blog/product'] 					= "product";			
 	$route['message/device'] 				= "device";    
 	$route['message/survey'] 				= "survey";
-    $route['message/recipient']		        = "recipient";    
+	$route['message/recipient']		        = "recipient";    
 
 	$route['category/product'] 				= "kategori/pages/1";
 	$route['category/article'] 				= "kategori/pages/2";
@@ -56,28 +56,28 @@ $route['search']                = "search/index";
 	$route['faqs']                  = "website/faqs";
 	$route['firebase']              = "website/firebase";
 	// $route['map']                = "website/map";	
+	$route['career']       			= "website/career";				
 	$route['privacy']               = "website/privacy";
 	$route['term-of-service']       = "website/term";
-	$route['career']       			= "website/career";				
 
-    // Shop
+	// Shop
 	$route['cart']      	        = "website/cart";
 	$route['checkout']  	        = "website/checkout";
 	$route['wishlist']   	        = "website/wishlist";	
 	$route['payment']   	        = "website/payment";	
-    
-    // Pages View DEMO
+	
+	// Pages View DEMO
 	$route['products']              = "website/products";
-    $route['product']               = "website/product";
+	$route['product']               = "website/product";
 	$route['articles']              = "website/articles";
 	$route['article']               = "website/article";
 
-    // Pages View REAL
+	// Pages View REAL
 	$route['produk']  				= "website/produk";	    	// produk
 	$route['produk/(:any)']  		= "website/produk/$1";	    // produk/sncak
 	$route['produk/(:any)/(:any)']  = "website/produk/$1/$2";	// produk/sncak/anekagetuk
-    $route['blog/(:any)']        	= "website/blog/$1";	    // article/olahraga
-    $route['blog/(:any)/(:any)'] 	= "website/blog/$1/$2";	    // article/olahraga/hai-kawan
+	$route['blog/(:any)']        	= "website/blog/$1";	    // article/olahraga
+	$route['blog/(:any)/(:any)'] 	= "website/blog/$1/$2";	    // article/olahraga/hai-kawan
 
     //Not Used / OLD Concept
     // $route['blog'] 					= "website/blog";

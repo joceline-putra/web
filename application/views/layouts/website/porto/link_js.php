@@ -8,111 +8,68 @@
     </div>
 
     <div class="mobile-menu-overlay"></div>
-    <!-- End .mobil-menu-overlay -->
 
     <div class="mobile-menu-container">
         <div class="mobile-menu-wrapper">
             <span class="mobile-menu-close"><i class="fa fa-times"></i></span>
             <nav class="mobile-nav">
                 <ul class="mobile-menu">
-                    <li><a href="demo4.html">Home</a></li>
-                    <li>
-                        <a href="category.html">Categories</a>
-                        <ul>
-                            <li><a href="category.html">Full Width Banner</a></li>
-                            <li><a href="category-banner-boxed-slider.html">Boxed Slider Banner</a></li>
-                            <li><a href="category-banner-boxed-image.html">Boxed Image Banner</a></li>
-                            <li><a href="https://www.portotheme.com/html/porto_ecommerce/category-sidebar-left.html">Left Sidebar</a></li>
-                            <li><a href="category-sidebar-right.html">Right Sidebar</a></li>
-                            <li><a href="category-off-canvas.html">Off Canvas Filter</a></li>
-                            <li><a href="category-horizontal-filter1.html">Horizontal Filter 1</a></li>
-                            <li><a href="category-horizontal-filter2.html">Horizontal Filter 2</a></li>
-                            <li><a href="#">List Types</a></li>
-                            <li><a href="category-infinite-scroll.html">Ajax Infinite Scroll<span
-										class="tip tip-new">New</span></a></li>
-                            <li><a href="category.html">3 Columns Products</a></li>
-                            <li><a href="category-4col.html">4 Columns Products</a></li>
-                            <li><a href="category-5col.html">5 Columns Products</a></li>
-                            <li><a href="category-6col.html">6 Columns Products</a></li>
-                            <li><a href="category-7col.html">7 Columns Products</a></li>
-                            <li><a href="category-8col.html">8 Columns Products</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="<?php echo base_url(); ?>">Home</a></li>
                     <li>
                         <a href="product.html">Products</a>
                         <ul>
                             <li>
                                 <a href="#" class="nolink">PRODUCT PAGES</a>
                                 <ul>
-                                    <li><a href="product.html">SIMPLE PRODUCT</a></li>
-                                    <li><a href="product-variable.html">VARIABLE PRODUCT</a></li>
-                                    <li><a href="product.html">SALE PRODUCT</a></li>
-                                    <li><a href="product.html">FEATURED & ON SALE</a></li>
-                                    <li><a href="product-sticky-info.html">WIDTH CUSTOM TAB</a></li>
-                                    <li><a href="product-sidebar-left.html">WITH LEFT SIDEBAR</a></li>
-                                    <li><a href="product-sidebar-right.html">WITH RIGHT SIDEBAR</a></li>
-                                    <li><a href="product-addcart-sticky.html">ADD CART STICKY</a></li>
+                                    <li><a href="#">SIMPLE PRODUCT</a></li>
+                                    <li><a href="#">VARIABLE PRODUCT</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="nolink">PRODUCT LAYOUTS</a>
                                 <ul>
-                                    <li><a href="product-extended-layout.html">EXTENDED LAYOUT</a></li>
-                                    <li><a href="product-grid-layout.html">GRID IMAGE</a></li>
-                                    <li><a href="product-full-width.html">FULL WIDTH LAYOUT</a></li>
-                                    <li><a href="product-sticky-info.html">STICKY INFO</a></li>
-                                    <li><a href="product-sticky-both.html">LEFT & RIGHT STICKY</a></li>
-                                    <li><a href="product-transparent-image.html">TRANSPARENT IMAGE</a></li>
-                                    <li><a href="product-center-vertical.html">CENTER VERTICAL</a></li>
+                                    <li><a href="#">EXTENDED LAYOUT</a></li>
                                     <li><a href="#">BUILD YOUR OWN</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Pages<span class="tip tip-hot">Hot!</span></a>
+                        <a href="#">Blogs<span class="tip tip-hot">Hot!</span></a>
                         <ul>
-                            <li>
-                                <a href="wishlist.html">Wishlist</a>
-                            </li>
-                            <li>
-                                <a href="cart.html">Shopping Cart</a>
-                            </li>
-                            <li>
-                                <a href="checkout.html">Checkout</a>
-                            </li>
-                            <li>
-                                <a href="dashboard.html">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="login.html">Login</a>
-                            </li>
-                            <li>
-                                <a href="forgot-password.html">Forgot Password</a>
-                            </li>
+                            <?php 
+                            if(!empty($link['article_category'])){
+                                foreach($link['article_category'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['blog'].'/'.$v['category_url'].">".$v['category_name']."</a>"; 
+                                }
+                            }
+                            ?>
                         </ul>
-                    </li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="#">Elements</a>
-                        <ul class="custom-scrollbar">
-                            <li><a href="element-accordions.html">Accordion</a></li>
-                            <li><a href="element-alerts.html">Alerts</a></li>
-                            <li><a href="element-animations.html">Animations</a></li>
-                            <li><a href="element-banners.html">Banners</a></li>
-                            <li><a href="element-buttons.html">Buttons</a></li>
-                            <li><a href="element-call-to-action.html">Call to Action</a></li>
-                            <li><a href="element-countdown.html">Count Down</a></li>
-                            <li><a href="element-counters.html">Counters</a></li>
-                            <li><a href="element-headings.html">Headings</a></li>
-                            <li><a href="element-icons.html">Icons</a></li>
-                            <li><a href="element-info-box.html">Info box</a></li>
-                            <li><a href="element-posts.html">Posts</a></li>
-                            <li><a href="element-products.html">Products</a></li>
-                            <li><a href="element-product-categories.html">Product Categories</a></li>
-                            <li><a href="element-tabs.html">Tabs</a></li>
-                            <li><a href="element-testimonial.html">Testimonials</a></li>
+                    </li>                       
+                    <li>
+                        <a href="#">Projects</a>
+                        <ul>
+                            <?php 
+                            if(!empty($link['project'])){
+                                foreach($link['project'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['project'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
+                                }
+                            }
+                            ?>
                         </ul>
-                    </li>
+                    </li>     
+                    <li>
+                        <a href="#">Gallery</a>
+                        <ul>
+                            <?php 
+                            if(!empty($link['gallery'])){
+                                foreach($link['gallery'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['gallery'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </li>                                        
                 </ul>
 
                 <ul class="mobile-menu mt-2 mb-2">
@@ -124,39 +81,28 @@
                     <li class="border-0">
                         <a href="#" target="_blank">
 							Buy Porto!
-							<span class="tip tip-hot">Hot</span>
+							<!-- <span class="tip tip-hot">Hot</span> -->
 						</a>
                     </li>
                 </ul>
 
                 <ul class="mobile-menu">
-                    <li><a href="login.html">My Account</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="wishlist.html">My Wishlist</a></li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="login.html" class="login-link">Log In</a></li>
+                    <?php 
+                    if(!empty($link['menu'])){
+                        foreach($link['menu'] as $v){
+                            echo "<li><a href=".site_url().$v['news_url'].">".$v['news_title']."</a>"; 
+                        }
+                    }
+                    ?>
+                    <li><a href="<?php echo $link['contact_us'];?>">Contact Us</a></li>
                 </ul>
             </nav>
-            <!-- End .mobile-nav -->
-
             <form class="search-wrapper mb-2" action="#">
                 <input type="text" class="form-control mb-0" placeholder="Search..." required />
                 <button class="btn icon-search text-white bg-transparent p-0" type="submit"></button>
             </form>
-
-            <div class="social-icons">
-                <a href="#" class="social-icon social-facebook icon-facebook" target="_blank">
-                </a>
-                <a href="#" class="social-icon social-twitter icon-twitter" target="_blank">
-                </a>
-                <a href="#" class="social-icon social-instagram icon-instagram" target="_blank">
-                </a>
-            </div>
         </div>
-        <!-- End .mobile-menu-wrapper -->
     </div>
-    <!-- End .mobile-menu-container -->
 
     <div class="sticky-navbar">
         <div class="sticky-info">
@@ -166,7 +112,7 @@
         </div>
         <div class="sticky-info">
             <a href="category.html" class="">
-                <i class="icon-bars"></i>Categories
+                <i class="icon-bars"></i>Categosries
             </a>
         </div>
         <div class="sticky-info">
@@ -188,9 +134,10 @@
         </div>
     </div>
 
-    <div class="newsletter-popup mfp-hide bg-img" id="newsletter-popup-form" style="background: #f1f1f1 no-repeat center/cover url(<?php echo $asset; ?>assets/images/newsletter_popup_bg.jpg)">
+    <!--
+    <div class="newsletter-popup mfp-hide bg-img" id="newsletter-popup-form" style="background: #f1f1f1 no-repeat center/cover url(<?php #echo $asset; ?>assets/images/newsletter_popup_bg.jpg)">
         <div class="newsletter-popup-content">
-            <img src="<?php echo $asset; ?>assets/images/logo.png" width="111" height="44" alt="Logo" class="logo-newsletter">
+            <img src="<?php #echo $asset; ?>assets/images/logo.png" width="111" height="44" alt="Logo" class="logo-newsletter">
             <h2>Subscribe to newsletter</h2>
 
             <p>
@@ -212,12 +159,12 @@
                 </div>
             </div>
         </div>
-        <!-- End .newsletter-popup-content -->
-
         <button title="Close (Esc)" type="button" class="mfp-close">
 			×
 		</button>
     </div>
+    -->
+
     <!-- End .newsletter-popup -->
 
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
