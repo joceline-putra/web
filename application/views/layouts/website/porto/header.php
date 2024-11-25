@@ -1,5 +1,5 @@
 <header class="header">
-    <div class="header-top">
+    <div class="header-top" style="display:none;">
         <div class="container">
             <div class="header-left d-none d-sm-block">
                 <p class="top-message text-uppercase"><?php echo $link['brand']; ?>, <?php echo $link['contact']['address']['office']; ?></p>
@@ -75,7 +75,7 @@
                             <div class="select-custom">
                                 <select id="cat" name="cat">
                                     <option value="">All Categories</option>
-                                    <option value="4">Fashion</option>
+                                    <!-- <option value="4">Fashion</option>
                                     <option value="12">- Women</option>
                                     <option value="13">- Men</option>
                                     <option value="66">- Jewellery</option>
@@ -90,7 +90,7 @@
                                     <option value="32">- Motorcycles &amp; Powersports</option>
                                     <option value="33">- Parts &amp; Accessories</option>
                                     <option value="34">- Boats</option>
-                                    <option value="57">- Auto Tools &amp; Supplies</option>
+                                    <option value="57">- Auto Tools &amp; Supplies</option> -->
                                 </select>
                             </div>
                             <!-- End .select-custom -->
@@ -105,11 +105,11 @@
                     <h6><span>Call us now</span><a href="tel:<?php echo $link['contact']['phone'][0]['phone'];?>" class="text-dark font1"><?php echo $link['contact']['phone'][0]['phone'];?></a></h6>
                 </div>
 
-                <a href="<?php echo $link['signin'];?>" class="header-icon" title="login"><i class="icon-user-2"></i></a>
+                <!-- <a href="<?php echo $link['signin'];?>" class="header-icon" title="login"><i class="icon-user-2"></i></a>
 
-                <a href="<?php echo $link['wishlist'];?>" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
+                <a href="<?php echo $link['wishlist'];?>" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a> -->
 
-                <div class="dropdown cart-dropdown">
+                <!-- <div class="dropdown cart-dropdown">
                     <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                         <i class="minicart-icon"></i>
                         <span class="cart-count badge-circle">3</span>
@@ -170,7 +170,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

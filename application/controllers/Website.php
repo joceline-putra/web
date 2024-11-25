@@ -599,7 +599,7 @@ class Website extends CI_Controller{
             default:
                 // redirect('produk','refresh');
                 $this_file              = $this->content_file;
-                $data['title']          = 'Website Template';
+                $data['title']          = 'Website';
                 $data['author']         = 'John Doe';
                 $data['description']    = 'Its not about news, talk to each other something special from this site';
                 $data['keywords']       = 'website, john doe, homepage';
