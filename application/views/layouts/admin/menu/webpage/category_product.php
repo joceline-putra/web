@@ -1,4 +1,8 @@
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <style>
+    .note-group-select-from-files{
+        display: none;
+    }
     .scroll {
         margin-top: 4px;
         margin-bottom: 8px;
@@ -166,6 +170,18 @@
                                                     <input id="url" name="url" type="text" value="" class="form-control" readonly='true'/>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                <div class="form-group">
+                                                    <label>Deskripsi Singkat</label>
+                                                    <textarea id="category_short" name="category_short" type="text" class="form-control" readonly='true' rows="4"></textarea>
+                                                </div>
+                                            </div>                                             
+                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                <div class="form-group">
+                                                    <label>Deskripsi</label>
+                                                    <textarea id="category_content" name="category_content" type="text" class="form-control" readonly='true' rows="4"></textarea>
+                                                </div>
+                                            </div>                                            
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Icon</label>

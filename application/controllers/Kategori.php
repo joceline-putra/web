@@ -119,7 +119,9 @@ class Kategori extends MY_Controller{
                     'category_date_updated' => date("YmdHis"),
                     'category_flag' => !empty($data['status']) ? $data['status'] : null,
                     'category_user_id' => $user_id,
-                    'category_branch_id' => $branch_id
+                    'category_branch_id' => $branch_id,
+                    'category_short' => !empty($post['category_short']) ? $post['category_short'] : null,
+                    'category_content' => !empty($post['category_content']) ? $post['category_content'] : null                    
                 );
                 $params_update = array(
                     'category_name' => !empty($data['nama']) ? $data['nama'] : null,
@@ -128,6 +130,8 @@ class Kategori extends MY_Controller{
                     'category_icon' => !empty($data['icon']) ? $data['icon'] : null,
                     'category_date_updated' => date("YmdHis"),
                     'category_flag' => !empty($data['status']) ? $data['status'] : null,
+                    'category_short' => !empty($post['category_short']) ? $post['category_short'] : null,
+                    'category_content' => !empty($post['category_content']) ? $post['category_content'] : null,                    
                 );                                 
                 $columns = array(
                     '0' => 'category_name'
@@ -147,7 +151,9 @@ class Kategori extends MY_Controller{
                     'category_date_updated' => date("YmdHis"),
                     'category_flag' => !empty($data['status']) ? $data['status'] : null,
                     'category_user_id' => $user_id,
-                    'category_branch_id' => $branch_id
+                    'category_branch_id' => $branch_id,
+                    'category_short' => !empty($post['category_short']) ? $post['category_short'] : null,
+                    'category_content' => !empty($post['category_content']) ? $post['category_content'] : null                    
                 );
                 $params_update = array(
                     // 'category_code' => $data['kode'],
@@ -156,7 +162,9 @@ class Kategori extends MY_Controller{
                     'category_url' => !empty($data['url']) ? $data['url'] : null,   
                     'category_icon' => !empty($data['icon']) ? $data['icon'] : null,
                     'category_date_updated' => date("YmdHis"),
-                    'category_flag' => !empty($data['status']) ? $data['status'] : null
+                    'category_flag' => !empty($data['status']) ? $data['status'] : null,
+                    'category_short' => !empty($post['category_short']) ? $post['category_short'] : null,
+                    'category_content' => !empty($post['category_content']) ? $post['category_content'] : null                    
                 );                                 
                 $columns = array(
                     '0' => 'category_name',

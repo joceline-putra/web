@@ -1,4 +1,6 @@
 <script>
+    $.getScript("https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js");
+
     $(document).ready(function () {
         var identity = "<?php echo $identity; ?>";
         var url = "<?= base_url('kategori/manage'); ?>";
@@ -22,6 +24,39 @@
             weekStart: 1
         });
 
+        setTimeout(() => {         
+            $('#category_short').summernote({
+                placeholder: 'Content description here!',
+                dialogsInBody:true,
+                tabsize: 4,
+                height: 350,
+                toolbar: [
+                    ["font", ["bold", "italic", "underline", "clear"]],
+                    ["fontname", ["fontname"]],
+                    ['fontsize', ['fontsize']],
+                    ["style", ["color","style"]],
+                    ["para", ["ul", "ol", "paragraph","height"]],
+                    ["insert", ["table","link","picture","hr"]],
+                    ["view", ["fullscreen","codeview", "help"]],
+                ]
+            });
+            $('#category_content').summernote({
+                placeholder: 'Content description here!',
+                dialogsInBody:true,
+                tabsize: 4,
+                height: 350,
+                toolbar: [
+                    ["font", ["bold", "italic", "underline", "clear"]],
+                    ["fontname", ["fontname"]],
+                    ['fontsize', ['fontsize']],
+                    ["style", ["color","style"]],
+                    ["para", ["ul", "ol", "paragraph","height"]],
+                    ["insert", ["table","link","picture","hr"]],
+                    ["view", ["fullscreen","codeview", "help"]],
+                ]
+            });
+        }, 3000);
+        
         //Croppie
         var upload_crop_img = null;
         upload_crop_img = $('#modal-croppie-canvas').croppie({
@@ -199,7 +234,9 @@
                 var prepare_data = JSON.stringify(prepare);
                 var data = {
                     action: 'create',
-                    data: prepare_data
+                    data: prepare_data,
+                    category_short: $('#category_short').val(),
+                    category_content: $('#category_content').val()                    
                 };
                 $.ajax({
                     type: "POST",
@@ -256,6 +293,11 @@
                         $("#form-master input[name='icon']").val(d.result.category_icon);
                         $("#form-master select[name='status']").val(d.result.category_flag).trigger('change');
 
+                        var markupSht = d.result.category_short;                
+                        var markupStr = d.result.category_content;                                                
+                        $('#category_short').summernote('code', markupSht);     
+                        $('#category_content').summernote('code', markupStr);                             
+
                         $("#btn-new").hide();
                         $("#btn-save").hide();
                         $("#btn-update").show();
@@ -305,12 +347,14 @@
                     url: $("input[id='url']").val(),
                     icon: $("input[id='icon']").val(),
                     status: $("select[id='status']").find(':selected').val(),
-                    upload1: $("#files_preview").attr('data-save-img')                     
+                    upload1: $("#files_preview").attr('data-save-img')             
                 }
                 var prepare_data = JSON.stringify(prepare);
                 var data = {
                     action: 'update',
-                    data: prepare_data
+                    data: prepare_data,
+                    category_short: $('#category_short').val(),
+                    category_content: $('#category_content').val()                    
                 };
                 $.ajax({
                     type: "POST",
@@ -529,10 +573,11 @@
         }
 
         // Attr Textarea yang perlu di setel
-        // var attrText = [
-        //   "keterangan"
-        // ];
-        // for (var i=0; i<=attrText.length; i++) { $(""+ form +" textarea[name='"+attrText[i]+"']").attr('readonly',flag); }
+        var attrText = [
+            "category_short",
+            "category_content"
+        ];
+        for (var i=0; i<=attrText.length; i++) { $(""+ form +" textarea[name='"+attrText[i]+"']").attr('readonly',flag); }
 
         //Attr Select yang perlu di setel
         var atributSelect = [
