@@ -51,7 +51,7 @@ $route['search']                = "search/index";
 /* WEBSITE */
     // Home
 	$route['about']                 = "website/about";
-	$route['contact_us']            = "website/contact_us";	
+	$route['contact-us']            = "website/contact_us";	
 	$route['masuk']                 = "website/signin";
 	$route['faqs']                  = "website/faqs";
 	$route['firebase']              = "website/firebase";

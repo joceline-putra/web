@@ -45,7 +45,7 @@ class Kategori_model extends CI_Model
 
         $this->db->select("b.category_id AS category_id, IFNULL(b.category_parent_id,0) AS category_parent_id, b.category_code, 
         b.category_name, b.category_url, b.category_icon, b.category_type, b.category_date_created, b.category_date_updated, 
-        b.category_user_id, b.category_flag, b.category_count_data, b.category_count_data AS category_count, b.category_image");
+        b.category_user_id, b.category_flag, b.category_count_data, b.category_count_data AS category_count, b.category_image, b.category_short, b.category_content");
         $this->db->select($subquery);
         
         if($params['category_type']==1){

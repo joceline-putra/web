@@ -12,6 +12,9 @@ MySQL - 8.0.27 : Database - florina
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`florina` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+USE `florina`;
 
 /*Table structure for table `activities` */
 
@@ -39,7 +42,7 @@ CREATE TABLE `activities` (
   PRIMARY KEY (`activity_id`) USING BTREE,
   KEY `USER` (`activity_user_id`) USING BTREE,
   KEY `BRANCH` (`activity_branch_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=latin1;
 
 /*Data for the table `activities` */
 
@@ -265,7 +268,27 @@ insert  into `activities`(`activity_id`,`activity_branch_id`,`activity_user_id`,
 (219,0,1,3,'categories',3,'PROMOSI INTERNASIONAL','Promosi Internasional',NULL,NULL,'2024-11-24 23:09:11',0,NULL,1,NULL,NULL,NULL,NULL),
 (220,0,1,4,'categories',3,'PROMOSI INTERNASIONAL','Promosi Internasional',NULL,NULL,'2024-11-24 23:09:30',0,NULL,1,NULL,NULL,NULL,NULL),
 (221,0,1,3,'categories',4,'CUSTOM DESIGN','Custom Design',NULL,NULL,'2024-11-24 23:09:35',0,NULL,1,NULL,NULL,NULL,NULL),
-(222,0,1,4,'categories',4,'CUSTOM DESIGN','Custom Design',NULL,NULL,'2024-11-24 23:10:26',0,NULL,1,NULL,NULL,NULL,NULL);
+(222,0,1,4,'categories',4,'CUSTOM DESIGN','Custom Design',NULL,NULL,'2024-11-24 23:10:26',0,NULL,1,NULL,NULL,NULL,NULL),
+(223,1,1,1,NULL,NULL,NULL,NULL,NULL,NULL,'2024-11-25 20:20:30',1,NULL,1,'::1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36','http://localhost/git/web/login',NULL),
+(224,0,1,4,'news',46,'KEUNGGULAN KAMI','Keunggulan Kami',NULL,NULL,'2024-11-25 20:21:27',1,NULL,1,NULL,NULL,NULL,NULL),
+(225,0,1,4,'news',46,'KEUNGGULAN KAMI','Keunggulan Kami',NULL,NULL,'2024-11-25 20:21:38',1,NULL,1,NULL,NULL,NULL,NULL),
+(226,0,1,4,'news',46,'KEUNGGULAN KAMI','Keunggulan Kami',NULL,NULL,'2024-11-25 20:21:47',1,NULL,1,NULL,NULL,NULL,NULL),
+(227,0,1,4,'news',46,'KEUNGGULAN KAMI','Keunggulan Kami',NULL,NULL,'2024-11-25 20:22:26',1,NULL,1,NULL,NULL,NULL,NULL),
+(228,0,1,4,'news',46,'KEUNGGULAN KAMI','Keunggulan Kami',NULL,NULL,'2024-11-25 20:24:11',1,NULL,1,NULL,NULL,NULL,NULL),
+(229,0,1,4,'news',1,'ABOUT','About',NULL,NULL,'2024-11-25 20:24:28',1,NULL,1,NULL,NULL,NULL,NULL),
+(230,0,1,3,'categories',4,'CUSTOM DESIGN','Custom Design',NULL,NULL,'2024-11-25 20:34:01',0,NULL,1,NULL,NULL,NULL,NULL),
+(231,0,1,3,'categories',4,'CUSTOM DESIGN','Custom Design',NULL,NULL,'2024-11-25 20:34:42',0,NULL,1,NULL,NULL,NULL,NULL),
+(232,0,1,3,'categories',4,'CUSTOM DESIGN','Custom Design',NULL,NULL,'2024-11-25 21:06:04',0,NULL,1,NULL,NULL,NULL,NULL),
+(233,0,1,3,'categories',3,'PROMOSI INTERNASIONAL','Promosi Internasional',NULL,NULL,'2024-11-25 21:06:11',0,NULL,1,NULL,NULL,NULL,NULL),
+(234,0,1,3,'categories',2,'PRODUKSI BATIK','Produksi Batik',NULL,NULL,'2024-11-25 21:06:13',0,NULL,1,NULL,NULL,NULL,NULL),
+(235,0,1,3,'categories',1,'DESAIN BATIK','Desain Batik',NULL,NULL,'2024-11-25 21:06:15',0,NULL,1,NULL,NULL,NULL,NULL),
+(236,0,1,3,'categories',4,'CUSTOM DESIGN','Custom Design',NULL,NULL,'2024-11-25 21:06:16',0,NULL,1,NULL,NULL,NULL,NULL),
+(237,0,1,3,'categories',4,'CUSTOM DESIGN','Custom Design',NULL,NULL,'2024-11-25 21:17:00',0,NULL,1,NULL,NULL,NULL,NULL),
+(238,0,1,3,'categories',4,'CUSTOM DESIGN','Custom Design',NULL,NULL,'2024-11-25 21:33:35',0,NULL,1,NULL,NULL,NULL,NULL),
+(239,0,1,4,'news',46,'KEUNGGULAN KAMI','Keunggulan Kami',NULL,NULL,'2024-11-25 21:33:57',1,NULL,1,NULL,NULL,NULL,NULL),
+(240,0,1,4,'news',1,'TENTANG KAMI','Tentang Kami',NULL,NULL,'2024-11-25 21:34:50',1,NULL,1,NULL,NULL,NULL,NULL),
+(241,0,1,4,'news',35,'RAGAM BATIK NUSANTARA','Ragam Batik Nusantara',NULL,NULL,'2024-11-25 21:51:21',1,NULL,1,NULL,NULL,NULL,NULL),
+(242,0,1,4,'news',35,'RAGAM BATIK NUSANTARA','Ragam Batik Nusantara',NULL,NULL,'2024-11-25 21:53:44',1,NULL,1,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `branchs` */
 
@@ -313,7 +336,7 @@ CREATE TABLE `branchs` (
 /*Data for the table `branchs` */
 
 insert  into `branchs`(`branch_id`,`branch_user_id`,`branch_code`,`branch_name`,`branch_note`,`branch_specialist_id`,`branch_slogan`,`branch_address`,`branch_phone_1`,`branch_phone_2`,`branch_email_1`,`branch_email_2`,`branch_district`,`branch_city`,`branch_province`,`branch_logo`,`branch_logo_sidebar`,`branch_date_created`,`branch_date_updated`,`branch_flag`,`branch_bank_name`,`branch_bank_branch`,`branch_bank_address`,`branch_bank_account_number`,`branch_bank_account_name`,`branch_province_id`,`branch_city_id`,`branch_district_id`,`branch_village_id`,`branch_transaction_with_stock`,`branch_transaction_with_journal`,`branch_session`,`branch_url`,`branch_location_id`) values 
-(1,1,NULL,'Florina',0x7b226865616465725f7469746c65223a2253656c616d617420646174616e672064692077656273697465206b616d69222c22776f726b696e675f686f7572223a225b53656e696e2073642053616274755d2030393a3030202d2032323a303020222c22736f6369616c5f6d65646961223a5b7b226e616d65223a2266616365626f6f6b222c226c696e6b223a6e756c6c7d2c7b226e616d65223a22696e7374616772616d222c226c696e6b223a2268747470733a5c2f5c2f696e7374616772616d2e636f6d5c2f666c6f72696e61227d2c7b226e616d65223a22796f7574756265222c226c696e6b223a6e756c6c7d2c7b226e616d65223a2274776974746572222c226c696e6b223a6e756c6c7d2c7b226e616d65223a2274696b746f6b222c226c696e6b223a6e756c6c7d5d2c226d6170223a7b226c6f6e676974756465223a6e756c6c2c226c61746974756465223a6e756c6c2c226c696e6b223a6e756c6c7d7d,8,NULL,'City Square Business Park Blok G-1','02153363390','','-','','GAJAH MUNGKUR','KOTA SEMARANG','JAWA TENGAH','upload/branch/default_logo.png','upload/branch/default_logo.png','2020-04-28 14:51:45','2024-05-30 07:43:41',1,NULL,NULL,NULL,NULL,NULL,31,3174,3374040,NULL,'Yes','Yes','PJE1LPHZ6K4HVOH5WT76',NULL,1);
+(1,1,NULL,'Florina Vania Indonesia',0x7b226865616465725f7469746c65223a22426174696b204e7573616e74617261205072656d69756d222c22776f726b696e675f686f7572223a225b53656e696e2073642053616274755d2030393a3030202d2032323a303020222c22736f6369616c5f6d65646961223a5b7b226e616d65223a2266616365626f6f6b222c226c696e6b223a6e756c6c7d2c7b226e616d65223a22696e7374616772616d222c226c696e6b223a2268747470733a5c2f5c2f696e7374616772616d2e636f6d5c2f666c6f72696e61227d2c7b226e616d65223a22796f7574756265222c226c696e6b223a6e756c6c7d2c7b226e616d65223a2274776974746572222c226c696e6b223a6e756c6c7d2c7b226e616d65223a2274696b746f6b222c226c696e6b223a6e756c6c7d5d2c226d6170223a7b226c6f6e676974756465223a6e756c6c2c226c61746974756465223a6e756c6c2c226c696e6b223a6e756c6c7d7d,8,NULL,'City Square Business Park Blok G-1','02153363390','','contact@florinavaniaindonesia.com','','GAJAH MUNGKUR','KOTA SEMARANG','JAWA TENGAH','upload/branch/default_logo.png','upload/branch/default_logo.png','2020-04-28 14:51:45','2024-05-30 07:43:41',1,NULL,NULL,NULL,NULL,NULL,31,3174,3374040,NULL,'Yes','Yes','PJE1LPHZ6K4HVOH5WT76',NULL,1);
 
 /*Table structure for table `categories` */
 
@@ -336,17 +359,19 @@ CREATE TABLE `categories` (
   `category_color` varchar(255) DEFAULT NULL,
   `category_background` varchar(255) DEFAULT NULL,
   `category_image` varchar(255) DEFAULT NULL,
+  `category_content` text,
+  `category_short` text,
   PRIMARY KEY (`category_id`) USING BTREE,
   KEY `BRANCH` (`category_branch_id`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `categories` */
 
-insert  into `categories`(`category_id`,`category_type`,`category_branch_id`,`category_parent_id`,`category_code`,`category_name`,`category_url`,`category_icon`,`category_date_created`,`category_date_updated`,`category_user_id`,`category_flag`,`category_count_data`,`category_color`,`category_background`,`category_image`) values 
-(1,1,1,0,NULL,'Desain Batik','desain-batik',NULL,'2024-11-24 23:07:02','2024-11-24 23:08:36',1,1,0,NULL,NULL,'upload/category/04650686289214314275.png'),
-(2,1,1,0,NULL,'Produksi Batik','produksi-batik',NULL,'2024-11-24 23:07:11','2024-11-24 23:09:06',1,1,0,NULL,NULL,'upload/category/96165418184094918491.png'),
-(3,1,1,0,NULL,'Promosi Internasional','promosi-internasional',NULL,'2024-11-24 23:07:21','2024-11-24 23:09:30',1,1,0,NULL,NULL,'upload/category/48189031901460326383.png'),
-(4,1,1,0,NULL,'Custom Design','custom-design',NULL,'2024-11-24 23:07:27','2024-11-24 23:10:26',1,1,0,NULL,NULL,'upload/category/24088918373907092738.png');
+insert  into `categories`(`category_id`,`category_type`,`category_branch_id`,`category_parent_id`,`category_code`,`category_name`,`category_url`,`category_icon`,`category_date_created`,`category_date_updated`,`category_user_id`,`category_flag`,`category_count_data`,`category_color`,`category_background`,`category_image`,`category_content`,`category_short`) values 
+(1,1,1,0,NULL,'Desain Batik','desain-batik',NULL,'2024-11-24 23:07:02','2024-11-25 08:36:42',1,1,0,NULL,NULL,'upload/category/96165418184094918491.png',NULL,'Kami menawarkan desain batik yang unik dan elegan, menggabungkan tradisi dan inovasi terkini untuk setiap produk.'),
+(2,1,1,0,NULL,'Produksi Batik','produksi-batik',NULL,'2024-11-24 23:07:11','2024-11-25 08:36:13',1,1,0,NULL,NULL,'upload/category/48189031901460326383.png',NULL,'Produksi batik premium menggunakan bahan berkualitas tinggi, memastikan standar kualitas yang tinggi pada setiap karya yang dihasilkan'),
+(3,1,1,0,NULL,'Promosi Internasional','promosi-internasional',NULL,'2024-11-24 23:07:21','2024-11-25 08:35:26',1,1,0,NULL,NULL,'upload/category/24088918373907092738.png','<br>','Kami mempromosikan batik nusantara ke seluruh dunia, mengedukasi masyarakat tentang keindahan dan nilai budaya indonesia'),
+(4,1,1,0,NULL,'Custom Design','custom-design',NULL,'2024-11-24 23:07:27','2024-11-25 08:37:04',1,1,0,NULL,NULL,'upload/category/04650686289214314275.png','<br>','Kami menyediakan opsi desain khusus sesuai dengan kebutuhan klien, memungkinkan kreasi batik yang unik untuk acara tertentu atau koleksi pribadi yang ekslusif');
 
 /*Table structure for table `cities` */
 
@@ -355,7 +380,7 @@ DROP TABLE IF EXISTS `cities`;
 CREATE TABLE `cities` (
   `city_id` int NOT NULL,
   `city_province_id` int NOT NULL,
-  `city_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `city_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `city_flag` int DEFAULT '1',
   PRIMARY KEY (`city_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
@@ -962,7 +987,7 @@ DROP TABLE IF EXISTS `districts`;
 CREATE TABLE `districts` (
   `district_id` int NOT NULL,
   `district_city_id` int NOT NULL,
-  `district_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `district_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `district_flag` int DEFAULT '1',
   PRIMARY KEY (`district_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
@@ -8192,8 +8217,8 @@ DROP TABLE IF EXISTS `faqs`;
 
 CREATE TABLE `faqs` (
   `faq_id` int NOT NULL AUTO_INCREMENT,
-  `faq_question` longtext COLLATE utf8mb4_unicode_ci,
-  `faq_answer` longtext COLLATE utf8mb4_unicode_ci,
+  `faq_question` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `faq_answer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `faq_date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `faq_flag` int DEFAULT '1',
   PRIMARY KEY (`faq_id`)
@@ -8234,7 +8259,7 @@ CREATE TABLE `files` (
   `file_user_id` bigint DEFAULT NULL COMMENT 'User Id',
   `file_size` double(12,0) DEFAULT '0' COMMENT 'Kilobyte',
   PRIMARY KEY (`file_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=297 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=303 DEFAULT CHARSET=latin1;
 
 /*Data for the table `files` */
 
@@ -8393,7 +8418,13 @@ insert  into `files`(`file_id`,`file_type`,`file_from_table`,`file_from_id`,`fil
 (274,1,'products',43,'2024090703332366dc0fd3ce70d','upload/product/2024090703332366dc0fd3ce70d.png','png','Y20397XQ2FBBZ1OVA5FA',1,'2024-09-07 15:33:23',1,395),
 (275,1,'products',43,'2024090703332366dc0fd3e4390','upload/product/2024090703332366dc0fd3e4390.png','png','PB5TWN1NXXAYTXV99FXC',1,'2024-09-07 15:33:24',1,478),
 (295,1,'news',46,'Screenshot_1.png','upload/page/20241124223959_674348cf7cf92.png','png','367OZHN7ZJGAVZZE1SGL',1,'2024-11-24 22:39:59',1,496199),
-(296,1,'news',1,'Screenshot_2.png','upload/page/20241124224049_6743490111d85.png','png','7OKMEDHR1J2XX9C9XPZW',1,'2024-11-24 22:40:49',1,582190);
+(296,1,'news',1,'Screenshot_2.png','upload/page/20241124224049_6743490111d85.png','png','7OKMEDHR1J2XX9C9XPZW',1,'2024-11-24 22:40:49',1,582190),
+(297,1,'news',35,'WhatsApp Image 2024-11-11 at 09.23.36 (2).jpeg','upload/gallery/20241125215344_67448f78292ea.jpeg','jpeg','MP226SXV6V112PEZ46YC',1,'2024-11-25 21:53:44',1,577590),
+(298,1,'news',35,'WhatsApp Image 2024-11-11 at 09.23.36.jpeg','upload/gallery/20241125215344_67448f7838d85.jpeg','jpeg','O4M4WNGRGPH2M41CD4RD',1,'2024-11-25 21:53:44',1,489768),
+(299,1,'news',35,'WhatsApp Image 2024-11-11 at 09.23.37 (2).jpeg','upload/gallery/20241125215344_67448f7839322.jpeg','jpeg','B2X72217NV6N443SADD1',1,'2024-11-25 21:53:44',1,431046),
+(300,1,'news',35,'WhatsApp Image 2024-11-11 at 09.23.37 (3).jpeg','upload/gallery/20241125215344_67448f7839ae4.jpeg','jpeg','TLRVYN1DFDRQTLTK4BAH',1,'2024-11-25 21:53:44',1,535719),
+(301,1,'news',35,'WhatsApp Image 2024-11-11 at 09.23.37.jpeg','upload/gallery/20241125215344_67448f783a0fd.jpeg','jpeg','4MRDES1R2NC4OTW6SZ2N',1,'2024-11-25 21:53:44',1,450525),
+(302,1,'news',35,'WhatsApp Image 2024-11-11 at 09.23.38.jpeg','upload/gallery/20241125215344_67448f783a643.jpeg','jpeg','NDAFFRS4EH5ZZP6XYQKH',1,'2024-11-25 21:53:44',1,547409);
 
 /*Table structure for table `menus` */
 
@@ -8508,8 +8539,8 @@ CREATE TABLE `news` (
   `news_title` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `news_url` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `news_image` tinytext CHARACTER SET latin1 COLLATE latin1_swedish_ci,
-  `news_short` text COLLATE utf8mb4_unicode_ci,
-  `news_content` text COLLATE utf8mb4_unicode_ci,
+  `news_short` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `news_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `news_tags` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
   `news_keywords` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
   `news_visitor` int DEFAULT '0',
@@ -8522,18 +8553,17 @@ CREATE TABLE `news` (
   PRIMARY KEY (`news_id`) USING BTREE,
   KEY `BRANCH` (`news_branch_id`) USING BTREE,
   KEY `USER` (`news_user_id`) USING BTREE,
-  KEY `CATEGORIES` (`news_category_id`) USING BTREE,
-  CONSTRAINT `news_chk_1` CHECK (json_valid(`news_json`))
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `CATEGORIES` (`news_category_id`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `news` */
 
 insert  into `news`(`news_id`,`news_type`,`news_branch_id`,`news_category_id`,`news_title`,`news_url`,`news_image`,`news_short`,`news_content`,`news_tags`,`news_keywords`,`news_visitor`,`news_user_id`,`news_date_created`,`news_date_updated`,`news_flag`,`news_position`,`news_json`) values 
-(1,0,1,NULL,'About','about',NULL,'<p><span style=\"font-weight: 700;\">Kisah di Balik Florina Vania Indonesia</span></p><p>Florina Vania Indonesia adalah pelopor dalam memproduksi batik premium yang melestarikan warisan budaya nusantara dengan sentuhan modern. Kami berkomitmen untuk memperkenalkan batik Indonesia ke dunia internasional.</p>','undefined',NULL,NULL,0,1,NULL,'2024-11-24 22:40:49',1,NULL,NULL),
+(1,0,1,NULL,'Tentang Kami','tentang-kami',NULL,'<h4><span style=\"font-weight: 700;\">Kisah di Balik Florina Vania Indonesia</span></h4><p>Florina Vania Indonesia adalah pelopor dalam memproduksi batik premium yang melestarikan warisan budaya nusantara dengan sentuhan modern. Kami berkomitmen untuk memperkenalkan batik Indonesia ke dunia internasional.</p>','undefined',NULL,NULL,0,1,NULL,'2024-11-25 21:34:50',1,NULL,NULL),
 (2,0,1,NULL,'Privacy','privacy',NULL,'Selamat datang di web kami. Kami menghargai privasi Anda dan berkomitmen untuk melindungi informasi pribadi yang Anda berikan kepada kami. Kebijakan privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi Anda.','<p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">Pembaruan Terakhir: 24 November 2024&nbsp;</span></p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\">Selamat datang di web Kami menghargai privasi Anda dan berkomitmen untuk melindungi informasi pribadi yang Anda berikan kepada kami. Kebijakan privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi Anda.</p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">1. Informasi yang Kami Kumpulkan</span></p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\">Kami dapat mengumpulkan beberapa jenis informasi dari dan tentang pengguna situs kami, termasuk:</p><ul style=\"padding-left: 2rem; margin-bottom: 1rem; color: rgb(102, 102, 102); font-family: Epilogue, sans-serif; font-size: 16px;\"><li><span style=\"font-weight: bolder;\">Informasi Pribadi:</span>&nbsp;Nama, alamat email, nomor telepon, dan informasi kontak lainnya yang Anda berikan secara sukarela.</li><li><span style=\"font-weight: bolder;\">Informasi Non-Pribadi:</span>&nbsp;Data demografis, alamat IP, jenis perangkat yang digunakan, riwayat penelusuran, dan informasi lain yang tidak dapat mengidentifikasi Anda secara langsung.</li></ul><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">2. Cara Kami Menggunakan Informasi Anda</span></p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\">Kami menggunakan informasi yang kami kumpulkan untuk berbagai tujuan, termasuk:</p><ul style=\"padding-left: 2rem; margin-bottom: 1rem; color: rgb(102, 102, 102); font-family: Epilogue, sans-serif; font-size: 16px;\"><li>Memberikan, mengoperasikan, dan memelihara situs web kami.</li><li>Memproses transaksi dan mengelola akun pengguna.</li><li>Mengirimkan komunikasi pemasaran dan promosi.</li><li>Meningkatkan situs web kami berdasarkan umpan balik Anda.</li><li>Menjawab pertanyaan dan menyediakan dukungan pelanggan.</li></ul><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">3. Pembagian Informasi Anda</span></p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\">Kami tidak menjual, memperdagangkan, atau menyewakan informasi pribadi Anda kepada pihak ketiga. Kami dapat membagikan informasi Anda dengan pihak ketiga terpercaya yang membantu kami dalam mengoperasikan situs web kami, melakukan bisnis kami, atau melayani Anda, selama pihak-pihak tersebut setuju untuk menjaga kerahasiaan informasi ini.</p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">4. Perlindungan Informasi Anda</span></p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\">Kami mengambil langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses yang tidak sah, pengungkapan, perubahan, atau penghancuran. Namun, tidak ada metode transmisi data melalui internet atau metode penyimpanan elektronik yang sepenuhnya aman. Oleh karena itu, kami tidak dapat menjamin keamanan absolut.</p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">5. Cookies</span></p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\">Situs web kami dapat menggunakan \"cookies\" untuk meningkatkan pengalaman pengguna. Browser web pengguna menempatkan cookies di hard drive mereka untuk tujuan pencatatan dan kadang-kadang untuk melacak informasi tentang mereka. Anda dapat memilih untuk mengatur browser web Anda untuk menolak cookies atau memberi peringatan ketika cookies dikirim. Jika mereka melakukannya, perlu diketahui bahwa beberapa bagian situs web mungkin tidak berfungsi dengan baik.</p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">6. Hak Privasi Anda</span></p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\">Bergantung pada yurisdiksi Anda, Anda mungkin memiliki hak tertentu terkait informasi pribadi Anda, seperti hak untuk mengakses, mengoreksi, atau menghapus informasi pribadi Anda. Untuk menggunakan hak-hak ini, Anda dapat menghubungi kami.</p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">7. Perubahan pada Kebijakan Privasi</span></p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\">Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Kami akan memberi tahu Anda tentang perubahan dengan memposting kebijakan privasi yang baru di situs web kami. Anda disarankan untuk meninjau kebijakan privasi ini secara berkala untuk setiap perubahan.</p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">8. Kontak Kami</span></p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\">Jika Anda memiliki pertanyaan tentang kebijakan privasi ini, praktik situs web kami, atau interaksi Anda dengan situs web ini, silakan hubungi kami di:</p><p style=\"margin-bottom: 18px; color: var(--text-color); line-height: 1.8; font-family: Epilogue, sans-serif; font-size: 16px;\"><span style=\"font-weight: bolder;\">Email:</span>&nbsp;<a rel=\"noreferrer\" style=\"color: inherit; transition: all 0.4s ease 0s; font-size: inherit; font-family: inherit; font-weight: inherit; line-height: inherit;\">-</a><br><span style=\"font-weight: bolder;\">Situs Web:</span>&nbsp;<span style=\"background-color: transparent;\">web</span></p>','undefined','undefined',0,1,NULL,'2024-11-24 15:22:33',1,2,NULL),
 (3,0,1,NULL,'Term Of Service','term-of-service',NULL,NULL,'<p><strong>Pembaruan Terakhir: 24 November 2024</strong></p><p>Selamat datang di avista.id. Dengan mengakses dan menggunakan situs web ini, Anda menyetujui untuk terikat dengan Syarat dan Ketentuan berikut. Jika Anda tidak setuju dengan syarat ini, mohon jangan menggunakan situs web kami.</p><p><strong>1. Penggunaan Situs Web</strong></p><p>Anda setuju untuk menggunakan situs web ini hanya untuk tujuan yang sah dan dengan cara yang tidak melanggar hak-hak orang lain atau membatasi atau menghambat penggunaan dan kenikmatan orang lain terhadap situs ini. Perilaku terlarang termasuk melecehkan atau menyebabkan kesusahan atau ketidaknyamanan kepada pengguna lain, mengirimkan konten cabul atau menyinggung, atau mengganggu aliran normal dialog di dalam situs kami.</p><p><strong>2. Akses ke Situs</strong></p><p>Kami berusaha untuk memastikan bahwa situs ini tersedia sepanjang waktu, namun kami tidak bertanggung jawab jika, untuk alasan apapun, situs ini tidak tersedia pada waktu tertentu. Kami dapat menangguhkan akses ke situs ini sementara tanpa pemberitahuan dalam kasus kegagalan sistem, pemeliharaan, atau perbaikan atau karena alasan di luar kendali kami.</p><p><strong>3. Hak Kekayaan Intelektual</strong></p><p>Semua konten di situs ini, termasuk tetapi tidak terbatas pada teks, grafis, logo, ikon, gambar, klip audio, dan perangkat lunak, adalah milik kampungnusantararesort.com atau penyedia konten kami dan dilindungi oleh undang-undang hak cipta internasional. Anda tidak diizinkan untuk memodifikasi, menyalin, mendistribusikan, mengirim, menampilkan, melakukan, mereproduksi, mempublikasikan, melisensikan, membuat karya turunan dari, mentransfer, atau menjual konten apa pun dari situs ini tanpa izin tertulis sebelumnya dari kami.</p><p><strong>4. Link ke Situs Web Pihak Ketiga</strong></p><p>Situs ini mungkin berisi tautan ke situs web pihak ketiga yang tidak dioperasikan oleh kampungnusantararesort.com. Kami tidak mengontrol situs-situs tersebut dan tidak bertanggung jawab atas konten atau kebijakan privasi mereka. Penyertaan tautan tersebut tidak menyiratkan dukungan atau rekomendasi oleh kami dan Anda mengakses situs web pihak ketiga tersebut dengan risiko Anda sendiri.</p><p><strong>5. Pembatasan Tanggung Jawab</strong></p><p>Konten yang ditampilkan di situs ini disediakan tanpa jaminan, kondisi, atau garansi apapun terhadap keakuratannya. Sejauh diizinkan oleh hukum, kami, pemasok konten dan penyedia kami, dengan ini secara tegas mengecualikan:</p><ul><li>Semua kondisi, jaminan, dan ketentuan lain yang mungkin tersirat oleh undang-undang, hukum umum, atau hukum ekuitas.</li><li>Setiap tanggung jawab untuk kerugian atau kerusakan langsung, tidak langsung, atau konsekuensial yang ditimbulkan oleh pengguna sehubungan dengan situs web kami atau sehubungan dengan penggunaan, ketidakmampuan untuk menggunakan, atau hasil penggunaan situs web kami, situs web yang tertaut ke dalamnya, dan materi yang diposting di dalamnya, termasuk, tanpa batasan, tanggung jawab untuk kehilangan pendapatan atau pendapatan, kehilangan bisnis, kehilangan keuntungan atau kontrak, kehilangan penghematan yang diantisipasi, kehilangan data, kehilangan goodwill, kehilangan waktu manajemen atau kantor, dan untuk setiap kerugian atau kerusakan lainnya.</li></ul><p><strong>6. Perubahan pada Syarat dan Ketentuan</strong></p><p>Kami dapat merevisi syarat dan ketentuan ini kapan saja dengan mengamandemen halaman ini. Anda diharapkan untuk memeriksa halaman ini dari waktu ke waktu untuk memperhatikan setiap perubahan yang kami buat, karena syarat dan ketentuan ini mengikat Anda.</p><p><strong>7. Hukum yang Berlaku</strong></p><p>Syarat dan ketentuan ini diatur dan ditafsirkan sesuai dengan hukum negara [Negara Anda], dan setiap perselisihan yang timbul dari atau terkait dengan syarat dan ketentuan ini akan tunduk pada yurisdiksi eksklusif pengadilan negara tersebut.</p><p><strong>8. Kontak Kami</strong></p><p>Jika Anda memiliki pertanyaan tentang syarat dan ketentuan ini, praktik situs web kami, atau interaksi Anda dengan situs web ini, silakan hubungi kami di:</p><p><strong>Email:</strong> <a rel=\"noreferrer\">-</a><br><strong>Situs Web:</strong>&nbsp;<span style=\"background-color: transparent; font-family: var(--font-family);\">web</span></p>','undefined','undefined',0,1,NULL,'2024-11-24 15:22:38',1,2,NULL),
 (4,0,1,NULL,'Career','career',NULL,'Saat ini kami belum membuka lowongan pekerjaan.','Saat ini kami belum membuka lowongan pekerjaan.','undefined','undefined',0,1,NULL,'2024-11-24 15:22:24',1,2,NULL),
-(35,6,1,NULL,'Tes Ga','tes-ga',NULL,NULL,NULL,NULL,NULL,0,1,'2024-09-04 09:09:27','2024-09-04 09:13:49',1,NULL,NULL),
+(35,6,1,NULL,'Ragam Batik Nusantara','ragam-batik-nusantara',NULL,NULL,NULL,NULL,NULL,0,1,'2024-09-04 09:09:27','2024-11-25 21:53:44',1,NULL,NULL),
 (36,1,1,29,'Blog 1','blog-1',NULL,NULL,NULL,NULL,'undefined',0,1,'2024-11-24 15:29:24','2024-11-24 15:29:24',1,1,NULL),
 (37,1,1,29,'Blog 11','blog-11',NULL,NULL,NULL,NULL,'undefined',0,1,'2024-11-24 15:29:33','2024-11-24 15:29:33',1,1,NULL),
 (38,1,1,30,'Blog 2','blog-2',NULL,NULL,NULL,NULL,'undefined',0,1,'2024-11-24 15:29:39','2024-11-24 15:29:39',1,1,NULL),
@@ -8543,7 +8573,7 @@ insert  into `news`(`news_id`,`news_type`,`news_branch_id`,`news_category_id`,`n
 (42,7,1,NULL,'Porto 2','porto-2',NULL,NULL,NULL,NULL,NULL,0,1,'2024-11-24 15:46:20',NULL,1,1,NULL),
 (43,8,1,NULL,'Team 1','team-1',NULL,NULL,NULL,NULL,NULL,0,1,'2024-11-24 15:46:29',NULL,1,1,NULL),
 (44,8,1,NULL,'Team 2','team-2',NULL,NULL,NULL,NULL,NULL,0,1,'2024-11-24 15:46:31',NULL,1,1,NULL),
-(46,0,1,NULL,'Keunggulan Kami','keunggulan-kami',NULL,'<p>Mengapa memilih Florina Vania Indonesia untuk Batik anda ?</p><ul><li>Kualitas Premium</li><li>Desain yg Elegan</li><li>Menghormati Tradisi</li><li>Sentuhan Modern</li></ul>','undefined',NULL,NULL,0,1,'2024-11-24 21:11:55','2024-11-24 22:39:59',1,NULL,NULL);
+(46,0,1,NULL,'Keunggulan Kami','keunggulan-kami',NULL,'<h4><b>Mengapa memilih Florina Vania Indonesia untuk Batik anda ?</b></h4><ul><li>Kualitas Premium</li><li>Desain yg Elegan</li><li>Menghormati Tradisi</li><li>Sentuhan Modern</li></ul>','undefined',NULL,NULL,0,1,'2024-11-24 21:11:55','2024-11-25 21:33:57',1,NULL,NULL);
 
 /*Table structure for table `products` */
 
@@ -8625,9 +8655,9 @@ DROP TABLE IF EXISTS `provinces`;
 
 CREATE TABLE `provinces` (
   `province_id` int NOT NULL,
-  `province_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `province_latitude` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `province_longitude` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `province_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `province_latitude` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `province_longitude` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `province_flag` int DEFAULT NULL,
   PRIMARY KEY (`province_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
@@ -8848,7 +8878,7 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`user_id`,`user_branch_id`,`user_user_group_id`,`user_type`,`user_code`,`user_username`,`user_fullname`,`user_place_birth`,`user_birth_of_date`,`user_gender`,`user_address`,`user_phone_1`,`user_phone_2`,`user_email_1`,`user_email_2`,`user_password`,`user_theme`,`user_date_created`,`user_date_updated`,`user_flag`,`user_activation`,`user_activation_code`,`user_date_activation`,`user_referal_code`,`user_registration_from_referal`,`user_date_last_login`,`user_session`,`user_otp`,`user_menu_style`,`user_balance`,`user_total_link`,`user_check_price_buy`,`user_check_price_sell`) values 
-(1,1,1,NULL,'R3TL96QZ','root','Root','Place Birth','1989-11-30','L','Jogja','6281225518118',NULL,'joe.witaya@gmail.com',NULL,'63a9f0ea7bb98050796b649e85481845','black','2021-04-12 15:10:00','2023-03-09 13:33:51',1,1,'TCFF2LTF7EBSX3AGP6WVVAV7QQKOJN3Q','2020-12-15 11:55:17',NULL,NULL,'2024-11-24 23:05:47','69HC1RGSAUZ6K4FMKOEQ',755471,0,0.00,NULL,0,0),
+(1,1,1,NULL,'R3TL96QZ','root','Root','Place Birth','1989-11-30','L','Jogja','6281225518118',NULL,'joe.witaya@gmail.com',NULL,'63a9f0ea7bb98050796b649e85481845','black','2021-04-12 15:10:00','2023-03-09 13:33:51',1,1,'TCFF2LTF7EBSX3AGP6WVVAV7QQKOJN3Q','2020-12-15 11:55:17',NULL,NULL,'2024-11-25 21:03:38','69HC1RGSAUZ6K4FMKOEQ',755471,0,0.00,NULL,0,0),
 (2,1,2,NULL,NULL,'admin','admin',NULL,NULL,'L','Alamat','6289899001481',NULL,NULL,NULL,'21232f297a57a5a743894a0e4a801fc3','white','2023-02-28 09:01:09','2024-09-17 19:02:49',1,1,NULL,'2024-09-17 19:02:49',NULL,NULL,'2024-09-04 13:08:48','GDE9TJ956OYS65Y9UJVQ',436722,0,0.00,NULL,1,0);
 
 /*Table structure for table `users_groups` */
@@ -8996,84 +9026,6 @@ insert  into `users_menus`(`user_menu_id`,`user_menu_user_id`,`user_menu_menu_pa
 (451,2,NULL,30,1,'2023-08-01 03:58:57','2023-08-01 03:58:57',1),
 (452,2,NULL,62,1,'2023-08-01 03:58:59','2023-08-01 03:58:59',1),
 (453,2,NULL,22,0,'2023-08-27 22:16:20','2023-08-27 22:16:20',0);
-
-/* Trigger structure for table `files` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_file_after_insert` */$$
-
-/*!50003 CREATE */ /*!50003 TRIGGER `tr_file_after_insert` AFTER INSERT ON `files` FOR EACH ROW BEGIN
-    IF NEW.file_from_table = 'products' THEN
-        UPDATE products SET product_image = NEW.file_url WHERE product_id = NEW.file_from_id;
-    END IF;   
-END */$$
-
-
-DELIMITER ;
-
-/* Trigger structure for table `files` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_file_after_update` */$$
-
-/*!50003 CREATE */ /*!50003 TRIGGER `tr_file_after_update` AFTER UPDATE ON `files` FOR EACH ROW BEGIN
-    IF NEW.file_from_table = 'products' THEN
-        UPDATE products SET product_image = NEW.file_url WHERE product_id = NEW.file_from_id;
-    END IF;   
-END */$$
-
-
-DELIMITER ;
-
-/* Trigger structure for table `products` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_product_after_insert` */$$
-
-/*!50003 CREATE */ /*!50003 TRIGGER `tr_product_after_insert` AFTER INSERT ON `products` FOR EACH ROW BEGIN
-    IF NEW.product_category_id IS NOT NULL THEN
-        UPDATE categories SET category_count_data=(
-            SELECT COUNT(*) FROM products WHERE product_category_id=NEW.product_category_id
-        ) WHERE category_id=NEW.product_category_id; 
-    END IF;
-END */$$
-
-
-DELIMITER ;
-
-/* Trigger structure for table `products` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_product_after_update` */$$
-
-/*!50003 CREATE */ /*!50003 TRIGGER `tr_product_after_update` AFTER UPDATE ON `products` FOR EACH ROW BEGIN
-    IF NEW.product_category_id IS NOT NULL THEN
-        IF NEW.product_category_id != OLD.product_category_id THEN
-            UPDATE categories SET category_count_data=(
-                SELECT COUNT(*) FROM products WHERE product_category_id=NEW.product_category_id
-            ) WHERE category_id=NEW.product_category_id; 
-
-            UPDATE categories SET category_count_data=(
-                SELECT COUNT(*) FROM products WHERE product_category_id=OLD.product_category_id
-            ) WHERE category_id=OLD.product_category_id;
-        END IF;
-    END IF;
-
-    IF NEW.product_category_id IS NULL THEN
-        IF OLD.product_category_id IS NOT NULL THEN 
-            UPDATE categories SET category_count_data=(
-                SELECT COUNT(*) FROM products WHERE product_category_id=OLD.product_category_id
-            ) WHERE category_id=OLD.product_category_id;            
-        END IF;  
-    END IF;
-END */$$
-
-
-DELIMITER ;
 
 /* Function  structure for function  `fn_capitalize` */
 

@@ -202,7 +202,7 @@ class Website extends CI_Controller{
             'gallery' => $this->News_model->get_all_newss(['news_type'=>6,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'portofolio' => $this->News_model->get_all_newss(['news_type'=>7,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'team' => $this->News_model->get_all_newss(['news_type'=>8,'news_flag'=> 1],null,10,0,'news_id','asc'),                                 
-            'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,10,null,'category_name','asc'),
+            'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,10,null,'category_id','asc'),
             'products' => $this->Product_model->get_all_product(['product_flag'=>1,'product_type'=>1,'product_category_id > ' => 0],null,10,0,'product_id','asc'),
             'menu' => $this->News_model->get_all_newss(['news_type'=>0,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'newsticker' => $json['header_title']
@@ -741,7 +741,7 @@ class Website extends CI_Controller{
                     'news' => !empty($data['news']) ? $data['news'] : [],
                 );
                 
-                // echo json_encode($data['result']);die;
+                // echo json_encode($data['product']);die;
                 $data['_content']       = $this->nav['web']['layout'].$this_file;
                 // $data['_js']            = $this->nav['web']['layout'].$this_file.'_js';    
                 $this->load->view($this->nav['web']['index'],$data);
@@ -860,7 +860,7 @@ class Website extends CI_Controller{
 
         $this->load->view($this->nav['web']['index'],$data);
     }        
-    function contact_us(){ //Not
+    function contact_us(){
         $data['title']          = 'Hubungi Kami';
         $data['author']         = 'John Doe';
         $data['description']    = 'Its not about news, talk to each other something special from this site';

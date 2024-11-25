@@ -33,7 +33,8 @@ class News_model extends CI_Model{
 
     function set_join() {
         $this->db->join('categories', 'news_category_id=category_id','left');
-        $this->db->join('users', 'news_user_id=user_id','left');        
+        $this->db->join('users', 'news_user_id=user_id','left');     
+        $this->db->join('files', 'news_id=file_from_id AND file_from_table="news"','left');                
     }
 
     function set_select(){
@@ -41,7 +42,7 @@ class News_model extends CI_Model{
     }
 
     function get_all_newss($params = null, $search = null, $limit = null, $start = null, $order = null, $dir = null) {
-        $this->db->select("news.*, categories.*, users.*");
+        $this->db->select("news.*, categories.*, users.*, files.*");
         $this->set_params($params);
         $this->set_search($search);
         $this->set_join();
