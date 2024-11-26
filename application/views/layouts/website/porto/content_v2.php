@@ -1,16 +1,17 @@
 <main class="main info-box-wrapper">
     <!-- Carousel -->
-    <div class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{'loop': false}">
+    <div style="top:-117px;" class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{'loop': false}">
         <div class="home-slide home-slide1 banner">
             <img class="slide-bg" src="<?php echo $asset; ?>assets/images/demoes/demo4/slider/slide-1.jpg" width="1903" height="499" alt="slider image">
             <div class="container d-flex align-items-center">
                 <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
-                    <h4 class="text-transform-none m-b-3">Batik dengan Sentuhan Modern</h4>
-                    <h2 class="text-transform-none m-b-3" style="font-family:inherit;">Batik Nusantara Premium</h2>
-                    <p class="text-transform-none m-b-3">
+                    <h4 class="text-transform-none m-b-3" style="text-align:center;">Batik dengan Sentuhan Modern</h4>
+                    <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">Batik Nusantara Premium</h2>
+                    <p class="text-transform-none m-b-3" style="text-align:center;">
                         Memberikan keindahan batik nusantara yang dirancang dengan kualitas tinggi dan elegan, merepresentasikan tradisi Indonesia di panggung dunia.
+                        <br>
+                        <a href="category.html" class="btn btn-dark btn-lg" style="text-align:center;">Hubungi Kami</a>
                     </p>
-                    <a href="category.html" class="btn btn-dark btn-lg">Hubungi Kami</a>
                 </div>
             </div>
         </div>

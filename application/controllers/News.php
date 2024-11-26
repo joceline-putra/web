@@ -168,7 +168,7 @@ class News extends MY_Controller{
 
                     $params = array();
                     if($session_user_id){
-                        $params['news_branch_id'] = $session_branch_id;
+                        $params['news_branch_id'] = intval($session_branch_id);
                     }
                     $params['news_type'] = !empty($this->input->post('tipe')) ? intval($this->input->post('tipe')) : 0;                
                     if($category > 0){
@@ -182,7 +182,7 @@ class News extends MY_Controller{
 
                     // $params = (intval($flag) < 3) ? $params_datatable['news.news_flag']=$flag : $params_datatable;            
                     if($post['flag'] !== "All") {
-                        $params['news_flag'] = $post['flag'];
+                        $params['news_flag'] = intval($post['flag']);
                     }else{
                         $params['news_flag <'] = 5;
                     }
@@ -193,7 +193,7 @@ class News extends MY_Controller{
                     */
                     
                     $datas = $this->News_model->get_all_newss($params, $search, $limit, $start, $order, $dir);
-                    $datas_count = $this->News_model->get_all_newss_count($params, $search);                
+                    $datas_count = $this->News_model->get_all_newss_count($params, $search);
                     if(isset($datas)){ //Data exist
                         $data_source=$datas; $total=$datas_count;
                         $return->status=1; $return->message='Loaded'; $return->total_records=$total;
@@ -1136,6 +1136,6 @@ class News extends MY_Controller{
         }
         $return->action=$action;
         echo json_encode($return);
-    }     
+    }
 }
 ?>

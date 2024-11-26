@@ -33,8 +33,8 @@ class News_model extends CI_Model{
 
     function set_join() {
         $this->db->join('categories', 'news_category_id=category_id','left');
-        $this->db->join('users', 'news_user_id=user_id','left');     
-        $this->db->join('files', 'news_id=file_from_id AND file_from_table="news"','left');                
+        $this->db->join('users', 'news_user_id=user_id','left');
+        $this->db->join('(SELECT * FROM files WHERE file_from_table="news" GROUP BY file_from_id ORDER BY file_id ASC) AS f','news_id=f.file_from_id','left');           
     }
 
     function set_select(){
@@ -42,7 +42,7 @@ class News_model extends CI_Model{
     }
 
     function get_all_newss($params = null, $search = null, $limit = null, $start = null, $order = null, $dir = null) {
-        $this->db->select("news.*, categories.*, users.*, files.*");
+        $this->db->select("news.*, categories.*, users.*, f.*");
         $this->set_params($params);
         $this->set_search($search);
         $this->set_join();
@@ -67,6 +67,36 @@ class News_model extends CI_Model{
         return $this->db->count_all_results();
     }
         
+    function get_all_newss_files($params = null, $search = null, $limit = null, $start = null, $order = null, $dir = null) {
+        $this->db->select("news.*, categories.*, users.*, f.*");
+        $this->set_params($params);
+        $this->set_search($search);
+        $this->db->join('categories', 'news_category_id=category_id','left');
+        $this->db->join('users', 'news_user_id=user_id','left');
+        $this->db->join('files AS f','news_id=f.file_from_id AND f.file_from_table="news"','left'); 
+
+        if ($order) {
+            $this->db->order_by($order, $dir);
+        } else {
+            $this->db->order_by('news_title', "asc");
+        }
+
+        if ($limit) {
+            $this->db->limit($limit, $start);
+        }
+        
+        return $this->db->get('news')->result_array();
+    }
+    function get_all_newss_files_count($params,$search){
+        $this->db->from('news');   
+        $this->db->join('categories', 'news_category_id=category_id','left');
+        $this->db->join('users', 'news_user_id=user_id','left');
+        $this->db->join('files AS f','news_id=f.file_from_id','left'); 
+        $this->set_params($params);            
+        $this->set_search($search);
+        return $this->db->count_all_results();
+    }
+
     /* 
         ================
         CRUD 

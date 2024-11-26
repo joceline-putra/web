@@ -199,7 +199,7 @@ class Website extends CI_Controller{
             ],
             'article_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>2,'category_flag'=>1],null,10,0,'category_name','asc'),
             'project' => $this->News_model->get_all_newss(['news_type'=>5,'news_flag'=> 1],null,10,0,'news_id','asc'),
-            'gallery' => $this->News_model->get_all_newss(['news_type'=>6,'news_flag'=> 1],null,10,0,'news_id','asc'),
+            'gallery' => $this->News_model->get_all_newss_files(['news_type'=>6,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'portofolio' => $this->News_model->get_all_newss(['news_type'=>7,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'team' => $this->News_model->get_all_newss(['news_type'=>8,'news_flag'=> 1],null,10,0,'news_id','asc'),                                 
             'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,10,null,'category_id','asc'),
@@ -207,6 +207,7 @@ class Website extends CI_Controller{
             'menu' => $this->News_model->get_all_newss(['news_type'=>0,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'newsticker' => $json['header_title']
         );
+        // echo json_encode($a['gallery']);die;
         return $a;
     }
     function index(){
