@@ -36,7 +36,7 @@
                         </li>
                         <li><a href="<?php echo base_url('tentang-kami');?>">Tentang</a></li>
                         <li><a href="<?php echo base_url('layanan');?>">Layanan</a></li>       
-                        <li>
+                        <!-- <li>
                             <a href="#">Blogs</a>
                             <ul>
                                 <?php 
@@ -46,14 +46,9 @@
                                     }
                                 }
                                 ?>
-                                <!-- <li><a href="<?php #echo $link['articles'];?>">Blog</a>
-                                    <ul>
-                                        <li><a href="<?php #echo $link['article'];?>">Blog</a></li>
-                                        <li><a href="<?php #echo $link['article'];?>">Blog Post</a></li>
-                                    </ul>
-                                </li> -->
                             </ul>
-                        </li>                                                                 
+                        </li>                                                                  -->
+                        <li><a href="#">Blog</a></li>                          
                         <li><a href="<?php echo base_url('contact-us');?>">Kontak</a></li>  
                         <li class="float-right"><a href="#" class="pl-5">Jelajahi Koleksi Kami</a></li>
                     </ul>

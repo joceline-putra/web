@@ -760,14 +760,20 @@ class Website extends CI_Controller{
             'news_url' => 'about'
         );
         $get_news   = $this->News_model->get_news_by_url($params_check);
-        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+        // $get_author = $this->User_model->get_user($get_news['news_user_id']);
         
-        $data['title']          = ucwords($get_news['news_title']);
-        $data['author']         = ucwords($get_author['user_username']);
-        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
+        // $data['title']          = ucwords($get_news['news_title']);
+        // $data['author']         = ucwords($get_author['user_username']);
+        // $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
+        // // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
+        // $data['description']    = $get_news['news_content'];        
+        // $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
+        $data['title']          = 'Tentang Kami';
+        $data['author']         = '';
+        $data['short']          = '';
         // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
-        $data['description']    = $get_news['news_content'];        
-        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
+        $data['description']    = '';        
+        $data['keywords']       = '';        
 
         $data['asset_folder']   = $this->nav['web']['asset']['folder'];
         $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
@@ -964,6 +970,60 @@ class Website extends CI_Controller{
 
         $this->load->view($this->nav['web']['index'],$data);
     }
+    function keunggulan(){
+        $params_check = array(
+            'news_type' => 0,
+            'news_flag' => 1,
+            'news_url' => 'keunggulan-kami'
+        );
+        $get_news   = $this->News_model->get_news_by_url($params_check);
+        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+        
+        $data['title']          = ucwords($get_news['news_title']);
+        $data['author']         = ucwords($get_author['user_username']);
+        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
+        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
+        $data['description']    = $get_news['news_content'];        
+        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
+
+        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
+        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
+        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+        $data['link']           = $this->sitelink();
+
+        $data['_header']        = $this->nav['web']['header'];
+        $data['_footer']        = $this->nav['web']['footer'];
+        $data['_content']       = $this->nav['web']['layout'].'home/keunggulan';
+        // var_dump($data['_content']);die;
+        $this->load->view($this->nav['web']['index'],$data);
+    }
+    function layanan(){
+        // $params_check = array(
+        //     'news_type' => 0,
+        //     'news_flag' => 1,
+        //     'news_url' => 'keunggulan-kami'
+        // );
+        // $get_news   = $this->News_model->get_news_by_url($params_check);
+        // $get_author = $this->User_model->get_user($get_news['news_user_id']);
+        
+        $data['title']          = ucwords('Layanan Kami');
+        $data['author']         = ucwords('Admin');
+        $data['short']          = '';
+        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
+        $data['description']    = '';        
+        $data['keywords']       = '';
+
+        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
+        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
+        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+        $data['link']           = $this->sitelink();
+
+        $data['_header']        = $this->nav['web']['header'];
+        $data['_footer']        = $this->nav['web']['footer'];
+        $data['_content']       = $this->nav['web']['layout'].'home/layanan';
+        // var_dump($data['_content']);die;
+        $this->load->view($this->nav['web']['index'],$data);
+    }    
 
     function products(){ //Works //Template List HTML
         $data['title']          = 'Products';

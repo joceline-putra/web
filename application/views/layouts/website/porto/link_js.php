@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    <div class="sticky-navbar">
+    <!-- <div class="sticky-navbar">
         <div class="sticky-info">
             <a href="demo4.html">
                 <i class="icon-home"></i>Home
@@ -132,7 +132,7 @@
 				</i>Cart
             </a>
         </div>
-    </div>
+    </div> -->
 
     <!--
     <div class="newsletter-popup mfp-hide bg-img" id="newsletter-popup-form" style="background: #f1f1f1 no-repeat center/cover url(<?php #echo $asset; ?>assets/images/newsletter_popup_bg.jpg)">

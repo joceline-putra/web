@@ -50,7 +50,7 @@ $route['search']                = "search/index";
 
 /* WEBSITE */
     // Home
-	$route['about']                 = "website/about";
+	$route['tentang-kami']          = "website/about";
 	$route['contact-us']            = "website/contact_us";	
 	$route['masuk']                 = "website/signin";
 	$route['faqs']                  = "website/faqs";
@@ -59,6 +59,9 @@ $route['search']                = "search/index";
 	$route['career']       			= "website/career";				
 	$route['privacy']               = "website/privacy";
 	$route['term-of-service']       = "website/term";
+
+	$route['keunggulan-kami']       = "website/keunggulan";
+	$route['layanan']       = "website/layanan";
 
 	// Shop
 	$route['cart']      	        = "website/cart";
