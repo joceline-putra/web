@@ -14,14 +14,90 @@
             <span class="mobile-menu-close"><i class="fa fa-times"></i></span>
             <nav class="mobile-nav">
                 <ul class="mobile-menu">
-                    <li><a href="<?php echo base_url();?>">Home</a></li>
-                    <li><a href="<?php echo base_url('tentang-kami');?>">Tentang Kami</a></li>
-                    <li><a href="<?php echo base_url('layanan');?>">Layanan</a></li>       
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="<?php echo base_url('contact-us');?>">Kontak</a></li>                                                            
+                    <li><a href="<?php echo base_url(); ?>">Home</a></li>
+                    <li>
+                        <a href="product.html">Products</a>
+                        <ul>
+                            <li>
+                                <a href="#" class="nolink">PRODUCT PAGES</a>
+                                <ul>
+                                    <li><a href="#">SIMPLE PRODUCT</a></li>
+                                    <li><a href="#">VARIABLE PRODUCT</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="nolink">PRODUCT LAYOUTS</a>
+                                <ul>
+                                    <li><a href="#">EXTENDED LAYOUT</a></li>
+                                    <li><a href="#">BUILD YOUR OWN</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Blogs<span class="tip tip-hot">Hot!</span></a>
+                        <ul>
+                            <?php 
+                            if(!empty($link['article_category'])){
+                                foreach($link['article_category'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['blog'].'/'.$v['category_url'].">".$v['category_name']."</a>"; 
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </li>                       
+                    <li>
+                        <a href="#">Projects</a>
+                        <ul>
+                            <?php 
+                            if(!empty($link['project'])){
+                                foreach($link['project'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['project'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </li>     
+                    <li>
+                        <a href="#">Gallery</a>
+                        <ul>
+                            <?php 
+                            if(!empty($link['gallery'])){
+                                foreach($link['gallery'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['gallery'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </li>                                        
+                </ul>
+
+                <ul class="mobile-menu mt-2 mb-2">
+                    <li class="border-0">
+                        <a href="#">
+							Special Offer!
+						</a>
+                    </li>
+                    <li class="border-0">
+                        <a href="#" target="_blank">
+							Buy Porto!
+							<!-- <span class="tip tip-hot">Hot</span> -->
+						</a>
+                    </li>
+                </ul>
+
+                <ul class="mobile-menu">
+                    <?php 
+                    if(!empty($link['menu'])){
+                        foreach($link['menu'] as $v){
+                            echo "<li><a href=".site_url().$v['news_url'].">".$v['news_title']."</a>"; 
+                        }
+                    }
+                    ?>
+                    <li><a href="<?php echo $link['contact_us'];?>">Contact Us</a></li>
                 </ul>
             </nav>
-            <form class="search-wrapper mb-2" action="#" style="display:none;">
+            <form class="search-wrapper mb-2" action="#">
                 <input type="text" class="form-control mb-0" placeholder="Search..." required />
                 <button class="btn icon-search text-white bg-transparent p-0" type="submit"></button>
             </form>
