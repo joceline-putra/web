@@ -53,10 +53,13 @@
                         <address>
                         <i class="fas fa-map-marker"></i> Alamat<br>
                         <?php echo $link['contact']['address']['office'].', '.$link['contact']['address']['city'];?>
-                        <br><br>
+                        <!-- <br><br>
                         <i class="fas fa-phone"></i> Telepon<br>
-                        <?php echo $link['contact']['phone'][0]['phone'];?>
+                        <?php #echo $link['contact']['phone'][0]['phone'];?> -->
                         <br><br>
+                        <i class="fab fa-whatsapp"></i> WhatsApp<br>
+                            <a href="https://wa.me/<?php echo $link['contact']['phone'][0]['phone'];?>" target="_blank"><?php echo $link['contact']['phone'][0]['phone'];?></a>
+                        <br>
                         </address>                        
                         Ikuti<br>
                         <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>                         
