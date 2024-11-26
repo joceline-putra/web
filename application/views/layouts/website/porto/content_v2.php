@@ -1,34 +1,44 @@
 <main class="main info-box-wrapper">
     <!-- Carousel -->
     <div style="top:-117px;" class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{'loop': false}">
+    <?php 
+    foreach($link['blog'] as $i => $v){
+        echo $v['file_url'];
+    ?>
         <div class="home-slide home-slide1 banner">
-            <img class="slide-bg" src="<?php echo $asset; ?>assets/images/demoes/demo4/slider/slide-1.jpg" width="1903" height="499" alt="slider image">
+            <img class="slide-bg" src="<?php echo base_url().$v['news_image']; ?>" width="1903" height="499" alt="slider image">
+            <div class="container d-flex align-items-center">
+                <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
+                    <h4 class="text-transform-none m-b-3" style="text-align:center;color:white;"><?php echo $v['news_title'];?></h4>
+                    <!-- <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">.</h2> -->
+                    <?php echo $v['news_short'];?>
+                    <p class="text-transform-none m-b-3" style="text-align:center;">
+                        <br>
+                        <a href="<?php echo base_url('contact-us');?>" class="btn btn-primary btn-lg" style="text-align:center;">Hubungi Kami</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    <?php 
+    } 
+    ?>
+        <!--         
+        <div class="home-slide home-slide1 banner">
+            <img class="slide-bg" src="<?php #echo $asset; ?>assets/images/demoes/demo4/slider/slide-1.jpg" width="1903" height="499" alt="slider image">
             <div class="container d-flex align-items-center">
                 <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
                     <h4 class="text-transform-none m-b-3" style="text-align:center;">Batik dengan Sentuhan Modern</h4>
                     <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">Batik Nusantara Premium</h2>
                     <p class="text-transform-none m-b-3" style="text-align:center;">
-                        Memberikan keindahan batik nusantara yang dirancang dengan kualitas tinggi dan elegan, merepresentasikan tradisi Indonesia di panggung dunia.
+                        Memberikan keindahan batik nusantara yang dirancang dengan kualitas tinggi dan elegan, 
+                        merepresentasikan tradisi Indonesia di panggung dunia.
                         <br>
                         <a href="category.html" class="btn btn-dark btn-lg" style="text-align:center;">Hubungi Kami</a>
                     </p>
                 </div>
             </div>
-        </div>
-        <!-- <div class="home-slide home-slide2 banner banner-md-vw">
-            <img class="slide-bg" style="background-color: #ccc;" width="1903" height="499" src="<?php #echo $asset; ?>assets/images/demoes/demo4/slider/slide-2.jpg" alt="slider image">
-            <div class="container d-flex align-items-center">
-                <div class="banner-layer d-flex justify-content-center appear-animate" data-animation-name="fadeInUpShorter">
-                    <div class="mx-auto">
-                        <h4 class="m-b-1">Extra</h4>
-                        <h3 class="m-b-2">20% off</h3>
-                        <h3 class="mb-2 heading-border">Accessories</h3>
-                        <h2 class="text-transform-none m-b-4">Summer Sale</h2>
-                        <a href="category.html" class="btn btn-block btn-dark">Shop All Sale</a>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+        </div> 
+        -->
     </div>
 
     <!-- Layanan Utama Kami -->

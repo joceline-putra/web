@@ -34,6 +34,21 @@
         // new AutoNumeric('#harga_jual', autoNumericOption);
         // new AutoNumeric('#harga_beli', autoNumericOption);    
         setTimeout(() => {
+            $('#short').summernote({
+                placeholder: 'Short description here!',
+                dialogsInBody:true,
+                tabsize: 4,
+                height: 350,
+                toolbar: [
+                    ["font", ["bold", "italic", "underline", "clear"]],
+                    ["fontname", ["fontname"]],
+                    ['fontsize', ['fontsize']],
+                    ["style", ["color","style"]],
+                    ["para", ["ul", "ol", "paragraph","height"]],
+                    ["insert", ["table","link","picture","hr"]],
+                    ["view", ["fullscreen","codeview", "help"]],
+                ]
+            });
             $('#content-description').summernote({
                 placeholder: 'Content description here!',
                 dialogsInBody:true,
@@ -350,9 +365,11 @@
                         $("#form-master input[name='keywords']").val(d.result.news_keywords);
                         $("#form-master input[name='title']").val(d.result.news_title);
                         $("#form-master input[name='url']").val(d.result.news_url);
-                        $("#form-master textarea[name='short']").val(d.result.news_short);
+                        // $("#form-master textarea[name='short']").val(d.result.news_short);
+                        var markupShr = d.result.news_short;                        
                         var markupStr = d.result.news_content;
                         $('#content-description').summernote('code', markupStr);
+                        $('#short').summernote('code', markupShr);
 
                         //News Image
                         if ((d.result.news_image != undefined) || (d.result.news_image != null)) {

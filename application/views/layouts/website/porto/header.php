@@ -12,6 +12,10 @@
     font-weight: 400;
     color: #ffffff
 }
+.home-slide1 .banner-layer {
+    left: 0;
+    right: 0;
+}
 </style>
 <header class="header" style="z-index:99999;">
     <div class="header-middle sticky-header" data-sticky-options="{'mobile': true}">
@@ -50,7 +54,7 @@
                                 </li> -->
                             </ul>
                         </li>                                                                 
-                        <li><a href="<?php echo base_url('contact-us');?>">Layanan</a></li>  
+                        <li><a href="<?php echo base_url('contact-us');?>">Kontak</a></li>  
                         <li class="float-right"><a href="#" class="pl-5">Jelajahi Koleksi Kami</a></li>
                     </ul>
                 </nav>
