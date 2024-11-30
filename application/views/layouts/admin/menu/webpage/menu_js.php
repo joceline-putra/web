@@ -353,7 +353,7 @@
                 // form.append('tags', $('#tags').val());
                 // form.append('keywords', $('#keywords').val());
                 form.append('short', $('#short').val());
-                form.append('content', $('#content-description').val());
+                form.append('content', $('#news_content').val());
                 // form.append('posisi', $('#posisi').find(':selected').val());
                 $.ajax({
                     type: "POST",
