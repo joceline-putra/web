@@ -48,8 +48,11 @@
             </div>
         -->
         <?php include 'header.php'; ?>
-        <?php if (!empty($_content)) { $this->load->view($_content); 
-        } ?>
+        <?php 
+            if (!empty($_content)) { 
+                $this->load->view($_content); 
+            } 
+        ?>
         <?php include "footer.php"; ?> 
     </div>
     <?php include 'link_js.php'; ?>

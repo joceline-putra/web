@@ -8550,7 +8550,7 @@ CREATE TABLE `news` (
   KEY `BRANCH` (`news_branch_id`) USING BTREE,
   KEY `USER` (`news_user_id`) USING BTREE,
   KEY `CATEGORIES` (`news_category_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `news` */
 

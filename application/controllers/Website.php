@@ -40,8 +40,8 @@ class Website extends CI_Controller{
 
         //Website Map
         $this->header_file      = 'header';
-        $this->content_file     = 'content_v2';
-        $this->footer_file      = 'footer';
+        $this->content_file     = 'content';
+        $this->footer_file      = 'footer_backup';
         $this->css_file         = 'link_css';
         $this->js_file          = 'link_js';
 

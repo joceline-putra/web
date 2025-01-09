@@ -1476,8 +1476,8 @@ class Webpage extends MY_Controller{
         $folder_upload_product    = 'upload/product/'; // 6          
         $allowed_types = 'jpg|png|jpeg|mp4';
         $allowed_file_size = 1024; // 5 MB -> 5000 KB
-        $image_width = 480;
-        $image_height = 480;
+        $image_width = 800;
+        $image_height = 800;
     
         $session = $this->session->userdata();
         $session_branch_id = $session['user_data']['branch']['id'];
@@ -1688,8 +1688,8 @@ class Webpage extends MY_Controller{
                                         'height'=>$image_height
                                     );
                                     $watermark = [
-                                        'text_1' => 'avista.id',
-                                        'text_2' => 'property'                           
+                                        'text_1' => '',
+                                        'text_2' => ''                           
                                     ];                                    
                                     $folder = $folder_upload_product;
 

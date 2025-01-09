@@ -250,8 +250,8 @@ class Product extends MY_Controller{
                                         'height'=>$this->image_height
                                     );
                                     $watermark = [
-                                        'text_1' => 'avista.id',
-                                        'text_2' => 'property'                           
+                                        'text_1' => '',
+                                        'text_2' => ''                           
                                     ];                                    
                                     $folder = $this->folder_upload_product;
 
