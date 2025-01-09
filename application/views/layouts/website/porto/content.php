@@ -498,7 +498,7 @@
     <section class="blog-section pb-0">
         <div class="container">
             <h2 class="section-title heading-border border-0 appear-animate" data-animation-name="fadeInUp">
-                Latest News
+                Blog Terkini
             </h2>
 
             <div class="owl-carousel owl-theme appear-animate" data-animation-name="fadeIn" data-owl-options="{
@@ -523,107 +523,75 @@
                     }
                 }
             }">
-                <article class="post">
-                    <div class="post-media">
-                        <a href="single.html">
-                            <img src="<?php echo $asset; ?>assets/images/blog/home/post-1.jpg" alt="Post" width="225" height="280">
-                        </a>
-                        <div class="post-date">
-                            <span class="day">26</span>
-                            <span class="month">Feb</span>
-                        </div>
-                    </div>
+                <?php 
+                if(count($link['blog']) > 0){
+                    $routing = base_url().$link['routing']['blog'];
+                    foreach($link['blog'] as $v){
 
-                    <div class="post-body">
-                        <h2 class="post-title">
-                            <a href="single.html">Top New Collection</a>
-                        </h2>
-                        <div class="post-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus sem. Aenean...</p>
-                        </div>
-                        <a href="single.html" class="post-comment">0 Comments</a>
-                    </div>
-                </article>
-                <article class="post">
-                    <div class="post-media">
-                        <a href="single.html">
-                            <img src="<?php echo $asset; ?>assets/images/blog/home/post-1.jpg" alt="Post" width="225" height="280">
-                        </a>
-                        <div class="post-date">
-                            <span class="day">26</span>
-                            <span class="month">Feb</span>
-                        </div>
-                    </div>
+                        $scurl       = $routing.'/'.$v['category_url'];  
+                        $spurl       = $routing.'/'.$v['category_url'].'/'.$v['news_url'];  
+                        $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
 
-                    <div class="post-body">
-                        <h2 class="post-title">
-                            <a href="single.html">Top New Collection</a>
-                        </h2>
-                        <div class="post-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus sem. Aenean...</p>
-                        </div>
-                        <a href="single.html" class="post-comment">0 Comments</a>
-                    </div>
-                </article>
-                <article class="post">
-                    <div class="post-media">
-                        <a href="single.html">
-                            <img src="<?php echo $asset; ?>assets/images/blog/home/post-1.jpg" alt="Post" width="225" height="280">
-                        </a>
-                        <div class="post-date">
-                            <span class="day">26</span>
-                            <span class="month">Feb</span>
-                        </div>
-                    </div>
+                        $stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
+                        $scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
+                        $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
+                        ?>          
+                        <article class="post">
+                            <div class="post-media">
+                                <a href="<?php echo $spurl;?>">
+                                    <img src="<?php echo $simg;?>" alt="<?php echo $title; ?>" width="220px" height="220px" style="width:100%;height:220px;">
+                                </a>
+                                <div class="post-date">
+                                    <span class="day"><?php echo date("d",strtotime($v['news_date_created']));?></span>
+                                    <span class="month"><?php echo date("M",strtotime($v['news_date_created']));?></span>
+                                </div>
+                            </div>
 
-                    <div class="post-body">
-                        <h2 class="post-title">
-                            <a href="single.html">Top New Collection</a>
-                        </h2>
-                        <div class="post-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus sem. Aenean...</p>
-                        </div>
-                        <a href="single.html" class="post-comment">0 Comments</a>
-                    </div>
-                </article>
-                <article class="post">
-                    <div class="post-media">
-                        <a href="single.html">
-                            <img src="<?php echo $asset; ?>assets/images/blog/home/post-1.jpg" alt="Post" width="225" height="280">
-                        </a>
-                        <div class="post-date">
-                            <span class="day">26</span>
-                            <span class="month">Feb</span>
-                        </div>
-                    </div>
-
-                    <div class="post-body">
-                        <h2 class="post-title">
-                            <a href="single.html">Top New Collection</a>
-                        </h2>
-                        <div class="post-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus sem. Aenean...</p>
-                        </div>
-                        <a href="single.html" class="post-comment">0 Comments</a>
-                    </div>
-                </article>                
+                            <div class="post-body">
+                                <h2 class="post-title">
+                                    <a href="<?php echo $spurl;?>"><?php echo $stitle; ?></a>
+                                </h2>
+                                <div class="post-content">
+                                    <p><?php echo $scontent; ?></p>
+                                </div>
+                                <a href="<?php echo $scurl;?>" class="post-comment"><?php echo $scat;?></a>
+                            </div>
+                        </article>  
+                        <?php 
+                    }
+                }
+                ?>          
             </div>
 
             <hr class="mt-0 m-b-5">
-
+            <h2 class="section-title heading-border border-0 appear-animate" data-animation-name="fadeInUp">
+                Mereka yang mempercayai kami
+            </h2>
             <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="500" data-owl-options="{
             'margin': 0}">
-                <img src="<?php echo $asset; ?>assets/images/brands/brand1.png" width="130" height="56" alt="brand">
-                <img src="<?php echo $asset; ?>assets/images/brands/brand2.png" width="130" height="56" alt="brand">
-                <img src="<?php echo $asset; ?>assets/images/brands/brand3.png" width="130" height="56" alt="brand">
-                <img src="<?php echo $asset; ?>assets/images/brands/brand4.png" width="130" height="56" alt="brand">
-                <img src="<?php echo $asset; ?>assets/images/brands/brand5.png" width="130" height="56" alt="brand">
-                <img src="<?php echo $asset; ?>assets/images/brands/brand6.png" width="130" height="56" alt="brand">
+            <?php 
+            if(count($link['portofolio']) > 0){
+                // $routing = base_url().$link['routing']['blog'];
+                foreach($link['portofolio'] as $v){
+
+                    // $scurl       = $routing.'/'.$v['category_url'];  
+                    // $spurl       = $routing.'/'.$v['category_url'].'/'.$v['news_url'];  
+                    $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+
+                    $stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
+                    $scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
+                    // $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
+                    ?>  
+                    <img src="<?php echo $simg; ?>" width="130" height="56" alt="brand">
+                <?php 
+                }
+            }
+            ?>
             </div>
 
             <hr class="mt-4 m-b-5">
 
-            <div class="product-widgets-container row pb-2">
+            <div class="d-none product-widgets-container row pb-2">
                 <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="200">
                     <h4 class="section-sub-title">Featured Products</h4>
                     <div class="product-default left-details product-widget">

@@ -1,189 +1,175 @@
-		<main class="main">
-			<nav aria-label="breadcrumb" class="breadcrumb-nav">
-				<div class="container">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="demo4.html"><i class="icon-home"></i></a></li>
-						<li class="breadcrumb-item active" aria-current="page">Blog</li>
-					</ol>
-				</div><!-- End .container -->
-			</nav>
+<section class="page-header page-header-modern bg-color-grey page-header-md">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 align-self-center p-static order-2 text-center">
+				<h1 class="text-dark font-weight-bold text-8"><?php echo $title; ?></h1>
+				<span class="sub-title text-dark">Blog</span>
+			</div>
+		</div>
+	</div>
+</section>
+<main class="main">
+	<nav aria-label="breadcrumb" class="breadcrumb-nav">
+		<div class="container">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="<?php $pages['sitelink']['home']['url']; ?>"><i class="icon-home"></i></a></li>
+				<li class="breadcrumb-item" aria-current="page">Blog</li>
+				<li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
+			</ol>
+		</div>
+	</nav>
 
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-9">
-						<div class="blog-section row">
-							<div class="col-md-6 col-lg-4">
-								<article class="post">
-									<div class="post-media">
-										<a href="single.html">
-											<img src="<?php echo $asset; ?>assets//images/blog/home/post-1.jpg" alt="Post" width="225"
-												height="280">
-										</a>
-										<div class="post-date">
-											<span class="day">26</span>
-											<span class="month">Feb</span>
-										</div>
-									</div><!-- End .post-media -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9">
+				<div id="div_load" class="blog-section row">
+					<?php 			
+					$source = $pages['sitelink']['categories']['result_news'];
+					if(count($source) > 0){
+						$routing = $pages['sitelink']['categories']['url'];
+						foreach($source as $v){
 
-									<div class="post-body">
-										<h2 class="post-title">
-											<a href="single.html">Top New Collection</a>
-										</h2>
-										<div class="post-content">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non
-												placerat mi.
-												Etiam non tellus sem. Aenean...</p>
-										</div><!-- End .post-content -->
-										<a href="single.html" class="post-comment">0 Comments</a>
-									</div><!-- End .post-body -->
-								</article><!-- End .post -->
-							</div>
-							<div class="col-md-6 col-lg-4">
-								<article class="post">
-									<div class="post-media">
-										<a href="single.html">
-											<img src="<?php echo $asset; ?>assets//images/blog/home/post-2.jpg" alt="Post" width="225"
-												height="280">
-										</a>
-										<div class="post-date">
-											<span class="day">26</span>
-											<span class="month">Feb</span>
-										</div>
-									</div><!-- End .post-media -->
+							// $scurl       = $routing;  
+							// $spurl       = '/'.$v['news_url']; 
+							$scurl       = $routing.'/'.$v['category_url'];  
+							$spurl       = $routing.'/'.$v['news_url'];  						 
+							$simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
 
-									<div class="post-body">
-										<h2 class="post-title">
-											<a href="single.html">Fashion Trends</a>
-										</h2>
-										<div class="post-content">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non
-												placerat mi.
-												Etiam non tellus sem. Aenean...</p>
-										</div><!-- End .post-content -->
-										<a href="single.html" class="post-comment">0 Comments</a>
-									</div><!-- End .post-body -->
-								</article><!-- End .post -->
-							</div>
-							<div class="col-md-6 col-lg-4">
-								<article class="post">
-									<div class="post-media">
-										<a href="single.html">
-											<img src="<?php echo $asset; ?>assets//images/blog/home/post-3.jpg" alt="Post" width="225"
-												height="280">
-										</a>
-										<div class="post-date">
-											<span class="day">26</span>
-											<span class="month">Feb</span>
-										</div>
-									</div><!-- End .post-media -->
+							$stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
+							$scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
+							$scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
+							?>   					
+						<div class="col-md-6 col-lg-4">
+							<article class="post">
+								<div class="post-media">
+									<a href="<?php echo $spurl;?>">
+										<img src="<?php echo $simg;?>" alt="<?php echo $title; ?>" width="220px" height="220px" style="width:100%;height:220px;">
+									</a>
+									<div class="post-date">
+										<span class="day"><?php echo date("d",strtotime($v['news_date_created']));?></span>
+										<span class="month"><?php echo date("M",strtotime($v['news_date_created']));?></span>
+									</div>
+								</div>
 
-									<div class="post-body">
-										<h2 class="post-title">
-											<a href="single.html">Etiam laoreet sem</a>
-										</h2>
-										<div class="post-content">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non
-												placerat mi.
-												Etiam non tellus sem. Aenean...</p>
-										</div><!-- End .post-content -->
-										<a href="single.html" class="post-comment">0 Comments</a>
-									</div><!-- End .post-body -->
-								</article><!-- End .post -->
-							</div>
-							<div class="col-md-6 col-lg-4">
-								<article class="post">
-									<div class="post-media">
-										<a href="single.html">
-											<img src="<?php echo $asset; ?>assets//images/blog/home/post-4.jpg" alt="Post" width="225"
-												height="280">
-										</a>
-										<div class="post-date">
-											<span class="day">26</span>
-											<span class="month">Feb</span>
-										</div>
-									</div><!-- End .post-media -->
-
-									<div class="post-body">
-										<h2 class="post-title">
-											<a href="single.html">Perfect Accessories</a>
-										</h2>
-										<div class="post-content">
-											<p>Leap into electronic typesetting, remaining essentially unchanged. It was
-												popularised in the 1960s with the release of Letraset sheets...
-											</p>
-										</div><!-- End .post-content -->
-										<a href="single.html" class="post-comment">0 Comments</a>
-									</div><!-- End .post-body -->
-								</article><!-- End .post -->
-							</div>
+								<div class="post-body">
+									<h2 class="post-title">
+										<a href="<?php echo $spurl;?>"><?php echo $stitle; ?></a>
+									</h2>
+									<div class="post-content">
+										<p><?php echo $scontent; ?></p>
+									</div>
+									<a href="<?php echo $scurl;?>" class="post-comment"><?php echo $scat;?></a>
+								</div>
+							</article>
 						</div>
-					</div><!-- End .col-lg-9 -->
+						<?php 
+						}
+					}
+					?>
+				</div>
+				<button id="btn_load_more" type="button" class="btn btn-success btn-place-order" form="checkout-form">
+					Load more...
+				</button>
+				<!-- <nav class="toolbox toolbox-pagination">
+					<div class="toolbox-item toolbox-show">
+						<label>Show:</label>
 
-					<div class="sidebar-toggle custom-sidebar-toggle">
-						<i class="fas fa-sliders-h"></i>
+						<div class="select-custom">
+							<select name="count" class="form-control">
+								<option value="6">12</option>								
+								<option value="12">12</option>
+								<option value="24">24</option>
+								<option value="36">36</option>
+							</select>
+						</div>
 					</div>
-					<div class="sidebar-overlay"></div>
-					<aside class="sidebar mobile-sidebar col-lg-3">
-						<div class="sidebar-wrapper" data-sticky-sidebar-options='{"offsetTop": 72}'>
-							<div class="widget widget-categories">
-								<h4 class="widget-title">Blog Categories</h4>
+					<ul class="pagination toolbox-item">
+						<li class="page-item disabled">
+							<a class="page-link page-link-btn" href="#"><i class="icon-angle-left"></i></a>
+						</li>
+						<li class="page-item active">
+							<a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><span class="page-link">...</span></li>
+						<li class="page-item">
+							<a class="page-link page-link-btn" href="#"><i class="icon-angle-right"></i></a>
+						</li>
+					</ul>
+				</nav> -->
+			</div>
 
-								<ul class="list">
-									<li>
-										<a href="#">All about clothing</a>
+			<div class="sidebar-toggle custom-sidebar-toggle">
+				<i class="fas fa-sliders-h"></i>
+			</div>
+			<div class="sidebar-overlay"></div>
+			<aside class="col-lg-3 sidebar mobile-sidebar">
+				<div class="sidebar-wrapper" data-sticky-sidebar-options='{"offsetTop": 72}'>
+					<div class="widget widget-categories">
+						<h4 class="widget-title">Kategori Lainnya</h4>
 
-										<ul class="list">
-											<li><a href="#">Dresses</a></li>
-										</ul>
-									</li>
-									<li><a href="#">Make-up &amp; beauty</a></li>
-									<li><a href="#">Accessories</a></li>
-									<li><a href="#">Fashion trends</a></li>
-									<li><a href="#">Haircuts &amp; hairstyles</a></li>
-								</ul>
-							</div><!-- End .widget -->
+						<ul class="list">
+						<?php 			
+						$source = $pages['sitelink']['categories']['result'];
+						if(count($source) > 0){
+							// $routing = $pages['sitelink']['categories']['url'];
+							foreach($source as $v){
 
-							<div class="widget widget-post">
-								<h4 class="widget-title">Recent Posts</h4>
+								// $scurl       = $routing;  
+								$spurl       = $v['category_url'];  
+								// $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
 
-								<ul class="simple-post-list">
-									<li>
-										<div class="post-media">
-											<a href="single.html">
-												<img src="<?php echo $asset; ?>assets//images/blog/widget/post-1.jpg" alt="Post">
-											</a>
-										</div><!-- End .post-media -->
-										<div class="post-info">
-											<a href="single.html">Top New Collection</a>
-											<div class="post-meta">February 26, 2018</div>
-											<!-- End .post-meta -->
-										</div><!-- End .post-info -->
-									</li>
+								// $stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
+								// $scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
+								$scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
+								?>  
+							<li><a href="<?php echo $spurl; ?>"><?php echo $scat; ?></a></li>
+							<?php 
+							}
+						}
+						?>
+						</ul>
+					</div>
 
-									<li>
-										<div class="post-media">
-											<a href="single.html">
-												<img src="<?php echo $asset; ?>assets//images/blog/widget/post-2.jpg" alt="Post">
-											</a>
-										</div><!-- End .post-media -->
-										<div class="post-info">
-											<a href="single.html">Fashion Trends</a>
-											<div class="post-meta">February 26, 2018</div><!-- End .post-meta -->
-										</div><!-- End .post-info -->
-									</li>
-								</ul>
-							</div><!-- End .widget -->
+					<div class="widget widget-post">
+						<h4 class="widget-title">Terbanyak Dibaca</h4>
 
-							<div class="widget">
-								<h4 class="widget-title">Tags</h4>
+						<ul class="simple-post-list">
+							<?php 			
+							$source = $pages['sitelink']['categories']['result_popular'];
+							if(count($source) > 0){
+								$routing = base_url().$link['routing']['blog'];
+								foreach($source as $v){
 
-								<div class="tagcloud">
-									<a href="#">ARTICLES</a>
-									<a href="#">CHAT</a>
-								</div><!-- End .tagcloud -->
-							</div><!-- End .widget -->
-						</div><!-- End .sidebar-wrapper -->
-					</aside><!-- End .col-lg-3 -->
-				</div><!-- End .row -->
-			</div><!-- End .container -->
-		</main>
+									$scurl       = $routing.'/'.$v['category_url'];  
+									$spurl       = $routing.'/'.$v['category_url'].'/'.$v['news_url'];  
+									$simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+
+									$stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
+									$scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
+									$scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
+									?>  
+								<li>
+									<div class="post-media">
+										<a href="<?php echo $spurl;?>">
+											<img src="<?php echo $simg;?>" alt="Post">
+										</a>
+									</div>
+									<div class="post-info">
+										<a href="<?php echo $spurl;?>"><?php echo $stitle; ?></a>
+										<div class="post-meta"><?php echo date("d-M-Y",strtotime($v['news_date_created']));?></div>
+									</div>
+								</li>
+								<?php 
+								}
+							}
+							?>			
+						</ul>
+					</div>
+				</div>
+			</aside>
+		</div>
+
+	</div>
+</main>

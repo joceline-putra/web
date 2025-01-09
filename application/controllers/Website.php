@@ -53,8 +53,8 @@ class Website extends CI_Controller{
             $this->blog_file        = 'article';
 
         $this->products_dir     = 'products';
-            $this->products_file    = 'category_product';
-            $this->product_file     = 'product';
+            $this->products_file    = 'products';
+            $this->product_file     = 'product_v2';
 
         $this->contacts_dir     = 'contacts'; //Not Used
             $this->contacts_file    = 'agents';   //Not Used
@@ -1153,9 +1153,9 @@ class Website extends CI_Controller{
         foreach ($get_all_category as $value) {
             $category_data[] = array(
                 'category_name' => $value['category_name'],
-                'category_url' => $value['category_url'],
                 'category_url' => site_url($this->blog_routing).'/'.$value['category_url'],
-                'category_count' => $value['category_count']                
+                'category_count' => $value['category_count'],
+                'category_image' => $value['category_image'],                
             );
         }
 
@@ -1171,7 +1171,7 @@ class Website extends CI_Controller{
                 $url_news_category          = '/'.$get_categories['category_url']; $final_url = $url_news_category;
                 $url_news_category_title    = ucwords($get_categories['category_name']);      
                 $other_category = $this->News_model->get_all_newss(array('category_id'=>$get_categories['category_id']),'',8,0,'news_date_created','asc');
-                $other_popular  = $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc');              
+                $other_popular  = $this->News_model->get_all_newss(array('news_type'=>1,'news_flag'=>1),'',2,0,'news_visitor','asc');              
             }
             $view = 'categories';
         }
@@ -1259,6 +1259,7 @@ class Website extends CI_Controller{
             $data['url']            = $final_url;   
 
             $data['_content']       = $this->nav['web']['layout'].$this->blogs_dir.'/'.$this->blog_file;
+            $data['_js']            = $this->nav['web']['layout'].$this->blogs_dir.'/'.$this->blog_file.'_js';              
             $this->load->view($this->nav['web']['index'],$data);                         
         
         }else if($view == 'categories'){ //www.any.com/article/param1
@@ -1270,6 +1271,7 @@ class Website extends CI_Controller{
             $data['url'] = $final_url;
 
             $data['_content']       = $this->nav['web']['layout'].$this->blogs_dir.'/'.$this->blogs_file;
+            $data['_js']            = $this->nav['web']['layout'].$this->blogs_dir.'/'.$this->blogs_file.'_js';            
             $this->load->view($this->nav['web']['index'],$data);                          
         
         }else{
@@ -1474,6 +1476,7 @@ class Website extends CI_Controller{
             $data['url']            = $final_url;   
 
             $data['_content']       = $this->nav['web']['layout'].$this->products_dir.'/'.$this->product_file;
+            $data['_js']            = $this->nav['web']['layout'].$this->products_dir.'/'.$this->product_file.'_js';  
             $this->load->view($this->nav['web']['index'],$data);                         
         
         }else if($view == 'categories'){ //www.any.com/product/param1

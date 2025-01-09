@@ -56,4 +56,9 @@
         <?php include "footer.php"; ?> 
     </div>
     <?php include 'link_js.php'; ?>
+    <?php 
+        if (!empty($_js)) { 
+            $this->load->view($_js); 
+        } 
+    ?>
 </html>
