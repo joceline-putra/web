@@ -12,7 +12,7 @@
 	<nav aria-label="breadcrumb" class="breadcrumb-nav">
 		<div class="container">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="<?php $pages['sitelink']['home']['url']; ?>"><i class="icon-home"></i></a></li>
+				<li class="breadcrumb-item"><a href="<?php echo $pages['sitelink']['home']['url']; ?>"><i class="icon-home"></i></a></li>
 				<li class="breadcrumb-item" aria-current="page">Blog</li>
 				<li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
 			</ol>
@@ -35,9 +35,9 @@
 							$spurl       = $routing.'/'.$v['news_url'];  						 
 							$simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
 
-							$stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
-							$scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
-							$scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
+                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+							$scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
+                            $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
 							?>   					
 						<div class="col-md-6 col-lg-4">
 							<article class="post">
@@ -122,7 +122,7 @@
 
 								// $stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
 								// $scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
-								$scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
+								$scat       = !empty($v['category_name']) ? substr(strip_tags($v['category_name']),0,25) : 'Uncategory';
 								?>  
 							<li><a href="<?php echo $spurl; ?>"><?php echo $scat; ?></a></li>
 							<?php 
@@ -136,7 +136,7 @@
 						<h4 class="widget-title">Terbanyak Dibaca</h4>
 
 						<ul class="simple-post-list">
-							<?php 			
+							<?php
 							$source = $pages['sitelink']['categories']['result_popular'];
 							if(count($source) > 0){
 								$routing = base_url().$link['routing']['blog'];
@@ -146,8 +146,8 @@
 									$spurl       = $routing.'/'.$v['category_url'].'/'.$v['news_url'];  
 									$simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
 
-									$stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
-									$scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
+									$stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+									$scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
 									$scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
 									?>  
 								<li>
@@ -164,7 +164,7 @@
 								<?php 
 								}
 							}
-							?>			
+							?>
 						</ul>
 					</div>
 				</div>

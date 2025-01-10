@@ -17,30 +17,36 @@
             </div>
         </div>
         <?php 
-        foreach($link['blog'] as $i => $v){
-            echo $v['file_url'];
-        ?>
-        <div class="home-slide home-slide1 banner">
-            <img class="slide-bg" src="<?php echo base_url().$v['news_image']; ?>" width="1903" height="499" alt="slider image">
-            <div class="container d-flex align-items-center">
-                <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
-                    <h4 class="text-transform-none m-b-3" style="text-align:center;color:white;"><?php echo $v['news_title'];?></h4>
-                    <!-- <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">.</h2> -->
-                    <?php echo $v['news_short'];?>
-                    <p class="text-transform-none m-b-3" style="text-align:center;">
-                        <br>
-                        <a href="<?php echo base_url('contact-us');?>" class="btn btn-primary btn-lg" style="text-align:center;">Hubungi Kami</a>
-                    </p>
+        if(count($link['blog']) > 0){        
+            foreach($link['blog'] as $i => $v){
+                echo $v['file_url'];
+                $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+                $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
+
+            ?>
+            <div class="home-slide home-slide1 banner">
+                <img class="slide-bg" src="<?php echo $simg;?>" width="1903" height="499" alt="slider image">
+                <div class="container d-flex align-items-center">
+                    <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
+                        <h4 class="text-transform-none m-b-3" style="text-align:center;color:white;"><?php echo $stitle;?></h4>
+                        <!-- <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">.</h2> -->
+                        <?php echo $scontent;?>
+                        <p class="text-transform-none m-b-3" style="text-align:center;">
+                            <br>
+                            <a href="<?php echo base_url('contact-us');?>" class="btn btn-primary btn-lg" style="text-align:center;">Hubungi Kami</a>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <?php 
+            <?php 
+            }
         } 
         ?>
     </div>
 
     <div class="container">
-        <div class="info-boxes-slider owl-carousel owl-theme mb-2" data-owl-options="{
+        <div class="d-none info-boxes-slider owl-carousel owl-theme mb-2" data-owl-options="{
             'dots': false,
             'loop': false,
             'responsive': {
@@ -55,26 +61,26 @@
             <div class="info-box info-box-icon-left">
                 <i class="icon-shipping"></i>
                 <div class="info-box-content">
-                    <h4>FREE SHIPPING &amp; RETURN</h4>
-                    <p class="text-body">Free shipping on all orders over $99.</p>
+                    <h4>Gratis Ongkir</h4>
+                    <p class="text-body">Untuk pembelian jumlah banyak</p>
                 </div>
             </div>
             <div class="info-box info-box-icon-left">
                 <i class="icon-money"></i>
                 <div class="info-box-content">
-                    <h4>MONEY BACK GUARANTEE</h4>
-                    <p class="text-body">100% money back guarantee</p>
+                    <h4>Garansi Barang Terbaik</h4>
+                    <p class="text-body">100% barang dikirim setelah QC</p>
                 </div>
             </div>
             <div class="info-box info-box-icon-left">
                 <i class="icon-support"></i>
                 <div class="info-box-content">
-                    <h4>ONLINE SUPPORT 24/7</h4>
-                    <p class="text-body">Lorem ipsum dolor sit amet.</p>
+                    <h4>Online 24/7</h4>
+                    <p class="text-body">8 Jam kerja support</p>
                 </div>
             </div>
         </div>
-        <div class="banners-container mb-2">
+        <div class="d-none banners-container mb-2">
             <div class="banners-slider owl-carousel owl-theme" data-owl-options="{'dots': false}">
                 <div class="banner banner1 banner-sm-vw d-flex align-items-center appear-animate" style="background-color: #ccc;" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
                     <figure class="w-100">
@@ -333,15 +339,21 @@
                     }
                 }">
                 <?php 
-            if(!empty($link['products'])){                                
+            if(!empty($link['products'])){                  
+                $routing = base_url().$link['routing']['product'];                              
                 foreach($link['products'] as $a => $v){ 
-                    $img = base_url().$v['product_image'];
+                    $scurl       = $routing.'/'.$v['category_url'];  
+                    $spurl       = $routing.'/'.$v['category_url'].'/'.$v['product_url'];                      
+                    $simg       = !empty($v['product_image']) ? base_url().$v['product_image'] : base_url().'upload/noimage.png'; 
+
+                    $set_price_div = 0;
+                    $set_price = !empty($v['product_price_sell']) ? number_format($v['product_price_sell'],0) : '-';
                     ?>
                     <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                         <figure>
-                            <a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'].'/'.$v['product_url'];?>">
-                                <img src="<?php echo $img;?>" width="220" height="220" alt="product">
-                                <img src="<?php echo $img;?>" width="220" height="220" alt="product">
+                            <a href="<?php echo $spurl;?>">
+                                <img src="<?php echo $simg;?>" width="220" height="220" alt="product">
+                                <img src="<?php echo $simg;?>" width="220" height="220" alt="product">
                             </a>
                             <div class="label-group">
                                 <div class="product-label label-hot">HOT</div>
@@ -349,29 +361,31 @@
                         </figure>
                         <div class="product-details">
                             <div class="category-list">
-                                <a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'];?>" class="product-category"><?php echo $v['category_name'];?></a>
+                                <a href="<?php echo $scurl;?>" class="product-category"><?php echo $v['category_name'];?></a>
                             </div>
                             <h3 class="product-title">
-                                <a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'].'/'.$v['product_url'];?>"><?php echo $v['product_name'];?></a>
+                                <a href="<?php echo $spurl;?>"><?php echo $v['product_name'];?></a>
                             </h3>
                             <div class="ratings-container">
                                 <div class="product-ratings">
-                                    <span class="ratings" style="width:80%"></span>
+                                    <span class="ratings" style="width:100%"></span>
                                     <span class="tooltiptext tooltip-top"></span>
                                 </div>
                             </div>
-                            <div class="price-box">
-                                <del class="old-price">399k</del>
-                                <span class="product-price">120k</span>
-                            </div>
-                            <div class="product-action">
-                                <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                        class="icon-heart"></i></a>
-                                <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
-                                        class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
-                                <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
-                                        class="fas fa-external-link-alt"></i></a>
-                            </div>
+                            <?php if($set_price_div == 1){?>
+                                <div class="price-box">
+                                    <!-- <del class="old-price"></del> -->
+                                    <span class="product-price"><?php echo $set_price;?></span>
+                                </div>
+                                <div class="product-action">
+                                    <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
+                                            class="icon-heart"></i></a>
+                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i
+                                            class="icon-shopping-cart"></i><span>ADD TO CART</span></a>
+                                    <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
+                                            class="fas fa-external-link-alt"></i></a>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                     <?php 
@@ -381,7 +395,7 @@
 
             </div>
 
-            <div class="banner banner-big-sale appear-animate" data-animation-delay="200" data-animation-name="fadeInUpShorter" style="background: #2A95CB center/cover url('<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-4.jpg');">
+            <div class="d-none banner banner-big-sale appear-animate" data-animation-delay="200" data-animation-name="fadeInUpShorter" style="background: #2A95CB center/cover url('<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-4.jpg');">
                 <div class="banner-content row align-items-center mx-0">
                     <div class="col-md-9 col-sm-8">
                         <h2 class="text-white text-uppercase text-center text-sm-left ls-n-20 mb-md-0 px-4">
@@ -406,13 +420,15 @@
             <div class="categories-slider owl-carousel owl-theme show-nav-hover nav-outer">
             <?php 
             if(!empty($link['product_category'])){
+                $routing = base_url().$link['routing']['product'];
                 foreach($link['product_category'] as $v){ 
-                    $img = base_url().$v['category_image'];
+                    $scurl       = $routing.'/'.$v['category_url'];  
+                    $simg       = !empty($v['category_image']) ? base_url().$v['category_image'] : base_url().'upload/noimage.png'; 
                     ?>
                     <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
-                        <a href="<?php echo site_url().$link['routing']['product'].'/'.$v['category_url']; ?>">
+                        <a href="<?php echo $scurl; ?>">
                             <figure>
-                                <img src="<?php echo $img; ?>" alt="category" width="280" height="240" />
+                                <img src="<?php echo $simg; ?>" alt="category" width="280" height="240" style="width:100%;height:240px;"/>
                             </figure>
                             <div class="category-content">
                                 <h3><?php echo $v['category_name']; ?></h3>
@@ -476,20 +492,19 @@
             </div>
         </section>
 
-    <section class="promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-5.jpg">
+    <section class="d-none promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="<?php echo base_url(); ?>upload/banner-5.png">
         <div class="promo-banner banner container text-uppercase">
             <div class="banner-content row align-items-center text-center">
                 <div class="col-md-4 ml-xl-auto text-md-right appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="600">
-                    <h2 class="mb-md-0 text-white">Top Fashion<br>Deals</h2>
+                    <h2 class="mb-md-0 text-white">Kunjungi Show Room Kami</h2>
                 </div>
                 <div class="col-md-4 col-xl-3 pb-4 pb-md-0 appear-animate" data-animation-name="fadeIn" data-animation-delay="300">
-                    <a href="category.html" class="btn btn-dark btn-black ls-10">View Sale</a>
+                    <a href="https://maps.app.goo.gl/SfDAvN2keYuhirgp8" class="btn btn-dark btn-black ls-10">Petunjuk Arah</a>
                 </div>
                 <div class="col-md-4 mr-xl-auto text-md-left appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="600">
                     <h4 class="mb-1 mt-1 font1 coupon-sale-text p-0 d-block ls-n-10 text-transform-none">
-                        <b>Exclusive
-                            COUPON</b></h4>
-                    <h5 class="mb-1 coupon-sale-text text-white ls-10 p-0"><i class="ls-0">UP TO</i><b class="text-white bg-secondary ls-n-10">$100</b> OFF</h5>
+                        <b>Dapatkan Penawaran Menarik</b></h4>
+                    <h5 class="mb-1 coupon-sale-text text-white ls-10 p-0"><i class="ls-0">UP TO</i><b class="text-white bg-secondary ls-n-10">10%</b> OFF</h5>
                 </div>
             </div>
         </div>
@@ -532,8 +547,8 @@
                         $spurl       = $routing.'/'.$v['category_url'].'/'.$v['news_url'];  
                         $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
 
-                        $stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
-                        $scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
+                        $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                        $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
                         $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
                         ?>          
                         <article class="post">
@@ -564,10 +579,10 @@
             </div>
 
             <hr class="mt-0 m-b-5">
-            <h2 class="section-title heading-border border-0 appear-animate" data-animation-name="fadeInUp">
+            <h2 class="d-none section-title heading-border border-0 appear-animate" data-animation-name="fadeInUp">
                 Mereka yang mempercayai kami
             </h2>
-            <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="500" data-owl-options="{
+            <div class="d-none brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="500" data-owl-options="{
             'margin': 0}">
             <?php 
             if(count($link['portofolio']) > 0){
@@ -578,8 +593,8 @@
                     // $spurl       = $routing.'/'.$v['category_url'].'/'.$v['news_url'];  
                     $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
 
-                    $stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
-                    $scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
+                    $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                    $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
                     // $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
                     ?>  
                     <img src="<?php echo $simg; ?>" width="130" height="56" alt="brand">
@@ -799,30 +814,36 @@
             </div>
         </section>
 
-        <!-- Layanan Utama Kami -->
-        <div class="d-none section-elements" style="background: #ffffff;">
+        <!-- Kategori Produk -->
+        <div class="section-elements" style="background: #ffffff;">
             <div class="container">
-                <h5 class="text-primary">Layanan Kualitas Unggul</h5>
-                <h2 class="mb-5 elements">Layanan Utama Kami</h2>
+                <h5 class="text-primary">Sesuaikan Dengan Kebutuhan</h5>
+                <h2 class="mb-5 elements">Kategori Produk</h2>
                 <div class="row justify-content-center">
                     <div class="row">
                         <?php 
+                        $routing = base_url().$link['routing']['product'];
                         foreach($link['product_category'] as $i => $v){
                             if($i < 3){
-                            // if($v['news_id'] == 46){
-                            //     $stitle     = $v['news_title'];
-                            //     $scontent   = $v['news_short'];   
-                            //     $surl   = base_url().$v['news_url'];  
-                            //     $simg = base_url().$v['file_url'];                                      
-                            // }
+                                $scurl       = $routing.'/'.$v['category_url'];                                  
+                                // if($v['news_id'] == 46){
+                                //     $stitle     = $v['news_title'];
+                                //     $scontent   = $v['news_short'];   
+                                //     $surl   = base_url().$v['news_url'];  
+                                //     $simg = base_url().$v['file_url'];                                      
+                                // }
+                                $simg       = !empty($v['category_image']) ? base_url().$v['category_image'] : base_url().'upload/noimage.png'; 
+                                $stitle     = !empty($v['category_name']) ? substr($v['category_name'],0,25) : 'Untitled';
+                                $scontent   = !empty($v['category_short']) ? substr(strip_tags($v['category_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
+                                                                                    
                             ?>                    
                         <div class="col-md-4">
                             <div class="info-box info-box-img">
-                                <img src="<?php echo base_url().$v['category_image']?>" alt="info-box-image" width="800" height="524">
-                                <div class="info-box-content">
-                                    <h4><?php echo $v['category_name']?></h4>
-                                    <p><?php echo $v['category_short']?>
-                                        <br><br><a href="<?php echo base_url('produk/').$v['category_url']?>" style="color:black;">Baca Selengkapnya <i class="fas fa-greater-than" style="font-size:1rem;color:black;"></i></a>
+                                <img src="<?php echo $simg; ?>" alt="info-box-image" width="800" height="524">
+                                <div class="info-box-content" style="padding-top:20px;">
+                                    <h4><?php echo $stitle; ?></h4>
+                                    <p style="font-family:Poppins,sans-serif!important;"><?php echo $scontent; ?>
+                                        <br><br><a href="<?php echo $scurl;?>" style="color:black;">Lihat Selengkapnya <i class="fas fa-greater-than" style="font-size:1rem;color:black;"></i></a>
                                     </p>
                                 </div>
                             </div>
@@ -836,111 +857,112 @@
             </div>
         </div>
 
-        <!-- Keunggulan Kami -->
-        <div class="d-none section-elements" style="background: #f1f1fd;">
-            <div class="container">
-                <?php 
-                foreach($link['menu'] as $v){
-                    if($v['news_id'] == 46){
-                        $stitle     = $v['news_title'];
-                        $scontent   = $v['news_short'];   
-                        $surl   = base_url().$v['news_url'];  
-                        $simg = base_url().$v['file_url'];                                      
+            <!-- Keunggulan Kami -->
+            <div class="d-none section-elements" style="background: #f1f1fd;">
+                <div class="container">
+                    <?php 
+                    foreach($link['menu'] as $v){
+                        if($v['news_id'] == 46){
+                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                            $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
+                            $surl       = base_url().$v['news_url'];  
+                            $simg       = !empty($v['file_url']) ? base_url().$v['file_url'] : base_url().'upload/noimage.png';                                   
+                        }
                     }
-                }
-                ?>
-                <div class="row justify-content-left">
-                    <div class="col-md-5">
-                        <div class="info-box info-box-img">
-                            <div class="info-box-content">
-                                <h5 class="text-primary"><?php echo $stitle; ?></h5>
-                                <div style="text-align: left;">
-                                    <p><?php echo $scontent; ?></p>
-                                    <br>
-                                    <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $surl;?>" style="color:white;">Baca Selengkapnya</a></div>
-                                </div>    
+                    ?>
+                    <div class="row justify-content-left">
+                        <div class="col-md-5">
+                            <div class="info-box info-box-img">
+                                <div class="info-box-content">
+                                    <h5 class="text-primary"><?php echo $stitle; ?></h5>
+                                    <div style="text-align: left;">
+                                        <p><?php echo $scontent; ?></p>
+                                        <br>
+                                        <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $surl;?>" style="color:white;">Baca Selengkapnya</a></div>
+                                    </div>    
+                                </div>
                             </div>
                         </div>
+                        <div class="col-md-7">
+                            <div class="info-box info-box-img">
+                                <img src="<?php echo $simg;?>" alt="info-box-image" style="border-radius:20px;">
+                            </div>
+                        </div>                
                     </div>
-                    <div class="col-md-7">
-                        <div class="info-box info-box-img">
-                            <img src="<?php echo $simg;?>" alt="info-box-image" style="border-radius:20px;">
-                        </div>
-                    </div>                
                 </div>
             </div>
-        </div>
-        
-        <!-- <article class="post">
-            <div class="post-media">
-                <a href="single.html">
-                    <img src="<?php echo $asset ; ?>assets//images/blog/home/post-2.jpg" alt="Post" width="225" height="280">
-                </a>
-                <div class="post-date">
-                    <span class="day">26</span>
-                    <span class="month">Feb</span>
+            
+            <!-- <article class="post">
+                <div class="post-media">
+                    <a href="single.html">
+                        <img src="<?php echo $asset ; ?>assets//images/blog/home/post-2.jpg" alt="Post" width="225" height="280">
+                    </a>
+                    <div class="post-date">
+                        <span class="day">26</span>
+                        <span class="month">Feb</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="post-body">
-                <h2 class="post-title">
-                    <a href="single.html">Fashion Trends</a>
-                </h2>
-                <div class="post-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non
-                        placerat mi.
-                        Etiam non tellus sem. Aenean...</p>
+                <div class="post-body">
+                    <h2 class="post-title">
+                        <a href="single.html">Fashion Trends</a>
+                    </h2>
+                    <div class="post-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non
+                            placerat mi.
+                            Etiam non tellus sem. Aenean...</p>
+                    </div>
+                    <a href="single.html" class="post-comment">0 Comments</a>
                 </div>
-                <a href="single.html" class="post-comment">0 Comments</a>
-            </div>
-        </article>
-        -->
+            </article>
+            -->
 
-        <!-- Tentang Kami --> 
-        <div class="d-none section-elements" style="background: #ffffff;">
-            <div class="container">
-                <?php 
-                foreach($link['menu'] as $v){
-                    if($v['news_id'] == 1){
-                        $stitle     = $v['news_title'];
-                        $scontent   = $v['news_short'];   
-                        $surl   = base_url().$v['news_url'];  
-                        $simg = base_url().$v['file_url'];                                          
+            <!-- Tentang Kami --> 
+            <div class="section-elements" style="background: #ffffff;">
+                <div class="container">
+                    <?php 
+                    foreach($link['menu'] as $v){
+                        if($v['news_id'] == 1){
+                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                            $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
+                            $surl       = base_url().$v['news_url'];  
+                            $simg       = !empty($v['file_url']) ? base_url().$v['file_url'] : base_url().'upload/noimage.png';                              
+                        }
                     }
-                }
-                ?>
-                <div class="row justify-content-left">
-                    <div class="col-md-7">
-                        <div class="info-box info-box-img">
-                            <img src="<?php echo $simg;?>" alt="info-box-image" style="border-radius:20px;">
-                        </div>
-                    </div> 
-                    <div class="col-md-5">
-                        <div class="info-box info-box-img">
-                            <div class="info-box-content">
-                                <h5 class="text-primary" style="text-align: left;"><?php echo $stitle; ?></h5>
-                                <div style="text-align: left;">
-                                    <p><?php echo $scontent; ?></p>
-                                    <br>
-                                    <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $surl;?>" style="color:white;">Baca Selengkapnya</a></div>
-                                </div>  
+                    ?>
+                    <div class="row justify-content-left">
+                        <div class="col-md-7">
+                            <div class="info-box info-box-img">
+                                <img src="<?php echo $simg;?>" alt="info-box-image" style="border-radius:20px;">
                             </div>
-                        </div>
-                    </div>               
+                        </div> 
+                        <div class="col-md-5">
+                            <div class="info-box info-box-img">
+                                <div class="info-box-content">
+                                    <h5 class="text-primary" style="text-align: left;"><?php echo $stitle; ?></h5>
+                                    <div style="text-align: left;">
+                                        <p><?php echo $scontent; ?></p>
+                                        <br>
+                                        <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $surl;?>" style="color:white;">Baca Selengkapnya</a></div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>               
+                    </div>
                 </div>
             </div>
-        </div>
 
         <!-- Gallery Kami -->
-        <div class="d-none section-elements" style="background: #f1f1fd;">
+        <div class="section-elements" style="background: #f1f1fd;">
             <div class="container">
                 <h5 class="text-primary">Gallery Kami</h5>
-                <h2 class="mb-5 elements">Ragam Batik Nusantara</h2>
+                <h2 class="mb-5 elements">Beragam HPL Yutai</h2>
                 <div class="row justify-content-center">
                     <?php 
                     foreach($link['gallery'] as $v){
-                            $stitle     = $v['news_title'];
-                            $scontent   = $v['news_short'];   
+                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                            $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
+                                                        
                             $surl   = base_url().$v['news_url'];  
                             $simg = base_url().$v['file_url']; 
                     ?>
@@ -959,7 +981,7 @@
         </div>
 
         <!-- Bergabunglah dalam melestarikan Batik Nusantara -->
-        <div class="d-none section-elements" style="background: #ffffff;">
+        <div class="section-elements" style="background: #ffffff;">
             <div class="container">
                 <!-- <h4 class="elements">Bergabunglah dalam melestarikan Batik Nusantara</h4> -->
                 <!-- <p class="mb-5">Daftar sekarang untuk mendapatkan update dan promosi terbaru dari koleksi batik kami</p> -->
@@ -971,8 +993,8 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="cta-simple cta-border">
-                                    <h4 class="elements">Bergabunglah dalam melestarikan Batik Nusantara</h4>
-                                    <p>Daftar sekarang untuk mendapatkan update dan promosi terbaru dari koleksi batik kami</p>
+                                    <h4 class="elements">Tanya Gratis Kepada Kami</h4>
+                                    <p>Konsultasikan kebutuhan anda dengan pakar kami</p>
                                     <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $link['contact_us'];?>" style="color:white;">Hubungi Kami</a></div>
                                 </div>
                             </div>

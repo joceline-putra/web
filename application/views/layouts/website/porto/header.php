@@ -81,12 +81,12 @@
                 <button class="mobile-menu-toggler text-primary mr-2" type="button">
                     <i class="fas fa-bars"></i>
                 </button>
-                <!-- <a href="<?php echo $link['home']; ?>" class="logo">
-                    <img src="<?php echo $asset; ?>assets/images/logo.png" width="111" height="44" alt="<?php echo $link['brand']; ?> Logo">
-                </a> -->
-                <a href="<?php echo $link['home']; ?>" style="color:red;font-weight:800;font-size:larger;">
-                    <?php echo $link['brand']; ?>
+                <a href="<?php echo $link['home']; ?>" class="logo">
+                    <img src="<?php echo $link['logo']; ?>" width="111" height="44" alt="<?php echo $link['brand']; ?> Logo">
                 </a>
+                <!-- <a href="<?php echo $link['home']; ?>" style="color:red;font-weight:800;font-size:larger;">
+                    <?php echo $link['brand']; ?>
+                </a> -->
             </div>
             <div class="header-right w-lg-max">
                 <div class="header-icon header-search header-search-inline header-search-category w-lg-max text-right mt-0">
