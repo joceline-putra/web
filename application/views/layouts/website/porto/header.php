@@ -29,11 +29,10 @@
                     <div class="header-menu">
                         <ul>
                             <li><a href="<?php echo $link['account']; ?>">My Account</a></li>
-                            <li><a href="<?php echo $link['about']; ?>">About Us</a></li>
-                            <li><a href="<?php echo $link['articles']; ?>">Blog</a></li>
                             <li><a href="<?php echo $link['wishlist']; ?>">My Wishlist</a></li>
                             <li><a href="<?php echo $link['cart']; ?>">Cart</a></li>
-                            <li><a href="<?php echo $link['signin']; ?>" class="login-link">Log In</a></li>
+                            <li><a href="<?php echo $link['checkout']; ?>">Checkout</a></li>                            
+                            <li><a href="<?php echo $link['signin']; ?>">Log In</a></li>
                         </ul>
                     </div>
                 </div>

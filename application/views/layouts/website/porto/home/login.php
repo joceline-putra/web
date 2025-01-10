@@ -5,11 +5,8 @@
 			<nav aria-label="breadcrumb" class="breadcrumb-nav">
 				<div class="container">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="demo4.html">Home</a></li>
-						<li class="breadcrumb-item"><a href="category.html">Shop</a></li>
-						<li class="breadcrumb-item active" aria-current="page">
-							My Account
-						</li>
+						<li class="breadcrumb-item"><a href="<?php echo base_url(); ?>"><i class="icon-home"></i></a></li>
+						<li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
 					</ol>
 				</div>
 			</nav>

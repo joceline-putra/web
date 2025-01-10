@@ -18,7 +18,8 @@ class Website extends CI_Controller{
     public $contacts_dir; public $contacts_file; public $contact_file;
     
     public $about_file; public $cart_file; public $checkout_file; public $contact_us_file; 
-    public $login_file; public $wishlist_file; public $faq_file; public $tos_file; public $pp_file; public $payment_file; public $career_file;
+    public $login_file; public $wishlist_file; public $faq_file; public $tos_file; public $pp_file; 
+    public $payment_file; public $career_file; public $account_file;
 
     function __construct(){
         parent::__construct();
@@ -62,11 +63,12 @@ class Website extends CI_Controller{
 
         $this->about_file       = $this->site_dir.'/'.'about';
         $this->contact_us_file  = $this->site_dir.'/'.'contact_us';
-        $this->cart_file        = $this->site_dir.'/'.'cart';
-        $this->checkout_file    = $this->site_dir.'/'.'checkout';        
+        $this->cart_file        = $this->site_dir.'/'.'page/cart';
+        $this->checkout_file    = $this->site_dir.'/'.'page/checkout';        
         $this->login_file       = $this->site_dir.'/'.'login';
-        $this->wishlist_file    = $this->site_dir.'/'.'wishlist'; 
+        $this->wishlist_file    = $this->site_dir.'/'.'page/wishlist'; 
         $this->payment_file     = $this->site_dir.'/'.'payment';
+        $this->account_file    = $this->site_dir.'/'.'page/dashboard'; 
 
         $this->faq_file         = $this->site_dir.'/'.'faqs';
         $this->tos_file         = $this->site_dir.'/'.'term_of_service';
@@ -161,6 +163,7 @@ class Website extends CI_Controller{
             'shipping' => site_url('shipping'),//NotUsed
             'history' => site_url('history'),//NotUsed             
             'signin' => site_url('masuk'),
+            'signout' => site_url('keluar'),            
             'login' => site_url('login'),
             'forgot' => site_url('lupa_password'),            
             'register' => site_url('daftar'),
@@ -970,21 +973,11 @@ class Website extends CI_Controller{
 
         $this->load->view($this->nav['web']['index'],$data);
     }
-    function keunggulan(){
-        $params_check = array(
-            'news_type' => 0,
-            'news_flag' => 1,
-            'news_url' => 'keunggulan-kami'
-        );
-        $get_news   = $this->News_model->get_news_by_url($params_check);
-        $get_author = $this->User_model->get_user($get_news['news_user_id']);
-        
-        $data['title']          = ucwords($get_news['news_title']);
-        $data['author']         = ucwords($get_author['user_username']);
-        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
-        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
-        $data['description']    = $get_news['news_content'];        
-        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
+    function account(){ //Works
+        $data['title']          = 'Dashboard';
+        $data['author']         = 'John Doe';
+        $data['description']    = 'Its not about news, talk to each other something special from this site';
+        $data['keywords']       = 'website, john doe, homepage';
 
         $data['asset_folder']   = $this->nav['web']['asset']['folder'];
         $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
@@ -993,35 +986,9 @@ class Website extends CI_Controller{
 
         $data['_header']        = $this->nav['web']['header'];
         $data['_footer']        = $this->nav['web']['footer'];
-        $data['_content']       = $this->nav['web']['layout'].'home/keunggulan';
-        // var_dump($data['_content']);die;
-        $this->load->view($this->nav['web']['index'],$data);
-    }
-    function layanan(){
-        // $params_check = array(
-        //     'news_type' => 0,
-        //     'news_flag' => 1,
-        //     'news_url' => 'keunggulan-kami'
-        // );
-        // $get_news   = $this->News_model->get_news_by_url($params_check);
-        // $get_author = $this->User_model->get_user($get_news['news_user_id']);
-        
-        $data['title']          = ucwords('Layanan Kami');
-        $data['author']         = ucwords('Admin');
-        $data['short']          = '';
-        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
-        $data['description']    = '';        
-        $data['keywords']       = '';
+        $data['_content']       = $this->nav['web']['layout'].$this->account_file;
+        $data['_js']            = $this->nav['web']['layout'].$this->account_file.'_js';        
 
-        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
-        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
-        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
-        $data['link']           = $this->sitelink();
-
-        $data['_header']        = $this->nav['web']['header'];
-        $data['_footer']        = $this->nav['web']['footer'];
-        $data['_content']       = $this->nav['web']['layout'].'home/layanan';
-        // var_dump($data['_content']);die;
         $this->load->view($this->nav['web']['index'],$data);
     }    
 

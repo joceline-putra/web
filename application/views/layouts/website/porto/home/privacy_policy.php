@@ -13,11 +13,11 @@
                 <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>"><i class="icon-home"></i></a></li>
                 <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
             </ol>
-        </div><!-- End .container -->
+        </div>
     </nav>
     <div class="about-section">
         <div class="container">
             <p><?php echo $description; ?></p>
-        </div><!-- End .container -->
-    </div><!-- End .about-section -->
-</main><!-- End .main -->
+        </div>
+    </div>
+</main>

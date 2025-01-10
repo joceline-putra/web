@@ -2,15 +2,15 @@
 <main class="main main-test">
     <div class="container checkout-container">
         <ul class="checkout-progress-bar d-flex justify-content-center flex-wrap">
-            <li>
-                <a href="cart.html">Shopping Cart</a>
-            </li>
-            <li class="active">
-                <a href="checkout.html">Checkout</a>
-            </li>
             <li class="disabled">
-                <a href="#">Order Complete</a>
-            </li>
+				<a href="<?php echo $link['cart'];?>">Cart</a>
+			</li>
+			<li class="active">
+				<a href="<?php echo $link['checkout'];?>">Checkout</a>
+			</li>
+			<li class="disabled">
+				<a href="<?php echo $link['cart'];?>">Order Complete</a>
+			</li>
         </ul>
 
         <div class="login-form-container">

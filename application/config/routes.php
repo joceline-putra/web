@@ -59,9 +59,7 @@ $route['search']                = "search/index";
 	$route['career']       			= "website/career";				
 	$route['privacy']               = "website/privacy";
 	$route['term-of-service']       = "website/term";
-
-	$route['keunggulan-kami']       = "website/keunggulan";
-	$route['layanan']       = "website/layanan";
+	$route['account']       		= "website/account";
 
 	// Shop
 	$route['cart']      	        = "website/cart";
