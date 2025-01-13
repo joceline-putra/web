@@ -220,14 +220,11 @@ class Website extends CI_Controller{
 		$data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
         $data['link']           = $this->sitelink();
 
-        // $this->load->view($this->nav['web']['index'],$data);
-        
         $data['controller'] = $this->blog_routing;
 
         $action = $this->input->post('action');
-        $post = $this->input->post();        
+        $post   = $this->input->post();        
         
-        // var_dump($action);die;
         $return = new \stdClass();
         $return->status = 0;
         $return->message = '';
@@ -755,122 +752,7 @@ class Website extends CI_Controller{
         } // Enf of switch()
     }
 
-    /* Demo Page */
-    function about(){
-        $params_check = array(
-            'news_type' => 0,
-            'news_flag' => 1,
-            'news_url' => 'about'
-        );
-        $get_news   = $this->News_model->get_news_by_url($params_check);
-        // $get_author = $this->User_model->get_user($get_news['news_user_id']);
-        
-        // $data['title']          = ucwords($get_news['news_title']);
-        // $data['author']         = ucwords($get_author['user_username']);
-        // $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
-        // // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
-        // $data['description']    = $get_news['news_content'];        
-        // $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
-        $data['title']          = 'Tentang Kami';
-        $data['author']         = '';
-        $data['short']          = '';
-        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
-        $data['description']    = '';        
-        $data['keywords']       = '';        
-
-        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
-        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
-        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
-        $data['link']           = $this->sitelink();
-
-        $data['_header']        = $this->nav['web']['header'];
-        $data['_footer']        = $this->nav['web']['footer'];
-        $data['_content']       = $this->nav['web']['layout'].$this->about_file;
-
-        $this->load->view($this->nav['web']['index'],$data);
-    }
-    function privacy(){
-        $params_check = array(
-            'news_type' => 0,
-            'news_flag' => 1,
-            'news_url' => 'privacy'
-        );
-        $get_news   = $this->News_model->get_news_by_url($params_check);
-        $get_author = $this->User_model->get_user($get_news['news_user_id']);
-                
-        $data['title']          = ucwords($get_news['news_title']);
-        $data['author']         = ucwords($get_author['user_username']);
-        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
-        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
-        $data['description']    = $get_news['news_content'];        
-        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
-
-        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
-        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
-        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
-        $data['link']           = $this->sitelink();
-
-        $data['_header']        = $this->nav['web']['header'];
-        $data['_footer']        = $this->nav['web']['footer'];
-        $data['_content']       = $this->nav['web']['layout'].$this->pp_file;
-
-        $this->load->view($this->nav['web']['index'],$data);
-    }    
-    function term(){
-        $params_check = array(
-            'news_type' => 0,
-            'news_flag' => 1,
-            'news_url' => 'term-of-service'
-        );
-        $get_news   = $this->News_model->get_news_by_url($params_check);
-        $get_author = $this->User_model->get_user($get_news['news_user_id']);
-                
-        $data['title']          = ucwords($get_news['news_title']);
-        $data['author']         = ucwords($get_author['user_username']);
-        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
-        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
-        $data['description']    = $get_news['news_content'];        
-        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
-
-        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
-        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
-        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
-        $data['link']           = $this->sitelink();
-
-        $data['_header']        = $this->nav['web']['header'];
-        $data['_footer']        = $this->nav['web']['footer'];
-        $data['_content']       = $this->nav['web']['layout'].$this->tos_file;
-
-        $this->load->view($this->nav['web']['index'],$data);
-    } 
-    function career(){
-
-        $params_check = array(
-            'news_type' => 0,
-            'news_flag' => 1,
-            'news_url' => 'career'
-        );
-        $get_news   = $this->News_model->get_news_by_url($params_check);
-        $get_author = $this->User_model->get_user($get_news['news_user_id']);
-
-        $data['title']          = ucwords($get_news['news_title']);
-        $data['author']         = ucwords($get_author['user_username']);
-        $data['short']          = substr(strip_tags($get_news['news_short']),0,100);
-        // $data['description']    = substr(strip_tags($get_news['news_content']),0,20);
-        $data['description']    = $get_news['news_content'];        
-        $data['keywords']       = substr(strip_tags($get_news['news_content']),0,20);
-
-        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
-        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
-        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
-        $data['link']           = $this->sitelink();
-
-        $data['_header']        = $this->nav['web']['header'];
-        $data['_footer']        = $this->nav['web']['footer'];
-        $data['_content']       = $this->nav['web']['layout'].$this->career_file;
-
-        $this->load->view($this->nav['web']['index'],$data);
-    }        
+    /* Static Page */
     function contact_us(){
         $data['title']          = 'Hubungi Kami';
         $data['author']         = 'John Doe';
@@ -990,7 +872,44 @@ class Website extends CI_Controller{
         $data['_js']            = $this->nav['web']['layout'].$this->account_file.'_js';        
 
         $this->load->view($this->nav['web']['index'],$data);
-    }    
+    }     
+    function payment(){ //Works
+        $data['title']          = 'Payment';
+        $data['author']         = 'John Doe';
+        $data['description']    = 'Its not about news, talk to each other something special from this site';
+        $data['keywords']       = 'website, john doe, homepage';
+
+        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
+        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
+        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+        $data['link']           = $this->sitelink();
+
+        $data['_header']        = $this->nav['web']['header'];
+        $data['_footer']        = $this->nav['web']['footer'];
+        $data['_content']       = $this->nav['web']['layout'].$this->payment_file;
+
+        $this->load->view($this->nav['web']['index'],$data);
+    }
+    function firebase(){
+        $data['template'] = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';  
+        $data['asset']    = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';     
+        
+        // $data['navigation'] = $this->product_type(null,null);        
+        $data['title'] = 'Contact Us';
+        $data['author'] = 'John Doe';
+        $data['description'] = 'Its not about news, talk to each other something special from this site';
+        $data['keywords'] = 'website, john doe, homepage';
+
+        // $data['_header'] = $this->dir['header'];
+        // $data['_view']   = $this->dir['content'];        
+        // $data['_footer'] = $this->dir['footer'];
+
+        $data['firebase'] = $this->get_firebase_config();
+        $this->load->view($this->nav['admin']['layout'].'/firebase',$data);            
+    }
+    function notfound(){
+        show_404();
+    }
 
     function products(){ //Works //Template List HTML
         $data['title']          = 'Products';
@@ -1059,12 +978,25 @@ class Website extends CI_Controller{
         $data['_content']       = $this->nav['web']['layout'].$this->blogs_dir.'/'.$this->blog_file;
         // var_dump($data);die;
         $this->load->view($this->nav['web']['index'],$data);
-    }    
-    function payment(){ //Works
-        $data['title']          = 'Payment';
-        $data['author']         = 'John Doe';
-        $data['description']    = 'Its not about news, talk to each other something special from this site';
-        $data['keywords']       = 'website, john doe, homepage';
+    }   
+
+    /* Dynamic Page */
+    function about(){ // Done
+        $params_check = array(
+            'news_type' => 0,
+            'news_flag' => 1,
+            'news_url' => 'tentang-kami'
+        );
+        $get_news   = $this->News_model->get_news_by_url($params_check);
+        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+        
+        $data['title']            = !empty($get_news['news_url']) ? ucwords($get_news['news_title']) : 'Untitled';
+        $data['author']           = !empty($get_author['user_username']) ? ucwords($get_author['user_username']) : 'Admin';
+        $data['short']            = !empty($get_news['news_short']) ? substr(strip_tags($get_news['news_short']),0,125) : '';
+        $data['description']      = !empty($get_news['news_content']) ? substr(strip_tags($get_news['news_content']),0,125) : '';
+        $data['description_full'] = !empty($get_news['news_content']) ? $get_news['news_content'] : '';        
+        
+        $data['keywords']         = !empty($get_news['news_content']) ? substr(strip_tags($get_news['news_content']),0,20) : '';  
 
         $data['asset_folder']   = $this->nav['web']['asset']['folder'];
         $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
@@ -1073,32 +1005,95 @@ class Website extends CI_Controller{
 
         $data['_header']        = $this->nav['web']['header'];
         $data['_footer']        = $this->nav['web']['footer'];
-        $data['_content']       = $this->nav['web']['layout'].$this->payment_file;
+        $data['_content']       = $this->nav['web']['layout'].$this->about_file;
 
         $this->load->view($this->nav['web']['index'],$data);
     }
-    function firebase(){
-        $data['template'] = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';  
-        $data['asset']    = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';     
+    function privacy(){ // Done
+        $params_check = array(
+            'news_type' => 0,
+            'news_flag' => 1,
+            'news_url' => 'privacy'
+        );
+        $get_news   = $this->News_model->get_news_by_url($params_check);
+        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+                
+        $data['title']            = !empty($get_news['news_url']) ? ucwords($get_news['news_title']) : 'Untitled';
+        $data['author']           = !empty($get_author['user_username']) ? ucwords($get_author['user_username']) : 'Admin';
+        $data['short']            = !empty($get_news['news_short']) ? substr(strip_tags($get_news['news_short']),0,125) : '';
+        $data['description']      = !empty($get_news['news_content']) ? substr(strip_tags($get_news['news_content']),0,125) : '';
+        $data['description_full'] = !empty($get_news['news_content']) ? $get_news['news_content'] : '';        
         
-        // $data['navigation'] = $this->product_type(null,null);        
-        $data['title'] = 'Contact Us';
-        $data['author'] = 'John Doe';
-        $data['description'] = 'Its not about news, talk to each other something special from this site';
-        $data['keywords'] = 'website, john doe, homepage';
+        $data['keywords']         = !empty($get_news['news_content']) ? substr(strip_tags($get_news['news_content']),0,20) : '';  
 
-        // $data['_header'] = $this->dir['header'];
-        // $data['_view']   = $this->dir['content'];        
-        // $data['_footer'] = $this->dir['footer'];
+        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
+        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
+        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+        $data['link']           = $this->sitelink();
 
-        $data['firebase'] = $this->get_firebase_config();
-        $this->load->view($this->nav['admin']['layout'].'/firebase',$data);            
+        $data['_header']        = $this->nav['web']['header'];
+        $data['_footer']        = $this->nav['web']['footer'];
+        $data['_content']       = $this->nav['web']['layout'].$this->pp_file;
+
+        $this->load->view($this->nav['web']['index'],$data);
     }
-    function notfound(){
-        show_404();          
-    }
+    function term(){ // Done
+        $params_check = array(
+            'news_type' => 0,
+            'news_flag' => 1,
+            'news_url' => 'term-of-service'
+        );
+        $get_news   = $this->News_model->get_news_by_url($params_check);
+        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+                
+        $data['title']            = !empty($get_news['news_url']) ? ucwords($get_news['news_title']) : 'Untitled';
+        $data['author']           = !empty($get_author['user_username']) ? ucwords($get_author['user_username']) : 'Admin';
+        $data['short']            = !empty($get_news['news_short']) ? substr(strip_tags($get_news['news_short']),0,125) : '';
+        $data['description']      = !empty($get_news['news_content']) ? substr(strip_tags($get_news['news_content']),0,125) : '';
+        $data['description_full'] = !empty($get_news['news_content']) ? $get_news['news_content'] : '';        
+        
+        $data['keywords']         = !empty($get_news['news_content']) ? substr(strip_tags($get_news['news_content']),0,20) : '';  
 
-    /* Dynamic Page */
+        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
+        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
+        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+        $data['link']           = $this->sitelink();
+
+        $data['_header']        = $this->nav['web']['header'];
+        $data['_footer']        = $this->nav['web']['footer'];
+        $data['_content']       = $this->nav['web']['layout'].$this->tos_file;
+
+        $this->load->view($this->nav['web']['index'],$data);
+    }
+    function career(){ // Done
+
+        $params_check = array(
+            'news_type' => 0,
+            'news_flag' => 1,
+            'news_url' => 'career'
+        );
+        $get_news   = $this->News_model->get_news_by_url($params_check);
+        $get_author = $this->User_model->get_user($get_news['news_user_id']);
+
+        $data['title']            = !empty($get_news['news_url']) ? ucwords($get_news['news_title']) : 'Untitled';
+        $data['author']           = !empty($get_author['user_username']) ? ucwords($get_author['user_username']) : 'Admin';
+        $data['short']            = !empty($get_news['news_short']) ? substr(strip_tags($get_news['news_short']),0,125) : '';
+        $data['description']      = !empty($get_news['news_content']) ? substr(strip_tags($get_news['news_content']),0,125) : '';
+        $data['description_full'] = !empty($get_news['news_content']) ? $get_news['news_content'] : '';        
+        
+        $data['keywords']         = !empty($get_news['news_content']) ? substr(strip_tags($get_news['news_content']),0,20) : '';  
+
+        $data['asset_folder']   = $this->nav['web']['asset']['folder'];
+        $data['asset_dir']      = $this->nav['web']['asset']['dir'];		
+        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+        $data['link']           = $this->sitelink();
+
+        $data['_header']        = $this->nav['web']['header'];
+        $data['_footer']        = $this->nav['web']['footer'];
+        $data['_content']       = $this->nav['web']['layout'].$this->career_file;
+
+        $this->load->view($this->nav['web']['index'],$data);
+    }
     function blog($categories_url = '',$news_url = ''){ // Production
         $view = '';$news_short = ''; $news_content = ''; $news_tags = ''; $news_keywords = ''; 
         $news_image = ''; $news_visitor = ''; $news_created = ''; $news_author = ''; $news_status = '';
@@ -1470,7 +1465,7 @@ class Website extends CI_Controller{
             // $data['_js']            = $this->nav['web']['layout'].$this->products_dir.'/'.$this->products_dir.'_js';       
             $this->load->view($this->nav['web']['index'],$data);
         }
-    }   
+    }
     function produk_reload(){
         $return = new \stdClass();
         $return->status = 0;
@@ -1511,5 +1506,5 @@ class Website extends CI_Controller{
         $return->limit=$limit_start.','.$limit_end;  
         $return->site = base_url().'produk';
         echo json_encode($return);      
-    }     
+    }
 }

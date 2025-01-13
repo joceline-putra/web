@@ -2,43 +2,32 @@
             <div class="container">
                 <nav aria-label="breadcrumb" class="breadcrumb-nav">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="demo4.html"><i class="icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="#">Products</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo $pages['sitelink']['home']['url']; ?>"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item" aria-current="page">Produk</li>
+                        <li class="breadcrumb-item" aria-current="page"><?php echo $pages['sitelink']['categories']['title']; ?></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>		
                     </ol>
                 </nav>
 
                 <div class="product-single-container product-single-default">
                     <div class="cart-message d-none">
-                        <strong class="single-cart-notice">“Men Black Sports Shoes”</strong>
+                        <strong class="single-cart-notice">“<?php echo $title; ?>”</strong>
                         <span>has been added to your cart.</span>
                     </div>
 
                     <div class="row">
                         <div class="col-lg-5 col-md-6 product-single-gallery">
                             <div class="product-slider-container">
-                                <div class="label-group">
+                                <!-- <div class="label-group">
                                     <div class="product-label label-hot">HOT</div>
-                                    <!---->
                                     <div class="product-label label-sale">
                                         -16%
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
                                     <div class="product-item">
-                                        <img class="product-single-image" src="<?php echo $asset; ?>assets/images/products/zoom/product-1-big.jpg" data-zoom-image="<?php echo $asset; ?>assets/images/products/zoom/product-1-big.jpg" width="468" height="468" alt="product" />
-                                    </div>
-                                    <div class="product-item">
-                                        <img class="product-single-image" src="<?php echo $asset; ?>assets/images/products/zoom/product-2-big.jpg" data-zoom-image="<?php echo $asset; ?>assets/images/products/zoom/product-2-big.jpg" width="468" height="468" alt="product" />
-                                    </div>
-                                    <div class="product-item">
-                                        <img class="product-single-image" src="<?php echo $asset; ?>assets/images/products/zoom/product-3-big.jpg" data-zoom-image="<?php echo $asset; ?>assets/images/products/zoom/product-3-big.jpg" width="468" height="468" alt="product" />
-                                    </div>
-                                    <div class="product-item">
-                                        <img class="product-single-image" src="<?php echo $asset; ?>assets/images/products/zoom/product-4-big.jpg" data-zoom-image="<?php echo $asset; ?>assets/images/products/zoom/product-4-big.jpg" width="468" height="468" alt="product" />
-                                    </div>
-                                    <div class="product-item">
-                                        <img class="product-single-image" src="<?php echo $asset; ?>assets/images/products/zoom/product-5-big.jpg" data-zoom-image="<?php echo $asset; ?>assets/images/products/zoom/product-5-big.jpg" width="468" height="468" alt="product" />
+                                        <img class="product-single-image" src="<?php echo $pages['sitelink']['product']['image']; ?>" data-zoom-image="<?php echo $pages['sitelink']['product']['image']; ?>" width="468" height="468" alt="product" />
                                     </div>
                                 </div>
                                 <!-- End .product-single-carousel -->
@@ -49,9 +38,9 @@
 
                             <div class="prod-thumbnail owl-dots">
                                 <div class="owl-dot">
-                                    <img src="<?php echo $asset; ?>assets/images/products/zoom/product-1.jpg" width="110" height="110" alt="product-thumbnail" />
+                                    <img src="<?php echo $pages['sitelink']['product']['image']; ?>" width="110" height="110" alt="product-thumbnail" />
                                 </div>
-                                <div class="owl-dot">
+                                <!-- <div class="owl-dot">
                                     <img src="<?php echo $asset; ?>assets/images/products/zoom/product-2.jpg" width="110" height="110" alt="product-thumbnail" />
                                 </div>
                                 <div class="owl-dot">
@@ -62,15 +51,15 @@
                                 </div>
                                 <div class="owl-dot">
                                     <img src="<?php echo $asset; ?>assets/images/products/zoom/product-5.jpg" width="110" height="110" alt="product-thumbnail" />
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <!-- End .product-single-gallery -->
 
                         <div class="col-lg-7 col-md-6 product-single-details">
-                            <h1 class="product-title">Men Black Sports Shoes</h1>
+                            <h1 class="product-title"><?php echo $title; ?></h1>
 
-                            <div class="product-nav">
+                            <!-- <div class="product-nav">
                                 <div class="product-prev">
                                     <a href="#">
                                         <span class="product-link"></span>
@@ -102,11 +91,11 @@
                                         </span>
                                     </a>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="ratings-container">
                                 <div class="product-ratings">
-                                    <span class="ratings" style="width:60%"></span>
+                                    <span class="ratings" style="width:100%"></span>
                                     <!-- End .ratings -->
                                     <span class="tooltiptext tooltip-top"></span>
                                 </div>
@@ -118,16 +107,18 @@
 
                             <hr class="short-divider">
 
-                            <div class="price-box">
+                            <!-- <div class="price-box">
                                 <span class="product-price">$15.00 &ndash; </span>
                                 <span class="product-price"> $35.00</span>
-                            </div>
+                            </div> -->
                             <!-- End .price-box -->
 
                             <div class="product-desc">
                                 <p>
-                                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-                                    placerat eleifend leo.
+                                    <?php 
+                                        // echo $pages['sitelink']['product']['content']; 
+                                        echo 'HPL adalah pilihan yang sangat baik untuk Anda yang menginginkan furnitur yang tahan lama, mudah perawatannya, dan memiliki tampilan yang menarik. Dengan berbagai pilihan motif dan tekstur, Anda bisa menciptakan interior yang sesuai dengan selera Anda.';
+                                    ?>
                                 </p>
                             </div>
                             <!-- End .product-desc -->
@@ -136,25 +127,25 @@
                                 <!---->
                                 <li>
                                     SKU:
-                                    <strong>654613612</strong>
+                                    <strong>-</strong>
                                 </li>
 
                                 <li>
                                     CATEGORY:
                                     <strong>
-                                        <a href="#" class="product-category">SHOES</a>
+                                        <a href="#" class="product-category"><?php echo $pages['sitelink']['categories']['title']; ?></a>
                                     </strong>
                                 </li>
 
                                 <li>
                                     TAGs:
-                                    <strong><a href="#" class="product-category">CLOTHES</a></strong>,
-                                    <strong><a href="#" class="product-category">SWEATER</a></strong>
+                                    <strong><a href="#" class="product-category">HPL</a></strong>,
+                                    <strong><a href="#" class="product-category">BOARD</a></strong>
                                 </li>
                             </ul>
 
                             <div class="product-filters-container">
-                                <div class="product-single-filter"><label>Color:</label>
+                                <!-- <div class="product-single-filter"><label>Color:</label>
                                     <ul class="config-size-list config-color-list config-filter-list">
                                         <li class="">
                                             <a href="javascript:;" class="filter-color border-0" style="background-color: rgb(1, 136, 204);"></a>
@@ -166,17 +157,13 @@
                                             <a href="javascript:;" class="filter-color border-0" style="background-color: rgb(96, 133, 165);"></a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
 
                                 <div class="product-single-filter">
                                     <label>Size:</label>
                                     <ul class="config-size-list">
-                                        <li><a href="javascript:;" class="d-flex align-items-center justify-content-center">Extra
-                                                Large</a>
-                                        </li>
-                                        <li class=""><a href="javascript:;" class="d-flex align-items-center justify-content-center">Large</a></li>
-                                        <li class=""><a href="javascript:;" class="d-flex align-items-center justify-content-center">Medium</a></li>
-                                        <li class=""><a href="javascript:;" class="d-flex align-items-center justify-content-center">Small</a></li>
+                                        <li><a href="javascript:;" class="d-flex align-items-center justify-content-center">100 x 100 cm</a></li>
+                                        <li class=""><a href="javascript:;" class="d-flex align-items-center justify-content-center">100 x 150 cm</a></li>
                                     </ul>
                                 </div>
 
@@ -184,27 +171,20 @@
                                     <label></label>
                                     <a class="font1 text-uppercase clear-btn" href="#">Clear</a>
                                 </div>
-                                <!---->
                             </div>
-
-                            <div class="product-action">
+                            <!-- <div class="product-action">
                                 <div class="price-box product-filtered-price">
                                     <del class="old-price"><span>$286.00</span></del>
                                     <span class="product-price">$245.00</span>
                                 </div>
-
                                 <div class="product-single-qty">
                                     <input class="horizontal-quantity form-control" type="text">
                                 </div>
-                                <!-- End .product-single-qty -->
-
                                 <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to
                                     Cart</a>
 
                                 <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
-                            </div>
-                            <!-- End .product-action -->
-
+                            </div> -->
                             <hr class="divider mb-0 mt-0">
 
                             <div class="product-single-share mb-2">
@@ -219,19 +199,16 @@
                                 </div>
                                 <!-- End .social-icons -->
 
-                                <a href="wishlist.html" class="btn-icon-wish add-wishlist" title="Add to Wishlist"><i
+                                <a href="#" class="btn-icon-wish add-wishlist" title="Add to Wishlist"><i
                                         class="icon-wishlist-2"></i><span>Add to
                                         Wishlist</span></a>
                             </div>
-                            <!-- End .product single-share -->
                         </div>
-                        <!-- End .product-single-details -->
                     </div>
-                    <!-- End .row -->
                 </div>
                 <!-- End .product-single-container -->
 
-                <div class="product-single-tabs">
+                <div class="d-none product-single-tabs">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content" role="tab" aria-controls="product-desc-content" aria-selected="true">Description</a>
@@ -468,9 +445,7 @@
                     </div>
                     <!-- End .tab-content -->
                 </div>
-                <!-- End .product-single-tabs -->
-
-                <div class="products-section pt-0">
+                <div class="d-none products-section pt-0">
                     <h2 class="section-title">Related Products</h2>
 
                     <div class="products-slider owl-carousel owl-theme dots-top dots-small">
@@ -507,12 +482,12 @@
                                 </div>
                                 <!-- End .price-box -->
                                 <div class="product-action">
-                                    <a href="wishlist.html" title="Wishlist" class="btn-icon-wish"><i
+                                    <a href="#" title="Wishlist" class="btn-icon-wish"><i
                                             class="icon-heart"></i></a>
-                                    <a href="product.html" class="btn-icon btn-add-cart"><i
+                                    <a href="#" class="btn-icon btn-add-cart"><i
                                             class="fa fa-arrow-right"></i><span>SELECT
                                             OPTIONS</span></a>
-                                    <a href="ajax/product-quick-view.html" class="btn-quickview" title="Quick View"><i
+                                    <a href="#" class="btn-quickview" title="Quick View"><i
                                             class="fas fa-external-link-alt"></i></a>
                                 </div>
                             </div>
@@ -701,11 +676,8 @@
                     </div>
                     <!-- End .products-slider -->
                 </div>
-                <!-- End .products-section -->
-
                 <hr class="mt-0 m-b-5" />
-
-                <div class="product-widgets-container row pb-2">
+                <div class="d-none product-widgets-container row pb-2">
                     <div class="col-lg-3 col-sm-6 pb-5 pb-md-0">
                         <h4 class="section-sub-title">Featured Products</h4>
                         <div class="product-default left-details product-widget">
@@ -726,16 +698,12 @@
                                         <!-- End .ratings -->
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <!-- End .product-ratings -->
                                 </div>
-                                <!-- End .product-container -->
 
                                 <div class="price-box">
                                     <span class="product-price">$49.00</span>
                                 </div>
-                                <!-- End .price-box -->
                             </div>
-                            <!-- End .product-details -->
                         </div>
 
                         <div class="product-default left-details product-widget">
@@ -752,19 +720,13 @@
                                 <div class="ratings-container">
                                     <div class="product-ratings">
                                         <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
                                         <span class="tooltiptext tooltip-top">5.00</span>
                                     </div>
-                                    <!-- End .product-ratings -->
                                 </div>
-                                <!-- End .product-container -->
-
                                 <div class="price-box">
                                     <span class="product-price">$49.00</span>
                                 </div>
-                                <!-- End .price-box -->
                             </div>
-                            <!-- End .product-details -->
                         </div>
 
                         <div class="product-default left-details product-widget">
@@ -1070,7 +1032,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- End .row -->
             </div>
             <!-- End .container -->
         </main>

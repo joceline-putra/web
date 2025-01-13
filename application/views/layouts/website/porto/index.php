@@ -7,8 +7,8 @@
 
     <title><?php $title = isset($title) ? $title : "Welcome"; echo $title; ?></title>
 
-    <meta name="keywords" content="<?php echo $keywords; ?>"/>
-    <meta name="description" content="<?php echo $description?>">
+    <meta name="keywords" content="<?php echo substr(strip_tags($keywords),0,125);?>"/>
+    <meta name="description" content="<?php echo substr(strip_tags($description),0,125);?>">
     <meta name="author" content="<?php echo $author?>">
 
     <!-- Favicon -->

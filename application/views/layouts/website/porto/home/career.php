@@ -17,7 +17,7 @@
     </nav>
     <div class="about-section">
         <div class="container">
-            <p><?php echo $description; ?></p>
+            <p><?php echo $description_full; ?></p>
         </div>
     </div>
 </main>
