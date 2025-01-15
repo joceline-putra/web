@@ -29,8 +29,8 @@ class Website extends CI_Controller{
         $this->load->helper(array('cookie', 'url'));         
 
         //Configuration
-        $this->layout           = 'porto'; /* layouts/website/?  */
-        $this->asset            = 'porto'; /* assets/? */
+        $this->layout           = 'porto2'; /* layouts/website/?  */
+        $this->asset            = 'porto2'; /* assets/? */
 
         //Routing
         $this->product_routing  = 'produk';
@@ -42,7 +42,7 @@ class Website extends CI_Controller{
         //Website Map
         $this->header_file      = 'header';
         $this->content_file     = 'content';
-        $this->footer_file      = 'footer_backup';
+        $this->footer_file      = 'footer';
         $this->css_file         = 'link_css';
         $this->js_file          = 'link_js';
 

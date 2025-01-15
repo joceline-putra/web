@@ -31,7 +31,9 @@
     </script>
 
     <!-- Link CSS -->
-    <?php include 'link_css.php'; ?>
+    <?php 
+        $this->load->view($this->nav['web']['css']);
+    ?>
 </head>
 
 <body>
@@ -47,16 +49,19 @@
                 </div>
             </div>
         -->
-        <?php include 'header.php'; ?>
         <?php 
-            if (!empty($_content)) { 
-                $this->load->view($_content); 
-            } 
-        ?>
-        <?php include "footer.php"; ?> 
+        $this->load->view($this->nav['web']['header']);
+    
+        if (!empty($_content)) { 
+            $this->load->view($_content); 
+        } 
+    
+        $this->load->view($this->nav['web']['footer']);
+        ?> 
     </div>
-    <?php include 'link_js.php'; ?>
     <?php 
+        $this->load->view($this->nav['web']['js']);
+
         if (!empty($_js)) { 
             $this->load->view($_js); 
         } 
