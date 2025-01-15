@@ -24,7 +24,7 @@ class Test extends CI_Controller{
 
         //Plan With Query
 
-        $q = $this->db->query("SELECT * FROM `products` LIMIT 1");        
+        $q = $this->db->query("SELECT * FROM `files` WHERE file_from_id=35");        
 
         $d = $q->row_array(); 
 

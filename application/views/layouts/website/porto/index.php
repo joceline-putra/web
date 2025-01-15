@@ -11,9 +11,23 @@
     <meta name="description" content="<?php echo substr(strip_tags($description),0,125);?>">
     <meta name="author" content="<?php echo $author?>">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="<?php echo $asset; ?>assets/images/icons/favicon.png">
+    <meta property="og:title" content="<?php echo strip_tags($title);?>"/>
+    <meta property="og:description" content="<?php echo substr(strip_tags($description),0,125);?>"/>
+    <meta property="og:url" content="<?php echo $url;?>"/>
+    <meta property="og:locale" content="en_ID"/>
+    <meta property="og:image" content="<?php echo !empty($image) ? $image : 'upload/noimage.png';?>"/>
+    <meta property="og:author" content="<?php echo $author;?>"/>
+    <meta property="og:keywords" content="<?php echo strip_tags($keywords);?>"/>                
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="<?php echo $sitename;?>"/>    
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="<?php echo $favicon; ?>">
+    <link rel="shortcut icon" href="<?php echo $favicon; ?>" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="<?php echo $favicon; ?>">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
 
     <script>
         WebFontConfig = {

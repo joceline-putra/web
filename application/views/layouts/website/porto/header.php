@@ -49,11 +49,33 @@
                     </div>
                 </div>
                 <div class="header-dropdown mr-auto mr-sm-3 mr-md-0">
-                    <a href="#">IDR</a>
+                    <a href="#">Page</a>
                     <div class="header-menu">
                         <ul>
-                            <li><a href="#">IDR</a></li>
-                            <li><a href="#">USD</a></li>
+                            <li><a href="<?php echo $link['wishlist'];?>">Wishlist</a></li>
+                            <li><a href="<?php echo $link['cart'];?>">Shopping Cart</a></li>
+                            <li><a href="<?php echo $link['checkout'];?>">Checkout</a></li>
+                            <li><a href="<?php echo $link['contact_us'];?>">Contact Us</a></li>
+                            <li><a href="<?php echo $link['articles'];?>">Blogs</a></li>
+                            <li><a href="<?php echo $link['article'];?>">Blog</a></li> 
+                            <li><a href="<?php echo $link['products_template'];?>">Products</a></li>
+                            <li><a href="<?php echo $link['product_template'];?>">Product</a></li>                             
+                        </ul>
+                    </div>
+                </div>                
+                <div class="header-dropdown mr-auto mr-sm-3 mr-md-0">
+                    <a href="#">Menu</a>
+                    <div class="header-menu">
+                        <ul>
+                            <?php 
+                            if(!empty($link['menu'])){
+                                foreach($link['menu'] as $v){
+                                    // if(($v['news_position'] == 1) or ($v['news_position'] == 3)){                                      
+                                        echo "<li><a href=".site_url().$v['news_url'].">".$v['news_title']."</a>"; 
+                                    // }
+                                }
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -95,23 +117,9 @@
                             <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
                             <div class="select-custom">
                                 <select id="cat" name="cat">
-                                    <option value="">All Categories</option>
-                                    <!-- <option value="4">Fashion</option>
-                                    <option value="12">- Women</option>
-                                    <option value="13">- Men</option>
-                                    <option value="66">- Jewellery</option>
-                                    <option value="67">- Kids Fashion</option>
-                                    <option value="5">Electronics</option>
-                                    <option value="21">- Smart TVs</option>
-                                    <option value="22">- Cameras</option>
-                                    <option value="63">- Games</option>
-                                    <option value="7">Home &amp; Garden</option>
-                                    <option value="11">Motors</option>
-                                    <option value="31">- Cars and Trucks</option>
-                                    <option value="32">- Motorcycles &amp; Powersports</option>
-                                    <option value="33">- Parts &amp; Accessories</option>
-                                    <option value="34">- Boats</option>
-                                    <option value="57">- Auto Tools &amp; Supplies</option> -->
+                                    <option value="product">Produk</option>
+                                    <option value="blog">Blog</option>
+                                    <option value="all">Semua</option>                                    
                                 </select>
                             </div>
                             <!-- End .select-custom -->
@@ -126,9 +134,9 @@
                     <h6><span>Call us now</span><a href="tel:<?php echo $link['contact']['phone'][0]['phone'];?>" class="text-dark font1"><?php echo $link['contact']['phone'][0]['phone'];?></a></h6>
                 </div>
 
-                <!-- <a href="<?php echo $link['signin'];?>" class="header-icon" title="login"><i class="icon-user-2"></i></a>
+                <!-- <a href="<?php #echo $link['signin'];?>" class="header-icon" title="login"><i class="icon-user-2"></i></a>
 
-                <a href="<?php echo $link['wishlist'];?>" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a> -->
+                <a href="<?php #echo $link['wishlist'];?>" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a> -->
 
                 <!-- <div class="dropdown cart-dropdown">
                     <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
@@ -145,7 +153,7 @@
                                 <div class="product">
                                     <div class="product-details">
                                         <h4 class="product-title">
-                                            <a href="<?php echo $link['product'];?>">Ultimate 3D Bluetooth Speaker</a>
+                                            <a href="<?php #echo $link['product'];?>">Ultimate 3D Bluetooth Speaker</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -153,8 +161,8 @@
                                         </span>
                                     </div>
                                     <figure class="product-image-container">
-                                        <a href="<?php echo $link['product'];?>" class="product-image">
-                                            <img src="<?php echo $asset; ?>assets/images/products/product-1.jpg" alt="product" width="80" height="80">
+                                        <a href="<?php #echo $link['product'];?>" class="product-image">
+                                            <img src="<?php #echo $asset; ?>assets/images/products/product-1.jpg" alt="product" width="80" height="80">
                                         </a>
 
                                         <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
@@ -163,7 +171,7 @@
                                 <div class="product">
                                     <div class="product-details">
                                         <h4 class="product-title">
-                                            <a href="<?php echo $link['product'];?>">Brown Women Casual HandBag</a>
+                                            <a href="<?php #echo $link['product'];?>">Brown Women Casual HandBag</a>
                                         </h4>
 
                                         <span class="cart-product-info">
@@ -171,8 +179,8 @@
                                         </span>
                                     </div>
                                     <figure class="product-image-container">
-                                        <a href="<?php echo $link['product'];?>" class="product-image">
-                                            <img src="<?php echo $asset; ?>assets/images/products/product-2.jpg" alt="product" width="80" height="80">
+                                        <a href="<?php #echo $link['product'];?>" class="product-image">
+                                            <img src="<?php #echo $asset; ?>assets/images/products/product-2.jpg" alt="product" width="80" height="80">
                                         </a>
 
                                         <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
@@ -185,9 +193,9 @@
                                 <span class="cart-total-price float-right">$134.00</span>
                             </div>
                             <div class="dropdown-cart-action">
-                                <a href="<?php echo $link['cart'];?>" class="btn btn-gray btn-block view-cart">View
+                                <a href="<?php #echo $link['cart'];?>" class="btn btn-gray btn-block view-cart">View
                                     Cart</a>
-                                <a href="<?php echo $link['checkout'];?>" class="btn btn-dark btn-block">Checkout</a>
+                                <a href="<?php #echo $link['checkout'];?>" class="btn btn-dark btn-block">Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -284,12 +292,6 @@
                                 }
                             }
                             ?>
-                            <!-- <li><a href="<?php #echo $link['articles'];?>">Blog</a>
-                                <ul>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog</a></li>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog Post</a></li>
-                                </ul>
-                            </li> -->
                         </ul>
                     </li>   
                     <li>
@@ -302,51 +304,20 @@
                                 }
                             }
                             ?>
-                            <!-- <li><a href="<?php #echo $link['articles'];?>">Blog</a>
-                                <ul>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog</a></li>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog Post</a></li>
-                                </ul>
-                            </li> -->
                         </ul>
-                    </li>        
+                    </li>
                     <li>
-                        <a href="#">Menu</a>
+                        <a href="#">Portofolio</a>
                         <ul>
                             <?php 
-                            if(!empty($link['menu'])){
-                                foreach($link['menu'] as $v){
-                                    // if(($v['news_position'] == 1) or ($v['news_position'] == 3)){                                      
-                                        echo "<li><a href=".site_url().$v['news_url'].">".$v['news_title']."</a>"; 
-                                    // }
+                            if(!empty($link['portofolio'])){
+                                foreach($link['portofolio'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['portofolio'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
                                 }
                             }
                             ?>
-                            <!-- <li><a href="<?php #echo $link['articles'];?>">Blog</a>
-                                <ul>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog</a></li>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog Post</a></li>
-                                </ul>
-                            </li> -->
                         </ul>
-                    </li>                                                                                                    
-                    <li>
-                        <a href="#">Demo</a>
-                        <ul>
-                            <li><a href="<?php echo $link['wishlist'];?>">Wishlist</a></li>
-                            <li><a href="<?php echo $link['cart'];?>">Shopping Cart</a></li>
-                            <li><a href="<?php echo $link['checkout'];?>">Checkout</a></li>
-                            <li><a href="<?php echo $link['about'];?>">About Us</a></li>
-                            <li><a href="<?php echo $link['articles'];?>">Blog</a>
-                                <ul>
-                                    <li><a href="<?php echo $link['article'];?>">Blog</a></li>
-                                    <li><a href="<?php echo $link['article'];?>">Blog Post</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="<?php echo $link['contact_us'];?>">Contact Us</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="<?php echo $link['contact_us'];?>">Kontak</a></li>
+                    </li>                    
                     <li class="float-right"><a href="#" class="pl-5">Jelajahi Koleksi Kami</a></li>
                 </ul>
             </nav>

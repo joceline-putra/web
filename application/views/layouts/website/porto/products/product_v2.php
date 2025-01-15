@@ -3,7 +3,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-nav">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo $pages['sitelink']['home']['url']; ?>"><i class="icon-home"></i></a></li>
-                        <li class="breadcrumb-item" aria-current="page">Produk</li>
+                        <li class="breadcrumb-item" aria-current="page"><?php echo ucfirst($link['routing']['product']);?></li>
                         <li class="breadcrumb-item" aria-current="page"><?php echo $pages['sitelink']['categories']['title']; ?></li>
                         <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>		
                     </ol>

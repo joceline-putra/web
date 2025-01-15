@@ -13,7 +13,7 @@
 		<div class="container">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="<?php echo $pages['sitelink']['home']['url']; ?>"><i class="icon-home"></i></a></li>
-				<li class="breadcrumb-item" aria-current="page">Blog</li>
+				<li class="breadcrumb-item" aria-current="page"><?php echo ucfirst($link['routing']['blog']);?></li>
 				<li class="breadcrumb-item" aria-current="page"><?php echo $pages['sitelink']['categories']['title']; ?></li>
 				<li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>												
 			</ol>

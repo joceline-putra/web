@@ -52,7 +52,7 @@ $route['search']                = "search/index";
     // Home
 	$route['tentang-kami']          = "website/about";
 	$route['contact-us']            = "website/contact_us";	
-	$route['masuk']                 = "website/signin";
+	$route['masuk']                 = "website/masuk";
 	$route['faqs']                  = "website/faqs";
 	$route['firebase']              = "website/firebase";
 	// $route['map']                = "website/map";	
@@ -74,12 +74,21 @@ $route['search']                = "search/index";
 	$route['article']               = "website/article";
 
 	// Pages View REAL
-	$route['produk']  				= "website/produk";	    	// produk
-	$route['produk/(:any)']  		= "website/produk/$1";	    // produk/sncak
-	$route['produk/(:any)/(:any)']  = "website/produk/$1/$2";	// produk/sncak/anekagetuk
-	$route['blog/(:any)']        	= "website/blog/$1";	    // article/olahraga
-	$route['blog/(:any)/(:any)'] 	= "website/blog/$1/$2";	    // article/olahraga/hai-kawan
+		$route['produk']  				= "website/produk";	    	// produk
+		$route['produk/(:any)']  		= "website/produk/$1";	    // produk/sncak
+		$route['produk/(:any)/(:any)']  = "website/produk/$1/$2";	// produk/sncak/anekagetuk
 
+		$route['blog/(:any)']        	= "website/blog/$1";	    // article/olahraga
+		$route['blog/(:any)/(:any)'] 	= "website/blog/$1/$2";	    // article/olahraga/hai-kawan
+
+		$route['gallery/(:any)']        	= "website/gallery/$1";	    // article/olahraga
+		$route['gallery/(:any)/(:any)'] 	= "website/gallery/$1/$2";	    // article/olahraga/hai-kawan	
+
+		$route['project/(:any)']        	= "website/project/$1";	    // article/olahraga
+		$route['project/(:any)/(:any)'] 	= "website/project/$1/$2";	    // article/olahraga/hai-kawan
+		
+	$route['portofolio/(:any)']        	= "website/portofolio/$1";	    // article/olahraga
+	$route['portofolio/(:any)/(:any)'] 	= "website/portofolio/$1/$2";	    // article/olahraga/hai-kawan	
     //Not Used / OLD Concept
     // $route['blog'] 					= "website/blog";
 	// $route['agent']              = "website/agent";      

@@ -18,6 +18,7 @@
         <meta property="og:keywords" content="<?php echo strip_tags($keywords);?>"/>                
         <meta property="og:type" content="website"/>
         <meta property="og:site_name" content="<?php echo site_url();?>"/>
+        
         <!-- Favicon -->
         <link rel="shortcut icon" href="<?php echo $asset; ?>assets/img/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="<?php echo $asset; ?>assets/img/apple-touch-icon.png">

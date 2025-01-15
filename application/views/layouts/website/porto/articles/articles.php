@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-12 align-self-center p-static order-2 text-center">
 				<h1 class="text-dark font-weight-bold text-8"><?php echo $title; ?></h1>
-				<span class="sub-title text-dark">Blog</span>
+				<span class="sub-title text-dark"><?php echo ucfirst($link['routing']['blog']);?></span>
 			</div>
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 		<div class="container">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="<?php echo $pages['sitelink']['home']['url']; ?>"><i class="icon-home"></i></a></li>
-				<li class="breadcrumb-item" aria-current="page">Blog</li>
+				<li class="breadcrumb-item" aria-current="page"><?php echo $link['routing']['blog'];?></li>
 				<li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
 			</ol>
 		</div>
