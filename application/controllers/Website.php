@@ -10,11 +10,11 @@ class Website extends CI_Controller{
     
     public $header_file; public $content_file; public $footer_file;
     public $css_file; public $js_file;
-    public $site_dir;
+    public $site_dir; public $page_dir;
     
     public $blogs_dir; public $blogs_file; public $blog_file;    
     public $products_dir; public $products_file; public $product_file;
-    public $gallery_dir; public $gallery_file;    
+    public $gallery_file; public $portofolio_file; public $project_file;   
 
     public $contacts_dir; public $contacts_file; public $contact_file;
     
@@ -37,7 +37,7 @@ class Website extends CI_Controller{
         $this->image            = site_url().'upload/noimage.png';
 
         //Routing
-        $this->product_routing  = 'jasa';
+        $this->product_routing  = 'produk';
         $this->blog_routing     = 'blog'; //blog
         $this->contact_routing  = 'agent';
         $this->gallery_routing  = 'gallery';
@@ -53,6 +53,7 @@ class Website extends CI_Controller{
 
         //Sub Folder
         $this->site_dir         = 'home';
+        $this->page_dir         = 'pages';
 
         $this->blogs_dir        = 'articles';
             $this->blogs_file       = 'articles';
@@ -66,14 +67,9 @@ class Website extends CI_Controller{
             $this->contacts_file    = 'agents';   //Not Used
             $this->contact_file     = 'agent';    //Not Used
 
-        $this->gallery_dir        = 'gallery';
-            $this->gallery_file        = 'gallery';
-
-        $this->project_dir        = 'projects';
-            $this->project_file        = 'project';
-            
-        $this->portofolio_dir        = 'portofolio';
-            $this->portofolio_file        = 'portofolio';            
+        $this->gallery_file        = 'gallery';
+        $this->project_file        = 'project';
+        $this->portofolio_file        = 'portofolio';            
 
         $this->about_file       = $this->site_dir.'/'.'about';
         $this->contact_us_file  = $this->site_dir.'/'.'contact_us';
@@ -1303,6 +1299,7 @@ class Website extends CI_Controller{
                 'categories' => array(
                     'url' => site_url($this->blog_routing).$url_news_category,
                     'title' => $url_news_category_title,
+                    'image' => !empty($get_categories['category_image']) ? site_url().$get_categories['category_image'] : site_url('upload/noimage.png'),
                     'result' => $category_data,
                     'result_news' => $other_category,
                     'result_popular' => $other_popular
@@ -1349,7 +1346,7 @@ class Website extends CI_Controller{
             $data['image']          = !empty($data['pages']['sitelink']['article']['image']) ? $data['pages']['sitelink']['article']['image'] : $this->meta['image'];            
             $data['author']         = !empty($data['pages']['sitelink']['article']['author']) ? ucwords($data['pages']['sitelink']['article']['author']) : $this->meta['author'];
             $data['sitename']       = $this->meta['sitename'];
-            $data['url']            = site_url($this->product_routing).$final_url;
+            $data['url']            = site_url($this->blog_routing).$final_url;
 
         } else if($view == 'categories'){ //www.any.com/article/param1
             // Page 
@@ -1368,7 +1365,7 @@ class Website extends CI_Controller{
             $data['image']          = !empty($data['pages']['sitelink']['categories']['image']) ? $data['pages']['sitelink']['categories']['image'] : $this->meta['image'];            
             $data['author']         = !empty($data['pages']['sitelink']['categories']['author']) ? ucwords($data['pages']['sitelink']['categories']['author']) : $this->meta['author'];
             $data['sitename']       = $this->meta['sitename'];
-            $data['url']            = site_url($this->product_routing).$final_url;
+            $data['url']            = site_url($this->blog_routing).$final_url;
             
         } else {
             echo 1;die;
@@ -1411,6 +1408,7 @@ class Website extends CI_Controller{
             $cat_id = 0;
             $url_news_category = '';
             $url_news_category_title = ucfirst($this->product_routing);
+            $final_url = '';
         }
 
         //Param URL Categories not Empty
@@ -1480,6 +1478,9 @@ class Website extends CI_Controller{
                 $pro_stock = $get_news['product_stock'];
                 $pro_unit = $get_news['product_unit'];                
 
+                if(!empty($pro_code)){
+                    $url_news_title = $url_news_title.' - '.$pro_code;
+                }
                 $pro_images = $this->File_model->get_all_file(['file_from_table' => 'products', 'file_from_id' => $get_news['product_id']],null,null,null,'file_id','asc');
 
                 $params_check = array(
@@ -1513,7 +1514,7 @@ class Website extends CI_Controller{
             $view = 'product';
         }
 
-        $final_url = site_url($this->product_routing).$final_url;
+        // $final_url = site_url($this->product_routing).$final_url;
         $data['pages'] = array(
             'sitelink' => array(
                 'home' => array(
@@ -1524,6 +1525,9 @@ class Website extends CI_Controller{
                     'id' => $cat_id,
                     'url' => site_url($this->product_routing).$url_news_category,
                     'title' => $url_news_category_title,
+                    'image' => !empty($get_categories['category_image']) ? site_url().$get_categories['category_image'] : site_url('upload/noimage.png'),
+                    'content' => !empty($get_categories['category_content']) ? $get_categories['category_content'] : $this->meta['description'],
+                    'short' => !empty($get_categories['category_short']) ? $get_categories['category_short'] : $this->meta['short'],
                     'result' => $category_data,
                     'other_product' => $other_category,
                     'other_count' => $other_count
@@ -1588,14 +1592,13 @@ class Website extends CI_Controller{
                 /* */
                 
             // Meta               
-                $data['title']          = $data['pages']['sitelink']['categories']['title'];
                 $data['title']          = !empty($data['pages']['sitelink']['categories']['title']) ? $data['pages']['sitelink']['categories']['title'] : $this->meta['title'];
-                $data['short']          = !empty($data['pages']['sitelink']['product']['content']) ? substr(strip_tags($data['pages']['sitelink']['product']['content']),0,20) : $this->meta['short'];
-                $data['description']    = !empty($data['pages']['sitelink']['product']['content']) ? $data['pages']['sitelink']['product']['content'] : $this->meta['description'];
-                $data['description_full']    = !empty($data['pages']['sitelink']['product']['content']) ? $data['pages']['sitelink']['product']['content'] : $this->meta['description'];
-                $data['keywords']       = !empty($data['pages']['sitelink']['product']['content']) ? substr(strip_tags($data['pages']['sitelink']['product']['content']),0,20) : $this->meta['keywords'];
-                $data['image']          = !empty($data['pages']['sitelink']['product']['image']) ? $data['pages']['sitelink']['product']['image'] : $this->meta['image'];            
-                $data['author']         = !empty($data['pages']['sitelink']['product']['author']) ? ucwords($data['pages']['sitelink']['product']['author']) : $this->meta['author'];
+                $data['short']          = !empty($data['pages']['sitelink']['categories']['short']) ? substr(strip_tags($data['pages']['sitelink']['categories']['short']),0,20) : $this->meta['short'];
+                $data['description']    = !empty($data['pages']['sitelink']['categories']['content']) ? $data['pages']['sitelink']['categories']['content'] : $this->meta['description'];
+                $data['description_full']    = !empty($data['pages']['sitelink']['categories']['content']) ? $data['pages']['sitelink']['categories']['content'] : $this->meta['description'];
+                $data['keywords']       = !empty($data['pages']['sitelink']['categories']['content']) ? substr(strip_tags($data['pages']['sitelink']['categories']['content']),0,20) : $this->meta['keywords'];
+                $data['image']          = !empty($data['pages']['sitelink']['categories']['image']) ? $data['pages']['sitelink']['categories']['image'] : $this->meta['image'];            
+                $data['author']         = !empty($data['pages']['sitelink']['categories']['author']) ? ucwords($data['pages']['sitelink']['categories']['author']) : $this->meta['author'];
                 $data['sitename']       = $this->meta['sitename'];
                 $data['url']            = site_url($this->product_routing).$final_url;
 
@@ -1606,14 +1609,13 @@ class Website extends CI_Controller{
             // Data
                 /* */
 
-            // Meta               
-                $data['title']          = $data['pages']['sitelink']['categories']['title'];
+            // Meta
                 $data['title']          = !empty($data['pages']['sitelink']['categories']['title']) ? $data['pages']['sitelink']['categories']['title'] : $this->meta['title'];
-                $data['short']          = !empty($data['pages']['sitelink']['product']['content']) ? substr(strip_tags($data['pages']['sitelink']['product']['content']),0,20) : $this->meta['short'];
-                $data['description']    = !empty($data['pages']['sitelink']['product']['content']) ? $data['pages']['sitelink']['product']['content'] : $this->meta['description'];
-                $data['description_full']    = !empty($data['pages']['sitelink']['product']['content']) ? $data['pages']['sitelink']['product']['content'] : $this->meta['description'];
+                $data['short']          = !empty($data['pages']['sitelink']['categories']['content']) ? substr(strip_tags($data['pages']['sitelink']['categories']['content']),0,20) : $this->meta['short'];
+                $data['description']    = !empty($data['pages']['sitelink']['categories']['content']) ? $data['pages']['sitelink']['categories']['content'] : $this->meta['description'];
+                $data['description_full']    = !empty($data['pages']['sitelink']['categories']['content']) ? $data['pages']['sitelink']['categories']['content'] : $this->meta['description'];
                 $data['keywords']       = !empty($data['pages']['sitelink']['product']['content']) ? substr(strip_tags($data['pages']['sitelink']['product']['content']),0,20) : $this->meta['keywords'];
-                $data['image']          = !empty($data['pages']['sitelink']['product']['image']) ? $data['pages']['sitelink']['product']['image'] : $this->meta['image'];            
+                $data['image']          = !empty($data['pages']['sitelink']['categories']['image']) ? $data['pages']['sitelink']['categories']['image'] : $this->meta['image'];            
                 $data['author']         = !empty($data['pages']['sitelink']['product']['author']) ? ucwords($data['pages']['sitelink']['product']['author']) : $this->meta['author'];
                 $data['sitename']       = $this->meta['sitename'];
                 $data['url']            = site_url($this->product_routing).$final_url;
@@ -1714,9 +1716,10 @@ class Website extends CI_Controller{
                 ),
                 'images' => $imagess
             ),
-            'final_url' => site_url($this->blog_routing).$final_url,
+            'final_url' => site_url($this->gallery_routing).$final_url,
             'view' => ''
         );
+        // var_dump($data['pages']);die;
 
         // Navigation
         $data['dir']            = $this->nav;
@@ -1725,8 +1728,8 @@ class Website extends CI_Controller{
         $data['favicon']        = $this->favicon;
 
         // Page 
-            $data['_content']       = $this->nav['web']['layout'].$this->gallery_dir.'/'.$this->gallery_file;
-            // $data['_js']            = $this->nav['web']['layout'].$this->gallery_dir.'/'.$this->gallery_file.'_js';              
+            $data['_content']       = $this->nav['web']['layout'].$this->page_dir.'/'.$this->gallery_file;
+            // $data['_js']            = $this->nav['web']['layout'].$this->page_dir.'/'.$this->gallery_file.'_js';              
         
         // Data
             /* */
@@ -1740,10 +1743,9 @@ class Website extends CI_Controller{
         $data['image']          = !empty($data['pages']['sitelink']['gallery']['image']) ? $data['pages']['sitelink']['gallery']['image'] : $this->meta['image'];            
         $data['author']         = !empty($data['pages']['sitelink']['gallery']['author']) ? ucwords($data['pages']['sitelink']['gallery']['author']) : $this->meta['author'];
         $data['sitename']       = $this->meta['sitename'];
-        $data['url']            = site_url($this->product_routing).$final_url;
-
+        $data['url']            = site_url($this->gallery_routing).$final_url;
         $this->load->view($this->nav['web']['index'],$data);
-    }    
+    }
     function project($news_url = ''){ // Production
         $view = '';$news_short = ''; $news_content = ''; $news_tags = ''; $news_keywords = ''; 
         $news_image = ''; $news_visitor = ''; $news_created = ''; $news_author = ''; $news_status = '';
@@ -1840,30 +1842,32 @@ class Website extends CI_Controller{
             'final_url' => site_url($this->project_routing).$final_url,
             'view' => ''
         );
+        // var_dump($data['pages']);die;
 
         // Navigation
-        $data['dir']            = $this->nav;
-        $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
-        $data['link']           = $this->sitelink();  
-        $data['favicon']        = $this->favicon;
-        $data['_content']       = $this->nav['web']['layout'].$this->project_dir.'/'.$this->project_file;
+            $data['dir']            = $this->nav;
+            $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+            $data['link']           = $this->sitelink();  
+            $data['favicon']        = $this->favicon;
+            $data['_content']       = $this->nav['web']['layout'].$this->page_dir.'/'.$this->project_file;
             // $data['_js']            = $this->nav['web']['layout'].$this->project_dir.'/'.$this->project_file.'_js';              
         
         // Data
             /* */
 
         // Meta        
-        $data['title']          = !empty($data['pages']['sitelink']['project']['title']) ? $data['pages']['sitelink']['project']['title'] : $this->meta['title'];
-        $data['short']          = !empty($data['pages']['sitelink']['project']['content']) ? substr(strip_tags($data['pages']['sitelink']['project']['content']),0,20) : $this->meta['short'];
-        $data['description']    = !empty($data['pages']['sitelink']['project']['content']) ? $data['pages']['sitelink']['project']['content'] : $this->meta['description'];
-        $data['description_full']    = !empty($data['pages']['sitelink']['project']['content']) ? $data['pages']['sitelink']['project']['content'] : $this->meta['description'];
-        $data['keywords']       = !empty($data['pages']['sitelink']['project']['content']) ? substr(strip_tags($data['pages']['sitelink']['project']['content']),0,20) : $this->meta['keywords'];
-        $data['image']          = !empty($data['pages']['sitelink']['project']['image']) ? $data['pages']['sitelink']['project']['image'] : $this->meta['image'];            
-        $data['author']         = !empty($data['pages']['sitelink']['project']['author']) ? ucwords($data['pages']['sitelink']['project']['author']) : $this->meta['author'];
-        $data['sitename']       = $this->meta['sitename'];
-        $data['url']            = site_url($this->product_routing).$final_url;
+            $data['title']          = !empty($data['pages']['sitelink']['project']['title']) ? $data['pages']['sitelink']['project']['title'] : $this->meta['title'];
+            $data['short']          = !empty($data['pages']['sitelink']['project']['content']) ? substr(strip_tags($data['pages']['sitelink']['project']['content']),0,20) : $this->meta['short'];
+            $data['description']    = !empty($data['pages']['sitelink']['project']['content']) ? $data['pages']['sitelink']['project']['content'] : $this->meta['description'];
+            $data['description_full']    = !empty($data['pages']['sitelink']['project']['content']) ? $data['pages']['sitelink']['project']['content'] : $this->meta['description'];
+            $data['keywords']       = !empty($data['pages']['sitelink']['project']['content']) ? substr(strip_tags($data['pages']['sitelink']['project']['content']),0,20) : $this->meta['keywords'];
+            $data['image']          = !empty($data['pages']['sitelink']['project']['image']) ? $data['pages']['sitelink']['project']['image'] : $this->meta['image'];            
+            $data['author']         = !empty($data['pages']['sitelink']['project']['author']) ? ucwords($data['pages']['sitelink']['project']['author']) : $this->meta['author'];
+            $data['sitename']       = $this->meta['sitename'];
+            $data['url']            = site_url($this->project_routing).$final_url;
+
         $this->load->view($this->nav['web']['index'],$data);
-    }        
+    }
     function produk_reload(){
         $return = new \stdClass();
         $return->status = 0;

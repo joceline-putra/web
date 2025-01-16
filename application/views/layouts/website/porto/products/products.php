@@ -10,7 +10,7 @@
 
         <div class="row">
             <div class="col-lg-9">
-                <div class="category-banner banner text-uppercase" style="background: no-repeat 60%/cover url('<?php echo $asset; ?>assets/images/banners/banner-top.jpg');">
+                <!-- <div class="category-banner banner text-uppercase" style="background: no-repeat 60%/cover url('<?php echo $asset; ?>assets/images/banners/banner-top.jpg');">
                     <div class="row">
                         <div class="pb-5 pb-md-0 col-sm-5 col-lg-5 offset-1">
                             <h3 class="mb-2 ls-10">Electronic<br>Deals</h3>
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <nav class="toolbox sticky-header mt-2" data-sticky-options="{'mobile': true}">
                     <div class="toolbox-left">
@@ -85,10 +85,10 @@
                         <!-- End .toolbox-item -->
 
                         <div class="toolbox-item layout-modes">
-                            <a href="category.html" class="layout-btn btn-grid active" title="Grid">
+                            <a href="#" class="layout-btn btn-grid active" title="Grid">
                                 <i class="icon-mode-grid"></i>
                             </a>
-                            <a href="category-list.html" class="layout-btn btn-list" title="List">
+                            <a href="#" class="layout-btn btn-list" title="List">
                                 <i class="icon-mode-list"></i>
                             </a>
                         </div>
@@ -122,10 +122,10 @@
                                     <img src="<?php echo $simg;?>" alt="<?php echo $title; ?>" width="220px" height="220px" style="width:100%;height:220px;">
                                 </a>
 
-                                <div class="label-group">
+                                <!-- <div class="label-group">
                                     <div class="product-label label-hot">HOT</div>
                                     <div class="product-label label-sale">-20%</div>
-                                </div>
+                                </div> -->
                             </figure>
 
                             <div class="product-details">
@@ -137,30 +137,26 @@
 
                                 <h3 class="product-title"> <a href="<?php echo $spurl;?>"><?php echo $stitle; ?></a> </h3>
 
-                                <div class="ratings-container">
+                                <!-- <div class="ratings-container">
                                     <div class="product-ratings">
                                         <span class="ratings" style="width:100%"></span>
-                                        <!-- End .ratings -->
                                         <span class="tooltiptext tooltip-top"></span>
                                     </div>
-                                    <!-- End .product-ratings -->
-                                </div>
-                                <!-- End .product-container -->
+                                </div> -->
 
-                                <div class="price-box">
+                                <!-- <div class="price-box">
                                     <span class="old-price">$90.00</span>
                                     <span class="product-price">$70.00</span>
-                                </div>
-                                <!-- End .price-box -->
+                                </div> -->
 
-                                <div class="product-action">
+                                <!-- <div class="product-action">
                                     <a href="<?php echo $spurl;?>" class="btn-icon-wish" title="wishlist"><i
                                             class="icon-heart"></i></a>
                                     <a href="<?php echo $spurl;?>" class="btn-icon btn-add-cart"><i
                                             class="fa fa-arrow-right"></i><span>SELECT
                                             OPTIONS</span></a>
                                     <a href="<?php echo $spurl;?>" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- End .product-details -->
                         </div>
@@ -229,7 +225,7 @@
                                         $scount     = !empty($v['category_count_data']) ? $v['category_count_data'] : '0';
                                         $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
                                         ?>  
-                                    <li><a href="#"><?php echo $scat;?></a><span class="products-count">(<?php echo $scount;?>)</span></li>
+                                    <li><a href="<?php echo $spurl;?>"><?php echo $scat;?></a><span class="products-count">(<?php echo $scount;?>)</span></li>
                                     <?php 
                                     }
                                 }
@@ -242,7 +238,7 @@
                     </div>
                     <!-- End .widget -->
 
-                    <div class="widget">
+                    <!-- <div class="widget">
                         <h3 class="widget-title">
                             <a data-toggle="collapse" href="#widget-body-3" role="button" aria-expanded="true" aria-controls="widget-body-3">Harga</a>
                         </h3>
@@ -307,7 +303,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="d-none widget widget-featured">
                         <h3 class="widget-title">Produk Lainnya</h3>
 
@@ -401,7 +397,6 @@
                         <h5>This is a custom sub-title.</h5>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus </p>
                     </div>
-                    <!-- End .widget -->
                 </div>
                 <!-- End .sidebar-wrapper -->
             </aside>

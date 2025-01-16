@@ -57,7 +57,7 @@
                         <!-- End .product-single-gallery -->
 
                         <div class="col-lg-7 col-md-6 product-single-details">
-                            <h1 class="product-title"><?php echo $title; ?></h1>
+                            <h1 class="product-title"><?php echo $pages['sitelink']['product']['title']; ; ?></h1>
 
                             <!-- <div class="product-nav">
                                 <div class="product-prev">
@@ -116,8 +116,8 @@
                             <div class="product-desc">
                                 <p>
                                     <?php 
-                                        // echo $pages['sitelink']['product']['content']; 
-                                        echo 'HPL adalah pilihan yang sangat baik untuk Anda yang menginginkan furnitur yang tahan lama, mudah perawatannya, dan memiliki tampilan yang menarik. Dengan berbagai pilihan motif dan tekstur, Anda bisa menciptakan interior yang sesuai dengan selera Anda.';
+                                        echo $pages['sitelink']['product']['content']; 
+                                        // echo 'HPL adalah pilihan yang sangat baik untuk Anda yang menginginkan furnitur yang tahan lama, mudah perawatannya, dan memiliki tampilan yang menarik. Dengan berbagai pilihan motif dan tekstur, Anda bisa menciptakan interior yang sesuai dengan selera Anda.';
                                     ?>
                                 </p>
                             </div>
@@ -127,7 +127,9 @@
                                 <!---->
                                 <li>
                                     SKU:
-                                    <strong>-</strong>
+                                    <strong>
+                                        <?php echo $pages['sitelink']['product']['code']; ?>
+                                    </strong>
                                 </li>
 
                                 <li>
