@@ -406,9 +406,9 @@
                             $.ajax({
                                 type: "POST",
                                 url: url,
-                                data: data,
+                                data: data, dataType: 'json',
                                 success: function (d) {
-                                    if (parseInt(d.status) = 1) {
+                                    if (parseInt(d.status) == 1) {
                                         notif(1, d.message);
                                         index.ajax.reload(null, false);
                                     } else {

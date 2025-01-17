@@ -238,7 +238,7 @@
                     </div>
                     <!-- End .widget -->
 
-                    <!-- <div class="widget">
+                    <div class="widget">
                         <h3 class="widget-title">
                             <a data-toggle="collapse" href="#widget-body-3" role="button" aria-expanded="true" aria-controls="widget-body-3">Harga</a>
                         </h3>
@@ -303,7 +303,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="d-none widget widget-featured">
                         <h3 class="widget-title">Produk Lainnya</h3>
 

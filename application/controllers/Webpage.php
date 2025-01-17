@@ -1856,7 +1856,8 @@ class Webpage extends MY_Controller{
                                 }
                             }
                         }
-                        $this->News_model->delete_news($data['id']);
+                        $this->Product_model->delete_product($data['id']);
+                            
                         /* Activity */
                         /*
                         $params = array(
@@ -1941,7 +1942,7 @@ class Webpage extends MY_Controller{
                         $return->message = validation_errors();
                     }else{
                         $product_id = !empty($post['product_id']) ? $post['product_id'] : 0;
-                        if(strlen(intval($product_id)) > 1){
+                        if(strlen(intval($product_id)) > 0){
                             
                             $params = array(
                                 'product_flag' => !empty($post['product_flag']) ? intval($post['product_flag']) : 0,

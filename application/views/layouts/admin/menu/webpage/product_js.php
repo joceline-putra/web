@@ -184,7 +184,7 @@
                         dsp += 'data-nama="' + row.product_name + '" data-url="' + row.product_url + '" data-id="' + data + '" data-flag="' + row.product_flag + '" data-category="' + row.category_url + '">';
                         dsp += '<span class="fas fa-eye"></span> Preview</button>';
 
-                        if (parseInt(row.news_flag) === 0) {
+                        if (parseInt(row.product_flag) === 0) {
                             dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-primary"';
                             dsp += 'data-nama="' + row.product_name + '" data-kode="' + row.product_url + '" data-id="' + data + '" data-flag="' + row.product_flag + '">';
                             dsp += '<span class="fas fa-check-square primary"></span></button>';
@@ -612,11 +612,11 @@
                         keys: ['enter'],
                         action: function () {
                             var data = {
-                                action: 'set-active',
-                                id: id,
-                                flag: set_flag,
-                                nama: nama,
-                                kode: kode
+                                action: 'update_flag',
+                                product_id: id,
+                                product_flag: set_flag,
+                                product_name: nama,
+                                product_code: kode
                             }
                             $.ajax({
                                 type: "POST",

@@ -22,8 +22,18 @@ class Test extends CI_Controller{
 
     function index(){
 
-        //Plan With Query
+        $this->load->model('Attribute_model');
+        $prm = [
+            // 'attr_name' => 'Warna',
+        ];
+        $src = [
+            // ''
+        ];
 
+        $g = $this->Attribute_model->get_all_product($prm,$src,null,null,null,'asc');
+        echo json_encode($g);
+        die;
+        //Plan With Query
         $q = $this->db->query("SELECT * FROM `files` WHERE file_from_id=35");        
 
         $d = $q->row_array(); 
