@@ -112,7 +112,9 @@
                                             </div>                                                                                                                          
                                         </div>   
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                                                                                                                 
+                                            <h5><b>Attribute</b></h5>
+                                            <div id="div_attribute">
+                                            </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <!-- <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">

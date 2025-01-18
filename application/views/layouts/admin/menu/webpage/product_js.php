@@ -324,7 +324,66 @@
                 //Custom Data Attribute         
                 // return '<i class="fas fa-balance-scale '+datas.id.toLowerCase()+'"></i> '+datas.text;
             }
-        });        
+        });
+        $('.attribute_select').select2({
+            //dropdownParent:$("#modal-id"), //If Select2 Inside Modal, $(".jconfirm-box-container") if jConfirm
+            //placeholder: '<i class="fas fa-search"></i> Search',
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                type: "get",
+                url: "<?= base_url('search/manage');?>",
+                dataType: 'json',
+                delay: 250,
+                cache: true,
+                data: function (params) {
+                    let query = {
+                        search: params.term,
+                        source: $(this).attr('data-attr-session'),
+                    };
+                    return query;
+                },
+                processResults: function (result, params){
+                    let datas = [];
+                    $.each(result, function(key, val){
+                        datas.push({
+                            'id' : val.id,
+                            'text' : val.text
+                        });
+                    });
+                    return {
+                        results: datas,
+                        pagination: {
+                            more: (params.page * 10) < result.count_filtered
+                        }
+                    };
+                }
+            },
+            templateResult: function(datas){ //When Select on Click
+                //if (!datas.id) { return datas.text; }
+                if($.isNumeric(datas.id) == true){
+                    // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                    return datas.text;
+                }
+            },
+            templateSelection: function(datas) { //When Option on Click
+                //if (!datas.id) { return datas.text; }
+                //Custom Data Attribute
+                //$(datas.element).attr('data-column', datas.column);        
+                //return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                if($.isNumeric(datas.id) == true){
+                    // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                    return datas.text;
+                }
+            }
+        }); 
+        $(document).on("change","#attribute_select",function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var var_custom = $(this).find(':selected').attr('data-column');
+            // alert('#attribute_select on change value => '+var_custom);
+        });
+        
         $(document).on("change", "#filter_categories", function (e) {
             index.ajax.reload();
         });        
@@ -481,6 +540,7 @@
                         mSTOK.set(d.result.product_stock);
                         
                         loadFiles(projectID);
+                        loadProductAttribute(projectID);
 
                         $("#btn-new").hide();
                         $("#btn-save").hide();
@@ -1017,6 +1077,70 @@
                 }
             });                    
         }
+        function loadProductAttribute(product_id){
+            // var r = [
+            //     {'attr_name':'Warna','attr_session':'K3DELG', 'pa_value':'Biru'},
+            //     {'attr_name':'Ukuran','attr_session':'APGWS2', 'pa_value':'Merah'},                
+            //     {'attr_name':'Merek','attr_session':'H3NQHW', 'pa_value':''},
+            // ];
+            var dsp = '';
+
+            let url = "<?= base_url('attributes'); ?>";
+            let form = new FormData();
+            form.append('action', 'load_product_attr');
+            form.append('product_id', product_id);            
+            $.ajax({
+                type: "post",
+                url: url,
+                data: form, 
+                dataType: 'json', cache: 'false', 
+                contentType: false, processData: false,
+                success:function(d){
+                    let s = d.status;
+                    let m = d.message;
+                    let r = d.result;
+                    if(parseInt(s) == 1){
+                        notif(s,m);
+                        
+                        //Make HTML
+                        r.forEach(async (v, i) => {
+                            var a = v['pa_value'];
+                            var pa_value = 0;
+                            if (a !== '' && a !== null && a !== undefined) {
+                                var pa_value = v['pa_value'];
+                            }
+
+                            var attr = 'data-attr-session="'+v['attr_session']+'" data-attr-name="'+v['attr_name']+'" data-value="'+pa_value+'"';
+                            dsp += `
+                                <div class="col-md-2 col-xs-2 col-sm-12">
+                                    <div class="form-group"><label class="form-label">${v['attr_name']}</label>
+                                        <select name="attribute_select" class="attribute_select form-control" ${attr}>
+                                            <option value="0">Pilih</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            `;
+                        });
+                        $("#div_attribute").html(dsp);
+
+                        //Set Data <option>
+                        r.forEach(async (v, i) => {
+                            var a = v['pa_value'];
+                            if (a !== '' && a !== null && a !== undefined) {
+                                var pa_value = v['pa_value'];
+                                $("[class*='attribute_select'][data-attr-session='"+v['attr_session']+"']").append('<option value="'+pa_value+'">'+pa_value+'</option>');                     
+                                $("[class*='attribute_select'][data-attr-session='"+v['attr_session']+"']").val(pa_value).trigger('change'); 
+                            }
+                        });
+
+                        console.log(dsp);
+                    }
+                }
+            });
+            $('.attribute_select').select2();
+        }
+        // loadProductAttribute(2);
     });
 
     function formReset() {
