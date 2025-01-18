@@ -97,14 +97,15 @@
                 return data.text;
             }
         });
-        $('#attribute').on('change', function() {            
+        $('#attribute').on('change', function() {
+            selectedAttr = [];
             $(this).find(':selected').each(function() {
                 selectedAttr.push({
                     value: $(this).val(),
                     text: $(this).text()
                 });
             });
-            // console.log(selectedAttr);
+            console.log(selectedAttr);
         });
             
         var index = $("#table-data").DataTable({
@@ -290,6 +291,7 @@
                         if (parseInt(d.status) == 1) { /* Success Message */
                             notif(1, d.message);
                             index.ajax.reload();
+                            updateCategoryAttribute(d.result.id, selectedAttr);
                         } else { //Error
                             notif(0, d.message);
                         }
@@ -610,8 +612,6 @@
                 data: form, 
                 dataType: 'json', cache: 'false', 
                 contentType: false, processData: false,
-                beforeSend:function(x){
-                },
                 success:function(d){
                     let s = d.status;
                     let m = d.message;
@@ -639,51 +639,55 @@
                 data: form, 
                 dataType: 'json', cache: 'false', 
                 contentType: false, processData: false,
-                beforeSend:function(x){
-                },
                 success:function(d){
                     let s = d.status;
                     let m = d.message;
                     let r = d.result;
                     if(parseInt(s) == 1){
-                        // notif(s,m);
-                        // selectedAttr.push({
-                        //     value: $(this).val(),
-                        //     text: $(this).text()
-                        // });
-                            var ii = [];
-                        r.forEach(i => {    
-                            let newOption = new Option(i.attr_name, i.attr_session, false, false);
-                            $('#attribute').append(newOption);          
-                            ii.push ({
-                                value: i.attr_session,
-                                text: i.attr_name
-                            });                       
-                        });
-
-                        // r.forEach(i => {
-                        //     // console.log(i.attr_session);
-                        //     $('#attribute').val(i.attr_session).trigger('change');  
-                        // });          
-                        // if ($('#attribute').find("option[value='" + data.id + "']").length) {
-                        //     $('#attribute').val(data.id).trigger('change');
-                        // } else {
-                        //     // Create a DOM Option and pre-select by default
-                        //     var newOption = new Option(data.id, true, true);
-                        //     // Append it to the select
-                        //     $('#attribute').append(newOption).trigger('change');
-                        // }              
-                        console.log(ii);
-                        $('#attribute').val(ii).trigger('change');                        
-                    }else{
                         notif(s,m);
+                        updateSelect2(r);
+                    }else{
+                        // notif(s,m);
+                        r = [];
+                        updateSelect2(r);
                     }
                 },
                 error:function(xhr,status,err){
                     notif(0,err);
                 }
             });
-        }        
+        }  
+        function updateSelect2(datas){
+            // console.log('datas');
+            // console.log(datas);            
+            // $('#attribute').val(0).change(); 
+            $('#attribute option').not('[value="0"]').remove();         
+            $('#attribute').val(null).trigger('change');   
+            
+            var selectedVal = [];
+            selectedAttr = [];
+
+            if(datas.length > 0){
+                datas.forEach(i => {    
+                    let newOption = new Option(i.attr_name, i.attr_session, false, false);
+                    $('#attribute').append(newOption);          
+
+                    selectedVal.push(i.attr_session);  
+                    
+                    // selectedAttr.push({
+                    //     value: i.attr_session,
+                    //     text: i.attr_name
+                    // });                
+                });
+                // console.log(selectedVal);
+                // console.log(selectedAttr);
+            }else{
+                selectedAttr = [];
+                selectedVal.push(0);
+            }
+            $('#attribute').val(selectedVal).change(); 
+            // $('#attribute').val(ii).trigger('change');   
+        }      
     });
 
     function formMasterSetDisplay(value) { // 1 = Untuk Enable/ ditampilkan, 0 = Disabled/ disembunyikan

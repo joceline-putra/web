@@ -17,7 +17,7 @@ class Attributes extends MY_Controller{
 
         $this->load->model('User_model');
         $this->load->model('Kategori_model');
-        $this->load->model('Produk_model');                
+        $this->load->model('Product_model');                
         $this->load->model('Attribute_model');
 
     }
@@ -394,20 +394,67 @@ class Attributes extends MY_Controller{
                                 $this->Kategori_model->update_categories($category_id,['category_session'=>$cat_session]);
                             }
 
-                            $insert = true;
-                            // var_dump($attribute);die;
-                            foreach($attribute as $i => $v){
-                                $where = [
-                                    'ca_category_session' => $cat_session,
-                                    'ca_attribute_session' => $v->value
+                            $do = true;
+                            
+                            //Insert
+                            if(count($attribute) > 0){
+
+                                //Compare Old Data First
+                                $look = [
+                                    'ca_category_session' => $cat_session
                                 ];
-                                $check_exists = $this->Attribute_model->check_data_exist_category($where);
-                                if (!$check_exists){          
-                                    $insert = $this->Attribute_model->add_category($where);
+                                $get_data = $this->Attribute_model->get_all_category($look, null, null, null, 'ca_attribute_session', 'asc');
+
+                                $new_attribute = [];
+                                foreach($attribute as $i => $v){
+                                    array_push($new_attribute,$v->value);
                                 }
+
+                                $old_attribute = [];
+                                foreach($get_data as $o){
+                                    array_push($old_attribute,$o['ca_attribute_session']);
+                                }
+
+                                if(count($new_attribute) > count($old_attribute)){
+                                    //Insert if not found in Database
+                                    foreach($new_attribute as $v){
+                                        if (!in_array($v, $old_attribute)) {
+                                            // echo $v." not found in the array.<br>";
+                                            $where = [
+                                                'ca_category_session' => $cat_session,
+                                                'ca_attribute_session' => $v
+                                            ];
+                                            $check_exists = $this->Attribute_model->check_data_exist_category($where);
+                                            if (!$check_exists){
+                                                $do = $this->Attribute_model->add_category($where);
+                                            } 
+                                        }
+                                    }
+                                }else{
+                                    //Remove if not found in HTML
+                                    foreach($old_attribute as $v){
+                                        if (!in_array($v, $new_attribute)) {
+                                            // echo $v." not found in the array.<br>";
+                                            $where = [
+                                                'ca_category_session' => $cat_session,
+                                                'ca_attribute_session' => $v
+                                            ];
+                                            $do = $this->Attribute_model->delete_category_custom($where);
+                                        } else {
+                                            // echo $v." is found in the array.<br>";
+                                        }
+                                    }
+                                }
+
+                            }else{
+                                //Remove all if not found
+                                $where = [
+                                    'ca_category_session' => $cat_session
+                                ];
+                                $do = $this->Attribute_model->delete_category_custom($where);
                             }
 
-                            if($insert){
+                            if($do){
                                 $return->status  = 1;
                                 $return->message = 'Berhasil memperbarui';
                             }else{
@@ -748,7 +795,7 @@ class Attributes extends MY_Controller{
                     $return->recordsTotal    = $total;
                     $return->recordsFiltered = $total;
                     break;
-                case "load_category_attr":
+                case "load_category_attr": //Done
                     $params = array(); $total  = 0;
                     $this->form_validation->set_rules('category_id', 'category_id', 'required');
                     if ($this->form_validation->run() == FALSE){
@@ -772,6 +819,48 @@ class Attributes extends MY_Controller{
                             $dir    = "asc";
                             // var_dump($params);die;
                             $get_data = $this->Attribute_model->get_all_category($params, $search, $limit, $start, $order, $dir);
+                            if($get_data){
+                                $total = count($get_data);
+                                $return->status=1;
+                                $return->message='Berhasil mendapatkan data';
+                                $return->result=$get_data;
+                            }else{
+                                $return->message = 'Data tidak ditemukan';
+                            }
+                        }else{
+                            $return->message='Data tidak ada';
+                        }
+                    }
+                    $return->params          =$params;
+                    $return->total_records   = $total;
+                    $return->recordsTotal    = $total;
+                    $return->recordsFiltered = $total;
+                    break;
+                case "load_product_attr": //Done
+                    $params = array(); $total  = 0;
+                    $this->form_validation->set_rules('product_id', 'product_id', 'required');
+                    if ($this->form_validation->run() == FALSE){
+                        $return->message = validation_errors();
+                    }else{
+                        $product_id   = !empty($post['product_id']) ? $post['product_id'] : 0;
+                        if(strlen($product_id) > 0){
+                            $pro_session = $product_id;
+                            if(strlen($product_id) < 6){
+                                $get_pro = $this->Product_model->get_product($product_id);
+                                $pro_session = $get_pro['product_session']; 
+                            }
+
+                            $params = array(
+                                'ca_category_session' => $get_pro['category_session']
+                            );
+                            $search = $pro_session;
+
+                            $start  = null;
+                            $limit  = null;
+                            $order  = "attr_name";
+                            $dir    = "asc";
+
+                            $get_data = $this->Attribute_model->get_all_product_attr($params, $search, $limit, $start, $order, $dir);
                             if($get_data){
                                 $total = count($get_data);
                                 $return->status=1;

@@ -64,7 +64,8 @@ class Attribute_model extends CI_Model{
 
     function set_select_category(){
         $this->db->select("attr_session, attr_name")
-            ->select("category_session, category_name, category_type");
+            ->select("category_session, category_name, category_type")
+            ->select("ca_category_session, ca_attribute_session");
     }        
 
     function get_all_attribute($params = null, $search = null, $limit = null, $start = null, $order = null, $dir = null) {
@@ -166,6 +167,35 @@ class Attribute_model extends CI_Model{
             return $this->db->count_all_results();
         }          
 
+        function get_all_product_attr($params = null, $search = null, $limit = null, $start = null, $order = null, $dir = null) {
+            $outer_join = '(
+                SELECT pa_attribute_session, pa_value, pa_id FROM 
+                products_attributes WHERE pa_product_session="'.$search.'"
+            ) AS pa';
+
+            $this->db->select("categories_attributes.*, attr_name, attr_session, pa.pa_id, pa.pa_value");
+            $this->db->join('attributes','ca_attribute_session=attr_session','left'); 
+            $this->db->join($outer_join,'attr_session=pa_attribute_session','left');
+            
+            $this->set_params($params);
+
+            if ($order) {
+                $this->db->order_by($order, $dir);
+            } else {
+                $this->db->order_by('attr_name', "asc");
+            }
+
+            if ($limit) {
+                $this->db->limit($limit, $start);
+            }
+            
+            return $this->db->get('categories_attributes')->result_array();
+        }  
+        function get_all_product_attr_count($params,$search){
+            $this->db->from('categories_attributes');
+            $this->set_params($params);
+            return $this->db->count_all_results();
+        }          
     /* 
         ================
         CRUD Attribute

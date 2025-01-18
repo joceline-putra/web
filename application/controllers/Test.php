@@ -24,13 +24,11 @@ class Test extends CI_Controller{
 
         $this->load->model('Attribute_model');
         $prm = [
-            // 'attr_name' => 'Warna',
+            'ca_category_session' => 'A038C8',
         ];
-        $src = [
-            // ''
-        ];
+        $src = 'PINTUKU';
 
-        $g = $this->Attribute_model->get_all_category($prm,$src,null,null,null,'asc');
+        $g = $this->Attribute_model->get_all_product_attr_count($prm,$src,null,null,null,'asc');
         echo json_encode($g);
         die;
         //Plan With Query
