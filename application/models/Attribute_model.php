@@ -179,11 +179,6 @@ class Attribute_model extends CI_Model{
     }
     
     /* function to get attribute by id */
-    function get_attribute($id){
-        $this->set_select();
-        $this->set_join();
-        return $this->db->get_where('attributes',array('attr_id'=>$id))->row_array();
-    }
     function get_attribute_custom($where){
         $this->set_select();
         $this->set_join();
@@ -196,19 +191,12 @@ class Attribute_model extends CI_Model{
     }
 
     /* function to update attribute */
-    function update_attribute($id,$params){
-        $this->db->where('attr_id',$id);
-        return $this->db->update('attributes',$params);
-    }
     function update_attribute_custom($where,$params){
         $this->db->where($where);
         return $this->db->update('attributes',$params);
     }
 
     /* function to delete attribute */
-    function delete_attribute($id){
-        return $this->db->delete('attributes',array('attr_id'=>$id));
-    }
     function delete_attribute_custom($where){
         return $this->db->delete('attributes',$where);
     }
@@ -255,50 +243,80 @@ class Attribute_model extends CI_Model{
     
     /* 
         ================
-        CRUD Attribute ITEM
+        CRUD Option / Product / Categories
         ================
     */
     
         /* function to add new attribute items */
         function add_attribute_option($params){
-            $this->db->insert('attribute_options',$params);
+            $this->db->insert('attributes_options',$params);
             return $this->db->insert_id();
         }
+            function add_product($params){
+                $this->db->insert('products_attributes',$params);
+                return $this->db->insert_id();
+            }    
+            function add_category($params){
+                $this->db->insert('categories_attributes',$params);
+                return $this->db->insert_id();
+            }                
         
         /* function to get attribute items by id */
-        function get_attribute_option($id){
-            $this->set_select_option();
-            $this->set_join_option();
-            return $this->db->get_where('attribute_options',array('attribute_option_id'=>$id))->row_array();
-        }
         function get_attribute_option_custom($where){
             $this->set_select_option();
             $this->set_join_option();
-            return $this->db->get_where('attribute_options',$where)->row_array();
+            return $this->db->get_where('attributes_options',$where)->row_array();
         }
+            function get_product_custom($where){
+                $this->set_select_product();
+                $this->set_join_product();
+                return $this->db->get_where('products_attributes',$where)->row_array();
+            }
+            function get_category_custom($where){
+                $this->set_select_option();
+                $this->set_join_option();
+                return $this->db->get_where('categories_attributes',$where)->row_array();
+            }                
         function get_attribute_option_custom_result($where){
             $this->set_select_option();
             $this->set_join_option();
-            return $this->db->get_where('attribute_options',$where)->result_array();
+            return $this->db->get_where('attributes_options',$where)->result_array();
         }
+            function get_product_custom_result($where){
+                $this->set_select_product();
+                $this->set_join_product();
+                return $this->db->get_where('products_attributes',$where)->result_array();
+            }
+            function get_category_custom_result($where){
+                $this->set_select_category();
+                $this->set_join_category();
+                return $this->db->get_where('categories_attributes',$where)->result_array();
+            }                
 
         /* function to update attribute items */
-        function update_attribute_option($id,$params){
-            $this->db->where('attribute_option_id',$id);
-            return $this->db->update('attribute_options',$params);
-        }
         function update_attribute_option_custom($where,$params){
             $this->db->where($where);
             return $this->db->update('attribute_options',$params);
         }    
+            function update_product_custom($where,$params){
+                $this->db->where($where);
+                return $this->db->update('products_attributes',$params);
+            }    
+            function update_category_custom($where,$params){
+                $this->db->where($where);
+                return $this->db->update('categories_attributes',$params);
+            }                        
         
         /* function to delete attribute items */
-        function delete_attribute_option($id){
-            return $this->db->delete('attribute_options',array('attribute_option_id'=>$id));
-        }
         function delete_attribute_option_custom($where){
-            return $this->db->delete('attribute_options',$where);
+            return $this->db->delete('attributes_options',$where);
         }
+            function delete_product_custom($where){
+                return $this->db->delete('products_attributes',$where);
+            }        
+            function delete_category_custom($where){
+                return $this->db->delete('categories_attributes',$where);
+            }
 
         /* function to check data exists attribute_options */
         function check_data_exist_options($params){
@@ -311,6 +329,26 @@ class Attribute_model extends CI_Model{
                 return false;
             }
         }
+            function check_data_exist_product($params){
+                $this->db->where($params);
+                $query = $this->db->get('products_attributes');
+                if ($query->num_rows() > 0){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            function check_data_exist_category($params){
+                $this->db->where($params);
+                $query = $this->db->get('categories_attributes');
+                if ($query->num_rows() > 0){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }                    
         /* function to check data exists attribute of two condition */
         function check_data_exist_options_two_condition($where_not_in,$where_exist){
             if ($where_not_in) {
@@ -339,5 +377,59 @@ class Attribute_model extends CI_Model{
                 return false;
             }
         }
+            function check_data_exist_product_two_condition($where_not_in,$where_exist){
+                if ($where_not_in) {
+                    foreach ($where_not_in as $k => $v) {
+                        $this->db->where($k.' !=', $v);
+                    }
+                }
+                if ($where_exist) {
+                    $n = 0;
+                    $this->db->group_start();
+                    foreach($where_exist as $key => $val) {
+                        if ($n == 0) {
+                            $this->db->where($key, $val);
+                        } else {
+                            $this->db->where($key, $val);
+                        }
+                        $n++;
+                    }
+                    $this->db->group_end();
+                }
+                $this->db->limit(1,0);
+                $query = $this->db->get('products_attributes');
+                if ($query->num_rows() > 0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }  
+            function check_data_exist_category_two_condition($where_not_in,$where_exist){
+                if ($where_not_in) {
+                    foreach ($where_not_in as $k => $v) {
+                        $this->db->where($k.' !=', $v);
+                    }
+                }
+                if ($where_exist) {
+                    $n = 0;
+                    $this->db->group_start();
+                    foreach($where_exist as $key => $val) {
+                        if ($n == 0) {
+                            $this->db->where($key, $val);
+                        } else {
+                            $this->db->where($key, $val);
+                        }
+                        $n++;
+                    }
+                    $this->db->group_end();
+                }
+                $this->db->limit(1,0);
+                $query = $this->db->get('categories_attributes');
+                if ($query->num_rows() > 0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }                    
 }
 ?>

@@ -19,79 +19,8 @@
 		</div>
 	</nav>    
     <div class="container"> 
-        <div class="row mb-8 ">
-            <div class="col-lg-3 ">
-                <h4 class="text-uppercase heading-bottom-border mt-6 mt-lg-4 ">Other Projects</h4>
-                <div class="product-default left-details product-widget ">
-                    <figure>
-                        <a href="product.html">
-                            <img src="<?php echo $asset;?>assets/images/products/small/product-1.jpg" width="84 " height="84 "
-                                alt="product ">
-                            <img src="<?php echo $asset;?>assets/images/products/small/product-1-2.jpg" width="84 " height="84 "
-                                alt="product ">
-                        </a>
-                    </figure>
-                    <div class="product-details ">
-                        <h3 class="product-title "> <a href="product.html">Porto Extended Camera</a> </h3>
-                        <div class="ratings-container ">
-                            <div class="product-ratings ">
-                                <span class="ratings " style="width:100% "></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top "></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box ">
-                            <span class="product-price ">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-                <div class="product-default left-details product-widget ">
-                    <figure>
-                        <a href="product.html">
-                            <img src="<?php echo $asset;?>assets/images/products/small/product-4.jpg" width="84 " height="84 "
-                                alt="product ">
-                            <img src="<?php echo $asset;?>assets/images/products/small/product-4-2.jpg" width="84 " height="84 "
-                                alt="product ">
-                        </a>
-                    </figure>
-                    <div class="product-details ">
-                        <h3 class="product-title "> <a href="product.html">Blue BackPack</a> </h3>
-                        <div class="ratings-container ">
-                            <div class="product-ratings ">
-                                <span class="ratings " style="width:100% "></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top "></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box ">
-                            <span class="product-price ">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-                <div class="product-default left-details product-widget ">
-                    <figure>
-                        <a href="product.html">
-                            <img src="<?php echo $asset;?>assets/images/products/small/product-5.jpg" width="84 " height="84 "
-                                alt="product ">
-                            <img src="<?php echo $asset;?>assets/images/products/small/product-5-2.jpg" width="84 " height="84 "
-                                alt="product ">
-                        </a>
-                    </figure>
-                    <div class="product-details ">
-                        <h3 class="product-title "> <a href="product.html">Casual Blue Shoes</a> </h3>
-                        <div class="ratings-container ">
-                            <div class="product-ratings ">
-                                <span class="ratings " style="width:100% "></span>
-                                <!-- End .ratings -->
-                                <span class="tooltiptext tooltip-top "></span>
-                            </div><!-- End .product-ratings -->
-                        </div><!-- End .product-container -->
-                        <div class="price-box ">
-                            <span class="product-price ">$49.00</span>
-                        </div><!-- End .price-box -->
-                    </div><!-- End .product-details -->
-                </div>
-            </div>
+        
+        <div class="row">
             <div class="col-lg-9 ">
                 <h4 class="text-uppercase heading-bottom-border mt-4"><?php echo $title;?></h4>
                 <div class="row mt-2 row-joined product-nogap">
@@ -127,7 +56,49 @@
                     }
                     ?>  
                 </div>                
-            </div>
+            </div>         
+			<div class="sidebar-toggle custom-sidebar-toggle">
+				<i class="fas fa-sliders-h"></i>
+			</div>
+			<div class="sidebar-overlay"></div>      
+
+			<aside class="col-lg-3 sidebar mobile-sidebar">
+				<div class="sidebar-wrapper" data-sticky-sidebar-options='{"offsetTop": 152}'>
+                    <div class="widget widget-categories">
+						<h4 class="widget-title">Kategori Lainnya</h4>
+
+						<ul class="list">
+                            <?php 
+                            for($a=0; $a<25;$a++){
+                            ?>
+							<li><a href="#">A</a></li>
+							<?php 
+                            }
+                            ?>
+						</ul>
+					</div>                    
+					<div class="widget widget-post">
+						<h4 class="widget-title">Terbanyak Dibaca</h4>
+						<ul class="simple-post-list">
+                            <?php 
+                            for($a=0; $a<25;$a++){
+                            ?>
+                            <li>
+                                <div class="post-media">
+                                    <a href="http://localhost/git/web/blog/kategori-blog-1/interior-dinding-dengan-hpl-yutai">
+                                        <img src="<?php echo $image;?>" alt="Post">
+                                    </a>
+                                </div>
+                                <div class="post-info">
+                                    <a href="http://localhost/git/web/blog/kategori-blog-1/interior-dinding-dengan-hpl-yutai">Interior Dinding Dengan H</a>
+                                    <div class="post-meta">24-Nov-2024</div>
+                                </div>
+                            </li>               
+                            <?php } ?>                                         
+						</ul>
+					</div>
+				</div>
+			</aside>                     
         </div>
     </div>
 

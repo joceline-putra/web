@@ -141,7 +141,14 @@
                                                     <!-- <label class="custom-file-label">Pilih Gambar</label> -->
                                                 </div>
                                             </div>
-                                        </div>                                            
+                                        </div>          
+                                        <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                            <div class="form-group">
+                                                <label>Attribute</label>
+                                                <select id="attribute" name="attribute" multiple="multiple" class="form-control">
+                                                </select>
+                                            </div>         
+                                        </div>                                                                          
                                         <div class="col-md-12 col-sm-12 col-xs-12">                                
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">

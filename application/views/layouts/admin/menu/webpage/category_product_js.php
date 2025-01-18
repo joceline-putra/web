@@ -66,6 +66,47 @@
             url: url_image,
         });
 
+        let selectedAttr = [];
+        $('#attribute').select2({
+            placeholder: '--- Pilih ---',
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                type: "get",
+                url: "<?= base_url('search/manage'); ?>",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        source: 'attributes'
+                    }
+                    return query;
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            templateSelection: function (data, container) {
+                // Add custom attributes to the <option> tag for the selected option
+                // $(data.element).attr('data-custom-attribute', data.customValue);
+                // $("input[name='satuan']").val(data.satuan);
+                return data.text;
+            }
+        });
+        $('#attribute').on('change', function() {            
+            $(this).find(':selected').each(function() {
+                selectedAttr.push({
+                    value: $(this).val(),
+                    text: $(this).text()
+                });
+            });
+            // console.log(selectedAttr);
+        });
+            
         var index = $("#table-data").DataTable({
             // "processing": true,
             "serverSide": true,
@@ -309,7 +350,8 @@
                         }else{
                             $("#files_preview").attr('src',url_image);
                             $(".files_link").attr('href',url_image);                            
-                        }                          
+                        }           
+                        getCategoryAttribute(d.result.category_id);               
                     } else {
                         notif(0, d.message);
                     }
@@ -324,7 +366,7 @@
         $(document).on("click", "#btn-update", function (e) {
             e.preventDefault();
             var next = true;
-            var id = $("#form-master input[name='id_dokumen']").val();
+            var id = $("input[id=id_document]").val();
             var nama = $("#form-master input[name='nama']");
 
             if (id == '') {
@@ -347,7 +389,7 @@
                     url: $("input[id='url']").val(),
                     icon: $("input[id='icon']").val(),
                     status: $("select[id='status']").find(':selected').val(),
-                    upload1: $("#files_preview").attr('data-save-img')             
+                    upload1: $("#files_preview").attr('data-save-img')          
                 }
                 var prepare_data = JSON.stringify(prepare);
                 var data = {
@@ -373,6 +415,7 @@
                             formMasterSetDisplay(1);
                             notif(1, d.message);
                             index.ajax.reload(null, false);
+                            updateCategoryAttribute(id, selectedAttr);
                         } else {
                             notif(0, d.message);
                         }
@@ -553,6 +596,94 @@
             $("#btn-update").hide();
             $("#btn-cancel").hide();          
         }
+
+        function updateCategoryAttribute(id, selectedAttr){
+            let url = "<?= base_url('attributes'); ?>";
+            
+            let form = new FormData();
+            form.append('action', 'update_category_attr');
+            form.append('category_id', id);
+            form.append('attribute',JSON.stringify(selectedAttr));                        
+            $.ajax({
+                type: "post",
+                url: url,
+                data: form, 
+                dataType: 'json', cache: 'false', 
+                contentType: false, processData: false,
+                beforeSend:function(x){
+                },
+                success:function(d){
+                    let s = d.status;
+                    let m = d.message;
+                    let r = d.result;
+                    if(parseInt(s) == 1){
+                        notif(s,m);
+                    }else{
+                        notif(s,m);
+                    }
+                },
+                error:function(xhr,status,err){
+                    notif(0,err);
+                }
+            });
+        }
+        function getCategoryAttribute(id){
+            let url = "<?= base_url('attributes'); ?>";
+            
+            let form = new FormData();
+            form.append('action', 'load_category_attr');
+            form.append('category_id', id);                     
+            $.ajax({
+                type: "post",
+                url: url,
+                data: form, 
+                dataType: 'json', cache: 'false', 
+                contentType: false, processData: false,
+                beforeSend:function(x){
+                },
+                success:function(d){
+                    let s = d.status;
+                    let m = d.message;
+                    let r = d.result;
+                    if(parseInt(s) == 1){
+                        // notif(s,m);
+                        // selectedAttr.push({
+                        //     value: $(this).val(),
+                        //     text: $(this).text()
+                        // });
+                            var ii = [];
+                        r.forEach(i => {    
+                            let newOption = new Option(i.attr_name, i.attr_session, false, false);
+                            $('#attribute').append(newOption);          
+                            ii.push ({
+                                value: i.attr_session,
+                                text: i.attr_name
+                            });                       
+                        });
+
+                        // r.forEach(i => {
+                        //     // console.log(i.attr_session);
+                        //     $('#attribute').val(i.attr_session).trigger('change');  
+                        // });          
+                        // if ($('#attribute').find("option[value='" + data.id + "']").length) {
+                        //     $('#attribute').val(data.id).trigger('change');
+                        // } else {
+                        //     // Create a DOM Option and pre-select by default
+                        //     var newOption = new Option(data.id, true, true);
+                        //     // Append it to the select
+                        //     $('#attribute').append(newOption).trigger('change');
+                        // }              
+                        console.log(ii);
+                        $('#attribute').val(ii).trigger('change');                        
+                    }else{
+                        notif(s,m);
+                    }
+                },
+                error:function(xhr,status,err){
+                    notif(0,err);
+                }
+            });
+        }        
     });
 
     function formMasterSetDisplay(value) { // 1 = Untuk Enable/ ditampilkan, 0 = Disabled/ disembunyikan

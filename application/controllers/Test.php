@@ -30,7 +30,7 @@ class Test extends CI_Controller{
             // ''
         ];
 
-        $g = $this->Attribute_model->get_all_product($prm,$src,null,null,null,'asc');
+        $g = $this->Attribute_model->get_all_category($prm,$src,null,null,null,'asc');
         echo json_encode($g);
         die;
         //Plan With Query
