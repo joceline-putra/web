@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <main class="main">
 
     <div class="d-none home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{'loop': false}">
@@ -317,6 +318,16 @@
                                         class="fas fa-external-link-alt"></i></a>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-boxes-container">
+            <div class="container appear-animate" data-animation-name="fadeInUpShorter">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="map" class="google-map m-0" style="height: 400px;"></div>
                     </div>
                 </div>
             </div>

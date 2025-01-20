@@ -24,7 +24,8 @@ class Webpage extends MY_Controller{
         $this->load->model('User_model');
         $this->load->model('News_model');
         $this->load->model('Kategori_model');  
-        $this->load->model('Faq_model');                
+        $this->load->model('Faq_model');          
+        $this->load->model('Lokasi_model');                        
 
         $this->load->helper('form');
         $this->load->library('form_validation');
@@ -718,6 +719,14 @@ class Webpage extends MY_Controller{
                     $return->recordsTotal    = $total;
                     $return->recordsFiltered = $total;
                     break;
+                case "get_location":
+                    $params = [
+                        'location_branch_id' => !empty($post['branch']) ? $post['branch'] : 1,
+                        'location_flag' => 1
+                    ];
+                    $return->status=1;
+                    $return->result = $this->Lokasi_model->get_all_lokasis($params,null,5,0,'location_name','asc');
+                    break;                    
                 default:
                     $return->message='No Action';
                     break; 
