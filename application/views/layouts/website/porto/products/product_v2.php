@@ -124,26 +124,30 @@
                             <!-- End .product-desc -->
 
                             <ul class="single-info-list">
-                                <!---->
+
                                 <li>
                                     SKU:
                                     <strong>
-                                        <?php echo $pages['sitelink']['product']['code']; ?>
+                                        <?php echo !empty($pages['sitelink']['product']['code']) ? $pages['sitelink']['product']['code'] : '-'; ?>
                                     </strong>
                                 </li>
 
                                 <li>
-                                    CATEGORY:
+                                    KATEGORI:
                                     <strong>
                                         <a href="#" class="product-category"><?php echo $pages['sitelink']['categories']['title']; ?></a>
                                     </strong>
-                                </li>
-
-                                <li>
-                                    TAGs:
-                                    <strong><a href="#" class="product-category">HPL</a></strong>,
-                                    <strong><a href="#" class="product-category">BOARD</a></strong>
-                                </li>
+                                </li>                                
+                                <?php 
+                                // if(count($pages['sitelink']['product']['attribute']) > 0){
+                                //     foreach($pages['sitelink']['product']['attribute'] as $v){
+                                //         echo '<li>';
+                                //         echo $v['attr_name'].': ';
+                                //         echo '<strong>'.$v['pa_value'].'</strong>';
+                                //         echo '</li>';
+                                //     }
+                                // }
+                                ?>
                             </ul>
 
                             <div class="product-filters-container">
@@ -160,14 +164,25 @@
                                         </li>
                                     </ul>
                                 </div> -->
-
-                                <div class="product-single-filter">
+                                <?php 
+                                if(count($pages['sitelink']['product']['attribute']) > 0){
+                                    foreach($pages['sitelink']['product']['attribute'] as $v){
+                                        echo '<div class="product-single-filter">';
+                                        echo '  <label>'.$v['attr_name'].':</label>';
+                                        echo '  <ul class="config-size-list">';
+                                        echo '      <li><a href="javascript:;" class="d-flex align-items-center justify-content-center">'.$v['pa_value'].'</a></li>';
+                                        echo '  </ul>';
+                                        echo '</div>';                                        
+                                    }
+                                }
+                                ?>
+                                <!-- <div class="product-single-filter">
                                     <label>Size:</label>
                                     <ul class="config-size-list">
                                         <li><a href="javascript:;" class="d-flex align-items-center justify-content-center">100 x 100 cm</a></li>
                                         <li class=""><a href="javascript:;" class="d-flex align-items-center justify-content-center">100 x 150 cm</a></li>
                                     </ul>
-                                </div>
+                                </div> -->
 
                                 <div class="product-single-filter">
                                     <label></label>

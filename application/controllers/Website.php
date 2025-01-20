@@ -132,7 +132,8 @@ class Website extends CI_Controller{
         $this->load->model('Kategori_model');
         $this->load->model('Map_model');
         $this->load->model('Transaksi_model');
-        $this->load->model('File_model');        
+        $this->load->model('File_model');    
+        $this->load->model('Attribute_model');                
 
         //Set Cookie if Not Exists
         if(empty($this->input->cookie('trans_session'))){
@@ -1378,6 +1379,7 @@ class Website extends CI_Controller{
 
         $pro_update = ''; $pro_price = ''; $pro_stock = ''; $pro_unit = ''; $pro_code = '';
         $pro_images = [];
+        $attribute = [];
 
         $other_category = array(); 
         $other_news     = array(); 
@@ -1482,7 +1484,7 @@ class Website extends CI_Controller{
                     $url_news_title = $url_news_title.' - '.$pro_code;
                 }
                 $pro_images = $this->File_model->get_all_file(['file_from_table' => 'products', 'file_from_id' => $get_news['product_id']],null,null,null,'file_id','asc');
-
+                $attribute = $this->Attribute_model->get_all_product(['pa_product_session' => $get_news['product_session']],null,null,null,'attr_name','asc');
                 $params_check = array(
                     'category_parent_id' => 0,
                     'category_flag' => 1,
@@ -1551,13 +1553,14 @@ class Website extends CI_Controller{
                         'stock' => $pro_stock,
                         'unit' => $pro_unit,
                     'publish' => ($news_status == 1) ? 'Publish' : '',
+                    'attribute' => $attribute
                     // 'other_news' => $this->News_model->get_all_newss(array('news_flag'=>1),'',2,0,'news_visitor','asc')
                 ),
             ),
             'final_url' => site_url($this->product_routing).$final_url,
             'view' => $view
         );
-
+        // var_dump($data['pages']['sitelink']['product']);die;
         // Navigation
         $data['dir']            = $this->nav;
         $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
