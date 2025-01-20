@@ -175,6 +175,7 @@ class Attribute_model extends CI_Model{
 
             $this->db->select("categories_attributes.*, attr_name, attr_session, pa.pa_id, pa.pa_value");
             $this->db->join('attributes','ca_attribute_session=attr_session','left'); 
+            // $this->db->join('attributes_options','opt_attr_session=attr_session','left');
             $this->db->join($outer_join,'attr_session=pa_attribute_session','left');
             
             $this->set_params($params);

@@ -411,8 +411,10 @@ class Attributes extends MY_Controller{
                                 }
 
                                 $old_attribute = [];
-                                foreach($get_data as $o){
-                                    array_push($old_attribute,$o['ca_attribute_session']);
+                                if(count($get_data) > 0){                                
+                                    foreach($get_data as $o){
+                                        array_push($old_attribute,$o['ca_attribute_session']);
+                                    }
                                 }
 
                                 if(count($new_attribute) > count($old_attribute)){
@@ -464,7 +466,115 @@ class Attributes extends MY_Controller{
                             $return->message = "Gagal memperbarui cat_attr";
                         } 
                     }
-                    break;                    
+                    break;
+                case "update_product_attr": //Done
+                    $this->form_validation->set_rules('product_id', 'product_id', 'required');
+                    $this->form_validation->set_rules('attribute', 'attribute', 'required');                    
+                    $this->form_validation->set_message('required', '{field} tidak ditemukan');
+                    if ($this->form_validation->run() == FALSE){
+                        $return->message = validation_errors();
+                    }else{
+                        $product_id = !empty($post['product_id']) ? $post['product_id'] : $post['category_id'];
+                        $attribute = !empty($post['attribute']) ? json_decode($post['attribute']) : $post['attribute'];
+
+                        if(intval($product_id) > 0){
+                            // die;
+                            // $get_cat = $this->Kategori_model->get_categories($product_id);
+                            // $cat_session = $get_cat['category_session']; 
+
+                            // if (strlen($get_cat['category_session']) == 0) {
+                            //     $cat_session = strtoupper(substr(hash('sha256', date_timestamp_get(date_create())),0,6));
+                            //     $this->Kategori_model->update_categories($product_id,['category_session'=>$cat_session]);
+                            // }
+                            $get_pro = $this->Product_model->get_product($product_id);
+                            $pro_session = $get_pro['product_session']; 
+
+                            if (strlen($get_pro['product_session']) == 0) {
+                                $pro_session = strtoupper(substr(hash('sha256', date_timestamp_get(date_create())),0,6));
+                                $this->Product_model->update_product($product_id,['product_session'=>$pro_session]);
+                            }                            
+
+                            $do = true;
+                            
+                            //Insert
+                            if(count($attribute) > 0){
+
+                                //Compare Old Data First
+                                $look = [
+                                    'pa_product_session' => $pro_session
+                                ];
+                                $get_data = $this->Attribute_model->get_all_product($look, null, null, null, 'pa_attribute_session', 'asc');
+
+                                $new_attribute = [];
+                                foreach($attribute as $i => $v){
+                                    // array_push($new_attribute,$v->value);
+                                    $marray = [
+                                        'attr_session' => $v->attribute_session,
+                                        'value' => $v->value
+                                    ];
+                                    array_push($new_attribute,$marray);
+                                }
+                                // var_dump($new_attribute);die;
+                                $old_attribute = [];
+                                if(count($get_data) > 0){
+                                    foreach($get_data as $o){
+                                        array_push($old_attribute,$o['pa_attribute_session']);
+                                    }
+                                }
+
+                                if(count($new_attribute) > count($old_attribute)){
+                                    //Insert if not found in Database
+                                    // var_dump($new_attribute);die;
+                                    foreach($new_attribute as $v){
+                                        // var_dump($v['attr_session']);die;
+                                        if (!in_array($v['attr_session'], $old_attribute)) {
+                                            // echo $v." not found in the array.<br>";
+                                            $where = [
+                                                'pa_product_session' => $pro_session,
+                                                'pa_attribute_session' => $v['attr_session'],
+                                                'pa_value' => $v['value']
+                                            ];
+                                            $check_exists = $this->Attribute_model->check_data_exist_product($where);
+                                            if (!$check_exists){
+                                                $do = $this->Attribute_model->add_product($where);
+                                            } 
+                                        }
+                                    }
+                                }else{
+                                    //Remove if not found in HTML
+                                    foreach($old_attribute as $v){
+                                        if (!in_array($v, $new_attribute)) {
+                                            // echo $v." not found in the array.<br>";
+                                            $where = [
+                                                'pa_product_session' => $pro_session,
+                                                'pa_attribute_session' => $v
+                                            ];
+                                            $do = $this->Attribute_model->delete_product_custom($where);
+                                        } else {
+                                            // echo $v." is found in the array.<br>";
+                                        }
+                                    }
+                                }
+
+                            }else{
+                                //Remove all if not found
+                                $where = [
+                                    'pa_product_session' => $pro_session
+                                ];
+                                $do = $this->Attribute_model->delete_product_custom($where);
+                            }
+
+                            if($do){
+                                $return->status  = 1;
+                                $return->message = 'Berhasil memperbarui';
+                            }else{
+                                $return->message='Gagal memperbarui';
+                            }   
+                        }else{
+                            $return->message = "Gagal memperbarui pro_attr";
+                        } 
+                    }
+                    break;                     
                 case "delete":
                     $this->form_validation->set_rules('attribute_id', 'attribute_id', 'required');
                     if ($this->form_validation->run() == FALSE){

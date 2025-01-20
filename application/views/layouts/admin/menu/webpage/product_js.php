@@ -2,7 +2,7 @@
 <script>
     $.getScript("https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js");
     
-    $(document).ready(function () {
+    $(document).ready(function () { alert('Line 330, .attribute_select')
         let identity = 1;
         var blog_routing = "<?php echo $_route; ?>";
         var url = "<?= base_url('webpage/product'); ?>";
@@ -67,7 +67,8 @@
         };
 
         let mHARGA = new AutoNumeric('#harga_jual', autoNumericOption);
-        let mSTOK = new AutoNumeric('#stok', autoNumericOption);        
+        let mSTOK = new AutoNumeric('#stok', autoNumericOption);  
+        let selectedAttr = [];      
         /* Autonumeric */
         /* Init */
         // const autoNumericOption = {
@@ -325,65 +326,32 @@
                 // return '<i class="fas fa-balance-scale '+datas.id.toLowerCase()+'"></i> '+datas.text;
             }
         });
-        $('.attribute_select').select2({
-            //dropdownParent:$("#modal-id"), //If Select2 Inside Modal, $(".jconfirm-box-container") if jConfirm
-            //placeholder: '<i class="fas fa-search"></i> Search',
-            minimumInputLength: 0,
-            allowClear: true,
-            ajax: {
-                type: "get",
-                url: "<?= base_url('search/manage');?>",
-                dataType: 'json',
-                delay: 250,
-                cache: true,
-                data: function (params) {
-                    let query = {
-                        search: params.term,
-                        source: $(this).attr('data-attr-session'),
-                    };
-                    return query;
-                },
-                processResults: function (result, params){
-                    let datas = [];
-                    $.each(result, function(key, val){
-                        datas.push({
-                            'id' : val.id,
-                            'text' : val.text
-                        });
-                    });
-                    return {
-                        results: datas,
-                        pagination: {
-                            more: (params.page * 10) < result.count_filtered
-                        }
-                    };
-                }
-            },
-            templateResult: function(datas){ //When Select on Click
-                //if (!datas.id) { return datas.text; }
-                if($.isNumeric(datas.id) == true){
-                    // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
-                    return datas.text;
-                }
-            },
-            templateSelection: function(datas) { //When Option on Click
-                //if (!datas.id) { return datas.text; }
-                //Custom Data Attribute
-                //$(datas.element).attr('data-column', datas.column);        
-                //return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
-                if($.isNumeric(datas.id) == true){
-                    // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
-                    return datas.text;
-                }
-            }
-        }); 
-        $(document).on("change","#attribute_select",function(e) {
+
+        $(document).on("change",".attribute_select",function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var var_custom = $(this).find(':selected').attr('data-column');
+            var sval = $(this).find(':selected').val();
+            var stext = $(this).find(':selected').text();
+            var aval = $(this).find(':selected').attr('data-as');  
+            sval = aval;                      
             // alert('#attribute_select on change value => '+var_custom);
+            // selectedAttr = [];
+            if(sval != '0'){
+
+                var index = selectedAttr.findIndex(o => {
+                    return o.attribute_session === sval;
+                });
+                console.log(index+'<br>');
+                $(this).find(':selected').each(function() {
+                    selectedAttr.push({
+                        // opt_session: sval,
+                        attribute_session: aval,                    
+                        value: stext,
+                    });
+                });
+            }
+            console.log(selectedAttr);            
         });
-        
         $(document).on("change", "#filter_categories", function (e) {
             index.ajax.reload();
         });        
@@ -450,6 +418,7 @@
                 form.set('harga',mHARGA.rawValue);
                 form.set('stok',mSTOK.rawValue);                
                 form.set('satuan', $('#satuan').find(':selected').val());
+                // form.set('attribute', JSON.stringify(selectedAttr));                
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -465,6 +434,10 @@
                             index.ajax.reload();
                             loadFiles(d.result.id);
                             projectID = d.result.id;
+
+                            if(selectedAttr.length > 0){
+                                updateProductAttribute(d.result.id,selectedAttr);
+                            }
                         } else { //Error
                             notif(0, d.message);
                         }
@@ -1121,6 +1094,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                             `;
+                        
                         });
                         $("#div_attribute").html(dsp);
 
@@ -1129,17 +1103,87 @@
                             var a = v['pa_value'];
                             if (a !== '' && a !== null && a !== undefined) {
                                 var pa_value = v['pa_value'];
-                                $("[class*='attribute_select'][data-attr-session='"+v['attr_session']+"']").append('<option value="'+pa_value+'">'+pa_value+'</option>');                     
-                                $("[class*='attribute_select'][data-attr-session='"+v['attr_session']+"']").val(pa_value).trigger('change'); 
+                                var opt = '<option value="'+v['attr_session']+'" data-as="'+v['attr_session']+'">'+pa_value+'</option>';
+                                $("[class*='attribute_select'][data-attr-session='"+v['attr_session']+"']").append(opt);                     
+                                $("[class*='attribute_select'][data-attr-session='"+v['attr_session']+"']").val(v['attr_session']).trigger('change'); 
                             }
                         });
 
-                        console.log(dsp);
+                        $('.attribute_select').select2({
+                            minimumInputLength: 0,
+                            // allowClear: true,
+                            ajax: {
+                                type: "get",
+                                url: "<?= base_url('search/manage');?>",
+                                dataType: 'json',
+                                delay: 250,
+                                cache: true,
+                                data: function (params) {
+                                    let query = {
+                                        search: params.term,
+                                        source: 'attributes_options',
+                                        attribute_session: $(this).attr('data-attr-session'),
+                                    };
+                                    return query;
+                                },
+                                processResults: function (result, params){
+                                    let datas = [];
+                                    $.each(result, function(key, val){
+                                        datas.push({
+                                            'id' : val.attr_session,
+                                            'text' : val.text,
+                                            'as' : val.attr_session
+                                        });
+                                    });
+                                    return {
+                                        results: datas,
+                                        pagination: {
+                                            more: (params.page * 10) < result.count_filtered
+                                        }
+                                    };
+                                }
+                            },
+                            templateResult: function(datas){ //When Select on Click
+                                return datas.text;
+                            },
+                            templateSelection: function(datas) { //When Option on Click
+                                $(datas.element).attr('data-as', datas.as);     
+                                return datas.text;
+                            }
+                        });                         
                     }
                 }
             });
-            $('.attribute_select').select2();
+
         }
+        function updateProductAttribute(id, selectedAttr){
+            let url = "<?= base_url('attributes'); ?>";
+            
+            let form = new FormData();
+            form.append('action', 'update_product_attr');
+            form.append('product_id', id);
+            form.append('attribute',JSON.stringify(selectedAttr));                        
+            $.ajax({
+                type: "post",
+                url: url,
+                data: form, 
+                dataType: 'json', cache: 'false', 
+                contentType: false, processData: false,
+                success:function(d){
+                    let s = d.status;
+                    let m = d.message;
+                    let r = d.result;
+                    if(parseInt(s) == 1){
+                        notif(s,m);
+                    }else{
+                        notif(s,m);
+                    }
+                },
+                error:function(xhr,status,err){
+                    notif(0,err);
+                }
+            });
+        }        
         // loadProductAttribute(2);
     });
 
