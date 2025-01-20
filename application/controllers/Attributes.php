@@ -514,46 +514,48 @@ class Attributes extends MY_Controller{
                                     ];
                                     array_push($new_attribute,$marray);
                                 }
-                                // var_dump($new_attribute);die;
+                                // var_dump($new_attribute,$get_data);die;
                                 $old_attribute = [];
                                 if(count($get_data) > 0){
                                     foreach($get_data as $o){
-                                        array_push($old_attribute,$o['pa_attribute_session']);
+                                        array_push($old_attribute,$o['attr_session']);
                                     }
                                 }
-
-                                if(count($new_attribute) > count($old_attribute)){
-                                    //Insert if not found in Database
-                                    // var_dump($new_attribute);die;
+                                ;
+                                if(count($new_attribute) >= count($old_attribute)){
                                     foreach($new_attribute as $v){
-                                        // var_dump($v['attr_session']);die;
-                                        if (!in_array($v['attr_session'], $old_attribute)) {
-                                            // echo $v." not found in the array.<br>";
-                                            $where = [
-                                                'pa_product_session' => $pro_session,
-                                                'pa_attribute_session' => $v['attr_session'],
+                                        $where = [
+                                            'pa_product_session' => $pro_session,
+                                            'pa_attribute_session' => $v['attr_session']
+                                        ];
+
+                                        if (in_array($v['attr_session'], $old_attribute)) {
+                                            // Update
+                                            $paramss = [
                                                 'pa_value' => $v['value']
-                                            ];
-                                            $check_exists = $this->Attribute_model->check_data_exist_product($where);
-                                            if (!$check_exists){
-                                                $do = $this->Attribute_model->add_product($where);
-                                            } 
+                                            ];                         
+                                            $do = $this->Attribute_model->update_product_custom($where,$paramss);
+                                        }else{
+                                            // Insert
+                                            $where['pa_value'] = $v['value'];
+                                            $do = $this->Attribute_model->add_product($where);
                                         }
                                     }
                                 }else{
-                                    //Remove if not found in HTML
-                                    foreach($old_attribute as $v){
-                                        if (!in_array($v, $new_attribute)) {
-                                            // echo $v." not found in the array.<br>";
-                                            $where = [
-                                                'pa_product_session' => $pro_session,
-                                                'pa_attribute_session' => $v
-                                            ];
-                                            $do = $this->Attribute_model->delete_product_custom($where);
-                                        } else {
-                                            // echo $v." is found in the array.<br>";
-                                        }
-                                    }
+                                    // echo 1;die;
+                                    // //Remove if not found in HTML
+                                    // foreach($old_attribute as $v){
+                                    //     if (!in_array($v, $new_attribute)) {
+                                    //         // echo $v." not found in the array.<br>";
+                                    //         $where = [
+                                    //             'pa_product_session' => $pro_session,
+                                    //             'pa_attribute_session' => $v
+                                    //         ];
+                                    //         $do = $this->Attribute_model->delete_product_custom($where);
+                                    //     } else {
+                                    //         // echo $v." is found in the array.<br>";
+                                    //     }
+                                    // }
                                 }
 
                             }else{
@@ -988,6 +990,71 @@ class Attributes extends MY_Controller{
                     $return->recordsTotal    = $total;
                     $return->recordsFiltered = $total;
                     break;
+                case "search_attr_option":
+                    $search     = !empty($post['search']) ? $post['search'] : "";
+                    $page       = $post['page'];
+
+                    $limit      = 5;
+                    $offset     = ($page - 1) * $limit;
+
+                    $as         = !empty($post['attribute_session']) ? $post['attribute_session'] : "";                    
+
+                    $where = "";
+                    $where = "WHERE opt_attr_session='".$as."'";
+                    if(!empty($search)){
+                        $where .= " AND opt_value LIKE '%".$search."%'";
+                    }
+    
+                    // Count data first
+                    $query_count    = $this->db->query("SELECT COUNT(*) AS total_records FROM attributes_options $where");                                
+                    $result_count   = $query_count->result_array();            
+                    $count_data     = !empty($result_count) ? intval($result_count[0]['total_records']) : 0;
+    
+                    // Running query if found data count
+                    if($count_data > 0){
+                        $prepare = "SELECT opt_id AS id, opt_session, opt_value AS `text`, opt_attr_session AS attr_session
+                            FROM attributes_options $where ORDER BY opt_value ASC LIMIT ".$offset.",".$limit."
+                        ";
+                        $query  = $this->db->query($prepare);
+                    }      
+                    $ret = array(
+                        'data' => ($count_data > 0) ? $query->result() : [],
+                        'count_filtered' => ($count_data > 0) ? $count_data : 0,
+                        'limit' => $offset.','.$limit
+                    );
+                    echo json_encode($ret);    die;                       
+                    break;
+                case "search_attr":
+                    $search     = !empty($post['search']) ? $post['search'] : "";
+                    $page       = $post['page'];
+
+                    $limit      = 5;
+                    $offset     = ($page - 1) * $limit;
+
+                    $where = "";
+                    if(!empty($search)){
+                        $where = "WHERE attr_name LIKE '%".$search."%'";
+                    }
+    
+                    // Count data first
+                    $query_count    = $this->db->query("SELECT COUNT(*) AS total_records FROM attributes $where");                                
+                    $result_count   = $query_count->result_array();            
+                    $count_data     = !empty($result_count) ? intval($result_count[0]['total_records']) : 0;
+    
+                    // Running query if found data count
+                    if($count_data > 0){
+                        $prepare = "SELECT attr_session AS id, attr_id, attr_name AS `text`
+                            FROM attributes $where ORDER BY attr_name ASC LIMIT ".$offset.",".$limit."
+                        ";
+                        $query  = $this->db->query($prepare);
+                    }      
+                    $ret = array(
+                        'data' => ($count_data > 0) ? $query->result() : [],
+                        'count_filtered' => ($count_data > 0) ? $count_data : 0,
+                        'limit' => $offset.','.$limit
+                    );
+                    echo json_encode($ret);    die;                       
+                    break;                    
                 default:
                     $return->message='No Action';
                     break; 

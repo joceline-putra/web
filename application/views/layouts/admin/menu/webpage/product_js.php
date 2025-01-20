@@ -2,7 +2,7 @@
 <script>
     $.getScript("https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js");
     
-    $(document).ready(function () { alert('Line 330, .attribute_select')
+    $(document).ready(function () {
         let identity = 1;
         var blog_routing = "<?php echo $_route; ?>";
         var url = "<?= base_url('webpage/product'); ?>";
@@ -333,22 +333,23 @@
             var sval = $(this).find(':selected').val();
             var stext = $(this).find(':selected').text();
             var aval = $(this).find(':selected').attr('data-as');  
-            sval = aval;                      
-            // alert('#attribute_select on change value => '+var_custom);
-            // selectedAttr = [];
             if(sval != '0'){
 
-                var index = selectedAttr.findIndex(o => {
-                    return o.attribute_session === sval;
-                });
-                console.log(index+'<br>');
-                $(this).find(':selected').each(function() {
-                    selectedAttr.push({
-                        // opt_session: sval,
-                        attribute_session: aval,                    
-                        value: stext,
+                const exist = selectedAttr.some(obj => obj.attribute_session === aval);
+                if (!exist){
+                    $(this).find(':selected').each(function() {
+                        selectedAttr.push({
+                            opt_session: sval,
+                            attribute_session: aval,
+                            value: stext,
+                        });
                     });
-                });
+                }else{
+                    var indexs = selectedAttr.findIndex(o => {
+                        return o.attribute_session === aval;
+                    });
+                    selectedAttr[indexs].value = stext;
+                }
             }
             console.log(selectedAttr);            
         });
@@ -1058,13 +1059,13 @@
             // ];
             var dsp = '';
 
-            let url = "<?= base_url('attributes'); ?>";
+            let curl = "<?= base_url('attributes'); ?>";
             let form = new FormData();
             form.append('action', 'load_product_attr');
             form.append('product_id', product_id);            
             $.ajax({
                 type: "post",
-                url: url,
+                url: curl,
                 data: form, 
                 dataType: 'json', cache: 'false', 
                 contentType: false, processData: false,
@@ -1103,34 +1104,36 @@
                             var a = v['pa_value'];
                             if (a !== '' && a !== null && a !== undefined) {
                                 var pa_value = v['pa_value'];
-                                var opt = '<option value="'+v['attr_session']+'" data-as="'+v['attr_session']+'">'+pa_value+'</option>';
+                                var opt = '<option value="'+v['ca_id']+'" data-as="'+v['attr_session']+'">'+pa_value+'</option>';
                                 $("[class*='attribute_select'][data-attr-session='"+v['attr_session']+"']").append(opt);                     
-                                $("[class*='attribute_select'][data-attr-session='"+v['attr_session']+"']").val(v['attr_session']).trigger('change'); 
+                                $("[class*='attribute_select'][data-attr-session='"+v['attr_session']+"']").val(v['ca_id']).trigger('change'); 
                             }
                         });
 
                         $('.attribute_select').select2({
                             minimumInputLength: 0,
-                            // allowClear: true,
+                            allowClear: true,
                             ajax: {
-                                type: "get",
-                                url: "<?= base_url('search/manage');?>",
+                                type: "post",
+                                url: curl,
                                 dataType: 'json',
                                 delay: 250,
                                 cache: true,
                                 data: function (params) {
                                     let query = {
                                         search: params.term,
-                                        source: 'attributes_options',
+                                        action: 'search_attr_option',
                                         attribute_session: $(this).attr('data-attr-session'),
+                                        page: params.page || 1
                                     };
                                     return query;
                                 },
                                 processResults: function (result, params){
+                                    params.page = params.page || 1;
                                     let datas = [];
-                                    $.each(result, function(key, val){
+                                    $.each(result.data, function(key, val){
                                         datas.push({
-                                            'id' : val.attr_session,
+                                            'id' : val.id,
                                             'text' : val.text,
                                             'as' : val.attr_session
                                         });
@@ -1143,6 +1146,9 @@
                                     };
                                 }
                             },
+                            escapeMarkup: function (markup) {
+                                return markup; // Biarkan HTML
+                            },                            
                             templateResult: function(datas){ //When Select on Click
                                 return datas.text;
                             },

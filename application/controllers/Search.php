@@ -115,29 +115,6 @@ class Search extends MY_Controller{
                     'nama' => '-- Ketik yg ingin di cari --',
                     'text' => '-- Ketik yg ingin di cari --'
                 ));                
-            }if($source=="attributes_options"){
-                $atr = $this->input->get('attribute_session');  
-                if(!empty($terms)){                            
-                    $query = $this->db->query("
-                        SELECT opt_session AS id, opt_value AS text, opt_attr_session AS attr_session
-                        FROM attributes_options
-                        WHERE opt_attr_session='".$atr."' AND opt_value LIKE '%".$terms."%'
-                        ORDER BY opt_value ASC
-                    ");
-                }else{
-                    $query = $this->db->query("
-                        SELECT opt_session AS id, opt_value AS text, opt_attr_session AS attr_session
-                        FROM attributes_options
-                        WHERE opt_attr_session='".$atr."'
-                        ORDER BY opt_value ASC
-                    ");                    
-                }
-                $result = $query->result();
-                $json = array_push($result,array(
-                    'id' => "0",
-                    'nama' => '-- Ketik yg ingin di cari --',
-                    'text' => '-- Ketik yg ingin di cari --'
-                ));                
             }else if($source=="specialist"){
 
                 if(!empty($terms)){                            

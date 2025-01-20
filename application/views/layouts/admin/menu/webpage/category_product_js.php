@@ -67,36 +67,90 @@
         });
 
         let selectedAttr = [];
+        // $('#attribute').select2({
+        //     placeholder: '--- Pilih ---',
+        //     minimumInputLength: 0,
+        //     allowClear: true,
+        //     ajax: {
+        //         type: "get",
+        //         url: "<?= base_url('search/manage'); ?>",
+        //         dataType: 'json',
+        //         delay: 250,
+        //         data: function (params) {
+        //             var query = {
+        //                 search: params.term,
+        //                 source: 'attributes'
+        //             }
+        //             return query;
+        //         },
+        //         processResults: function (data) {
+        //             return {
+        //                 results: data
+        //             };
+        //         },
+        //         cache: true
+        //     },
+        //     escapeMarkup: function (markup) {
+        //         return markup; // Biarkan HTML
+        //     },                            
+        //     templateResult: function(datas){ //When Select on Click
+        //         return datas.text;
+        //     },            
+        //     templateSelection: function (data, container) {
+        //         // Add custom attributes to the <option> tag for the selected option
+        //         // $(data.element).attr('data-custom-attribute', data.customValue);
+        //         // $("input[name='satuan']").val(data.satuan);
+        //         return data.text;
+        //     }
+        // });
         $('#attribute').select2({
             placeholder: '--- Pilih ---',
             minimumInputLength: 0,
             allowClear: true,
             ajax: {
-                type: "get",
-                url: "<?= base_url('search/manage'); ?>",
+                type: "post",
+                url: "<?= base_url('attributes'); ?>",
                 dataType: 'json',
                 delay: 250,
+                cache: true,
                 data: function (params) {
                     var query = {
                         search: params.term,
-                        source: 'attributes'
+                        action: 'search_attr',
+                        page: params.page || 1
                     }
                     return query;
                 },
-                processResults: function (data) {
+                processResults: function (result, params){
+                    params.page = params.page || 1;
+                    let datas = [];
+                    $.each(result.data, function(key, val){
+                        datas.push({
+                            'id' : val.id,
+                            'text' : val.text
+                        });
+                    });
                     return {
-                        results: data
+                        results: datas,
+                        pagination: {
+                            more: (params.page * 10) < result.count_filtered
+                        }
                     };
-                },
-                cache: true
+                }
             },
+            escapeMarkup: function (markup) {
+                return markup; // Biarkan HTML
+            },                            
+            templateResult: function(datas){ //When Select on Click
+                return datas.text;
+            },            
             templateSelection: function (data, container) {
                 // Add custom attributes to the <option> tag for the selected option
                 // $(data.element).attr('data-custom-attribute', data.customValue);
                 // $("input[name='satuan']").val(data.satuan);
                 return data.text;
             }
-        });
+        });        
         $('#attribute').on('change', function() {
             selectedAttr = [];
             $(this).find(':selected').each(function() {
