@@ -325,6 +325,7 @@
 
         <section class="feature-boxes-container">
             <div class="container appear-animate" data-animation-name="fadeInUpShorter">
+                <h2 class="section-title heading-border ls-20 border-0">Temukan Produk DOLPHIN Di Sekitar Anda</h2>
                 <div class="row">
                     <div class="col-md-12">
                         <div id="map" class="google-map m-0" style="height: 400px;"></div>
