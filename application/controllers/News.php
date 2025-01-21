@@ -80,7 +80,7 @@ class News extends MY_Controller{
 
         if($identity == 6){ //Gallery
 
-            $data['_route'] = $this->project_route;            
+            $data['_route'] = $this->gallery_route;            
             $data['identity'] = 6;            
             $data['title'] = 'Gallery';
             $data['_view'] = 'layouts/admin/menu/webpage/gallery';
@@ -580,83 +580,85 @@ class News extends MY_Controller{
                             }
                             
                             if($check_exists==false){
-                                // if($next){
+                                if($operator == 1){
+                                    $set_data=$this->News_model->add_news($params_save);
+                                    $data = $this->News_model->get_news($set_data);
+                                }else{
+                                    $update_data = $this->News_model->update_news($this->input->post('id'),$params_update);
+                                    $set_data = $this->input->post('id');
+                                }
 
-                                    if($operator == 1){
-                                        $set_data=$this->News_model->add_news($params_save);
-                                        $data = $this->News_model->get_news($set_data);
+                                // Call Helper for Upload
+                                if(!empty($_FILES['files'])){
+                                    //Process for Upload
+                                    $image_config=array(
+                                        'compress' => 1,
+                                        'width'=>$this->image_width,
+                                        'height'=>$this->image_height
+                                    );
+                                    if($post['tipe'] == 5){ //Project
+                                        $folder = $this->folder_upload_project;
+                                    }else if($post['tipe'] == 6){ //Gallery
+                                        $folder = $this->folder_upload_gallery;
                                     }else{
-                                        $update_data = $this->News_model->update_news($this->input->post('id'),$params_update);
-                                        $set_data = $this->input->post('id');
+                                        $folder = 'upload/page/';
                                     }
 
-                                    // Call Helper for Upload
-                                    if(!empty($_FILES['files'])){
-                                        //Process for Upload
-                                        $image_config=array(
-                                            'compress' => 1,
-                                            'width'=>$this->image_width,
-                                            'height'=>$this->image_height
-                                        );
-                                        if($post['tipe'] == 5){ //Project
-                                            $folder = $this->folder_upload_project;
-                                        }else if($post['tipe'] == 6){ //Gallery
-                                            $folder = $this->folder_upload_gallery;
-                                        }else{
-                                            $folder = 'upload/page/';
+                                    $upload_helper = upload_file_array($folder, $_FILES['files'],$image_config);
+                                    if ($upload_helper['status'] == 1) {
+                                        $set_file_url = '';
+                                        foreach($upload_helper['result'] as $v){
+                                            $file_session = $this->random_session(20);
+                                            $params = array(
+                                                'file_from_table' => 'news',
+                                                'file_from_id' => $set_data,
+                                                'file_session' => $file_session,
+                                                'file_date_created' => date("YmdHis"),
+                                                'file_user_id' => $session_user_id,
+                                                'file_type' => 1,
+                                                'file_name' => $v['file_old_name'],
+                                                'file_format' => $v['file_ext'],
+                                                'file_url' => $v['file_location'],
+                                                'file_size' => $v['file_size']                                                                        
+                                            );
+                                            $save_data = $this->File_model->add_file($params);
+                                            $set_file_url = $v['file_location'];
                                         }
 
-                                        $upload_helper = upload_file_array($folder, $_FILES['files'],$image_config);
-                                        if ($upload_helper['status'] == 1) {
+                                        if(strlen($set_file_url) > 0){
+                                            $this->News_model->update_news($set_data,['news_image'=>$set_file_url]);
+                                        }
+                                        //Add Image for params before update
+                                        // $params['news_image'] = $this->folder_upload_project.$upload_helper['file'];
+                                        $set_msg = 'Berhasil menyimpan dengan Gambar';
+                                    }else{
+                                        $set_msg = 'Error: '.$upload_helper['message'];
+                                    }  
+                                } else{
+                                    $set_msg = 'Menyimpan tanpa gambar';
+                                }   
+                                // End Call Helper for Upload 
+                                
+                                $return->status=1;
+                                $return->message='Berhasil '.$mes;
+                                $return->result= array(
+                                    'id' => $set_data,
+                                    'title' => $title
+                                );  
 
-                                            foreach($upload_helper['result'] as $v){
-                                                $file_session = $this->random_session(20);
-                                                $params = array(
-                                                    'file_from_table' => 'news',
-                                                    'file_from_id' => $set_data,
-                                                    'file_session' => $file_session,
-                                                    'file_date_created' => date("YmdHis"),
-                                                    'file_user_id' => $session_user_id,
-                                                    'file_type' => 1,
-                                                    'file_name' => $v['file_old_name'],
-                                                    'file_format' => $v['file_ext'],
-                                                    'file_url' => $v['file_location'],
-                                                    'file_size' => $v['file_size']                                                                        
-                                                );
-                                                $save_data = $this->File_model->add_file($params);
-                                            }
-                                            //Add Image for params before update
-                                            // $params['news_image'] = $this->folder_upload_project.$upload_helper['file'];
-                                            $set_msg = 'Berhasil menyimpan dengan Gambar';
-                                        }else{
-                                            $set_msg = 'Error: '.$upload_helper['message'];
-                                        }  
-                                    } else{
-                                        $set_msg = 'Menyimpan tanpa gambar';
-                                    }   
-                                    // End Call Helper for Upload 
-                                    
-                                    $return->status=1;
-                                    $return->message='Berhasil '.$mes;
-                                    $return->result= array(
-                                        'id' => $set_data,
-                                        'title' => $title
-                                    );  
-
-                                    /* Start Activity */
-                                    $params = array(
-                                        'activity_user_id' => $session['user_data']['user_id'],
-                                        'activity_action' => ($operator==1) ? 2 : 4,
-                                        'activity_table' => 'news',
-                                        'activity_table_id' => $set_data,                            
-                                        'activity_text_1' => strtoupper($title),
-                                        'activity_text_2' => ucwords(strtolower($title)),                        
-                                        'activity_date_created' => date('YmdHis'),
-                                        'activity_flag' => 1
-                                    );
-                                    $this->save_activity($params);
-                                    /* End Activity */
-                                // }
+                                /* Start Activity */
+                                $params = array(
+                                    'activity_user_id' => $session['user_data']['user_id'],
+                                    'activity_action' => ($operator==1) ? 2 : 4,
+                                    'activity_table' => 'news',
+                                    'activity_table_id' => $set_data,                            
+                                    'activity_text_1' => strtoupper($title),
+                                    'activity_text_2' => ucwords(strtolower($title)),                        
+                                    'activity_date_created' => date('YmdHis'),
+                                    'activity_flag' => 1
+                                );
+                                $this->save_activity($params);
+                                /* End Activity */
                             }else{
                                 $return->message='Title sudah digunakan';                    
                             }
@@ -996,6 +998,7 @@ class News extends MY_Controller{
                             }
                         }
                         $this->News_model->delete_news($data['id']);
+                        $this->File_model->delete_file_custom(['file_from_table'=>'news','file_from_id'=>$data['id']]);                        
                         /* Activity */
                         /*
                         $params = array(
