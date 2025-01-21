@@ -31,31 +31,44 @@
                             $simg       = $v['file_url']; 
                             $stitle     = $pages['sitelink']['project']['title'];
                             ?>   		                          
-                    <div class="col-6 col-sm-4 col-md-3">
-                        <div class="product-default inner-quickview inner-icon">
-                            <figure class="img-effect">
-                                <a href="<?php echo $simg;?>" target="_blank">
-                                    <img src="<?php echo $simg;?>" style="width:100%;height:162px;" alt="<?php echo $stitle;?>">
-                                </a>
-                                <div class="btn-icon-group">
-                                    <a href="#" class="btn-icon btn-add-cart product-type-simple"><i class="icon-shopping-cart"></i></a>
-                                </div>
-                                <a href="<?php echo $simg;?>" class="btn-quickview" title="Quick View">Zoom
-                                </a>
-                            </figure>
+                        <div class="col-6 col-sm-4 col-md-3">
+                            <div class="product-default inner-quickview inner-icon">
+                                <figure class="img-effect">
+                                    <a href="<?php echo $simg;?>" target="_blank">
+                                        <img src="<?php echo $simg;?>" style="width:100%;height:162px;" alt="<?php echo $stitle;?>">
+                                    </a>
+                                    <div class="btn-icon-group">
+                                        <a href="#" class="btn-icon btn-add-cart product-type-simple"><i class="icon-shopping-cart"></i></a>
+                                    </div>
+                                    <a href="<?php echo $simg;?>" class="btn-quickview" title="Quick View">Zoom
+                                    </a>
+                                </figure>
 
-                            <div class="product-details">
-                                <h3 class="product-title">
-                                    <a href="<?php echo $simg;?>" target="_blank"><?php echo $stitle;?></a>
-                                </h3>
+                                <div class="product-details">
+                                    <h3 class="product-title">
+                                        <a href="<?php echo $simg;?>" target="_blank"><?php echo $stitle;?></a>
+                                    </h3>
+                                </div>
                             </div>
-                        </div>
-                    </div>                
+                        </div>                
                     <?php 
                         }
                     }
                     ?>  
-                </div>                
+                </div>    
+                <div class="row">
+                    <article class="post single">
+                        <div class="post-body">
+                            <div class="post-date">
+                                <span class="day"><?php echo date("d",strtotime($pages['sitelink']['project']['created']));?></span>
+                                <span class="month"><?php echo date("d",strtotime($pages['sitelink']['project']['created']));?></span>
+                            </div>
+                            <div class="post-content">
+                                <p><?php echo $pages['sitelink']['project']['content'];?></p>
+                            </div>
+                        </div><!-- End .post-body -->
+                    </article><!-- End .post -->                    
+                </div>            
             </div>         
 			<div class="sidebar-toggle custom-sidebar-toggle">
 				<i class="fas fa-sliders-h"></i>
@@ -63,38 +76,40 @@
 			<div class="sidebar-overlay"></div>      
 
 			<aside class="col-lg-3 sidebar mobile-sidebar">
-				<div class="sidebar-wrapper" data-sticky-sidebar-options='{"offsetTop": 152}'>
-                    <div class="widget widget-categories">
-						<h4 class="widget-title">Kategori Lainnya</h4>
-
-						<ul class="list">
-                            <?php 
-                            for($a=0; $a<25;$a++){
-                            ?>
-							<li><a href="#">A</a></li>
-							<?php 
-                            }
-                            ?>
-						</ul>
-					</div>                    
+				<div class="sidebar-wrapper" data-sticky-sidebar-options='{"offsetTop": 152}'>                  
 					<div class="widget widget-post">
-						<h4 class="widget-title">Terbanyak Dibaca</h4>
+						<h4 class="widget-title">Proyek Lainnya</h4>
 						<ul class="simple-post-list">
+                        <?php 			
+                        $source = $pages['sitelink']['other']['project'];
+                        if(count($source) > 0){
+                            $routing = $link['routing']['project'];
+                            foreach($source as $v){
+
+                                // $scurl       = $routing;  
+                                // $spurl       = '/'.$v['news_url']; 
+                                $spurl       = $routing.'/'.$v['news_url'];  						 
+                                $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+
+                                $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                                $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
+                                $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
+                                ?>   
+                                <li>
+                                    <div class="post-media">
+                                        <a href="<?php echo $spurl;?>">
+                                            <img src="<?php echo $simg;?>" alt="Post">
+                                        </a>
+                                    </div>
+                                    <div class="post-info">
+                                        <a href="<?php echo $spurl;?>"><?php echo $stitle;?></a>
+                                        <div class="post-meta"><?php echo date("d-M-Y", strtotime($v['news_date_created'])); ?></div>
+                                    </div>
+                                </li>               
                             <?php 
-                            for($a=0; $a<25;$a++){
-                            ?>
-                            <li>
-                                <div class="post-media">
-                                    <a href="http://localhost/git/web/blog/kategori-blog-1/interior-dinding-dengan-hpl-yutai">
-                                        <img src="<?php echo $image;?>" alt="Post">
-                                    </a>
-                                </div>
-                                <div class="post-info">
-                                    <a href="http://localhost/git/web/blog/kategori-blog-1/interior-dinding-dengan-hpl-yutai">Interior Dinding Dengan H</a>
-                                    <div class="post-meta">24-Nov-2024</div>
-                                </div>
-                            </li>               
-                            <?php } ?>                                         
+                            } 
+                        }
+                        ?>                                         
 						</ul>
 					</div>
 				</div>

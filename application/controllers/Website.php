@@ -1826,6 +1826,9 @@ class Website extends CI_Controller{
                     'title' => 'Home',
                     'url' => site_url()
                 ),
+                'other' => array(
+                    'project' => $this->News_model->get_all_newss(array('news_type'=>5,'news_flag'=>1),'',10,0,'news_visitor','asc')
+                ),
                 'project' => array(
                     'url' => site_url($this->project_routing).$url_news,
                     'title' => $url_news_title,
@@ -1845,7 +1848,7 @@ class Website extends CI_Controller{
             'final_url' => site_url($this->project_routing).$final_url,
             'view' => ''
         );
-        // var_dump($data['pages']);die;
+        // var_dump($data['pages']['sitelink']['other']['project']);die;
 
         // Navigation
             $data['dir']            = $this->nav;

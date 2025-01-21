@@ -933,12 +933,14 @@
             <div class="section-elements" style="background: #ffffff;">
                 <div class="container">
                     <?php 
-                    foreach($link['menu'] as $v){
-                        if($v['news_id'] == 1){
-                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
-                            $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
-                            $surl       = base_url().$v['news_url'];  
-                            $simg       = !empty($v['file_url']) ? base_url().$v['file_url'] : base_url().'upload/noimage.png';                              
+                    if(count($link['menu']) > 0){
+                        foreach($link['menu'] as $v){
+                            if($v['news_id'] == 1){
+                                $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                                $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
+                                $surl       = base_url().$v['news_url'];  
+                                $simg       = !empty($v['file_url']) ? base_url().$v['file_url'] : base_url().'upload/noimage.png';                              
+                            }
                         }
                     }
                     ?>
