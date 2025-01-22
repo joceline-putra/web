@@ -17,10 +17,10 @@ $icon = 'none;';
                         <li><a href="<?php echo site_url('blog/project')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Project</a></li>   
                         <li><a href="<?php echo site_url('blog/gallery')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Gallery</a></li> 
                         <li><a href="<?php echo site_url('blog/portofolio')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Portofolio</a></li>                                                                
-                        <li><a href="<?php echo site_url('blog/team')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Team</a></li>                           
+                        <!-- <li><a href="<?php #echo site_url('blog/team')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Team</a></li>                            -->
                     </ul>
-                </li>                       
-            </li>            
+                </li>
+            </li>
             <li class="start"> 
                 <a href="<?php echo base_url('admin'); ?>">
                     <i class="fas fa-rss"></i>
@@ -31,7 +31,7 @@ $icon = 'none;';
                         <li><a href="<?php echo site_url('blog/article')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Blog</a></li>
                         <li><a href="<?php echo site_url('category/article')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Kategori Blog</a></li>                     
                     </ul>
-                </li>                       
+                </li>
             </li>  
             <li class="start"> 
                 <a href="<?php echo base_url('admin'); ?>">
@@ -60,7 +60,7 @@ $icon = 'none;';
                         <?php } ?>
                     </ul>
                 </li>                       
-            </li>              
+            </li>
         </ul>
         <div class="clearfix"></div>
         <br><br>

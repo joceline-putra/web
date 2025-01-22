@@ -233,7 +233,7 @@ class Website extends CI_Controller{
             'menu' => $this->News_model->get_all_newss(['news_type'=>0,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'newsticker' => $json['header_title']
         );
-        // echo json_encode($a['gallery']);die;
+        // echo json_encode($a['project']);die;
         return $a;
     }
     function index(){

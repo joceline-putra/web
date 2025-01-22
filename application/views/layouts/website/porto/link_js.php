@@ -522,8 +522,8 @@
             var waktu = setTimeout("checkDashboardActivity()", 6000000);
         }
         window.onload = function() {
-            initMap();
-            getCircle();
+            // initMap();
+            // getCircle();
             // setInterval(getLocation, 60000); // Polling setiap 10 detik
             setTimeout(() => {
                 getLocation();

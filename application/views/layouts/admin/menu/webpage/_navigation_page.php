@@ -14,9 +14,11 @@
 			<span class="fas fa-th"></span> Portofolio
 		</a>
 	</li>        
-	<li class="" data-name="blog/team">
-		<a href="<?php echo base_url('blog/team');?>">
+	<!--
+	 <li class="" data-name="blog/team">
+		<a href="<?php #echo base_url('blog/team');?>">
 			<span class="fas fa-th"></span> Team
 		</a>
-	</li>            
+	</li>
+	-->
 </ul>

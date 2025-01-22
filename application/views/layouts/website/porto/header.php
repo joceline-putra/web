@@ -246,10 +246,10 @@
                                         ?>                                                
                                     </ul>
                                 </div>
-                                <div class="col-lg-4 p-0">
+                                <!-- <div class="col-lg-4 p-0">
                                     <div class="menu-banner">
                                         <figure>
-                                            <img src="<?php echo $asset; ?>assets/images/menu-banner.jpg" width="192" height="313" alt="Menu banner">
+                                            <img src="<?php #echo $asset; ?>assets/images/menu-banner.jpg" width="192" height="313" alt="Menu banner">
                                         </figure>
                                         <div class="banner-content">
                                             <h4>
@@ -260,7 +260,7 @@
                                             <a href="#" class="btn btn-sm btn-dark">SHOP NOW</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </li>
