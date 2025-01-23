@@ -251,7 +251,7 @@
             $return['message'] = 'File not ready';
         }
         return $return;
-    }     
+    }
     function upload_file_files($path, $file, $compress = null) { // ATTENDANCE.php for $_FILES['file']
         if(!empty($file)){
             
@@ -368,7 +368,69 @@
             $return['message'] = 'File not ready';
         }
         return $return;
-    }       
+    }
+    function upload_file_array_watermark($path, $file, $compress = null,$watermark) { // NEWS.php for ALL $_FILES['?'] Array
+        if(count($file) > 0){
+            
+            // Make Directory if Not Exists
+                $folder = FCPATH . $path;
+                if(!file_exists($folder)){
+                    mkdir($folder, 0775, true);
+                }
+
+                foreach ($file['tmp_name'] as $key => $tmp_name) {
+                    $file_name     = basename($file['name'][$key]);  
+                    $file_size     = $file['size'][$key];                      
+                    $file_new_name = date('YmdHis') . '_' . uniqid() . '.' . strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                    $file_ext      = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+                    if (move_uploaded_file($file['tmp_name'][$key], $path . $file_new_name)) {
+
+                        //Compress Only if Image
+                        if((!empty($compress['compress'])) && ($compress['compress'] == 1)){
+                            // var_dump($compress['compress']);die;
+                            $allowed_file_ext = array('jpg', 'gif', 'png', 'jpeg');
+                            if (in_array($file_ext, $allowed_file_ext)) {
+                                $ci = &get_instance();
+                                $config = [
+                                    'image_library' => 'gd2',
+                                    'source_image' => $path . $file_new_name .'.'.$file_ext,
+                                    'new_image' => $path . $file_new_name .'.'.$file_ext,
+                                    // 'create_thumb' => FALSE,
+                                    'maintain_ratio' => TRUE,
+                                    'width' => $compress['width'],
+                                    'height' => $compress['height'],
+                                    'quality' => '10%'
+                                ];                                    
+                                $ci->load->library('image_lib', $config);
+                                $ci->image_lib->resize();
+                            }
+                        }
+                        //End of Compress
+                        $destination = $path . $file_new_name;
+
+                        add_text_watermark($destination, $watermark);                  
+                        $result[] = array(
+                            'file_directory' => $path,
+                            'file_name' => $file_new_name,
+                            'file_old_name' => $file_name,
+                            'file_ext' => $file_ext,
+                            'file_location' => $path . $file_new_name,
+                            'file_size' => $file_size,
+                        ); 
+                    } else {
+                        $errors[] = "Failed to upload $file_name.";
+                    }
+                }
+                $return['status'] = 1;
+                $return['message'] = 'Success'; 
+                $return['result'] = $result;
+        }else{
+            $return['status'] = 0;
+            $return['message'] = 'File not ready';
+        }
+        return $return;
+    }
     function upload_file_base64($path, $file, $compress = null){ // ATTENDANCE.php Base64 or Croppie
 
         $d1 = explode(";", $file); // data:image/jpeg
@@ -526,7 +588,63 @@
             );
         }
         return $return;
-    }  
+    }
+
+    function add_text_watermark($image_path, $watermark_text) {
+        // Get image info
+        $image_info = getimagesize($image_path);
+        if (!$image_info) return;
+    
+        list($width, $height, $image_type) = $image_info;
+    
+        // Create image resource
+        switch ($image_type) {
+            case IMAGETYPE_JPEG:
+                $image = imagecreatefromjpeg($image_path);
+                break;
+            case IMAGETYPE_PNG:
+                $image = imagecreatefrompng($image_path);
+                break;
+            case IMAGETYPE_GIF:
+                $image = imagecreatefromgif($image_path);
+                break;
+            default:
+                return; // Unsupported image type
+        }
+    
+        // Define the font size, color, and path
+        $font_size = 120;
+        $font_path = FCPATH . '/assets/arial.ttf'; // Adjust font file path
+        
+        $transparency = max(0, min(85, 127));
+        $font_color = imagecolorallocatealpha($image, 255, 255, 255, $transparency);
+
+        // Calculate the position for center alignment
+        $text_box = imagettfbbox($font_size, 0, $font_path, $watermark_text);
+        $text_width = abs($text_box[4] - $text_box[0]);
+        $text_height = abs($text_box[5] - $text_box[1]);
+        $x = ($width - $text_width) / 2;
+        $y = ($height - $text_height) / 2 + $text_height;
+    
+        // Add the text to the image
+        imagettftext($image, $font_size, 0, $x, $y, $font_color, $font_path, $watermark_text);
+    
+        // Save the watermarked image back to its original location
+        switch ($image_type) {
+            case IMAGETYPE_JPEG:
+                imagejpeg($image, $image_path);
+                break;
+            case IMAGETYPE_PNG:
+                imagepng($image, $image_path);
+                break;
+            case IMAGETYPE_GIF:
+                imagegif($image, $image_path);
+                break;
+        }
+    
+        // Free memory
+        imagedestroy($image);
+    }
 
     // Blowfish Hash
     function blowfish_test(){

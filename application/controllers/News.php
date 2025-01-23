@@ -20,6 +20,7 @@ class News extends MY_Controller{
     public $portofolio_height = 80;    
     
     public $allowed_file_size = 1024; // 5 MB -> 5000 KB
+    public $watermark = 'dolphindoor.co.id';
 
     var $blog_route         = 'blog';
     var $project_route      = 'project'; 
@@ -604,7 +605,9 @@ class News extends MY_Controller{
                                         $folder = 'upload/page/';
                                     }
 
-                                    $upload_helper = upload_file_array($folder, $_FILES['files'],$image_config);
+                                    $upload_helper = upload_file_array_watermark($folder, $_FILES['files'],$image_config,$this->watermark);
+                                    // $upload_helper = upload_file_array($folder, $_FILES['files'],$image_config);
+
                                     if ($upload_helper['status'] == 1) {
                                         $set_file_url = '';
                                         foreach($upload_helper['result'] as $v){

@@ -2,42 +2,30 @@
 
 <main class="main">
 
-    <div class="d-none home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{'loop': false}">
+    <div class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{'loop': false}">
 
-        <div class="home-slide home-slide2 banner banner-md-vw">
-            <img class="slide-bg" style="background-color: #ccc;" width="1903" height="499" src="<?php echo $asset; ?>assets/images/demoes/demo4/slider/slide-1.jpg" alt="slider image">
-            <div class="container d-flex align-items-center">
-                <div class="banner-layer d-flex justify-content-center appear-animate" data-animation-name="fadeInUpShorter">
-                    <div class="mx-auto">
-                        <h4 class="m-b-1">Extra</h4>
-                        <h3 class="m-b-2">20% off</h3>
-                        <h3 class="mb-2 heading-border">Accessories</h3>
-                        <h2 class="text-transform-none m-b-4">Summer Sale</h2>
-                        <a href="category.html" class="btn btn-block btn-dark">Shop All Sale</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <?php 
         if(count($link['blog']) > 0){
             foreach($link['blog'] as $i => $v){
-                echo $v['file_url'];
-                $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+                // echo $v['file_url'];
+                // $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+                $simg       = base_url().'upload/banner.png';                 
                 $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
                 $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
 
             ?>
             <div class="home-slide home-slide1 banner">
-                <img class="slide-bg" src="<?php echo $simg;?>" width="1903" height="499" alt="slider image">
+                <img class="slide-bg" src="<?php echo $simg;?>" width="1903" height="280" alt="slider image" style="height:380px;">
                 <div class="container d-flex align-items-center">
                     <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
-                        <h4 class="text-transform-none m-b-3" style="text-align:center;color:white;"><?php echo $stitle;?></h4>
+                        <!-- <h4 class="text-transform-none m-b-3" style="text-align:center;color:white;"><?php echo $stitle;?></h4> -->
                         <!-- <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">.</h2> -->
-                        <?php echo $scontent;?>
+                            <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">Banner I</h2>
+                        <!-- <?php echo $scontent;?>
                         <p class="text-transform-none m-b-3" style="text-align:center;">
                             <br>
                             <a href="<?php echo base_url('contact-us');?>" class="btn btn-primary btn-lg" style="text-align:center;">Hubungi Kami</a>
-                        </p>
+                        </p> -->
                     </div>
                 </div>
             </div>
@@ -45,6 +33,36 @@
             }
         } 
         ?>
+
+<?php 
+        if(count($link['blog']) > 0){
+            foreach($link['blog'] as $i => $v){
+                // echo $v['file_url'];
+                // $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+                $simg       = base_url().'upload/banner.png';                 
+                $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
+
+            ?>
+            <div class="home-slide home-slide1 banner">
+                <img class="slide-bg" src="<?php echo $simg;?>" width="1903" height="280" alt="slider image" style="height:380px;">
+                <div class="container d-flex align-items-center">
+                    <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
+                        <!-- <h4 class="text-transform-none m-b-3" style="text-align:center;color:white;"><?php echo $stitle;?></h4> -->
+                        <!-- <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">.</h2> -->
+                            <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">Banner II</h2>
+                        <!-- <?php echo $scontent;?>
+                        <p class="text-transform-none m-b-3" style="text-align:center;">
+                            <br>
+                            <a href="<?php echo base_url('contact-us');?>" class="btn btn-primary btn-lg" style="text-align:center;">Hubungi Kami</a>
+                        </p> -->
+                    </div>
+                </div>
+            </div>
+            <?php 
+            }
+        } 
+        ?>        
     </div>
 
     <div class="container">
@@ -62,7 +80,7 @@
                 }
             }">
             <div class="info-box info-box-icon-left">
-                <i class="porto-icon-heart"></i>
+                <i class="porto-icon-ok"></i>
                 <div class="info-box-content">
                     <h4>Kualitas Nomor Satu</h4>
                     <p class="text-body">Beli Satu / Lebih kami tetap layani dengan tulus dan sepenuh hati</p>

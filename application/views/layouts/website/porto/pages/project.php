@@ -31,17 +31,17 @@
                             $simg       = $v['file_url']; 
                             $stitle     = $pages['sitelink']['project']['title'];
                             ?>   		                          
-                        <div class="col-6 col-sm-4 col-md-3">
+                        <div class="col-6 col-sm-6 col-md-6">
                             <div class="product-default inner-quickview inner-icon">
                                 <figure class="img-effect">
                                     <a href="<?php echo $simg;?>" target="_blank">
                                         <img src="<?php echo $simg;?>" style="width:100%;height:162px;" alt="<?php echo $stitle;?>">
                                     </a>
-                                    <div class="btn-icon-group">
+                                    <!-- <div class="btn-icon-group">
                                         <a href="#" class="btn-icon btn-add-cart product-type-simple"><i class="icon-shopping-cart"></i></a>
-                                    </div>
-                                    <a href="<?php echo $simg;?>" class="btn-quickview" title="Quick View">Zoom
-                                    </a>
+                                    </div> -->
+                                    <!-- <a href="<?php echo $simg;?>" class="btn-quickview" title="Quick View">Zoom
+                                    </a> -->
                                 </figure>
 
                                 <div class="product-details">
