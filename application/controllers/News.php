@@ -9,7 +9,7 @@ class News extends MY_Controller{
     public $folder_upload_gallery    = 'upload/gallery/'; // 6
     public $folder_upload_portofolio = 'upload/portofolio/'; // 7
     public $folder_upload_team       = 'upload/team/'; // 8
-    public $allowed_types = 'jpg|png|jpeg|mp4';
+    public $allowed_types = 'jpg|png|jpeg';
     public $image_width = 480;
     public $image_height = 480;
     public $portofolio_width = 200;
@@ -50,28 +50,24 @@ class News extends MY_Controller{
             $data['title'] = 'Blog';
             $data['_view'] = 'layouts/admin/menu/webpage/article';
             $file_js = 'layouts/admin/menu/webpage/article_js.php';
-        }
-        if($identity == 2){ //Template Promo
+        } else if($identity == 2){ //Template Promo
             $data['identity'] = 2;
             $data['title'] = 'Template';
             $data['_view'] = 'layouts/admin/menu/message/template';
             $file_js = 'layouts/admin/menu/message/template_js.php';
-        }        
-        if($identity == 5){ //Project
+        } else if($identity == 5){ //Project
             $data['_route'] = $this->project_route;            
             $data['identity'] = 5;            
             $data['title'] = 'Project';
             $data['_view'] = 'layouts/admin/menu/webpage/project';
             $file_js = 'layouts/admin/menu/webpage/project_js.php';
-        }
-        if($identity == 6){ //Gallery
+        } else if($identity == 6){ //Gallery
             $data['_route'] = $this->gallery_route;            
             $data['identity'] = 6;            
             $data['title'] = 'Gallery';
             $data['_view'] = 'layouts/admin/menu/webpage/gallery';
             $file_js = 'layouts/admin/menu/webpage/gallery_js.php';
-        }
-        if($identity == 7){ //Portofolio
+        } else if($identity == 7){ //Portofolio
             $data['_route'] = $this->portofolio_route;            
             $data['identity'] = 7;            
             $data['title'] = 'Portofolio';
@@ -79,8 +75,7 @@ class News extends MY_Controller{
             $file_js = 'layouts/admin/menu/webpage/portofolio_js.php';
             $data['portofolio_width'] = intval($this->portofolio_width);
             $data['portofolio_height'] = intval($this->portofolio_height);
-        }
-        if($identity == 8){ //Team
+        } else if($identity == 8){ //Team
             $data['_route'] = $this->team_route;            
             $data['identity'] = 8;            
             $data['title'] = 'Team';
@@ -453,13 +448,24 @@ class News extends MY_Controller{
                         $files_count = count($_FILES['files']['name']);
                         if($files_count > 0){
                             for($i=0; $i<$files_count; $i++){
-                                if(intval($_FILES['files']['size'][$i] / 1024) > ($this->allowed_file_size)){
-                                    $next = false;
-                                    $set_msg = 'Gagal, ukuran melebihi '.($this->allowed_file_size / 1024).' Mb'; $next = false;
-                                    $return->message = $set_msg;
+
+                                $allowed_extensions = explode('|', $this->allowed_types);
+                                $file_name = $_FILES['files']['name'][$i];
+                                $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                                
+                                // Allowed file Type
+                                if (in_array($file_extension, $allowed_extensions)) {
+                                    if(intval($_FILES['files']['size'][$i] / 1024) > ($this->allowed_file_size)){
+                                        $next = false;
+                                        $set_msg = 'Gagal, ukuran melebihi '.($this->allowed_file_size / 1024).' Mb'; $next = false;
+                                        $return->message = $set_msg;
+                                        echo json_encode($return); die;
+                                    }else{
+                                        $next = true;
+                                    }
+                                } else {
+                                    $return->message = "Invalid file format. Only " . implode(', ', $allowed_extensions) . " are allowed.";
                                     echo json_encode($return); die;
-                                }else{
-                                    $next = true;
                                 }
                             }
                         }
