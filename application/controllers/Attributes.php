@@ -1,12 +1,9 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Attributes extends MY_Controller{
-
     var $folder_upload = 'upload/attribute/';
     var $image_width   = 250;
     var $image_height  = 250;
-
     function __construct(){
         parent::__construct();
         if(!$this->is_logged_in()){
@@ -14,12 +11,10 @@ class Attributes extends MY_Controller{
         }
         $this->load->helper('form');
         $this->load->library('form_validation');
-
         $this->load->model('User_model');
         $this->load->model('Kategori_model');
         $this->load->model('Product_model');                
         $this->load->model('Attribute_model');
-
     }
     function index(){
         if ($this->input->post()) {    
@@ -27,29 +22,23 @@ class Attributes extends MY_Controller{
             $return->status = 0;
             $return->message = '';
             $return->result = '';
-
             $upload_directory = $this->folder_upload;     
             $upload_path_directory = $upload_directory;
-
             $data['session'] = $this->session->userdata();  
             $session_user_id = !empty($data['session']['user_data']['user_id']) ? $data['session']['user_data']['user_id'] : null;
-
             $post = $this->input->post();
             $get  = $this->input->get();
             $action = !empty($this->input->post('action')) ? $this->input->post('action') : false;
-            
             switch($action){
                 case "load":
                     $columns = array(
                         '0' => 'attribute_id',
                         '1' => 'attribute_name'
                     );
-
                     $limit     = !empty($post['length']) ? $post['length'] : 10;
                     $start     = !empty($post['start']) ? $post['start'] : 0;
                     $order     = !empty($post['order']) ? $columns[$post['order'][0]['column']] : $columns[0];
                     $dir       = !empty($post['order'][0]['dir']) ? $post['order'][0]['dir'] : "asc";
-                    
                     $search    = [];
                     if(!empty($post['search']['value'])) {
                         $s = $post['search']['value'];
@@ -57,18 +46,14 @@ class Attributes extends MY_Controller{
                             $search[$v] = $s;
                         }
                     }
-
                     $params = array();
-                    
                     /* If Form Mode Transaction CRUD not Master CRUD
                     !empty($post['date_start']) ? $params['attribute_date >'] = date('Y-m-d H:i:s', strtotime($post['date_start'].' 23:59:59')) : $params;
                     !empty($post['date_end']) ? $params['attribute_date <'] = date('Y-m-d H:i:s', strtotime($post['date_end'].' 23:59:59')) : $params;
                     */
-
                     //Default Params for Master CRUD Form
                     $params['attribute_id']   = !empty($post['attribute_id']) ? $post['attribute_id'] : $params;
                     $params['attribute_name'] = !empty($post['attribute_name']) ? $post['attribute_name'] : $params;
-
                     /*
                         if($post['other_column'] && $post['other_column'] > 0) {
                             $params['other_column'] = $post['other_column'];
@@ -77,7 +62,6 @@ class Attributes extends MY_Controller{
                             $params['attribute_type'] = $post['filter_type'];
                         }
                     */
-                    
                     $get_count = $this->Attribute_model->get_all_attribute_count($params, $search);
                     if($get_count > 0){
                         $get_data = $this->Attribute_model->get_all_attribute($params, $search, $limit, $start, $order, $dir);
@@ -98,9 +82,7 @@ class Attributes extends MY_Controller{
                     if ($this->form_validation->run() == FALSE){
                         $return->message = validation_errors();
                     }else{
-
                         if(intval($post['attribute_id']) > 0){ /* Update if Exist */ // if( (!empty($post['attribute_session'])) && (strlen($post['attribute_session']) > 10) ){ /* Update if Exist */
-
                             /* Check Existing Data */
                             $where_not = [
                                 'attribute_id' => intval($post['attribute_id']),
@@ -109,7 +91,6 @@ class Attributes extends MY_Controller{
                                 'attribute_name' => $attribute_name
                             ];
                             $check_exists = $this->Attribute_model->check_data_exist_two_condition($where_not,$where_new);
-
                             /* Continue Update if not exist */
                             if(!$check_exists){
                                 $where = array(
@@ -136,13 +117,11 @@ class Attributes extends MY_Controller{
                                 $return->message = 'Data sudah digunakan';
                             }
                         }else{ /* Save New Data */
-
                             /* Check Existing Data */
                             $params_check = [
                                 'attribute_name' => $attribute_name
                             ];
                             $check_exists = $this->Attribute_model->check_data_exist($params_check);
-
                             /* Continue Save if not exist */
                             if(!$check_exists){
                                 $attribute_session = strtoupper(substr(hash('sha256', date_timestamp_get(date_create())),0,20));
@@ -177,29 +156,23 @@ class Attributes extends MY_Controller{
                     if ($this->form_validation->run() == FALSE){
                         $return->message = validation_errors();
                     }else{
-
                         $attribute_name = !empty($post['attribute_name']) ? $post['attribute_name'] : null;
                         $attribute_flag = !empty($post['attribute_flag']) ? $post['attribute_flag'] : 0;
                         $attribute_session = strtoupper(substr(hash('sha256', date_timestamp_get(date_create())),0,20));
-
                         $params = array(
                             'attribute_name' => $attribute_name,
                             'attribute_flag' => $attribute_flag
                         );
-
                         //Check Data Exist
                         $params_check = array(
                             'attribute_name' => $attribute_name
                         );
                         $check_exists = $this->Attribute_model->check_data_exist($params_check);
                         if(!$check_exists){
-
                             $set_data=$this->Attribute_model->add_attribute($params);
                             if($set_data){
-
                                 $attribute_id = $set_data;
                                 $data = $this->Attribute_model->get_attribute($attribute_id);
-
                                 // Image Save Upload
                                 $post_files = !empty($_FILES) ? $_FILES['files'] : "";
                                 if(!empty($post_files)){
@@ -223,7 +196,6 @@ class Attributes extends MY_Controller{
                                             $compress['new_image'] = $upload_path_directory . $raw_photo;
                                             $this->load->library('image_lib', $compress);
                                             $this->image_lib->resize();
-
                                             if ($data && $data['attribute_id']) {
                                                 $params_image = array(
                                                     'attribute_image' => $upload_directory . $raw_photo
@@ -239,7 +211,6 @@ class Attributes extends MY_Controller{
                                     }
                                 }
                                 //End of Save Image
-
                                 //Croppie Upload Image
                                 $post_upload = !empty($this->input->post('upload1')) ? $this->input->post('upload1') : "";
                                 if(!empty($post_upload)){
@@ -261,7 +232,6 @@ class Attributes extends MY_Controller{
                                     }
                                 }
                                 //End of Croppie
-
                                 $return->status=1;
                                 $return->message='Berhasil menambahkan '.$post['attribute_name'];
                                 $return->result= array(
@@ -306,25 +276,20 @@ class Attributes extends MY_Controller{
                         $attribute_id = !empty($post['attribute_id']) ? $post['attribute_id'] : $post['attribute_id'];
                         $attribute_name = !empty($post['attribute_name']) ? $post['attribute_name'] : $post['attribute_name'];
                         $attribute_flag = !empty($post['attribute_flag']) ? $post['attribute_flag'] : $post['attribute_flag'];
-
                         if(strlen($attribute_id) > 1){
                             $params = array(
                                 'attribute_name' => $attribute_name,
                                 'attribute_date_updated' => date("YmdHis"),
                                 'attribute_flag' => $attribute_flag
                             );
-
                             /*
                             if(!empty($data['password'])){
                                 $params['password'] = md5($data['password']);
                             }
                             */
-                           
                             $set_update=$this->Attribute_model->update_attribute($attribute_id,$params);
                             if($set_update){
-                                
                                 $get_data = $this->Attribute_model->get_attribute($attribute_id);
-                                    
                                 //Update Image if Exist
                                 $post_files = !empty($_FILES) ? $_FILES['files'] : "";
                                 if(!empty($post_files)){
@@ -363,7 +328,6 @@ class Attributes extends MY_Controller{
                                     }
                                 }
                                 //End of Save Image
-
                                 $return->status  = 1;
                                 $return->message = 'Berhasil memperbarui '.$attribute_name;
                             }else{
@@ -383,40 +347,31 @@ class Attributes extends MY_Controller{
                     }else{
                         $category_id = !empty($post['category_id']) ? $post['category_id'] : $post['category_id'];
                         $attribute = !empty($post['attribute']) ? json_decode($post['attribute']) : $post['attribute'];
-
                         if(intval($category_id) > 0){
-
                             $get_cat = $this->Kategori_model->get_categories($category_id);
                             $cat_session = $get_cat['category_session']; 
-
                             if (strlen($get_cat['category_session']) == 0) {
                                 $cat_session = strtoupper(substr(hash('sha256', date_timestamp_get(date_create())),0,6));
                                 $this->Kategori_model->update_categories($category_id,['category_session'=>$cat_session]);
                             }
-
                             $do = true;
-                            
                             //Insert
                             if(count($attribute) > 0){
-
                                 //Compare Old Data First
                                 $look = [
                                     'ca_category_session' => $cat_session
                                 ];
                                 $get_data = $this->Attribute_model->get_all_category($look, null, null, null, 'ca_attribute_session', 'asc');
-
                                 $new_attribute = [];
                                 foreach($attribute as $i => $v){
                                     array_push($new_attribute,$v->value);
                                 }
-
                                 $old_attribute = [];
                                 if(count($get_data) > 0){                                
                                     foreach($get_data as $o){
                                         array_push($old_attribute,$o['ca_attribute_session']);
                                     }
                                 }
-
                                 if(count($new_attribute) > count($old_attribute)){
                                     //Insert if not found in Database
                                     foreach($new_attribute as $v){
@@ -447,7 +402,6 @@ class Attributes extends MY_Controller{
                                         }
                                     }
                                 }
-
                             }else{
                                 //Remove all if not found
                                 $where = [
@@ -455,7 +409,6 @@ class Attributes extends MY_Controller{
                                 ];
                                 $do = $this->Attribute_model->delete_category_custom($where);
                             }
-
                             if($do){
                                 $return->status  = 1;
                                 $return->message = 'Berhasil memperbarui';
@@ -476,35 +429,28 @@ class Attributes extends MY_Controller{
                     }else{
                         $product_id = !empty($post['product_id']) ? $post['product_id'] : $post['category_id'];
                         $attribute = !empty($post['attribute']) ? json_decode($post['attribute']) : $post['attribute'];
-
                         if(intval($product_id) > 0){
                             // die;
                             // $get_cat = $this->Kategori_model->get_categories($product_id);
                             // $cat_session = $get_cat['category_session']; 
-
                             // if (strlen($get_cat['category_session']) == 0) {
                             //     $cat_session = strtoupper(substr(hash('sha256', date_timestamp_get(date_create())),0,6));
                             //     $this->Kategori_model->update_categories($product_id,['category_session'=>$cat_session]);
                             // }
                             $get_pro = $this->Product_model->get_product($product_id);
                             $pro_session = $get_pro['product_session']; 
-
                             if (strlen($get_pro['product_session']) == 0) {
                                 $pro_session = strtoupper(substr(hash('sha256', date_timestamp_get(date_create())),0,6));
                                 $this->Product_model->update_product($product_id,['product_session'=>$pro_session]);
                             }                            
-
                             $do = true;
-                            
                             //Insert
                             if(count($attribute) > 0){
-
                                 //Compare Old Data First
                                 $look = [
                                     'pa_product_session' => $pro_session
                                 ];
                                 $get_data = $this->Attribute_model->get_all_product($look, null, null, null, 'pa_attribute_session', 'asc');
-
                                 $new_attribute = [];
                                 foreach($attribute as $i => $v){
                                     // array_push($new_attribute,$v->value);
@@ -528,7 +474,6 @@ class Attributes extends MY_Controller{
                                             'pa_product_session' => $pro_session,
                                             'pa_attribute_session' => $v['attr_session']
                                         ];
-
                                         if (in_array($v['attr_session'], $old_attribute)) {
                                             // Update
                                             $paramss = [
@@ -557,7 +502,6 @@ class Attributes extends MY_Controller{
                                     //     }
                                     // }
                                 }
-
                             }else{
                                 //Remove all if not found
                                 $where = [
@@ -565,7 +509,6 @@ class Attributes extends MY_Controller{
                                 ];
                                 $do = $this->Attribute_model->delete_product_custom($where);
                             }
-
                             if($do){
                                 $return->status  = 1;
                                 $return->message = 'Berhasil memperbarui';
@@ -584,7 +527,6 @@ class Attributes extends MY_Controller{
                     }else{
                         $attribute_id   = !empty($post['attribute_id']) ? $post['attribute_id'] : 0;
                         $attribute_name = !empty($post['attribute_name']) ? $post['attribute_name'] : null;
-
                         if(strlen($attribute_id) > 0){
                             $get_data=$this->Attribute_model->get_attribute($attribute_id);
                             // $set_data=$this->Attribute_model->delete_attribute($attribute_id);
@@ -615,15 +557,12 @@ class Attributes extends MY_Controller{
                     }else{
                         $attribute_id = !empty($post['attribute_id']) ? $post['attribute_id'] : 0;
                         if(strlen(intval($attribute_id)) > 1){
-                            
                             $params = array(
                                 'attribute_flag' => !empty($post['attribute_flag']) ? intval($post['attribute_flag']) : 0,
                             );
-                            
                             $where = array(
                                 'attribute_id' => !empty($post['attribute_id']) ? intval($post['attribute_id']) : 0,
                             );
-                            
                             if($post['attribute_flag']== 0){
                                 $set_msg = 'nonaktifkan';
                             }else if($post['attribute_flag']== 1){
@@ -633,11 +572,9 @@ class Attributes extends MY_Controller{
                             }else{
                                 $set_msg = 'mendapatkan data';
                             }
-
                             if($post['attribute_flag'] == 4){
                                 $params['attribute_url'] = null;
                             }
-
                             $get_data = $this->Attribute_model->get_attribute_custom($where);
                             if($get_data){
                                 $set_update=$this->Attribute_model->update_attribute_custom($where,$params);
@@ -666,32 +603,26 @@ class Attributes extends MY_Controller{
                 case "create_attribute_item":
                     // $data = base64_decode($post);
                     // $data = json_decode($post, TRUE);
-
                     $this->form_validation->set_rules('attribute_item_name', 'attribute_item_name', 'required');
                     $this->form_validation->set_message('required', '{field} wajib diisi');
                     if ($this->form_validation->run() == FALSE){
                         $return->message = validation_errors();
                     }else{
-
                         $attribute_item_name = !empty($post['attribute_item_name']) ? $post['attribute_item_name'] : null;
                         $attribute_item_flag = !empty($post['attribute_item_flag']) ? $post['attribute_item_flag'] : 0;
                         $attribute_item_session = strtoupper(substr(hash('sha256', date_timestamp_get(date_create())),0,20));
-
                         $params = array(
                             'attribute_item_name' => $attribute_item_name,
                             'attribute_item_flag' => $attribute_item_flag
                         );
-
                         //Check Data Exist
                         $params_check = array(
                             'attribute_item_name' => $attribute_item_name
                         );
                         $check_exists = $this->Attribute_model->check_data_exist_attribute_item($params_check);
                         if(!$check_exists){
-
                             $set_data=$this->Attribute_model->add_attribute_item($params);
                             if($set_data){
-
                                 $attribute_item_id = $set_data;
                                 $data = $this->Attribute_model->get_attribute_item($attribute_item_id);
                                 $return->status=1;
@@ -738,14 +669,12 @@ class Attributes extends MY_Controller{
                         $attribute_item_id = !empty($post['attribute_item_id']) ? $post['attribute_item_id'] : $post['attribute_item_id'];
                         $attribute_item_name = !empty($post['attribute_item_name']) ? $post['attribute_item_name'] : $post['attribute_item_name'];
                         $attribute_item_flag = !empty($post['attribute_item_flag']) ? $post['attribute_item_flag'] : $post['attribute_item_flag'];
-
                         if(strlen($attribute_item_id) > 0){
                             $params = array(
                                 'attribute_item_name' => $attribute_item_name,
                                 'attribute_item_date_updated' => date("YmdHis"),
                                 'attribute_item_flag' => $attribute_item_flag
                             );
-                           
                             $set_update=$this->Attribute_model->update_attribute_item($attribute_item_id,$params);
                             if($set_update){
                                 $get_data = $this->Attribute_model->get_attribute_item($attribute_item_id);
@@ -768,15 +697,12 @@ class Attributes extends MY_Controller{
                     }else{
                         $attribute_item_id = !empty($post['attribute_item_id']) ? $post['attribute_item_id'] : 0;
                         if(strlen(intval($attribute_item_id)) > 0){
-                            
                             $params = array(
                                 'attribute_item_flag' => !empty($post['attribute_item_flag']) ? intval($post['attribute_item_flag']) : 0,
                             );
-                            
                             $where = array(
                                 'attribute_item_id' => !empty($post['attribute_item_id']) ? intval($post['attribute_item_id']) : 0,
                             );
-                            
                             if($post['attribute_item_flag']== 0){
                                 $set_msg = 'nonaktifkan';
                             }else if($post['attribute_item_flag']== 1){
@@ -786,7 +712,6 @@ class Attributes extends MY_Controller{
                             }else{
                                 $set_msg = 'mendapatkan data';
                             }
-
                             $set_update=$this->Attribute_model->update_attribute_item_custom($where,$params);
                             if($set_update){
                                 $get_data = $this->Attribute_model->get_attribute_item_custom($where);
@@ -807,7 +732,6 @@ class Attributes extends MY_Controller{
                     }else{
                         $attribute_item_id   = !empty($post['attribute_item_id']) ? $post['attribute_item_id'] : 0;
                         $attribute_item_name = !empty($post['attribute_item_name']) ? $post['attribute_item_name'] : null;                                
-
                         if(strlen($attribute_item_id) > 0){
                             $get_data=$this->Attribute_model->get_attribute_item($attribute_item_id);
                             // $set_data=$this->Attribute_model->delete_attribute_item($attribute_item_id);
@@ -833,12 +757,10 @@ class Attributes extends MY_Controller{
                         '0' => 'attribute_item_id',
                         '1' => 'attribute_item_name'
                     );
-
                     $limit     = !empty($post['length']) ? $post['length'] : 10;
                     $start     = !empty($post['start']) ? $post['start'] : 0;
                     $order     = !empty($post['order']) ? $columns[$post['order'][0]['column']] : $columns[0];
                     $dir       = !empty($post['order'][0]['dir']) ? $post['order'][0]['dir'] : "asc";
-                    
                     $search    = [];
                     if(!empty($post['search']['value'])) {
                         $s = $post['search']['value'];
@@ -846,19 +768,15 @@ class Attributes extends MY_Controller{
                             $search[$v] = $s;
                         }
                     }
-
                     $params = array();
-
                     //Default Params for Master CRUD Form
                     $params['attribute_item_id']   = !empty($post['attribute_item_id']) ? $post['attribute_item_id'] : $params;
                     $params['attribute_item_name'] = !empty($post['attribute_item_name']) ? $post['attribute_item_name'] : $params;
-
                     /*
                     if($post['other_item_column'] && $post['other_item_column'] > 0) {
                         $params['other_item_column'] = $post['other_item_column'];
                     }
                     */
-                    
                     $get_count = $this->Attribute_model->get_all_attribute_item_count($params, $search);
                     if($get_count > 0){
                         $get_data = $this->Attribute_model->get_all_attribute_item($params, $search, $limit, $start, $order, $dir);
@@ -920,7 +838,6 @@ class Attributes extends MY_Controller{
                                 $get_cat = $this->Kategori_model->get_categories($category_id);
                                 $cat_session = $get_cat['category_session']; 
                             }
-
                             $params = array(
                                 'ca_category_session' => $cat_session
                             );
@@ -961,17 +878,14 @@ class Attributes extends MY_Controller{
                                 $get_pro = $this->Product_model->get_product($product_id);
                                 $pro_session = $get_pro['product_session']; 
                             }
-
                             $params = array(
                                 'ca_category_session' => $get_pro['category_session']
                             );
                             $search = $pro_session;
-
                             $start  = null;
                             $limit  = null;
                             $order  = "attr_name";
                             $dir    = "asc";
-
                             $get_data = $this->Attribute_model->get_all_product_attr($params, $search, $limit, $start, $order, $dir);
                             if($get_data){
                                 $total = count($get_data);
@@ -993,23 +907,18 @@ class Attributes extends MY_Controller{
                 case "search_attr_option":
                     $search     = !empty($post['search']) ? $post['search'] : "";
                     $page       = $post['page'];
-
                     $limit      = 5;
                     $offset     = ($page - 1) * $limit;
-
                     $as         = !empty($post['attribute_session']) ? $post['attribute_session'] : "";                    
-
                     $where = "";
                     $where = "WHERE opt_attr_session='".$as."'";
                     if(!empty($search)){
                         $where .= " AND opt_value LIKE '%".$search."%'";
                     }
-    
                     // Count data first
                     $query_count    = $this->db->query("SELECT COUNT(*) AS total_records FROM attributes_options $where");                                
                     $result_count   = $query_count->result_array();            
                     $count_data     = !empty($result_count) ? intval($result_count[0]['total_records']) : 0;
-    
                     // Running query if found data count
                     if($count_data > 0){
                         $prepare = "SELECT opt_id AS id, opt_session, opt_value AS `text`, opt_attr_session AS attr_session
@@ -1027,20 +936,16 @@ class Attributes extends MY_Controller{
                 case "search_attr":
                     $search     = !empty($post['search']) ? $post['search'] : "";
                     $page       = $post['page'];
-
                     $limit      = 5;
                     $offset     = ($page - 1) * $limit;
-
                     $where = "";
                     if(!empty($search)){
                         $where = "WHERE attr_name LIKE '%".$search."%'";
                     }
-    
                     // Count data first
                     $query_count    = $this->db->query("SELECT COUNT(*) AS total_records FROM attributes $where");                                
                     $result_count   = $query_count->result_array();            
                     $count_data     = !empty($result_count) ? intval($result_count[0]['total_records']) : 0;
-    
                     // Running query if found data count
                     if($count_data > 0){
                         $prepare = "SELECT attr_session AS id, attr_id, attr_name AS `text`
@@ -1064,15 +969,12 @@ class Attributes extends MY_Controller{
             // Default First Date & End Date of Current Month
             $firstdate = new DateTime('first day of this month');
             $firstdateofmonth = $firstdate->format('d-m-Y');
-
             $data['session'] = $this->session->userdata();  
             $session_user_id = !empty($data['session']['user_data']['user_id']) ? $data['session']['user_data']['user_id'] : null;
-
             $data['first_date'] = $firstdateofmonth;
             $data['end_date'] = date("d-m-Y");
             $data['hour'] = date("H:i");
             $data['theme'] = $this->User_model->get_user($data['session']['user_data']['user_id']);
-
             $data['image_width'] = intval($this->image_width);
             $data['image_height'] = intval($this->image_height);
             /*
@@ -1080,7 +982,6 @@ class Attributes extends MY_Controller{
             $this->load->model('Reference_model');
             $data['reference'] = $this->Reference_model->get_all_reference();
             */
-
             $data['title'] = 'Attribute';
             $data['_view'] = 'layouts/admin/menu/webpage/attribute';
             $this->load->view('layouts/admin/index',$data);
@@ -1088,5 +989,4 @@ class Attributes extends MY_Controller{
         }
     }
 }
-
 ?>

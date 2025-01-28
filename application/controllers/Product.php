@@ -1,24 +1,18 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Product extends MY_Controller{
-
     public $folder_upload            = 'upload/news/'; // 1
     public $folder_upload_project    = 'upload/project/'; // 5   
     public $folder_upload_gallery    = 'upload/gallery/'; // 6
     public $folder_upload_product    = 'upload/product/'; // 6    
-
     public $allowed_types = 'jpg|png|jpeg|mp4';
     public $image_width = 480;
     public $image_height = 480;
-
     public $allowed_file_size = 1024; // 5 MB -> 5000 KB
-
     // var $blog_route         = 'blog';
     // var $project_route      = 'project'; 
     // var $gallery_route      = 'gallery'; 
     var $product_route      = 'produk';               
-
     function __construct(){
         parent::__construct();
         if(!$this->is_logged_in()){
@@ -30,10 +24,8 @@ class Product extends MY_Controller{
         $this->load->model('News_model');
         $this->load->model('Kategori_model');
         $this->load->model('Aktivitas_model');
-
         $this->load->helper('form');
         $this->load->library('form_validation');
-
         // $this->folder_upload = 'upload/news/';
         // $this->allowed_types = 'jpg|png|jpeg|mp4';
         $this->image_width   = 480;
@@ -44,20 +36,16 @@ class Product extends MY_Controller{
         $session = $this->session->userdata();
         $session_branch_id = $session['user_data']['branch']['id'];
         $session_user_id = $session['user_data']['user_id'];
-
         if ($this->input->post()) {    
             $return = new \stdClass();
             $return->status = 0;
             $return->message = '';
             $return->result = '';
-
             $upload_directory = $this->folder_upload;     
             $upload_path_directory = $upload_directory;
-
             $post = $this->input->post();
             $get  = $this->input->get();
             $action = !empty($this->input->post('action')) ? $this->input->post('action') : false;
-            
             switch($action){
                 case "load":
                     $columns = array(
@@ -65,12 +53,10 @@ class Product extends MY_Controller{
                         '1' => 'product_name',
                         '2' => 'category_name'
                     );
-
                     $limit     = !empty($post['length']) ? $post['length'] : 10;
                     $start     = !empty($post['start']) ? $post['start'] : 0;
                     $order     = !empty($post['order']) ? $columns[$post['order'][0]['column']] : $columns[0];
                     $dir       = !empty($post['order'][0]['dir']) ? $post['order'][0]['dir'] : "asc";
-                    
                     $search    = [];
                     if(!empty($post['search']['value'])) {
                         $s = $post['search']['value'];
@@ -78,18 +64,14 @@ class Product extends MY_Controller{
                             $search[$v] = $s;
                         }
                     }
-
                     $params = array();
-                    
                     /* If Form Mode Transaction CRUD not Master CRUD
                     !empty($post['date_start']) ? $params['product_date >'] = date('Y-m-d H:i:s', strtotime($post['date_start'].' 23:59:59')) : $params;
                     !empty($post['date_end']) ? $params['product_date <'] = date('Y-m-d H:i:s', strtotime($post['date_end'].' 23:59:59')) : $params;
                     */
-
                     //Default Params for Master CRUD Form
                     // $params['product_id']   = !empty($post['product_id']) ? $post['product_id'] : $params;
                     // $params['product_name'] = !empty($post['product_name']) ? $post['product_name'] : $params;
-
                     /*
                         if($post['other_column'] && $post['other_column'] > 0) {
                             $params['other_column'] = $post['other_column'];
@@ -98,7 +80,6 @@ class Product extends MY_Controller{
                             $params['product_type'] = $post['filter_type'];
                         }
                     */
-                    
                     $get_count = $this->Product_model->get_all_product_count($params, $search);
                     if($get_count > 0){
                         $get_data = $this->Product_model->get_all_product($params, $search, $limit, $start, $order, $dir);
@@ -167,11 +148,9 @@ class Product extends MY_Controller{
                     //         }
                     //     }
                     // }
-
                     if($next){
                         $title = !empty($this->input->post('title')) ? $this->safe($this->input->post('title')) : '';
                         $url = $this->generate_seo_link($title);                
-                        
                         if(strlen($title) > 0){
                             $params_save = array(
                                 'product_branch_id' => $session_branch_id,
@@ -231,10 +210,8 @@ class Product extends MY_Controller{
                                 );
                                 $check_exists = $this->Product_model->check_data_exist($params_check);
                             }
-                            
                             if($check_exists==false){
                                 // if($next){
-
                                     if($operator == 1){
                                         $set_data=$this->Product_model->add_product($params_save);
                                         $data = $this->Product_model->get_product($set_data);
@@ -242,7 +219,6 @@ class Product extends MY_Controller{
                                         $update_data = $this->Product_model->update_product($this->input->post('id'),$params_update);
                                         $set_data = $this->input->post('id');
                                     }
-
                                     //Process for Upload
                                     $image_config=array(
                                         'compress' => 1,
@@ -254,7 +230,6 @@ class Product extends MY_Controller{
                                         'text_2' => ''                           
                                     ];                                    
                                     $folder = $this->folder_upload_product;
-
                                     //Croppie Upload Image
                                     $post_upload_1 = !empty($this->input->post('files_1')) ? $this->input->post('files_1') : "";
                                     if(strlen($post_upload_1) > 10){
@@ -278,7 +253,6 @@ class Product extends MY_Controller{
                                             $return->message = 'Fungsi Gambar gagal';
                                         }
                                     }
-
                                     $post_upload_2 = !empty($this->input->post('files_2')) ? $this->input->post('files_2') : "";
                                     if(strlen($post_upload_2) > 10){
                                         $upload_process = upload_file_base64_watermark($folder,$post_upload_2,$image_config,$watermark);
@@ -301,7 +275,6 @@ class Product extends MY_Controller{
                                             $return->message = 'Fungsi Gambar gagal';
                                         }
                                     }
-                                    
                                     $post_upload_3 = !empty($this->input->post('files_3')) ? $this->input->post('files_3') : "";
                                     if(strlen($post_upload_3) > 10){
                                         $upload_process = upload_file_base64_watermark($folder,$post_upload_3,$image_config,$watermark);
@@ -324,7 +297,6 @@ class Product extends MY_Controller{
                                             $return->message = 'Fungsi Gambar gagal';
                                         }
                                     }
-                                    
                                     $post_upload_4 = !empty($this->input->post('files_4')) ? $this->input->post('files_4') : "";
                                     if(strlen($post_upload_4) > 10){
                                         $upload_process = upload_file_base64_watermark($folder,$post_upload_4,$image_config,$watermark);
@@ -348,15 +320,12 @@ class Product extends MY_Controller{
                                         }
                                     }                                        
                                     //End of Croppie
-
-                                    
                                     $return->status=1;
                                     $return->message='Berhasil '.$mes;
                                     $return->result= array(
                                         'id' => $set_data,
                                         'title' => $title
                                     );  
-
                                     /* Start Activity */
                                     $params = array(
                                         'activity_user_id' => $session['user_data']['user_id'],
@@ -473,7 +442,6 @@ class Product extends MY_Controller{
                     }else{
                         $product_id   = !empty($post['product_id']) ? $post['product_id'] : 0;
                         $product_name = !empty($post['product_name']) ? $post['product_name'] : null;
-
                         if(strlen($product_id) > 0){
                             $get_data=$this->Product_model->get_product($product_id);
                             // $set_data=$this->Product_model->delete_product($product_id);
@@ -504,15 +472,12 @@ class Product extends MY_Controller{
                     }else{
                         $product_id = !empty($post['product_id']) ? $post['product_id'] : 0;
                         if(strlen(intval($product_id)) > 1){
-                            
                             $params = array(
                                 'product_flag' => !empty($post['product_flag']) ? intval($post['product_flag']) : 0,
                             );
-                            
                             $where = array(
                                 'product_id' => !empty($post['product_id']) ? intval($post['product_id']) : 0,
                             );
-                            
                             if($post['product_flag']== 0){
                                 $set_msg = 'nonaktifkan';
                             }else if($post['product_flag']== 1){
@@ -522,11 +487,9 @@ class Product extends MY_Controller{
                             }else{
                                 $set_msg = 'mendapatkan data';
                             }
-
                             if($post['product_flag'] == 4){
                                 $params['product_url'] = null;
                             }
-
                             $get_data = $this->Product_model->get_product_custom($where);
                             if($get_data){
                                 $set_update=$this->Product_model->update_product_custom($where,$params);
@@ -562,16 +525,13 @@ class Product extends MY_Controller{
                     }else{
                         $product_id = !empty($post['product_id']) ? $post['product_id'] : 0;
                         if(intval($product_id) > 0){
-                            
                             $params = array(
                                 'product_stock' => !empty($post['product_stock']) ? intval($post['product_stock']) : 0,
                                 'product_price_sell' => !empty($post['product_price_sell']) ? intval($post['product_price_sell']) : 0                                
                             );
-                            
                             $where = array(
                                 'product_id' => !empty($post['product_id']) ? intval($post['product_id']) : 0,
                             );
-                            
                             $set_update=$this->Product_model->update_product_custom($where,$params);
                             if($set_update){
                                 $return->status  = 1;
@@ -593,18 +553,14 @@ class Product extends MY_Controller{
             // Default First Date & End Date of Current Month
             $firstdate = new DateTime('first day of this month');
             $firstdateofmonth = $firstdate->format('d-m-Y');
-
             $data['session'] = $this->session->userdata();  
             $session_user_id = !empty($data['session']['user_data']['user_id']) ? $data['session']['user_data']['user_id'] : null;
-
             $data['first_date'] = $firstdateofmonth;
             $data['end_date'] = date("d-m-Y");
             $data['hour'] = date("H:i");
             $data['theme'] = $this->User_model->get_user($data['session']['user_data']['user_id']);
-
             $data['allowed_file_type'] = $this->allowed_types;
             $data['allowed_file_size'] = $this->allowed_file_size;
-
             $data['image_width'] = intval($this->image_width);
             $data['image_height'] = intval($this->image_height);
             /*
@@ -612,9 +568,7 @@ class Product extends MY_Controller{
             $this->load->model('Reference_model');
             $data['reference'] = $this->Reference_model->get_all_reference();
             */
-
             $data['_route'] = $this->product_route;   
-
             $data['title'] = 'Product';
             $data['_view'] = 'layouts/admin/menu/webpage/product';
             $this->load->view('layouts/admin/index',$data);
@@ -622,5 +576,4 @@ class Product extends MY_Controller{
         }
     }
 }
-
 ?>

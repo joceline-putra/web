@@ -1,13 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Kategori extends MY_Controller{
     var $folder_upload = 'upload/category/';
     var $image_width   = 240;
     var $image_height  = 240;    
     var $blog_route = 'blog';
     var $project_route = 'project';    
-
     function __construct(){
         parent::__construct();
         if(!$this->is_logged_in()){
@@ -19,13 +17,9 @@ class Kategori extends MY_Controller{
         // $this->load->model('Referensi_model');        
     } 
     function pages($identity){
-
-
         $data['session'] = $this->session->userdata();     
         $data['theme'] = $this->User_model->get_user($data['session']['user_data']['user_id']);
-
         if($identity == 1){ //Kategori Produk
-
             $params = array(
                 'category_parent_id' => 0,
                 'category_type' => 1
@@ -38,7 +32,6 @@ class Kategori extends MY_Controller{
             $data['_view'] = 'layouts/admin/menu/webpage/category_product';
             $file_js = 'layouts/admin/menu/webpage/category_product_js.php';
         }
-
         if($identity == 2){ //Kategori Artikel
             $data['_route'] = $this->blog_route;
             $params = array(
@@ -57,7 +50,6 @@ class Kategori extends MY_Controller{
             3. Message WhatsApp
         */
         if($identity == 4){ //Kategori Kontak / Group Kontak
-
             $params = array(
                 'category_parent_id' => 0,
                 'category_type' => 1
@@ -70,20 +62,15 @@ class Kategori extends MY_Controller{
             $data['_view'] = 'layouts/admin/menu/contact/category_contact';
             $file_js = 'layouts/admin/menu/contact/category_contact_js.php';
         }
-
         $data['image_width'] = intval($this->image_width);
         $data['image_height'] = intval($this->image_height);
-
         //Date First of the month
         $firstdate = new DateTime('first day of this month');
         $firstdateofmonth = $firstdate->format('Y-m-d');
-
         //Date Now
         $datenow =date("Y-m-d"); 
         $data['first_date'] = $firstdateofmonth;
         $data['end_date'] = $datenow;
-        
-
         $this->load->view('layouts/admin/index',$data);
         $this->load->view($file_js,$data);
     }
@@ -95,16 +82,13 @@ class Kategori extends MY_Controller{
         $return->result = '';
         $user_id = $session['user_data']['user_id'];
         $branch_id = $session['user_data']['branch']['id'];
-
         if($this->input->post('action')){
             $post = $this->input->post();            
             $action = $this->input->post('action');
             $post_data = $this->input->post('data');
             $data = json_decode($post_data, TRUE);
             $identity = !empty($this->input->post('tipe')) ? $this->input->post('tipe') : $data['tipe'];
-
             $table = 'categories';
-
             //Tipe
             if($identity == 1){ //Kategori Produk
                 $set_tipe = 1;
@@ -198,7 +182,6 @@ class Kategori extends MY_Controller{
                     '0' => 'category_name'
                 );
             }
-
             switch($action){
                 case "create":
                     //Check Data Exist
@@ -220,8 +203,6 @@ class Kategori extends MY_Controller{
                     $check_exists = $this->Kategori_model->check_data_exist($params_check);
                     if($check_exists==false){
                         $set_data=$this->Kategori_model->add_categories($params);
-
-                        
                         if($set_data==true){
                             //Aktivitas
                             $params = array(
@@ -299,7 +280,6 @@ class Kategori extends MY_Controller{
                             }
                         }
                         //End of Croppie                        
-                        
                         //Aktivitas
                         $params = array(
                             'activity_user_id' => $session['user_data']['user_id'],
@@ -318,7 +298,6 @@ class Kategori extends MY_Controller{
                     break;
                 case "remove":
                     $id   = !empty($post['id']) ? $post['id'] : 0;
-
                     if(intval($id) > 0){
                         $get_data=$this->Kategori_model->get_categories($id);     
                         if(intval($get_data['category_count_data']) < 1){         
@@ -345,7 +324,6 @@ class Kategori extends MY_Controller{
                     // $kode = $this->input->post('kode');        
                     $nama = $this->input->post('nama');                                
                     $flag = $this->input->post('flag');
-
                     if($flag==1){
                         $msg='aktifkan '.$nama;
                         $act=7;
@@ -353,7 +331,6 @@ class Kategori extends MY_Controller{
                         $msg='nonaktifkan  '.$nama;
                         $act=8;
                     }
-
                     $set_data=$this->Kategori_model->update_categories($id,array('category_flag'=>$flag));
                     if($set_data==true){    
                         //Aktivitas
@@ -373,14 +350,11 @@ class Kategori extends MY_Controller{
                     }                
                     break;
                 case "load":
-
                     $limit = $this->input->post('length');
                     $start = $this->input->post('start');
                     $order = $columns[$this->input->post('order')[0]['column']];
                     $dir = $this->input->post('order')[0]['dir'];
-                    
                     $filter_flag = !empty($this->input->post('filter_flag')) ? $this->input->post('filter_flag') : 0;
-
                     $search = [];
                     if ($this->input->post('search')['value']) {
                         $s = $this->input->post('search')['value'];
@@ -388,7 +362,6 @@ class Kategori extends MY_Controller{
                             $search[$v] = $s;
                         }
                     }
-
                     $params = array(
                         'category_branch_id' => $branch_id,
                         'category_type' => $identity
@@ -397,7 +370,6 @@ class Kategori extends MY_Controller{
                     if($filter_flag < 100){
                         $params['category_flag']=$filter_flag;
                     }
-
                     $datas_count = $this->Kategori_model->get_all_categoriess_count($params,$search);
                     if(intval($datas_count) > 0){ //Data exist
                         $datas = $this->Kategori_model->get_all_categoriess($params, $search, $limit, $start, $order, $dir);                
@@ -418,6 +390,5 @@ class Kategori extends MY_Controller{
         }
         $return->action=$action;
         echo json_encode($return);
-        
     }               
 }

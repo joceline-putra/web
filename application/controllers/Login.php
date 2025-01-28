@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Login extends My_Controller{
     var $folder_location = array(
         '0' => array(
@@ -42,18 +41,15 @@ class Login extends My_Controller{
         $this->load->helper('form');
         $this->load->helper('cookie');        
         $this->load->helper('url');
-        
         $this->load->library('form_validation');
         $this->load->library('user_agent');
         $this->load->library('phpmailer_lib');
-
         $this->load->model('Login_model');
         $this->load->model('Message_model');           
         $this->load->model('User_model');           
         $this->load->model('Aktivitas_model');           
         $this->load->model('Branch_model');
         $this->load->model('App_package_model');
-
         //Get Branch
         $get_branch = $this->Branch_model->get_branch(1);
         // $this->app_name = $get_branch['branch_name'];
@@ -65,7 +61,6 @@ class Login extends My_Controller{
         $this->app_logo_sidebar = site_url().$get_branch['branch_logo_sidebar'];      
         // $this->app_logo     = site_url().'upload/branch/default_logo.png';
         // $this->app_logo_sidebar = site_url().'upload/branch/default_sidebar.png';        
-        
         $this->default_menu_cashier = site_url().'sales/pos3';
     }
     function index(){ //Default Login Index Layout
@@ -90,21 +85,17 @@ class Login extends My_Controller{
         //Random Session Code
         $data['captcha'] = $this->random_number(6);
         $this->session->set_userdata('captcha',$data['captcha']);
-
         $data['identity'] = $identity;
         $data['title'] = $this->folder_location[$identity]['title'];
         $data['view'] = $this->folder_location[$identity]['view'];
         // $file_js = $this->folder_location[$identity]['javascript'];
-
         //Date First of the month
         $firstdate = new DateTime('first day of this month');
         $firstdateofmonth = $firstdate->format('Y-m-d');
-
         //Date Now
         $datenow =date("Y-m-d"); 
         $data['first_date'] = $firstdateofmonth;
         $data['end_date'] = $datenow;
-
         //Logo Branch
         // $get_branch = $this->Branch_model->get_branch(1);
         // $data['branch'] = array(
@@ -124,7 +115,6 @@ class Login extends My_Controller{
         $session = $this->session->userdata();   
         // $session_branch_id = $session['user_data']['branch']['id'];
         // $session_user_id = $session['user_data']['user_id'];
-
         $return = new \stdClass();
         $return->status = 0;
         $return->message = '';
@@ -151,19 +141,16 @@ class Login extends My_Controller{
                     // $data = base64_decode($post_data);
                     // $data = json_decode($post_data, TRUE);
                     $post = $this->input->post();
-
                     $user_code          = $this->random_code(6);
                     $activation_code    = $this->random_code(32);   
                     $user_session       = $this->random_code(20); 
                     $user_otp           = $this->random_number(6);  
-
                     $phone = str_replace('+','',$post['code']).$post['telepon'];
                     $email = $this->lowercase($post['email']);
                     $full_name = $this->safe($this->sentencecase($post['fullname']));
                     $captcha            = !empty($post['captcha']) ? $post['captcha'] : false;        
                     $captcha_session    = $session['captcha'];                    
                     $generate_username = $this->generate_username($full_name);
-                    
                     $params = array(
                         'user_user_group_id' => 2,
                         // 'user_branch_id' => $post['branch'],
@@ -191,14 +178,12 @@ class Login extends My_Controller{
                     );
                     // var_dump($params);die;
                     // Captcha check
-                    
                     if($captcha == $captcha_session){ //Captcha Valid
                         $return->message='Captcha sesuai dengan gambar';
                     }else{
                         $return->message='Captcha tidak sesuai dengan gambar';
                         $next=false;
                     }
-
                     //Password Check
                     if($next){
                         if($post['password'] !== $post['password2']){
@@ -206,12 +191,10 @@ class Login extends My_Controller{
                             $return->message='Password & Konfirmasi Password tidak sama';
                         }
                     }
-
                     if($next){
                         // $check_exists = $this->User_model->check_data_exist_register($email,$phone);
                         $check_exists = $this->User_model->check_data_exist(array('user_phone_1' => $phone));
                         if($check_exists==false){
-
                             // Check Data Exist Username
                             $params_check = array(
                                 'user_username' => $generate_username             
@@ -221,7 +204,6 @@ class Login extends My_Controller{
                                 $set_data=$this->User_model->add_user($params);
                                 if($set_data==true){
                                     $user_id = $set_data;
-
                                     /* Start Activity */
                                         /*
                                         $params = array(
@@ -240,10 +222,8 @@ class Login extends My_Controller{
                                         $this->save_activity($params);
                                         */  
                                     /* End Activity */            
-
                                     $return->status=1;
                                     $return->message='Berhasil mendaftar';
-
                                     $get_user = $this->User_model->get_user($user_id);                                 
                                     $return->result= array(
                                         'user_id' => $get_user['user_id'],
@@ -256,14 +236,12 @@ class Login extends My_Controller{
                                     $this->session->set_flashdata('phone',''.$get_user['user_phone_1'].'');                                    
                                     $this->session->set_flashdata('status',1);                                  
                                     // echo json_encode($return);
-
                                     $this->whatsapp_template('register-and-confirmation-otp',$get_user['user_id']);
                                     // $this->email_template('register-and-confirmation-code',$get_user['user_id']);                                    
                                 }  
                             }else{
                                 $return->message='Username sudah digunakan';  
                             }
-
                         }else{
                             $return->message='Sudah Terdaftar';                    
                         }
@@ -281,14 +259,12 @@ class Login extends My_Controller{
                     $next = true;
                     $post = $this->input->post();
                     $code = substr($post['activation'],0,32);
-                    
                     if(!empty($post['password'])){
                         if($post['password'] !== $post['password2']){
                             $return->message='Password tidak sama';
                             $next=false;
                         }
                     }
-
                     if($next){
                         $get_user = $this->User_model->get_user_custom(array('user_activation_code'=>$code));
                         if($get_user){
@@ -318,10 +294,8 @@ class Login extends My_Controller{
                                     $this->save_activity($params);
                                 */
                                 /* End Activity */
-
                                 $this->whatsapp_template('lost-password-success-recovery',$get_user['user_id']);
                                 $this->email_template('lost-password-success-recovery',$get_user['user_id']);
-
                                 $return->status=1;
                                 $return->message='Berhasil memperbarui Password';
                                 $return->return_url = base_url();
@@ -355,7 +329,6 @@ class Login extends My_Controller{
                     $this->save_activity($params);    
                     /* End Activity */
                 }
-
                 $return->status=1;
                 $return->message='Success';
                 $return->result=$datas;
@@ -381,7 +354,6 @@ class Login extends My_Controller{
                     $params['password'] = md5($data['password']);
                 }
                 */
-               
                 $set_update=$this->Order_model->update_order($id,$params);
                 if($set_update==true){
                     /* Start Activity */
@@ -409,7 +381,6 @@ class Login extends My_Controller{
                 $number = $this->input->post('number');                               
                 // $flag = $this->input->post('flag');
                 $flag=4;
-
                 $set_data=$this->Order_model->update_order($id,array('order_flag'=>$flag));
                 if($set_data==true){    
                     /* Start Activity */
@@ -433,12 +404,10 @@ class Login extends My_Controller{
                 }                
             }                     
             if($action=='register-load'){ die;
-
                 $limit = $this->input->post('length');
                 $start = $this->input->post('start');
                 $order = $columns[$this->input->post('order')[0]['column']];
                 $dir = $this->input->post('order')[0]['dir'];
-
                 $search = [];
                 if ($this->input->post('search')['value']) {
                     $s = $this->input->post('search')['value'];
@@ -446,9 +415,6 @@ class Login extends My_Controller{
                         $search[$v] = $s;
                     }
                 }
-
-
-                
                 /*
                 if($this->input->post('other_column') && $this->input->post('other_column') > 0) {
                     $params['other_column'] = $this->input->post('other_column');
@@ -465,7 +431,6 @@ class Login extends My_Controller{
                 // var_dump($datas);die;
                 $datas_count = $this->Order_model->get_all_orders_count($params_datatable);
                 // $datas_count = $this->Order_model->get_all_orders_count($params_datatable, $search, $limit, $start, $order, $dir);                                 
-                
                 if(isset($datas)){ //Data exist
                     $data_source=$datas; $total=$datas_count;
                     $return->status=1; $return->message='Loaded'; $return->total_records=$total;
@@ -487,7 +452,6 @@ class Login extends My_Controller{
                     $next = true;
                     $post = $this->input->post();
                     $value = $post['val'];
-                    
                     if($next){
                         $params = array(
                             'user_menu_style' => intval($value)
@@ -527,7 +491,6 @@ class Login extends My_Controller{
         $return->action=$action;
         echo json_encode($return);        
     }
-
     /* View / HTML*/
     function register_confirmation(){ //When register is success created
         $data['title'] = $this->folder_location['3']['title']; //Register Confirmation
@@ -538,13 +501,11 @@ class Login extends My_Controller{
         $user_session               = substr($code,32,20);
         $user_code                  = substr($code,52,6); 
         $user_otp                   = substr($code,58,6);
-
         $data['branch'] = array(
             'branch_logo' => $this->app_logo,
             'branch_logo_login' => $this->app_logo,
             'branch_logo_sidebar' => $this->app_logo_sidebar,
         );
-
         $params_check = array(
             'user_code' => $this->uppercase($this->safe($user_code)),
             'user_activation_code' => $this->uppercase($this->safe($user_activation_code)),
@@ -555,13 +516,11 @@ class Login extends My_Controller{
         $check_exists = $this->User_model->check_data_exist($params_check);
         // var_dump($check_exists);die;
         if($check_exists==true){
-
             $get_user = $this->User_model->get_all_users($params_check,null,null,null,1,0);
             $data['user_id'] = $get_user[0]['user_id'];
             $data['email'] = $get_user[0]['user_email_1'];
             $data['username'] = $get_user[0]['user_username'];
             $data['fullname'] = $get_user[0]['user_fullname'];
-
             //Update Activation
             $param_update = array(
                 'user_flag' => 1,
@@ -570,7 +529,6 @@ class Login extends My_Controller{
             );
             $opr = $this->User_model->update_user($data['user_id'],$param_update);
             if($opr){
-
                 //Set Cookie
                 $cookie = array(
                     'name' => site_url(),
@@ -579,7 +537,6 @@ class Login extends My_Controller{
                     'path' => '/'                    
                 );
                 $this->input->set_cookie($cookie);
-
                 $data['title'] = $this->folder_location['5']['title']; //Register Activation
                 $this->load->view($this->folder_location['5']['view'],$data);
             }else{
@@ -602,13 +559,11 @@ class Login extends My_Controller{
             $this->session->set_flashdata('message',validation_errors());
             $this->session->set_flashdata('return_url',$this->app_url.'register_confirmation');            
             $this->session->set_flashdata('phone',$this->input->post('phone'));             
-
             $data['title'] = $this->folder_location['3']['title']; //Return Register Confirmation
             $this->load->view($this->folder_location['3']['view'],$data);             
         }else{
             $phone  = !empty($this->input->post('phone')) ? $this->input->post('phone') : null;
             $otp    = !empty($this->input->post('otp')) ? $this->input->post('otp') : null;
-
             $get_user   = [];
             $next       = true;
             $set_status = 0;                        
@@ -618,14 +573,12 @@ class Login extends My_Controller{
                 $set_message = 'Nomor tidak sesuai';
                 $next = false;
             }
-
             if($next){
                 if((strlen($otp) > 6) or (strlen($otp) < 6)){
                     $set_message = 'Kode OTP tidak sesuai, silahkan masukkan Kode OTP yg dikirim ke nomor <br><b>'.$phone.'</b>';
                     $next = false;                
                 }
             }
-
             if($next){
                 $where = array(
                     'user_phone_1' => $phone,
@@ -653,15 +606,12 @@ class Login extends My_Controller{
                 $set_url = $this->app_url.'register_confirmation';
                 $set_message = $set_message;
             }
-
             // var_dump($set_status,$set_url,$set_message,$set_phone);die;
-
             // site_url($this->folder_location['3']['view2']);
             $this->session->set_flashdata('status',$set_status);
             $this->session->set_flashdata('return_url',$set_url);            
             $this->session->set_flashdata('message',$set_message);
             $this->session->set_flashdata('phone',$set_phone);             
-
             $data['title'] = $this->folder_location['3']['title']; //Return Register Confirmation
             $this->load->view($this->folder_location['3']['view'],$data);            
         }  
@@ -676,22 +626,18 @@ class Login extends My_Controller{
             'branch_logo_login' => $this->app_logo,
             'branch_logo_sidebar' => $this->app_logo_sidebar,                        
         );           
-
         $params_check = array(
             'user_activation_code' => $this->safe($user_activation_code),
             'user_session' => $this->safe($user_session),
             'user_activation' => 1
         );
-
         $check_exists = $this->User_model->check_data_exist($params_check);
         if($check_exists==true){
-
             $get_user = $this->User_model->get_user_custom($params_check);
             $data['user_id'] = $get_user['user_id'];
             $data['email'] = $get_user['user_email_1'];
             $data['username'] = $get_user['user_username'];
             $data['fullname'] = $get_user['user_fullname'];
-
             //Update Activation
             // $param_update = array(
             //     'user_flag' => 1,
@@ -731,14 +677,12 @@ class Login extends My_Controller{
         $data['title'] = $this->folder_location['6']['title'];
         $this->load->view($this->folder_location['6']['view'],$data);
     }
-
     /* Session */
     function authentication(){ //Post From Login
         $return = new \stdClass();
         $return->status = 0;
         $return->message = '';
         $return->result = '';
-        
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_message('required', '{field} wajib diisi');
@@ -748,18 +692,15 @@ class Login extends My_Controller{
             $url_before = $this->input->post('url');
             $username = $this->input->post('username');
             $password = $this->input->post('password');
-            
             $where = array(
                 'user_password' => md5($password),
                 'user_flag' => 1
             );
-
             //Username / Email / Phone (Login)
             $where['user_username'] = $username;
             // $where['user_email_1'] = $username;
             // $where['user_phone_1'] = $username;
             // var_dump($where);die;
-            
             $cek = $this->Login_model->cek_login("users",$where)->num_rows();
             if($cek > 0){
                 $user_info = $this->Login_model->get_login_info($username);
@@ -767,7 +708,6 @@ class Login extends My_Controller{
                     if(intval($user_info['branch_flag']) == 1){
                         $update_user_last_login = $this->User_model->update_user($user_info['user_id'],array('user_date_last_login'=>date("YmdHis")));
                         $user_group = $this->Login_model->get_group_info($user_info['user_user_group_id']); 
-                        
                         // Prepare Menu & Submenu by Session
                         $menu_group = $this->Login_model->get_menu_group_by_user_menu($user_info['user_id']);
                         $menus = array();
@@ -785,7 +725,6 @@ class Login extends My_Controller{
                             }
                         }    
                         $menu_result = $menus;
-                        
                         //Session Directory
                         $session_directory = site_url('admin');
                         $session_array=array(
@@ -829,7 +768,6 @@ class Login extends My_Controller{
                             ),
                             'menu_access' => $menu_result
                         );
-
                         //Aktivitas
                         $params = array(
                             'activity_user_id' => $user_info['user_id'],
@@ -842,10 +780,8 @@ class Login extends My_Controller{
                             'activity_http_referer' => !empty($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null
                         );
                         $this->save_activity($params);
-                        
                         $set_user_name = $user_info['user_username'];
                         $set_user_mail = $user_info['user_email_1'];
-
                         //Set Cookie
                         $cookie = array(
                             'name' => site_url(),
@@ -854,7 +790,6 @@ class Login extends My_Controller{
                             'path' => '/'                    
                         );
                         $this->input->set_cookie($cookie);
-
                         $this->session->set_userdata('logged_in',true);            
                         $this->session->set_userdata('user_data',$session_array);
                         if($user_info['user_id'] == 1){
@@ -863,7 +798,6 @@ class Login extends My_Controller{
                             $this->session->set_userdata('root',false);                                                            
                         }
                         $this->session->set_userdata('menu_display',intval($user_info['user_menu_style'])); 
-
                         if(!empty($url_before)){
                             $return_url = $url_before;
                             $login_message = 'Akses Diberikan';
@@ -871,7 +805,6 @@ class Login extends My_Controller{
                             $return_url = $session_directory;
                             $login_message = 'Akses Diterima';
                         }
-                        
                         //Cek User Have a Branch
                         // $user_has_branch = !empty($user_info['user_branch_id']) ? $user_info['user_branch_id'] : 0;
                         // if(intval($user_has_branch) == 0){
@@ -884,7 +817,6 @@ class Login extends My_Controller{
                             $this->session->set_flashdata('switch_branch',1);                                
                         }                        
                         // $this->whatsapp_template('login-activity',$user_info['user_id']);
-
                         $return->status=1;
                         $return->message = $login_message;
                         $return->result = array(
@@ -904,7 +836,6 @@ class Login extends My_Controller{
                             $this->session->set_flashdata('user_id',$user_info['user_id']);  
                             $this->session->set_flashdata('user_phone',$user_info['user_phone_1']);  
                             $this->session->set_flashdata('user_email',$user_info['user_email_1']);  
-
                             $this->session->set_flashdata('message',$return->message);
                             $this->session->set_flashdata('status',1);
                         }else{
@@ -925,16 +856,13 @@ class Login extends My_Controller{
         $return->status = 0;
         $return->message = '';
         $return->result = '';
-        
         $url_before = $this->input->post('url');
         $user_id = $this->input->post('user_id');
         // $username = $this->input->post('username');
         // $password = $this->input->post('password');
-
         $session = $this->session->userdata();
         $session_user_id = intval($session['user_data']['user_id']);
         $session_root = intval($session['root']);
-
         if($session_root == true){
             $where = array(
                 'user_id' => $user_id,
@@ -948,7 +876,6 @@ class Login extends My_Controller{
                     if(intval($user_info['branch_flag']) == 1){
                         // $update_user_last_login = $this->User_model->update_user($user_info['user_id'],array('user_date_last_login'=>date("YmdHis")));
                         $user_group = $this->Login_model->get_group_info($user_info['user_user_group_id']); 
-                        
                         // Prepare Menu & Submenu by Session
                         $menu_group = $this->Login_model->get_menu_group_by_user_menu($user_info['user_id']);
                         $menus = array();
@@ -967,7 +894,6 @@ class Login extends My_Controller{
                             }
                         }    
                         $menu_result = $menus;
-                        
                         //Session Directory
                         $session_directory = site_url('admin');
                         $session_array=array(
@@ -1010,7 +936,6 @@ class Login extends My_Controller{
                             ),
                             'menu_access' => $menu_result
                         );
-
                         //Aktivitas
                         // $params = array(
                         //     'activity_user_id' => $user_info['user_id'],
@@ -1023,10 +948,8 @@ class Login extends My_Controller{
                         //     'activity_http_referer' => !empty($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null
                         // );
                         // $this->save_activity($params);
-                        
                         $set_user_name = $user_info['user_username'];
                         $set_user_mail = $user_info['user_email_1'];
-
                         //Set Cookie
                         $cookie = array(
                             'name' => site_url(),
@@ -1035,11 +958,9 @@ class Login extends My_Controller{
                             'path' => '/'                    
                         );
                         $this->input->set_cookie($cookie);
-
                         $this->session->set_userdata('logged_in',true);
                         $this->session->set_userdata('root',true);                                    
                         $this->session->set_userdata('user_data',$session_array);
-                        
                         if(!empty($url_before)){
                             $return_url = $url_before;
                             $login_message = 'Akses Diberikan';
@@ -1048,17 +969,14 @@ class Login extends My_Controller{
                             $login_message = 'Akses Diterima';
                         }
                         $this->session->set_userdata('menu_display',intval($user_info['user_menu_style'])); 
-
                         //Cek User Have a Branch
                         $user_has_branch = !empty($user_info['user_branch_id']) ? $user_info['user_branch_id'] : 0;
                         if(intval($user_has_branch) == 0){
                             $return_url = $return_url.'/welcome';
                         }
-
                         if($user_info['user_user_group_id'] == 9){ // Cashier
                             $return_url = site_url('pos');
                         }
-                        
                         $return->status=1;
                         $return->message = $login_message;
                         $return->result = array(
@@ -1084,16 +1002,13 @@ class Login extends My_Controller{
         $return->status = 0;
         $return->message = '';
         $return->result = '';
-        
         $url_before = $this->input->post('url');
         $branch_id = $this->input->post('branch_id');
         // $username = $this->input->post('username');
         // $password = $this->input->post('password');
-
         $session = $this->session->userdata();
         $session_user_id = intval($session['user_data']['user_id']);
         $session_root = intval($session['root']);
-
         $where = array(
             'user_id' => $session_user_id,
         );
@@ -1106,7 +1021,6 @@ class Login extends My_Controller{
                 if(intval($user_info['branch_flag']) == 1){
                     // $update_user_last_login = $this->User_model->update_user($user_info['user_id'],array('user_date_last_login'=>date("YmdHis")));
                     $user_group = $this->Login_model->get_group_info($user_info['user_user_group_id']); 
-                    
                     // Prepare Menu & Submenu by Session
                     $menu_group = $this->Login_model->get_menu_group_by_user_menu($user_info['user_id']);
                     $menus = array();
@@ -1124,9 +1038,7 @@ class Login extends My_Controller{
                         }
                     }    
                     $menu_result = $menus;
-                    
                     $branch_info = $this->Branch_model->get_branch($branch_id);
-
                     //Session Directory
                     $session_directory = site_url('admin');
                     $session_array=array(
@@ -1169,7 +1081,6 @@ class Login extends My_Controller{
                         ),
                         'menu_access' => $menu_result
                     );
-
                     //Aktivitas
                     $params = array(
                         'activity_user_id' => $user_info['user_id'],
@@ -1182,10 +1093,8 @@ class Login extends My_Controller{
                         'activity_http_referer' => !empty($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null
                     );
                     $this->save_activity($params);
-                    
                     $set_user_name = $user_info['user_username'];
                     $set_user_mail = $user_info['user_email_1'];
-
                     //Set Cookie
                     $cookie = array(
                         'name' => site_url(),
@@ -1194,11 +1103,9 @@ class Login extends My_Controller{
                         'path' => '/'                    
                     );
                     $this->input->set_cookie($cookie);
-
                     $this->session->set_userdata('logged_in',true);
                     $this->session->set_userdata('root',true);                                    
                     $this->session->set_userdata('user_data',$session_array);
-                    
                     if(!empty($url_before)){
                         $return_url = $url_before;
                         $login_message = 'Akses Diberikan';
@@ -1208,17 +1115,14 @@ class Login extends My_Controller{
                     }
                     $this->session->set_userdata('menu_display',intval($user_info['user_menu_style'])); 
                     $this->session->set_flashdata('switch_branch',0);
-
                     //Cek User Have a Branch
                     $user_has_branch = !empty($user_info['user_branch_id']) ? $user_info['user_branch_id'] : 0;
                     if(intval($user_has_branch) == 0){
                         $return_url = $return_url.'/welcome';
                     }
-
                     if($user_info['user_user_group_id'] == 9){ // Cashier
                         $return_url = site_url('sales/pos');
                     }
-                    
                     $return->status=1;
                     $return->message = $login_message;
                     $return->result = array(
@@ -1246,7 +1150,6 @@ class Login extends My_Controller{
     function remove_cookie(){
         $data['session'] = $this->session->userdata();             
         $this->session->sess_destroy();
-
         $cookie_name   = site_url();
         $get_cookie    = get_cookie($cookie_name);
         $delete_cookie = delete_cookie(site_url());
@@ -1286,7 +1189,6 @@ class Login extends My_Controller{
         $result .= $text[rand(0, $txtlen)];}
         return $result;
     }
-
     public function get_email_config(){
         $return = array(
             'protocol' => $this->config->item('protocol'),
@@ -1319,7 +1221,6 @@ class Login extends My_Controller{
         );
         return $return;
     }
-
     /* Process*/
     function tes(){ die;
         $params = array(
@@ -1332,9 +1233,7 @@ class Login extends My_Controller{
     }
     function email_register_confirmation(){ die; //Works phpmailer
         $this->load->model('User_model');
-
         $user_activation_code = $this->input->post('activation_code');
-        
         // var_dump($this->session());die;     
         // $result = $menu_group;        
         // var_dump($data['menu_by_session']);die;
@@ -1346,7 +1245,6 @@ class Login extends My_Controller{
         // $result = array($group => $dataku);
         // $this->output->set_content_type('application/json');
         // $this->output->set_output(json_encode($result));
-
         $get_user = $this->User_model->get_user_custom(array('user_activation_code'=>$user_activation_code));
         $data['email'] = $get_user['user_email_1'];
         $data['title'] = 'Register Confirmation';
@@ -1355,22 +1253,17 @@ class Login extends My_Controller{
         $this->load->view('layouts/admin/register/confirmation',$data);
     }    
     function email_send_register_confirmation($params){ die; // Works; phpmailer 
-
         $return = new \stdClass();
         $return->status = 0;
         $return->message = '';
         $return->result = '';
-        
         $app_name       = $this->app_name;
         $app_link       = $this->app_url.'register/activation/'.$params['user_activation_code'].'/'.$params['user_code'];
         $app_logo       = $this->app_logo;
-
         $user_name      = $params['user_fullname'];
-
         $to_address   = $params['user_email_1'];
         $to_subject   = "Aktivasi Akun Anda";
         $to_content   = "";
-
         $txt = "
         <div style='padding:25px;background-color:#f2f2f2;'>
             <div style='padding:10px;background-color:white;'>
@@ -1390,7 +1283,6 @@ class Login extends My_Controller{
             </div>
         </div>";    
         $to_content = $txt;    
-
         $result = $this->phpmailer_lib->sendMailSMTP($to_address, $to_subject, $to_content);
         if(intval($result['status']) === 1){
             $return->status  = 1;
@@ -1406,11 +1298,9 @@ class Login extends My_Controller{
         $return->message = '';
         $return->result = '';    
         $return->return_url = site_url('password');          
-        
         $next = true;
         $post = $this->input->post();
         $get  = $this->input->get();
-
         // $this->form_validation->set_rules('email', 'Email / Telepon', 'required');
         // $this->form_validation->set_rules('whatsapp', 'WhatsApp', 'required');        
         $this->form_validation->set_rules('captcha', 'Captcha', 'required');
@@ -1424,7 +1314,6 @@ class Login extends My_Controller{
             $email              = !empty($post['email']) ? $post['email'] : false;
             $captcha            = !empty($post['captcha']) ? $post['captcha'] : false;        
             $captcha_session    = $session['captcha'];
-
             //Captcha check
             if($next){
                 if($captcha == $captcha_session){ //Captcha Valid
@@ -1434,7 +1323,6 @@ class Login extends My_Controller{
                     $next=false;
                 }
             }
-
             switch($via){
                 case "EM": 
                     $via_status = 'Email';
@@ -1452,18 +1340,15 @@ class Login extends My_Controller{
                     $next = false;
                     break;
             }
-
             //Email Check
             if($next){
                 if($next == false){
                     $return->message = 'Harap masukkan "'.$via_status.'" anda';
                     $next=false;
                 }else{
-                    
                     $check_is_numeric = is_numeric($post['email']);
                     $is_email = false;
                     $is_phone = false;
-
                     if(!$check_is_numeric){
                         $number = str_replace('+','',$post['code']).$post['whatsapp'];
                         $where = array(
@@ -1479,17 +1364,14 @@ class Login extends My_Controller{
                     }
                     $get_user = $this->User_model->get_user_custom($where);
                     if($get_user){
-                        
                         // $is_email = true;
                         // $is_phone = false;
                         if($is_email){
                             $this->session->set_userdata('email_recovery',$get_user['user_email_1']);
-
                             $app_name       = $this->app_name;
                             $app_link       = $this->app_url.'password/recovery/'.$get_user['user_activation_code'].'/'.$get_user['user_session'];
                             $app_logo       = $this->app_logo;
                             $user_name      = $get_user['user_fullname'];
-
                             $to_address        = $get_user['user_email_1'];
                             $to_subject   = "Permintaan Perubahan Password";
                             $to_content   = "";
@@ -1514,29 +1396,23 @@ class Login extends My_Controller{
                                 </div>
                             </div>";    
                             $to_content = $txt;    
-
                             $result = $this->phpmailer_lib->sendMailSMTP($to_address, $to_subject, $to_content);
                             if(intval($result['status']) === 1){
                                 $return->status=1;
                                 $return->message='Email berhasil dikirim';                                        
                                 $return->return_url = site_url('password_sent');
-
                                 $this->session->set_flashdata('message','Silahkan cek Inbox / Spam yang dikirim ke <b style="color:#5ac736;">'.$get_user['user_email_1'].'</b>, untuk panduan pemulihan password anda');
                                 $this->session->set_flashdata('status',1);          
                             }else{
                                 $this->session->set_flashdata('message','Gagal mengirim pesan');
                                 $this->session->set_flashdata('status',0);
                             }    
-                                             
                         }
-
                         if($is_phone){
                             $return->status=1;
                             $return->message = 'Berhasil mengirim pesan';
                             $return->return_url = site_url('password_sent');
-
                             $response = $this->whatsapp_template('lost-password',$get_user['user_id']);
-                            
                             $this->session->set_flashdata('message','Silahkan cek WhatsApp <b style="color:#5ac736;">'.$get_user['user_phone_1'].'</b>, untuk panduan pemulihan password anda');
                             $this->session->set_flashdata('status',1);
                         }
@@ -1550,16 +1426,13 @@ class Login extends My_Controller{
         }
         echo json_encode($return);
     }
-
     /* Other */
     function whatsapp_send_group2($message_group_session){
         $return          = new \stdClass();
         $return->status  = 0;
         $return->message = '';
         $return->result  = '';
-        
         if(strlen($message_group_session) > 0){
-        
             $datas = array();
             $where = array(
                 'message_group_session' => $message_group_session
@@ -1567,7 +1440,6 @@ class Login extends My_Controller{
             $get_data=$this->Message_model->get_message_custom_result($where);
             if(count($get_data) > 0){
                 foreach($get_data as $v){
-
                     // Fetch Data
                     $datas[] = array(
                         'message_group_session' => $v['message_group_session'],
@@ -1577,27 +1449,22 @@ class Login extends My_Controller{
                         'message_contact_number' => $v['message_contact_number'],
                         'message_url' => $v['message_url']
                     );
-
                     // WhatsApp Config
                     $whatsapp_vendor = $this->config->item('whatsapp_vendor');
                     $whatsapp_server = $this->config->item('whatsapp_server');
                     $whatsapp_token  = $this->config->item('whatsapp_token');
-            
                     $whatsapp_auth  = $this->config->item('whatsapp_auth');
                     $whatsapp_sender  = $this->config->item('whatsapp_sender');        
                     $whatsapp_action_send  = $this->config->item('whatsapp_action')['send-message'];  
-                    
                     // Curl Prepare
                     $curl_link = $whatsapp_server.$whatsapp_action_send;
                     $curl_link .= '&sender='.$whatsapp_sender;
                     $curl_link .= '&recipient='.$v['message_contact_number'];
                     $curl_link .= '&content='.rawurlencode($v['message_text']); 
-
                     // Message has a caption
                     if(strlen($v['message_url']) > 0){
                         $curl_link .= '&file='.$v['message_url'];
                     }
-
                     // echo $curl_link;die;
                     $curl = curl_init();
                     curl_setopt_array($curl, array(
@@ -1613,11 +1480,9 @@ class Login extends My_Controller{
                     ));
                     $response = curl_exec($curl);
                     curl_close($curl);
-                
                     // Result Response
                     $get_response = json_decode($response,true);
                     if($get_response['result'] !== false){
-
                         $where = array(
                             'message_id' => $v['message_id']
                         );
@@ -1655,7 +1520,6 @@ class Login extends My_Controller{
         $return->status = 0;
         $return->message = 'Failed';
         $return->result = '';
-
         $whatsapp_server    = $this->config->item('whatsapp_server');        
         $whatsapp_action    = $this->config->item('whatsapp_action');  
         $whatsapp_action_v1    = $this->config->item('whatsapp_action_v1');                 
@@ -1664,21 +1528,17 @@ class Login extends My_Controller{
         $whatsapp_token     = $this->config->item('whatsapp_token');
         $whatsapp_key       = $this->config->item('whatsapp_key');
         $whatsapp_auth      = $this->config->item('whatsapp_auth');
-
         if(count($params) > 0){
             $content    = $params['content'];
             $recipient  = $params['recipient'];
             $file       = $params['file'];
-        
             if(count($recipient) > 0){
-                
                 $header = (strlen($params['header']) > 2) ? '*'.$params['header']."*"."\r\n\r\n" : '';
                 $footer = (strlen($params['footer']) > 2) ? "\r\n".$params['footer']."\r\n" : '';  
                 // var_dump($recipient);die;
                 for($i=0; $i<count($recipient); $i++){
                     if($whatsapp_vendor == 'umbrella.co.id'){
                         $set_content = rawurlencode($header.$content.$footer);
-
                         // Detect Message have a Caption
                         if(!empty($file)){
                             $caption = "Attachment";
@@ -1691,7 +1551,6 @@ class Login extends My_Controller{
                             $response = curl_exec($curl);                                        
                         }else{ //Dont have a caption
                             $url = '&auth='.$whatsapp_auth.'&recipient='.$recipient[$i]['number'].'&sender='.$whatsapp_sender.'&content='.$set_content;
-
                             $curl = curl_init();
                             curl_setopt_array($curl, array(
                                 CURLOPT_URL => $whatsapp_server.'devices?action=send-message'.$url,
@@ -1699,22 +1558,18 @@ class Login extends My_Controller{
                             ));       
                             $response = curl_exec($curl);
                         }
-
                         /* Result CURL / API */
                         $get_response = json_decode($response,true);
-                        
                         //Do Update if have message_id
                         if(($get_response) && ($get_response['status'] == 1)){
                             if(!empty($recipient[$i]['message_id'])){
                                 $this->Message_model->update_message($recipient[$i]['message_id'],array('message_flag'=>1,'message_date_sent'=>date("YmdHis")));
                             }
                         }
-
                         $return->result  = $get_response['result']; // Result
                         $return->status  = $get_response['status']; // 1 / 0
                         $return->message = $get_response['message']; // Berhasil / Gagal 
                     }elseif($whatsapp_vendor=='wam.umbrella.co.id'){
-
                         //Send if have Client ID
                         if(!empty($recipient[$i]['message_device_number'])){
                             $client = $recipient[$i]['message_device_client'];
@@ -1727,7 +1582,6 @@ class Login extends My_Controller{
                                 'Authorization: Bearer '.$whatsapp_token
                             );
                         }
-
                         $curl = curl_init();
                         curl_setopt_array($curl, array(
                             CURLOPT_URL => $whatsapp_server.$whatsapp_action_v1['send-message'],
@@ -1752,7 +1606,6 @@ class Login extends My_Controller{
                             $return->status = ($get_response['status'] == 1) ? 1 : 0;
                             $return->message = ($return->status == 1) ? 'Success' : $get_response['message'];
                             $return->result = [];
-
                             //Do Update if have message_id
                             if(!empty($recipient[$i]['message_id'])){
                                 $this->Message_model->update_message($recipient[$i]['message_id'],array('message_flag'=>1,'message_date_sent'=>date("YmdHis")));
@@ -1776,9 +1629,7 @@ class Login extends My_Controller{
         $return->status     = 0;
         $return->message    = '';
         $return->result     = '';
-        
         if(strlen($message_group_session) > 0){
-        
             $datas = array();
             $where = array(
                 'message_group_session' => $message_group_session
@@ -1827,13 +1678,10 @@ class Login extends My_Controller{
         $next = true;
         $get_branch = $this->Branch_model->get_branch(1);
         $this->app_name = $get_branch['branch_name'];
-
         switch($action){
             case "register-and-confirmation-code": die;
                 $get_user = $this->User_model->get_user($user_id);
-
                 // $route['register/activation/(:any)/(:any)'] = "login/register_activation/$1/$2"; //http://localhost:8888/git/jrn/register/activation/W82A86WXSJTUYGC2ER7NNP2PAG8SDEPZ/PSR6F7
-
                 $text     = '🔐 *Aktivasi Akun*'."\r\n\r\n";
                 $text    .= 'Hai, Selamat datang di platform *'.$this->app_name.'*'."\r\n";
                 $text    .= 'Nomor atau Email anda telah di daftarkan, mohon ikuti petunjuk dibawah ini'."\r\n\r\n";
@@ -1848,9 +1696,7 @@ class Login extends My_Controller{
                 break;
             case "register-and-confirmation-otp":
                 $get_user = $this->User_model->get_user($user_id);
-
                 // $route['register/activation/(:any)/(:any)'] = "login/register_activation/$1/$2"; //http://localhost:8888/git/jrn/register/activation/W82A86WXSJTUYGC2ER7NNP2PAG8SDEPZ/PSR6F7
-
                 $text     = '🔐 *Aktivasi Akun*'."\r\n\r\n";
                 $text    .= 'Hai, Selamat datang di platform *'.$this->app_name.'*, Nomor atau Email anda telah di daftarkan, mohon masukkan kode dibawah ini'."\r\n\r\n";
                 $text    .= "Kode OTP:"."\r\n";
@@ -1875,7 +1721,6 @@ class Login extends My_Controller{
                 break;                                
             case "reset-password-and-activation-code": die;
                 $get_user = $this->User_model->get_user($user_id);
-
                 $text     = '🔓 *Reset Password*'."\r\n\r\n";
                 // $text    .= 'Hi, Welcome to platform *'.$this->app_name.'*'."\r\n";
                 $text    .= 'Hi, Did you ask for a password change on *'.$this->app_name.'*, Please enter the code below on your screen'."\r\n\r\n";
@@ -1890,7 +1735,6 @@ class Login extends My_Controller{
                 break;                
             case "lost-password":
                 $get_user = $this->User_model->get_user($user_id);
-
                 $text  = '🔓 *Permintaan Perubahan Password*'."\r\n\r\n";            
                 $text .= 'Anda baru saja melakukan permintaan pengaturan ulang password di platform *'.$this->app_name.'*'."\r\n";
                 // $text .= 'Nomor anda baru saja di daftarkan pada platform kami'."\r\n";            
@@ -1900,7 +1744,6 @@ class Login extends My_Controller{
                 // $text .= "*".$get_user['user_activation_code']."*"."\r\n\r\n";
                 $text .= "📌 Abaikan jika bukan anda, seseorang mungkin mencoba masuk menggunakan akun anda."."\r\n\r\n";
                 $text .= "Jika tautan tidak dapat diklik, mohon balas pesan ini dengan kata *ok*";   
-                           
                 break;
             case "lost-password-success-recovery":
                 $get_user = $this->User_model->get_user($user_id);                
@@ -1914,7 +1757,6 @@ class Login extends My_Controller{
                 break;
             case "login-activity":
                 $get_user = $this->User_model->get_user($user_id);
-
                 $text     = '✅ *Login Berhasil*'."\r\n\r\n";
                 // $text    .= 'Hi, Welcome to platform *'.$this->app_name.'*'."\r\n";
                 $text    .= 'Anda telah login ke *'.$this->app_name.'*'."\r\n\r\n";
@@ -1935,13 +1777,11 @@ class Login extends My_Controller{
             // Prepare Message insert
             $session_group      = $this->random_code(20);
             $session_message    = $this->random_code(20);
-
             // Make Watermark
             $whatsapp_watermak    = $this->config->item('whatsapp_watermark');
             if(strlen($whatsapp_watermak) > 0){
                 $text .= "\r\n\r\n".$whatsapp_watermak;
             }   
-
             $params = array(
                 'message_contact_id' => $get_user['user_id'],
                 // 'message_contact_name' => $get_user['user_username'],
@@ -1953,10 +1793,8 @@ class Login extends My_Controller{
                 // 'message_url' => $get_news_url,
                 'message_flag' => 0, 'message_device_id' => 1, 'message_date_created' => date("YmdHis")
             );  
-
             $set_data=$this->Message_model->add_message($params);
             $message_id = $set_data;
-
             if(intval($message_id) > 0){
                 $datas = $this->Message_model->get_message($message_id);
                 if($datas==true){
@@ -1968,7 +1806,6 @@ class Login extends My_Controller{
         }
     }
     function email_template($action,$user_id){
-
     }
     function test(){
         $a = $this->whatsapp_template('request-otp',1);
