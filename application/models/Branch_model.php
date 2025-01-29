@@ -33,13 +33,13 @@ class Branch_model extends CI_Model
     }
 
     function set_join() {
-        $this->db->join('branchs_specialists','branch_specialist_id=specialist_id','left');
+        // $this->db->join('branchs_specialists','branch_specialist_id=specialist_id','left');
         $this->db->join('users','branch_user_id=user_id','left');   
         $this->db->join('users_groups','user_user_group_id=user_group_id','left');                
     }
 
     function get_all_branch($params = null, $search = null, $limit = null, $start = null, $order = null, $dir = null) {
-        $this->db->select("branchs.*, branchs_specialists.*, users.*, users_groups.*");
+        $this->db->select("branchs.*, users.*, users_groups.*");
         $this->set_params($params);
         $this->set_search($search);
         $this->set_join();

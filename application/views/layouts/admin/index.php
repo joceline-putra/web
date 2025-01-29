@@ -126,8 +126,6 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
 				<?php 
 				if(isset($_view) && $_view)
 					$this->load->view($_view);
-				if(isset($_js_file) && $_js_file)
-					$this->load->view($_js_file);
 				?>                    
 			</div>
 		</div>
@@ -1576,5 +1574,9 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
         // }
 	</script>    
 <?php if (isset($script)) { /* $this->load->view($script); */ } ?>
+<?php 
+	if(isset($_js) && $_js)
+		$this->load->view($_js);
+?>       
 </body>
 </html>

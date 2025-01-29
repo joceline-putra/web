@@ -229,7 +229,7 @@
 </style> 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <?php include '_navigation.php'; ?>
+        <?php #include '_navigation.php'; ?>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
                 <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
@@ -294,7 +294,7 @@
                                                         </div>
                                                     </div>    											           
                                                 </div> 
-                                                <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                <!-- <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                     <div class="form-group">                          
                                                         <label>Fitur Riwayat Harga Produk</label>                          
                                                     </div>
@@ -304,7 +304,7 @@
                                                     <div class="checkbox check-success">
                                                         <input id="user_check_price_sell" type="checkbox" value="0"><label for="user_check_price_sell">&nbsp;Bisa lihat Harga Jual</label>
                                                     </div>                                                                                                               
-                                                </div>                                                                          
+                                                </div>                                                                           -->
                                             </div>
                                             <div class="col-md-4 col-sm-12 col-xs-12">
                                                 <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
@@ -389,7 +389,7 @@
                                                             <input id="fullname" name="fullname" type="text" value="" class="form-control" readonly='true'/>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-5 col-md-5 col-xs-12 padding-remove-side">
+                                                    <div class="hide col-lg-5 col-md-5 col-xs-12 padding-remove-side">
                                                         <div class="form-group">
                                                             <label class="form-label">Jenis Kelamin</label>
                                                             <select id="gender" name="gender" class="form-control" disabled readonly>

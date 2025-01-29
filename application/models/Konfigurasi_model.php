@@ -86,9 +86,9 @@ class Konfigurasi_model extends CI_Model
         $table_column = $table.'.'.$table_to_prefix.'_user_id';
 
         if($table=='branchs'){
-            $this->db->select($table.".*, users.user_id, users.user_username, branchs_specialists.*, users_groups.*");
+            $this->db->select($table.".*, users.user_id, users.user_username, users_groups.*");
             $this->db->join("users",$table_column."=users.user_id","left");
-            $this->db->join("branchs_specialists","branchs.branch_specialist_id=branchs_specialists.specialist_id","left");
+            // $this->db->join("branchs_specialists","branchs.branch_specialist_id=branchs_specialists.specialist_id","left");
             $this->db->join("users_groups","users.user_user_group_id=users_groups.user_group_id","left");
         }else{
             $this->db->select($table.".*, users.user_id, users.user_username");

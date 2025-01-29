@@ -92,8 +92,8 @@ class Kontak extends MY_Controller{
         $session = $this->session->userdata();
         $session_branch_id = $session['user_data']['branch']['id'];
         $session_user_id = $session['user_data']['user_id'];
-        $data['account_payable'] = $this->get_account_map_for_transaction($session_branch_id,4,1); //Account Payable
-        $data['account_receivable'] = $this->get_account_map_for_transaction($session_branch_id,4,2); //Account Receivable
+        // $data['account_payable'] = $this->get_account_map_for_transaction($session_branch_id,4,1); //Account Payable
+        // $data['account_receivable'] = $this->get_account_map_for_transaction($session_branch_id,4,2); //Account Receivable
         // if($identity == 0){ //All
         //     $data['identity'] = 0;
         //     $data['title'] = 'Kontak';
