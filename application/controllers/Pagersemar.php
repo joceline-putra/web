@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Pagersemar extends MY_Controller{
 
+    var $folder        = 'layouts/admin/menu/pagersemar/';
     var $folder_upload = 'upload/name/';
     var $image_width   = 250;
     var $image_height  = 250;
@@ -1023,8 +1024,8 @@ class Pagersemar extends MY_Controller{
         $data['theme']      = $this->User_model->get_user($data['session']['user_data']['user_id']);
 
         $data['title']  = 'Member';
-        $data['_view']  = 'layouts/admin/menu/pagersemar/customer';
-        $data['_js']    = 'layouts/admin/menu/pagersemar/customer_js';            
+        $data['_view']  = $this->folder.'customer';
+        $data['_js']    = $this->folder.'customer_js';            
         $this->load->view('layouts/admin/index',$data);
     }
     function card(){
@@ -1032,8 +1033,8 @@ class Pagersemar extends MY_Controller{
         $data['theme']      = $this->User_model->get_user($data['session']['user_data']['user_id']);
 
         $data['title']  = 'Card';
-        $data['_view']  = 'layouts/admin/menu/pagersemar/card';
-        $data['_js']    = 'layouts/admin/menu/pagersemar/card_js';            
+        $data['_view']  = $this->folder.'card';
+        $data['_js']    = $this->folder.'card_js';            
         $this->load->view('layouts/admin/index',$data);
     }  
     function merchant(){
@@ -1045,8 +1046,8 @@ class Pagersemar extends MY_Controller{
         $data['theme']      = $this->User_model->get_user($data['session']['user_data']['user_id']);
 
         $data['title']  = 'Merchant';
-        $data['_view']  = 'layouts/admin/menu/pagersemar/branch';
-        $data['_js']    = 'layouts/admin/menu/pagersemar/branch_js';            
+        $data['_view']  = $this->folder.'branch';
+        $data['_js']    = $this->folder.'branch_js';            
         $this->load->view('layouts/admin/index',$data);
     }
     function user(){
@@ -1054,8 +1055,8 @@ class Pagersemar extends MY_Controller{
         $data['theme']      = $this->User_model->get_user($data['session']['user_data']['user_id']);
 
         $data['title']  = 'User';
-        $data['_view']  = 'layouts/admin/menu/pagersemar/user';
-        $data['_js']    = 'layouts/admin/menu/pagersemar/user_js';            
+        $data['_view']  = $this->folder.'user';
+        $data['_js']    = $this->folder.'user_js';            
         $this->load->view('layouts/admin/index',$data);
     }        
 }
