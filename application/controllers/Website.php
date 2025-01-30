@@ -1401,7 +1401,7 @@ class Website extends CI_Controller{
                 'category_id' => $value['category_id'],
                 'category_name' => $value['category_name'],
                 'category_url' => site_url($this->product_routing).'/'.$value['category_url'],
-                'category_count' => $value['category_count'],
+                'category_count_data' => $value['category_count'],
                 'category_image' => !empty($value['category_image']) ? base_url().$value['category_image'] : base_url('upload/noimage2.png')               
             );
         }
