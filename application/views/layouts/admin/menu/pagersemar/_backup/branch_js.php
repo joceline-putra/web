@@ -1,8 +1,8 @@
 <script>
     $(document).ready(function () {
-        var identity = "<?php echo $identity; ?>";
+        var identity = 1;
         var view = "<?php echo $_view; ?>";
-        var url = "<?= base_url('konfigurasi/manage'); ?>";
+        var url = "<?= base_url('pagersemar'); ?>";
         var url_image = '<?= base_url('upload/noimage.png'); ?>';
         let image_width = "<?= $image_width;?>";
         let image_height = "<?= $image_height;?>"; 
@@ -37,13 +37,12 @@
                 dataType: 'json',
                 cache: 'false',
                 data: function (d) {
-                    d.action = 'load';
+                    d.action = 'branch_load';
                     d.tipe = identity;
                     d.length = $("#filter_length").find(':selected').val();
                     d.search = {
                         value: $("#filter_search").val()
                     };
-                    d.filter_specialist = $("#filter_specialist").find(':selected').val();
                     d.filter_province = $("#filter_province").find(':selected').val();
                     d.filter_city = $("#filter_city").find(':selected').val();
                     // d.search['value']['contact_type'] = $("#filter_type").find(':selected').val();
@@ -82,7 +81,6 @@
                     render: function (meta, data, row) {
                         var dsp = '';
                         dsp += '<b>' + row.branch_name + '</b><br>';
-                        dsp += '' + row.specialist_name + '';
                         if (row.branch_code != undefined) {
                             dsp += '<br><label class="label">' + row.branch_code + '</label>';
                         }
@@ -164,35 +162,6 @@
             console.log(limit_start, limit_end);
             $("#table-data-in").attr('data-limit-start', limit_start);
             $("#table-data-in").attr('data-limit-end', limit_end);
-        });
-        $('#specialist').select2({
-            placeholder: '--- Pilih ---',
-            minimumInputLength: 0,
-            ajax: {
-                type: "get",
-                url: "<?= base_url('search/manage'); ?>",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    var query = {
-                        search: params.term,
-                        source: 'specialist'
-                    }
-                    return query;
-                },
-                processResults: function (data) {
-                    return {
-                        results: data
-                    };
-                },
-                cache: true
-            },
-            templateSelection: function (data, container) {
-                // Add custom attributes to the <option> tag for the selected option
-                // $(data.element).attr('data-custom-attribute', data.customValue);
-                // $("input[name='satuan']").val(data.satuan);
-                return data.text;
-            }
         });
         $('#user').select2({
             placeholder: '--- Pilih ---',
@@ -330,35 +299,6 @@
                 return data.text;
             }
         });
-        $('#filter_specialist').select2({
-            placeholder: '--- Pilih ---',
-            minimumInputLength: 0,
-            ajax: {
-                type: "get",
-                url: "<?= base_url('search/manage'); ?>",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    var query = {
-                        search: params.term,
-                        source: 'specialist'
-                    }
-                    return query;
-                },
-                processResults: function (data) {
-                    return {
-                        results: data
-                    };
-                },
-                cache: true
-            },
-            templateSelection: function (data, container) {
-                // Add custom attributes to the <option> tag for the selected option
-                // $(data.element).attr('data-custom-attribute', data.customValue);
-                // $("input[name='satuan']").val(data.satuan);
-                return data.text;
-            }
-        });
         $('#filter_province').select2({
             placeholder: '--- Pilih Kota / Kabupaten ---',
             minimumInputLength: 0,
@@ -434,7 +374,7 @@
         });
         $("#kecamatan").on('change', function (e) {
         });
-        $("#filter_specialist, #filter_province, #filter_city").on('change', function (e) {
+        $("#filter_province, #filter_city").on('change', function (e) {
             index.ajax.reload();
         });
         // New Button
@@ -551,12 +491,6 @@
                 }
             }
             if (next == true) {
-                if ($("select[id='specialist']").find(":selected").val() == 0) {
-                    notif(0, 'Jenis usaha harus diisi');
-                    next = false;
-                }
-            }
-            if (next == true) {
                 /*
                 if ($("select[id='user']").find(":selected").val() == 0) {
                     notif(0, 'Penanggung jawab harus diisi');
@@ -605,7 +539,7 @@
             }
             if (next == true) {
                 var form = new FormData();
-                form.append('action', 'create');
+                form.append('action', 'branch_create');
                 // form.append('upload1', $('#upload1')[0].files[0]);
                 form.append('tipe', identity);
                 form.append('kode', $('#kode').val());
@@ -614,7 +548,6 @@
                 form.append('email_1', $('#email_1').val());
                 form.append('alamat', $('#alamat').val());
                 form.append('status', $('#status').find(':selected').val());
-                form.append('specialist', $('#specialist').find(':selected').val());
                 form.append('user', $('#user').find(':selected').val());
                 form.append('provinsi', $('#provinsi').find(':selected').val());
                 form.append('kota', $('#kota').find(':selected').val());
@@ -657,7 +590,7 @@
             e.preventDefault();
             var id = $(this).data("id");
             var data = {
-                action: 'read',
+                action: 'branch_read',
                 tipe: identity,
                 id: id
             }
@@ -697,11 +630,6 @@
                             $("#files_preview").attr('src',image);
                             $(".files_link").attr('href',image);                            
                         }
-                        $("select[name='specialist']").append('' +
-                                '<option value="' + d.result.specialist_id + '">' +
-                                d.result.specialist_name +
-                                '</option>');
-                        $("select[name='specialist']").val(d.result.specialist_id).trigger('change');
                         $("select[name='user']").append('' +
                                 '<option value="' + d.result.user_id + '">' +
                                 d.result.user_username + ' - ' + d.result.user_group_name +
@@ -849,12 +777,6 @@
                 next = false;
             }
             if (next == true) {
-                if ($("select[id='specialist']").find(":selected").val() == 0) {
-                    notif(0, 'Jenis usaha harus diisi');
-                    next = false;
-                }
-            }
-            if (next == true) {
                 /*
                 if ($("select[id='user']").find(":selected").val() == 0) {
                     notif(0, 'Penanggung jawab harus diisi');
@@ -903,7 +825,7 @@
             }
             if (next == true) {
                 var form = new FormData();
-                form.append('action', 'update');
+                form.append('action', 'branch_update');
                 form.append('id', $('#id_document').val());
                 // form.append('upload1', $('#upload1')[0].files[0]);
                 form.append('tipe', identity);
@@ -912,7 +834,6 @@
                 form.append('email_1', $('#email_1').val());
                 form.append('alamat', $('#alamat').val());
                 form.append('status', $('#status').find(':selected').val());
-                form.append('specialist', $('#specialist').find(':selected').val());
                 form.append('provinsi', $('#provinsi').find(':selected').val());
                 form.append('kota', $('#kota').find(':selected').val());
                 form.append('kecamatan', $('#kecamatan').find(':selected').val());
@@ -1022,7 +943,7 @@
                         keys: ['enter'],
                         action: function () {
                             var data = {
-                                action: 'set-active',
+                                action: 'branch_set_active',
                                 tipe: identity,
                                 id: id,
                                 flag: set_flag,
@@ -1163,7 +1084,6 @@
         //Attr Select yang perlu di setel
         var atributSelect = [
             "status",
-            "specialist",
             "user",
             "provinsi", "kota", "kecamatan" 
             // "with_stock", "with_journal"

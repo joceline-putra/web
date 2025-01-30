@@ -3,31 +3,24 @@
     @AUTHOR: Joe Witaya
 */ 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class News extends MY_Controller{
-
     public $folder_upload            = 'upload/news/'; // 1
     public $folder_upload_project    = 'upload/project/'; // 5   
     public $folder_upload_gallery    = 'upload/gallery/'; // 6
     public $folder_upload_portofolio = 'upload/portofolio/'; // 7
     public $folder_upload_team       = 'upload/team/'; // 8
-
-    public $allowed_types = 'jpg|png|jpeg|mp4';
+    public $allowed_types = 'jpg|png|jpeg';
     public $image_width = 480;
     public $image_height = 480;
-
     public $portofolio_width = 200;
     public $portofolio_height = 80;    
-    
     public $allowed_file_size = 1024; // 5 MB -> 5000 KB
     public $watermark = 'dolphindoor.co.id';
-
     var $blog_route         = 'blog';
     var $project_route      = 'project'; 
     var $gallery_route      = 'gallery';
     var $portofolio_route   = 'portofolio'; 
     var $team_route         = 'team';                
-
     function __construct(){
         parent::__construct();
         if(!$this->is_logged_in()){
@@ -38,10 +31,8 @@ class News extends MY_Controller{
         $this->load->model('News_model');
         $this->load->model('Kategori_model');
         $this->load->model('Aktivitas_model');
-
         $this->load->helper('form');
         $this->load->library('form_validation');
-
         // $this->folder_upload = 'upload/news/';
         // $this->allowed_types = 'jpg|png|jpeg|mp4';
         // $this->image_width   = 480;
@@ -51,80 +42,57 @@ class News extends MY_Controller{
     function pages($identity){
         $data['session'] = $this->session->userdata();     
         $data['theme'] = $this->User_model->get_user($data['session']['user_data']['user_id']);
-
         $data['allowed_file_type'] = $this->allowed_types;
         $data['allowed_file_size'] = $this->allowed_file_size;
-
         if($identity == 1){ //Blog / News
             $data['_route'] = $this->blog_route;            
             $data['identity'] = 1;            
             $data['title'] = 'Blog';
             $data['_view'] = 'layouts/admin/menu/webpage/article';
             $file_js = 'layouts/admin/menu/webpage/article_js.php';
-        }
-
-        if($identity == 2){ //Template Promo
+        } else if($identity == 2){ //Template Promo
             $data['identity'] = 2;
             $data['title'] = 'Template';
             $data['_view'] = 'layouts/admin/menu/message/template';
             $file_js = 'layouts/admin/menu/message/template_js.php';
-        }        
-
-        if($identity == 5){ //Project
-
+        } else if($identity == 5){ //Project
             $data['_route'] = $this->project_route;            
             $data['identity'] = 5;            
             $data['title'] = 'Project';
             $data['_view'] = 'layouts/admin/menu/webpage/project';
             $file_js = 'layouts/admin/menu/webpage/project_js.php';
-        }
-
-        if($identity == 6){ //Gallery
-
+        } else if($identity == 6){ //Gallery
             $data['_route'] = $this->gallery_route;            
             $data['identity'] = 6;            
             $data['title'] = 'Gallery';
             $data['_view'] = 'layouts/admin/menu/webpage/gallery';
             $file_js = 'layouts/admin/menu/webpage/gallery_js.php';
-        }
-        
-        if($identity == 7){ //Portofolio
-
+        } else if($identity == 7){ //Portofolio
             $data['_route'] = $this->portofolio_route;            
             $data['identity'] = 7;            
             $data['title'] = 'Portofolio';
             $data['_view'] = 'layouts/admin/menu/webpage/portofolio';
             $file_js = 'layouts/admin/menu/webpage/portofolio_js.php';
-
             $data['portofolio_width'] = intval($this->portofolio_width);
             $data['portofolio_height'] = intval($this->portofolio_height);
-        }
-        
-        if($identity == 8){ //Team
-
+        } else if($identity == 8){ //Team
             $data['_route'] = $this->team_route;            
             $data['identity'] = 8;            
             $data['title'] = 'Team';
             $data['_view'] = 'layouts/admin/menu/webpage/team';
             $file_js = 'layouts/admin/menu/webpage/team_js.php';
-
             $data['portofolio_width'] = intval($this->image_width);
             $data['portofolio_height'] = intval($this->image_height);
         }        
-
         $data['image_width'] = intval($this->image_width);
         $data['image_height'] = intval($this->image_height);
-
         //Date First of the month
         $firstdate = new DateTime('first day of this month');
         $firstdateofmonth = $firstdate->format('Y-m-d');
-
         //Date Now
         $datenow =date("Y-m-d"); 
         $data['first_date'] = $firstdateofmonth;
         $data['end_date'] = $datenow;
-        
-
         $this->load->view('layouts/admin/index',$data);
         $this->load->view($file_js,$data);
     }
@@ -133,17 +101,14 @@ class News extends MY_Controller{
         $session = $this->session->userdata();
         $session_branch_id = $session['user_data']['branch']['id'];
         $session_user_id = $session['user_data']['user_id'];
-                
         $return = new \stdClass();
         $return->status = 0;
         $return->message = '';
         $return->result = '';
-
         $action = $this->input->post('action');
         $post_data = $this->input->post('data');
         $post = $this->input->post();
         $data = json_decode($post_data, TRUE);
-        
         if($this->input->post('action')){
             $action = $this->input->post('action');
             switch($action){
@@ -166,7 +131,6 @@ class News extends MY_Controller{
                             $search[$v] = $s;
                         }
                     }
-
                     $params = array();
                     if($session_user_id){
                         $params['news_branch_id'] = intval($session_branch_id);
@@ -180,7 +144,6 @@ class News extends MY_Controller{
                         // );               
                         $params['news_category_id'] = $category;             
                     }
-
                     // $params = (intval($flag) < 3) ? $params_datatable['news.news_flag']=$flag : $params_datatable;            
                     if($post['flag'] !== "All") {
                         $params['news_flag'] = intval($post['flag']);
@@ -192,7 +155,6 @@ class News extends MY_Controller{
                         $params['other_column'] = $this->input->post('other_column');
                     }
                     */
-                    
                     $datas = $this->News_model->get_all_newss($params, $search, $limit, $start, $order, $dir);
                     $datas_count = $this->News_model->get_all_newss_count($params, $search);
                     if(isset($datas)){ //Data exist
@@ -221,7 +183,6 @@ class News extends MY_Controller{
                         $next = true;
                         $title = !empty($this->input->post('news_title')) ? $this->safe($this->input->post('news_title')) : '';
                         $url = $this->generate_seo_link($title);                
-
                         if( (!empty($post['news_id'])) && (strlen($post['news_id']) > 0) ){ /* Update if Exist */ // if( (!empty($post['order_session'])) && (strlen($post['order_session']) > 10) ){ /* Update if Exist */      
                             $news_id = $post['news_id'];
                             $where_not = [
@@ -232,12 +193,9 @@ class News extends MY_Controller{
                                 'news_category_id' => !empty($post['news_category_id']) ? $post['news_category_id'] : null, 
                             ];
                             $check_exists = $this->News_model->check_data_exist_two_condition($where_not,$where_new);
-
                             /* Continue Update if not exist */
                             if(!$check_exists){
-                                
                                 $get_news = $this->News_model->get_news($news_id);
-
                                 //Croppie Upload Image
                                 $post_upload = !empty($this->input->post('upload1')) ? $this->input->post('upload1') : "";
                                 if(strlen($post_upload) > 10){
@@ -260,7 +218,6 @@ class News extends MY_Controller{
                                     }
                                 }
                                 //End of Croppie 
-
                                 if($next){
                                     $params = array(
                                         'news_type' => !empty($this->input->post('news_type')) ? intval($this->input->post('news_type')) : 1,
@@ -279,10 +236,8 @@ class News extends MY_Controller{
                                         'news_position' => !empty($this->input->post('news_position')) ? $this->input->post('news_position') : null
                                     );
                                     $update = $this->News_model->update_news($news_id,$params);   
-
                                     if($update){
                                         $get_news = $this->News_model->get_news($news_id);
-
                                         // /* Start Activity */
                                         $params = array(
                                             'activity_user_id' => $session['user_data']['user_id'],
@@ -296,7 +251,6 @@ class News extends MY_Controller{
                                         );
                                         $this->save_activity($params);
                                         // /* End Activity */         
-
                                         $return->status  = 1;
                                         $return->message = 'Berhasil memperbarui '.$post['news_title'];
                                         $return->result= array(
@@ -319,7 +273,6 @@ class News extends MY_Controller{
                                     'news_category_id' => !empty($post['news_category_id']) ? $post['news_category_id'] : null,                      
                                 ];
                                 $check_exists = $this->News_model->check_data_exist($params_check);
-
                                 /* Continue Save if not exist */
                                 if(!$check_exists){
                                     $params = array(
@@ -338,12 +291,10 @@ class News extends MY_Controller{
                                         'news_flag' => !empty($this->input->post('news_flag')) ? $this->input->post('news_flag') : 0,
                                         'news_position' => !empty($this->input->post('news_position')) ? $this->input->post('news_position') : null
                                     );
-                                    
                                     $create = $this->News_model->add_news($params);  
                                     if($create){
                                         $get_news = $this->News_model->get_news($create);
                                         $news_id = $create;
-
                                         //Croppie Upload Image
                                         $post_upload = !empty($this->input->post('upload1')) ? $this->input->post('upload1') : "";
                                         if(strlen($post_upload) > 10){
@@ -366,7 +317,6 @@ class News extends MY_Controller{
                                             }
                                         }
                                         //End of Croppie     
-
                                         // /* Start Activity */
                                         $params = array(
                                             'activity_user_id' => $session['user_data']['user_id'],
@@ -380,7 +330,6 @@ class News extends MY_Controller{
                                         );
                                         $this->save_activity($params);
                                         // /* End Activity */
-                                                                            
                                         $return->status  = 1;
                                         $return->message = 'Berhasil menambahkan '.$title;
                                         $return->result= array(
@@ -404,10 +353,8 @@ class News extends MY_Controller{
                     $post_data = $this->input->post('data');
                     // $data = base64_decode($post_data);
                     $data = json_decode($post_data, TRUE);
-
                     $title = !empty($this->input->post('title')) ? $this->safe($this->input->post('title')) : '';
                     $url = $this->generate_seo_link($title);                
-                    
                     if(strlen($title) > 0){
                         $params = array(
                             'news_type' => !empty($this->input->post('tipe')) ? intval($this->input->post('tipe')) : 1,
@@ -425,7 +372,6 @@ class News extends MY_Controller{
                             'news_flag' => !empty($this->input->post('status')) ? $this->input->post('status') : 0,
                             'news_position' => !empty($this->input->post('posisi')) ? $this->input->post('posisi') : null
                         );
-
                         //Check Data Exist
                         $params_check = array(
                             'news_title' => $title,
@@ -433,20 +379,15 @@ class News extends MY_Controller{
                         );
                         $check_exists = $this->News_model->check_data_exist($params_check);
                         if($check_exists==false){
-
                             if($next){
-
                                 // Call Helper for Upload
                                 if(!empty($_FILES['upload1'])){
                                     if(intval($_FILES['upload1']['size']) > $this->allowed_file_size){
-
                                         //Process for Upload
                                         $upload_helper = upload_file_upload1($this->folder_upload, $_FILES['upload1']);
                                         if ($upload_helper['status'] == 1) {
-
                                             //Add Image for params before update
                                             $params['news_image'] = $this->folder_upload.$upload_helper['file'];
-
                                             //Delete old files
                                             /*
                                                 if (!empty($datas['news_image'])) {
@@ -466,11 +407,9 @@ class News extends MY_Controller{
                                     $set_msg = 'Menyimpan tanpa gambar';
                                 }   
                                 // End Call Helper for Upload 
-
                                 if($next){
                                     $set_data=$this->News_model->add_news($params);
                                     $data = $this->News_model->get_news($set_data);
-
                                     $return->status=1;
                                     $return->message='Berhasil menambahkan';
                                     $return->result= array(
@@ -481,7 +420,6 @@ class News extends MY_Controller{
                                     $return->status=0;
                                     $return->message = $set_msg;
                                 }
-
                                 /* Start Activity */
                                 $params = array(
                                     'activity_user_id' => $session['user_data']['user_id'],
@@ -505,28 +443,36 @@ class News extends MY_Controller{
                     break;
                 case "create_project_or_gallery":
                     $next = true;
-
                     // Cek if any Files
                     if(!empty($_FILES['files'])){
                         $files_count = count($_FILES['files']['name']);
                         if($files_count > 0){
                             for($i=0; $i<$files_count; $i++){
-                                if(intval($_FILES['files']['size'][$i] / 1024) > ($this->allowed_file_size)){
-                                    $next = false;
-                                    $set_msg = 'Gagal, ukuran melebihi '.($this->allowed_file_size / 1024).' Mb'; $next = false;
-                                    $return->message = $set_msg;
+
+                                $allowed_extensions = explode('|', $this->allowed_types);
+                                $file_name = $_FILES['files']['name'][$i];
+                                $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+                                
+                                // Allowed file Type
+                                if (in_array($file_extension, $allowed_extensions)) {
+                                    if(intval($_FILES['files']['size'][$i] / 1024) > ($this->allowed_file_size)){
+                                        $next = false;
+                                        $set_msg = 'Gagal, ukuran melebihi '.($this->allowed_file_size / 1024).' Mb'; $next = false;
+                                        $return->message = $set_msg;
+                                        echo json_encode($return); die;
+                                    }else{
+                                        $next = true;
+                                    }
+                                } else {
+                                    $return->message = "Invalid file format. Only " . implode(', ', $allowed_extensions) . " are allowed.";
                                     echo json_encode($return); die;
-                                }else{
-                                    $next = true;
                                 }
                             }
                         }
                     }
-
                     if($next){
                         $title = !empty($this->input->post('title')) ? $this->safe($this->input->post('title')) : '';
                         $url = $this->generate_seo_link($title);                
-                        
                         if(strlen($title) > 0){
                             $params_save = array(
                                 'news_type' => !empty($this->input->post('tipe')) ? intval($this->input->post('tipe')) : 5,
@@ -544,7 +490,6 @@ class News extends MY_Controller{
                                 'news_flag' => !empty($this->input->post('status')) ? $this->input->post('status') : 0,
                                 'news_position' => !empty($this->input->post('posisi')) ? $this->input->post('posisi') : null
                             );
-
                             $params_update = array(
                                 'news_category_id' => !empty($this->input->post('categories')) ? $this->input->post('categories') : null,
                                 'news_title' => $title,
@@ -559,7 +504,6 @@ class News extends MY_Controller{
                                 'news_flag' => !empty($this->input->post('status')) ? $this->input->post('status') : 0,
                                 'news_position' => !empty($this->input->post('posisi')) ? $this->input->post('posisi') : null
                             );
-
                             //Check Data Exist UPDATE
                             if(!empty($this->input->post('id')) && ($this->input->post('id') > 0)){
                                 $operator = 2; $mes = 'memperbarui';
@@ -579,7 +523,6 @@ class News extends MY_Controller{
                                 );
                                 $check_exists = $this->News_model->check_data_exist($params_check);
                             }
-                            
                             if($check_exists==false){
                                 if($operator == 1){
                                     $set_data=$this->News_model->add_news($params_save);
@@ -588,7 +531,6 @@ class News extends MY_Controller{
                                     $update_data = $this->News_model->update_news($this->input->post('id'),$params_update);
                                     $set_data = $this->input->post('id');
                                 }
-
                                 // Call Helper for Upload
                                 if(!empty($_FILES['files'])){
                                     //Process for Upload
@@ -604,10 +546,8 @@ class News extends MY_Controller{
                                     }else{
                                         $folder = 'upload/page/';
                                     }
-
                                     $upload_helper = upload_file_array_watermark($folder, $_FILES['files'],$image_config,$this->watermark);
                                     // $upload_helper = upload_file_array($folder, $_FILES['files'],$image_config);
-
                                     if ($upload_helper['status'] == 1) {
                                         $set_file_url = '';
                                         foreach($upload_helper['result'] as $v){
@@ -627,7 +567,6 @@ class News extends MY_Controller{
                                             $save_data = $this->File_model->add_file($params);
                                             $set_file_url = $v['file_location'];
                                         }
-
                                         if(strlen($set_file_url) > 0){
                                             $this->News_model->update_news($set_data,['news_image'=>$set_file_url]);
                                         }
@@ -641,14 +580,12 @@ class News extends MY_Controller{
                                     $set_msg = 'Menyimpan tanpa gambar';
                                 }   
                                 // End Call Helper for Upload 
-                                
                                 $return->status=1;
                                 $return->message='Berhasil '.$mes;
                                 $return->result= array(
                                     'id' => $set_data,
                                     'title' => $title
                                 );  
-
                                 /* Start Activity */
                                 $params = array(
                                     'activity_user_id' => $session['user_data']['user_id'],
@@ -678,10 +615,8 @@ class News extends MY_Controller{
                     );
                     $check_exists = $this->News_model->check_data_exist($params_check);                    
                     if($check_exists==false){
-
                         $title = !empty($data['nama']) ? $this->safe(ucwords($data['nama'])) : '';
                         $url = $this->generate_seo_link($title);  
-
                         $params = array(
                             'news_type' => $data['tipe'],
                             // 'news_category_id' => !empty($this->input->post('categories')) ? $this->input->post('categories') : null,
@@ -700,13 +635,11 @@ class News extends MY_Controller{
                         );                        
                         $set_data=$this->News_model->add_news($params);
                         if($set_data==true){
-
                             if($data['tipe'] == 7){ //Portofolio
                                 $folder = $this->folder_upload_portofolio;
                             }else if($data['tipe'] == 8){ //Team
                                 $folder = $this->folder_upload_team;
                             }
-
                             //Croppie Upload Image
                             $post_upload = !empty($data['upload1']) ? $data['upload1'] : "";
                             if(strlen($post_upload) > 10){
@@ -727,7 +660,6 @@ class News extends MY_Controller{
                                 }
                             }
                             //End of Croppie              
-
                             //Aktivitas
                             $params = array(
                                 'activity_user_id' => $session['user_data']['user_id'],
@@ -786,7 +718,6 @@ class News extends MY_Controller{
                     $title = !empty($this->input->post('title')) ? $this->safe($this->input->post('title')) : '';            
                     $url = $this->generate_seo_link($title);                
                     $next = true;
-
                     if(strlen($title) > 0){
                         $params = array(
                             'news_category_id' => !empty($this->input->post('categories')) ? $this->input->post('categories') : null,
@@ -800,7 +731,6 @@ class News extends MY_Controller{
                             'news_flag' => !empty($this->input->post('status')) ? $this->input->post('status') : 0,
                             'news_position' => !empty($this->input->post('posisi')) ? $this->input->post('posisi') : null
                         );
-
                         //Check Data Exist
                         $where_not = array(
                             'news_category_id' => $this->input->post('categories'),
@@ -812,20 +742,15 @@ class News extends MY_Controller{
                         );                        
                         $check_exists = $this->News_model->check_data_exist_two_condition($where_not,$where_new);
                         if($check_exists==false){
-
                             $datas = $this->News_model->get_news($id);
-
                             // Call Helper for Upload
                             if(!empty($_FILES['upload1'])){
                                 if(intval($_FILES['upload1']['size']) > $this->allowed_file_size){
-
                                     //Process for Upload
                                     $upload_helper = upload_file_upload1($this->folder_upload, $_FILES['upload1']);
                                     if ($upload_helper['status'] == 1) {
-
                                         //Add Image for params before update
                                         $params['news_image'] = $this->folder_upload.$upload_helper['file'];
-
                                         //Delete old files
                                         if (!empty($datas['news_image'])) {
                                             if (file_exists(FCPATH . $datas['news_image'])) {
@@ -843,7 +768,6 @@ class News extends MY_Controller{
                                 $set_msg = 'Memperbarui tanpa gambar';
                             }   
                             // End Call Helper for Upload 
-
                             if($next){
                                 $set_update=$this->News_model->update_news($id,$params);
                                 $return->status=1;
@@ -852,7 +776,6 @@ class News extends MY_Controller{
                                 $return->status=0;
                                 $return->message = $set_msg;
                             }
-
                             /* Activity */
                             $params = array(
                                 'activity_user_id' => $session['user_data']['user_id'],
@@ -885,10 +808,8 @@ class News extends MY_Controller{
                     );
                     $check_exists = $this->News_model->check_data_exist_two_condition($where,$params_check);                    
                     if($check_exists==false){
-
                         $title = !empty($data['nama']) ? $this->safe(ucwords($data['nama'])) : '';
                         $url = $this->generate_seo_link($title);  
-
                         $params = array(
                             // 'news_category_id' => !empty($this->input->post('categories')) ? $this->input->post('categories') : null,
                             'news_title' => $title,
@@ -905,15 +826,12 @@ class News extends MY_Controller{
                         );                        
                         $this->News_model->update_news($data['id'],$params);
                         $set_data = $data['id'];
-
                         if($set_data==true){
-                            
                             if($data['tipe'] == 7){ //Portofolio
                                 $folder = $this->folder_upload_portofolio;
                             }else if($data['tipe'] == 8){ //Team
                                 $folder = $this->folder_upload_team;
                             }
-
                             //Croppie Upload Image
                             $post_upload = !empty($data['upload1']) ? $data['upload1'] : "";
                             if(strlen($post_upload) > 10){
@@ -934,7 +852,6 @@ class News extends MY_Controller{
                                 }
                             }
                             //End of Croppie              
-
                             //Aktivitas
                             $params = array(
                                 'activity_user_id' => $session['user_data']['user_id'],
@@ -1054,7 +971,6 @@ class News extends MY_Controller{
                     $kode = $this->input->post('kode');        
                     $nama = $this->input->post('nama');                                
                     $flag = $this->input->post('flag');
-
                     if($flag==1){
                         $msg='menaktifkan news '.$nama;
                         $act=7;
@@ -1062,7 +978,6 @@ class News extends MY_Controller{
                         $msg='menonaktifkan news '.$nama;
                         $act=8;
                     }
-
                     $set_data=$this->News_model->update_news($id,array('news_flag'=>$flag));
                     if($set_data==true){
                         /* Activity */
@@ -1093,15 +1008,12 @@ class News extends MY_Controller{
                     }else{
                         $news_id = !empty($post['news_id']) ? $post['news_id'] : 0;
                         if(intval($news_id) > 0){
-                            
                             $params = array(
                                 'news_flag' => !empty($post['news_flag']) ? intval($post['news_flag']) : 0,
                             );
-                            
                             $where = array(
                                 'news_id' => !empty($post['news_id']) ? intval($post['news_id']) : 0,
                             );
-                            
                             if($post['news_flag']== 0){
                                 $set_msg = 'nonaktifkan';
                             }else if($post['news_flag']== 1){
@@ -1114,7 +1026,6 @@ class News extends MY_Controller{
                             if($post['news_flag'] == 4){
                                 // $params['news_url'] = null;
                             }
-
                             $get_data = $this->News_model->get_news_custom($where);
                             if($get_data){
                                 $set_update=$this->News_model->update_news_custom($where,$params);

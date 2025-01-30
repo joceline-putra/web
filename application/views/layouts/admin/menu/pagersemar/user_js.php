@@ -417,7 +417,7 @@
                     tipe: $("select[id='tipe']").find(':selected').val(),
                     // tempat_lahir: $("input[id='place_birth']").val(),
                     // tgl_lahir: $("input[id='tgl']").val(),
-                    gender: $("select[id='gender']").find(':selected').val(),
+                    // gender: $("select[id='gender']").find(':selected').val(),
                     telepon_1: $("input[id='telepon_1']").val(),
                     email_1: $("input[id='email_1']").val(),
                     alamat: $("textarea[id='alamat']").val(),
@@ -494,7 +494,7 @@
                         $("#form-master textarea[name='alamat']").val(d.result.user_address);
                         $("#form-master select[name='tipe']").val(d.result.user_type).trigger('change');
                         $("#form-master select[name='group']").val(d.result.user_user_group_id).trigger('change');
-                        $("#form-master select[name='gender']").val(d.result.user_gender).trigger('change');
+                        // $("#form-master select[name='gender']").val(d.result.user_gender).trigger('change');
                         $("#form-master select[name='theme']").val(d.result.user_theme).trigger('change');
                         $("#form-master select[name='status']").val(d.result.user_flag).trigger('change');
                         $("#form-master select[name='user_menu_style']").val(d.result.user_menu_style).trigger('change');
@@ -508,12 +508,12 @@
                                 d.result.user_group_name +
                                 '</option>');
                         $("select[name='group']").val(d.result.user_group_id).trigger('change');
-                        if(parseInt(d.result.user_check_price_buy) == 1){
-                            $("#user_check_price_buy").prop("checked", true);
-                        }
-                        if(parseInt(d.result.user_check_price_sell) == 1){
-                            $("#user_check_price_sell").prop("checked", true);
-                        }
+                        // if(parseInt(d.result.user_check_price_buy) == 1){
+                        //     $("#user_check_price_buy").prop("checked", true);
+                        // }
+                        // if(parseInt(d.result.user_check_price_sell) == 1){
+                        //     $("#user_check_price_sell").prop("checked", true);
+                        // }
                         $("#btn-new").hide();
                         $("#btn-save").hide();
                         $("#btn-update").show();
@@ -582,8 +582,8 @@
                     status: $("select[id='status']").find(':selected').val(),
                     user_theme: $("select[id='theme']").find(':selected').val(),
                     user_menu_style: $("select[id='user_menu_style']").find(':selected').val(),
-                    user_check_price_buy:($("#user_check_price_buy").is(':checked') == true) ? 1 : 0,
-                    user_check_price_sell:($("#user_check_price_sell").is(':checked') == true) ? 1 : 0,
+                    // user_check_price_buy:($("#user_check_price_buy").is(':checked') == true) ? 1 : 0,
+                    // user_check_price_sell:($("#user_check_price_sell").is(':checked') == true) ? 1 : 0,
                 }
                 var prepare_data = JSON.stringify(prepare);
                 var data = {
@@ -730,250 +730,13 @@
                     }
                 }
             });
-        });
-        // Save User Menu Button
-        $(document).on("click", "#btn-save-user-menu", function (e) {
-            e.preventDefault();
-            var next = true;
-            if ($("select[id='user']").find(':selected').val() == 0) {
-                notif(0, 'User harus dipilih');
-                next = false;
-            }
-            if (next == true) {
-                if ($("select[id='menu']").find(':selected').val() == 0) {
-                    notif(0, 'Menu harus dipilih');
-                    next = false;
-                }
-            }
-            if (next == true) {
-                if ($("select[id='action']").find(':selected').val() == 0) {
-                    notif(0, 'Action harus dipilih');
-                    next = false;
-                }
-            }
-            if (next == true) {
-                var prepare = {
-                    user_id: $("select[id='user']").find(":selected").val(),
-                    menu_id: $("select[id='menu']").find(":selected").val(),
-                    action: $("select[id='action']").find(":selected").val(),
-                    action_name: $("select[id='action']").find(":selected").text()
-                }
-                var prepare_data = JSON.stringify(prepare);
-                var data = {
-                    action: 'create-user-menu',
-                    data: prepare_data
-                };
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    dataType: 'json',
-                    cache: false,
-                    beforeSend: function () {},
-                    success: function (d) {
-                        if (parseInt(d.status) == 1) { /* Success Message */
-                            notif(1, d.message);
-                            // index.ajax.reload();
-                        } else { //Error
-                            notif(0, d.message);
-                        }
-                    },
-                    error: function (xhr, Status, err) {
-                        notif(0, 'Error');
-                    }
-                });
-            }
-        });
-        $(document).on("click", ".btn-open-user-access", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var id = $(this).attr('data-id');
-            var username = $(this).attr('data-username');
-            notif(1, 'Prepare ' + username + ' Access')
-            loadUserAccessSP(id);
-            // activeTab("tab2");
-            $("#modal-user-access").modal('show');
-            $("#modal-user-access-label").html('<i class="fa fa-sitemap"></i> Hak Akses Menu - ' + username.toUpperCase());
-        });
-        function loadUserAccess(user_id) {
-            var data = {
-                action: 'load-user-access',
-                id: user_id
-            };
-            $.ajax({
-                type: "post",
-                url: url,
-                data: data,
-                dataType: 'json',
-                cache: 'false',
-                beforeSend: function () {},
-                success: function (d) {
-                    if (parseInt(d.status) === 1) {
-                        notif(1, 'Prepare your data');
-                        var total_records = parseInt(d['result']['menu'].length);
-                        if (parseInt(total_records) > 0) {
-                            $("#table-user-access tbody").html('');
-                            var dsp = '';
-                            var parent = d.result.menu;
-                            for (var a = 0; a < total_records; a++) {
-                                dsp += '<tr>';
-                                dsp += '<td><span class="' + parent[a]['menu_icon'] + '"></span> ' + parent[a]['parent_name'] + '</td>';
-                                dsp += '<td>Menu</td>';
-                                dsp += '<td>View</td>';
-                                // dsp += '<td>Create</td>';
-                                // dsp += '<td>Read</td>';
-                                // dsp += '<td>Update</td>';
-                                // dsp += '<td>Delete</td>';
-                                dsp += '</tr>';
-                                var child = parent[a]['parent_child'];
-                                var total_child = parent[a]['parent_child'].length;
-                                for (var c = 0; c < total_child; c++) {
-                                    var check_view = (child[c]['child_access']['view']['flag']) == 1 ? 'checked' : '';
-                                    var check_create = (child[c]['child_access']['create']['flag']) == 1 ? 'checked' : '';
-                                    var check_read = (child[c]['child_access']['read']['flag']) == 1 ? 'checked' : '';
-                                    var check_update = (child[c]['child_access']['update']['flag']) == 1 ? 'checked' : '';
-                                    var check_delete = (child[c]['child_access']['delete']['flag']) == 1 ? 'checked' : '';
-                                    console.log(check_view);
-                                    dsp += '<tr>';
-                                    dsp += '<td colspan="">&nbsp;</td>';
-                                    dsp += '<td>' + child[c]['child_name'] + '</td>';
-                                    dsp += '<td><div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + child[c]['child_access']['view']['random'] + '" class="ios-toggle" ' + check_view + '/><label for="checkbox' + child[c]['child_access']['view']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                    dsp += '<td><div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + child[c]['child_access']['create']['random'] + '" class="ios-toggle" ' + check_create + '/><label for="checkbox' + child[c]['child_access']['create']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                    dsp += '<td><div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + child[c]['child_access']['read']['random'] + '" class="ios-toggle" ' + check_read + '/><label for="checkbox' + child[c]['child_access']['read']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                    dsp += '<td><div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + child[c]['child_access']['update']['random'] + '" class="ios-toggle" ' + check_update + '/><label for="checkbox' + child[c]['child_access']['update']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                    dsp += '<td><div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + child[c]['child_access']['delete']['random'] + '" class="ios-toggle" ' + check_delete + '/><label for="checkbox' + child[c]['child_access']['delete']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                    dsp += '</tr>';
-                                }
-                            }
-                            $("#table-user-access tbody").html(dsp);
-                        }
-                    } else {
-                        notif(0, 'Hak Akses tidak ditemukan');
-                    }
-                },
-                error: function (xhr, Status, err) {
-                    notifError(err);
-                }
-            });
-        }
-        function loadUserAccessSP(user_id) {
-            var data = {
-                action: 'load-user-access-sp',
-                id: user_id
-            };
-            $.ajax({
-                type: "post",
-                url: url,
-                data: data,
-                dataType: 'json',
-                cache: 'false',
-                beforeSend: function () {
-                    $("#table-user-access tbody").html('<tr><td colspan="3" style="text-align:center;"><i class="fas fa-spinner"></i> Sedang memuat</td></tr>');
-                },
-                success: function (d) {
-                    if (parseInt(d.status) === 1) {
-                        // notif(1,'Prepare your data');
-                        var total_records = parseInt(d['result']['menu'].length);
-                        if (parseInt(total_records) > 0) {
-                            $("#table-user-access tbody").html('');
-                            var dsp = '';
-                            var menu = d.result.menu;
-                            // var child = parent[a]['parent_child'];
-                            var total_menu = menu.length;
-                            for (var c = 0; c < total_menu; c++) {
-                                var menu_icon = '';
-                                if (parseInt(menu[c]['menu_child_id']) == 0) {
-                                    menu_icon = menu[c]['menu_icon'];
-                                } else {
-                                    menu_icon = '';
-                                }
-                                var check_view = (menu[c]['menu_access']['view']['flag']) == 1 ? 'checked' : '';
-                                var check_create = (menu[c]['menu_access']['create']['flag']) == 1 ? 'checked' : '';
-                                var check_read = (menu[c]['menu_access']['read']['flag']) == 1 ? 'checked' : '';
-                                var check_update = (menu[c]['menu_access']['update']['flag']) == 1 ? 'checked' : '';
-                                var check_delete = (menu[c]['menu_access']['delete']['flag']) == 1 ? 'checked' : '';
-                                dsp += '<tr>';
-                                dsp += '<td><span class="' + menu_icon + '"></span> ' + menu[c]['menu_parent_name'] + '</td>';
-                                dsp += '<td>' + menu[c]['menu_child_name'] + '</td>';
-                                if (menu[c]['menu_child_id'] == 0) {
-                                    dsp += '<td>View</td>';
-                                    // dsp += '<td>Create</td>';
-                                    // dsp += '<td>Read</td>';
-                                    // dsp += '<td>Update</td>';
-                                    // dsp += '<td>Delete</td>';
-                                    // dsp += '<td>Print</td>';
-                                    // dsp += '<td>Approval</td>';
-                                } else {
-                                    var set_attr = 'data-flag="' + menu[c]['menu_access']['view']['flag'] + '" data-menu="' + menu[c]['menu_child_id'] + '" data-menu-name="'+menu[c]['menu_child_name']+'" data-user="' + user_id + '"';
-                                    dsp += '<td><div class="checkbox check-primary">';
-                                        dsp += '<input id="checkbox' + menu[c]['menu_access']['view']['random'] + '" '+ set_attr +' type="checkbox" value="" '+check_view+' data-menu-action="1" class="ios-toggle"><label for="checkbox' + menu[c]['menu_access']['view']['random'] + '"></label>';
-                                    dsp += '</div></td>';   
-                                    // dsp += '<div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + menu[c]['menu_access']['view']['random'] + '" '+ set_attr +' data-menu-action="1" class="ios-toggle" ' + check_view + '/><label for="checkbox' + menu[c]['menu_access']['view']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                    // dsp += '<td><div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + menu[c]['menu_access']['create']['random'] + '" data-flag="' + menu[c]['menu_access']['create']['flag'] + '" data-menu="' + menu[c]['menu_child_id'] + '" data-menu-action="2" data-user="' + user_id + '" class="ios-toggle" ' + check_create + '/><label for="checkbox' + menu[c]['menu_access']['create']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                    // dsp += '<td><div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + menu[c]['menu_access']['read']['random'] + '" data-flag="' + menu[c]['menu_access']['read']['flag'] + '" data-menu="' + menu[c]['menu_child_id'] + '" data-menu-action="3" data-user="' + user_id + '" class="ios-toggle" ' + check_read + '/><label for="checkbox' + menu[c]['menu_access']['read']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                    // dsp += '<td><div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + menu[c]['menu_access']['update']['random'] + '" data-flag="' + menu[c]['menu_access']['update']['flag'] + '" data-menu="' + menu[c]['menu_child_id'] + '" data-menu-action="4" data-user="' + user_id + '" class="ios-toggle" ' + check_update + '/><label for="checkbox' + menu[c]['menu_access']['update']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                    // dsp += '<td><div class="toggles"><input type="checkbox" name="checkbox" id="checkbox' + menu[c]['menu_access']['delete']['random'] + '" data-flag="' + menu[c]['menu_access']['delete']['flag'] + '" data-menu="' + menu[c]['menu_child_id'] + '" data-menu-action="5" data-user="' + user_id + '" class="ios-toggle" ' + check_delete + '/><label for="checkbox' + menu[c]['menu_access']['delete']['random'] + '" class="checkbox-label" data-off="off" data-on="on"></label></td>';
-                                }
-                                dsp += '</tr>';
-                            }
-                            $("#table-user-access tbody").html(dsp);
-                        }
-                    } else {
-                        notif(0, 'Hak Akses tidak ditemukan');
-                    }
-                },
-                error: function (xhr, Status, err) {
-                    notifError(err);
-                }
-            });
-        }
-        $(document).on("change", ".ios-toggle", function (e) {
-            var menu = $(this).attr('data-menu');
-            var menu_name = $(this).attr('data-menu-name');            
-            var flag = $(this).attr('data-flag');
-            var menu_action = $(this).attr('data-menu-action');
-            var user = $(this).attr('data-user');
-            var id = $(this).attr('id');
-            var data = {
-                action: 'update-user-menu',
-                menu: menu,
-                flag: flag, //Set Flag
-                menu_action: menu_action,
-                user: user,
-            };
-            $.ajax({
-                type: "post",
-                url: url,
-                data: data,
-                dataType: 'json',
-                cache: 'false',
-                beforeSend: function () {},
-                success: function (d) {
-                    if (parseInt(d.status) === 1) {
-                        notif(d.status, d.message + ' ' +menu_name);
-                        $("#" + id).attr('data-flag', d.flag.to);
-                        if (parseInt(d.flag.to) == 1) {
-                            $("#" + id).prop("checked", true);
-                        } else {
-                            $("#" + id).prop("checked", false);
-                        }
-                    } else { //No Data
-                        notif(d.status, d.message + ' ' +menu_name);
-                    }
-                },
-                error: function (xhr, Status, err) {
-                    notif(0, err);
-                }
-            });
-        });
-        // loadUserAccess(1);
-        // loadUserAccessSP(1);  
+        }); 
     });
     function formNew() {
         formMasterSetDisplay(0);
         $("#form-master input").not("input[id='tgl']").val();
-        $("#user_check_price_buy").prop("checked", false);
-        $("#user_check_price_sell").prop("checked", false);
+        // $("#user_check_price_buy").prop("checked", false);
+        // $("#user_check_price_sell").prop("checked", false);
         $("#btn-new").hide();
         $("#btn-save").show();
         $("#btn-cancel").show();
@@ -981,8 +744,8 @@
     function formCancel() {
         formMasterSetDisplay(1);
         $("#form-master input").not("input[id='tgl']").val('');
-        $("#user_check_price_buy").prop("checked", false);
-        $("#user_check_price_sell").prop("checked", false);
+        // $("#user_check_price_buy").prop("checked", false);
+        // $("#user_check_price_sell").prop("checked", false);
         $("#form-master textarea").val('');
         $("#form-master select").val(0).trigger('change');
         $("#theme").val('black').trigger('change');

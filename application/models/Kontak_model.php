@@ -56,8 +56,8 @@ class Kontak_model extends CI_Model
         }
     }
     function set_join() {
-        $this->db->join('accounts AS ar', 'contacts.contact_account_receivable_account_id=ar.account_id','left');
-        $this->db->join('accounts AS ap', 'contacts.contact_account_payable_account_id=ap.account_id','left');        
+        // $this->db->join('accounts AS ar', 'contacts.contact_account_receivable_account_id=ar.account_id','left');
+        // $this->db->join('accounts AS ap', 'contacts.contact_account_payable_account_id=ap.account_id','left');        
         $this->db->join('cities','contacts.contact_city_id=cities.city_id','left');
         $this->db->join('cities AS b','contacts.contact_birth_city_id=b.city_id','left');
         // $this->db->join('contacts AS p','contacts.contact_parent_id=p.contact_id','left');

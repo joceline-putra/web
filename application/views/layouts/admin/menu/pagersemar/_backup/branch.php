@@ -102,7 +102,7 @@
 </style>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <?php include '_navigation.php'; ?>
+        <?php #include '_navigation.php'; ?>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
                 <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
@@ -154,15 +154,7 @@
                                                                     <label class="form-label">Nama <?php echo $title; ?> / Perusahaan *</label>
                                                                     <input id="nama" name="nama" type="text" value="" class="form-control" readonly='true'/>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Jenis Usaha *</label>
-                                                                    <select id="specialist" name="specialist" class="form-control" disabled readonly>
-                                                                        <option value="0">-- Pilih / Cari --</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>                           
+                                                            </div>                         
                                                             <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                                                                 <div class="form-group">
                                                                     <label class="form-label">User Penanggung Jawab</label>
@@ -319,13 +311,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side" style="padding-top:8px;">
-                                    <div class="col-lg-6 col-md-3 col-xs-12 col-sm-12 form-group padding-remove-left prs-0">
-                                        <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
-                                            <label class="form-label">Jenis Usaha</label>
-                                            <select id="filter_specialist" name="filter_specialist" class="form-control">                    
-                                            </select>
-                                        </div>
-                                    </div> 
                                     <div class="col-lg-3 col-md-3 col-xs-12 col-sm-12 form-group padding-remove-side prs-0">
                                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                                             <label class="form-label">Provinsi</label>
