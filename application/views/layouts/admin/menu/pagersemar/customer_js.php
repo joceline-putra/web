@@ -72,9 +72,9 @@
                 }
             },
             "columnDefs": [
-                {"targets": 0, "title": "Nama", "searchable": true, "orderable": true, "width":"25%"},
-                {"targets": 1, "title": "Telepon", "searchable": true, "orderable": true, "width":"15%"},
-                {"targets": 2, "title": "Alamat", "searchable": true, "orderable": true, "width":"25%"},
+                {"targets": 0, "title": "Nomor", "searchable": true, "orderable": true, "width":"25%"},
+                {"targets": 1, "title": "Nama", "searchable": true, "orderable": true, "width":"15%"},
+                {"targets": 2, "title": "Handphone", "searchable": true, "orderable": true, "width":"25%"},
                 {"targets": 3, "title": "Informasi", "searchable": true, "orderable": true, "width":"20%"},
                 {"targets": 4, "title": "Action", "searchable": false, "orderable": false, "width":"15%"}
             ],
@@ -83,23 +83,26 @@
             ],
             "columns": [
                 {
-                    'data': 'contact_id',
+                    'data': 'contact_code',
                     className: 'text-left',
                     render: function (data, meta, row) {
                         var dsp = '';
                         if (row.contact_code != undefined) {
-                            dsp += '<br><label class="label label-inverse" style="padding:1px 4px;">' + row.contact_code+'</label>';
+                            // dsp += '<br><label class="label label-inverse" style="padding:1px 4px;">' + row.contact_code+'</label>';
+                            dsp += data;
                         }                              
                         return dsp;
                     }
                 }, {
-                    'data': 'contact_id',
+                    'data': 'contact_name',
                     className: 'text-left',
                     render: function (data, meta, row) {
                         var dsp = '';
-                        dsp += '<a class="btn-edit" style="cursor:pointer"';
-                        dsp += 'data-nama="' + row.contact_name + '" data-kode="' + row.contact_code + '" data-id="' + data + '" data-flag="' + row.contact_flag + '">';
-                        dsp += row.contact_name + '</a>';                          
+                        // dsp += '<a class="btn-edit" style="cursor:pointer"';
+                        // dsp += 'data-nama="' + row.contact_name + '" data-kode="' + row.contact_code + '" data-id="' + data + '" data-flag="' + row.contact_flag + '">';
+                        // dsp += row.contact_name + '</a>';   
+                        dsp += data;       
+                        dsp += '<br>'+row.card_number;                
                         return dsp;
                     }
                 }, {
@@ -114,13 +117,14 @@
                         return dsp;
                     }
                 }, {
-                    'data': 'contact_address',
+                    'data': 'branch_name',
                     className: 'text-left',
                     render: function (data, meta, row) {
                         var dsp = '';
-                        if (row.contact_address != undefined) {
-                            dsp += row.contact_address + '<br>';
-                        }
+                        // if (row.contact_address != undefined) {
+                        //     dsp += row.contact_address + '<br>';
+                        // }
+                        dsp += 'Via: '+data + ' Date: '+row.contact_date_created;
                         // if (row.contact_category_id != undefined) {
                         //     dsp += '<label class="label label-inverse" style="padding:1px 4px;">' + row.category_name+'</label>';
                         // }      
@@ -430,7 +434,14 @@
                         //activeTab('tab1'); // Open/Close Tab By ID
                         // notif(1,d.result.contact_id);
                         $("#form-master input[id='id_document']").val(d.result.contact_id);
-                        $("#form-master input[name='kode']").val(d.result.contact_code);
+                        // $("#form-master input[name='kode']").val(d.result.contact_code);
+                        if(d.result.contact_card_session != undefined){
+                            var ret = d.result.card_number+' - '+d.result.card_type;
+                        }else{
+                            var ret = '';
+                        }
+                        console.log(ret);
+                        $("#form-master input[name='kode']").val(ret);                        
                         $("#form-master input[name='nama']").val(d.result.contact_name);
                         $("#form-master input[name='telepon_1']").val(d.result.contact_phone_1);
                         $("#form-master input[name='telepon_2']").val(d.result.contact_phone_2);
@@ -536,7 +547,7 @@
                 form.append('id', $('#id_document').val());
                 // form.append('upload1', $('#upload1')[0].files[0]);
                 form.append('tipe', identity);
-                form.append('kode', $('#kode').val());
+                // form.append('kode', $('#kode').val());
                 form.append('nama', $('#nama').val());
                 form.append('perusahaan', $('#perusahaan').val());
                 form.append('telepon_1', $('#telepon_1').val());
@@ -910,7 +921,7 @@
         //Attr Input yang perlu di setel
         var form = '#form-master';
         var attrInput = [
-            "kode",
+            // "kode",
             "nama",
             "perusahaan",
             "telepon_1",

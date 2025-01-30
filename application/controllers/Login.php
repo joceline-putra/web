@@ -30,7 +30,11 @@ class Login extends My_Controller{
         '6' => array(
             'title' => 'Permintaan Lupa Password Telah dikirim',
             'view' => 'layouts/admin/login/password_sent',   
-        )
+        ),
+        '11' => array(
+            'title' => 'Daftar',
+            'view' => 'layouts/admin/register/card_register',  
+        ),        
     );
     function __construct(){
         parent::__construct();
@@ -247,8 +251,124 @@ class Login extends My_Controller{
                         }
                     }
                 }
-            }
-            if($action=='password-update'){
+            } else if($action=='member-card-create'){ die;
+                $this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required');
+                // $this->form_validation->set_rules('email', 'Email', 'required');          
+                $this->form_validation->set_rules('code', 'Kode Telepon Negara', 'required');
+                $this->form_validation->set_rules('telepon', 'Nomor WhatsApp', 'required');
+                $this->form_validation->set_rules('password', 'Password', 'required');         
+                $this->form_validation->set_rules('password2', 'Password Konfirmasi', 'required');         
+                $this->form_validation->set_rules('captcha', 'Captcha', 'required');
+                $this->form_validation->set_message('required', '{field} wajib diisi');
+                if ($this->form_validation->run() == FALSE){
+                    $return->message = validation_errors();
+                }else{
+                    $session            = $this->session->userdata();
+                    $post = $this->input->post();
+                    // $user_code          = $this->random_code(6);
+                    // $activation_code    = $this->random_code(32);   
+                    // $user_session       = $this->random_code(20); 
+                    // $user_otp           = $this->random_number(6);  
+                    // $email = $this->lowercase($post['email']);
+                    $full_name  = $this->safe($this->sentencecase($post['full_name']));
+                    $phone      = phone_format('62',$post['phone']);
+
+                    $captcha            = !empty($post['captcha']) ? $post['captcha'] : false;        
+                    $captcha_session    = $session['captcha'];                    
+                    $generate_username = $this->generate_username($full_name);
+
+                    $params = array(
+                        'user_user_group_id' => 2,
+                        'user_fullname' => $full_name,
+                        'user_phone_1' => $this->safe($phone),
+                        'user_email_1' => $email,
+                        'user_username' => $generate_username,
+                        'user_password' => md5($post['password']),
+                        'user_theme' => 'black',
+                        'user_date_created' => date("YmdHis"),
+                        'user_date_updated' => date("YmdHis"),
+                        'user_date_activation' => '0000-00-00 00:00:00',
+                        'user_activation' => 0,
+                        'user_flag' => 0,
+                        'user_code' => $user_code,
+                        'user_activation_code' => $activation_code,
+                        'user_session' => $user_session,
+                        'user_otp' => $user_otp,
+                        'user_menu_style' => 0         
+                    );
+
+                    // Captcha check
+                    if($captcha == $captcha_session){ //Captcha Valid
+                        $return->message='Captcha sesuai dengan gambar';
+                    }else{
+                        $return->message='Captcha tidak sesuai dengan gambar';
+                        $next=false;
+                    }
+                    //Password Check
+                    if($next){
+                        if($post['password'] !== $post['password2']){
+                            $next=false;
+                            $return->message='Password & Konfirmasi Password tidak sama';
+                        }
+                    }
+
+                    if($next){
+                        // $check_exists = $this->User_model->check_data_exist_register($email,$phone);
+                        $check_exists = $this->User_model->check_data_exist(array('user_phone_1' => $phone));
+                        if($check_exists==false){
+                            // Check Data Exist Username
+                            $params_check = array(
+                                'user_username' => $generate_username             
+                            );
+                            $check_exists = $this->User_model->check_data_exist($params_check);
+                            if($check_exists==false){
+                                $set_data=$this->User_model->add_user($params);
+                                if($set_data==true){
+                                    $user_id = $set_data;
+                                    /* Start Activity */
+                                        /*
+                                        $params = array(
+                                            'activity_user_id' => $session_user_id,
+                                            'activity_branch_id' => $session_branch_id,                        
+                                            'activity_action' => 2,
+                                            'activity_table' => 'users',
+                                            'activity_table_id' => $set_data,                            
+                                            'activity_text_1' => $set_transaction,
+                                            'activity_text_2' => $generate_nomor,                        
+                                            'activity_date_created' => date('YmdHis'),
+                                            'activity_flag' => 1,
+                                            'activity_transaction' => $set_transaction,
+                                            'activity_type' => 2
+                                        );
+                                        $this->save_activity($params);
+                                        */  
+                                    /* End Activity */            
+                                    $return->status=1;
+                                    $return->message='Berhasil mendaftar';
+                                    $get_user = $this->User_model->get_user($user_id);                                 
+                                    $return->result= array(
+                                        'user_id' => $get_user['user_id'],
+                                        'user_email' => $get_user['user_email_1'],
+                                        'user_code' => $get_user['user_code'],
+                                        'user_activation' => $get_user['user_activation_code'],
+                                        'return_url' => site_url($this->folder_location['3']['view2'])
+                                    ); 
+                                    $this->session->set_flashdata('message',''.$get_user['user_phone_1'].'');
+                                    $this->session->set_flashdata('phone',''.$get_user['user_phone_1'].'');                                    
+                                    $this->session->set_flashdata('status',1);                                  
+                                    // echo json_encode($return);
+                                    $this->whatsapp_template('register-and-confirmation-otp',$get_user['user_id']);
+                                    // $this->email_template('register-and-confirmation-code',$get_user['user_id']);                                    
+                                }  
+                            }else{
+                                $return->message='Username sudah digunakan';  
+                            }
+                        }else{
+                            $return->message='Sudah Terdaftar';                    
+                        }
+                    }
+                }
+            } else if($action=='password-update'){
                 $this->form_validation->set_rules('activation', 'Nama Lengkap', 'required');
                 $this->form_validation->set_rules('password', 'Password', 'required');         
                 $this->form_validation->set_rules('password2', 'Password Konfirmasi', 'required');         
@@ -305,8 +425,7 @@ class Login extends My_Controller{
                         }
                     }
                 }              
-            }            
-            if($action=='register-read'){ die;
+            } else if($action=='register-read'){ die;
                 // $post_data = $this->input->post('data');
                 // $data = json_decode($post_data, TRUE);     
                 $data['id'] = $this->input->post('id');           
@@ -332,8 +451,7 @@ class Login extends My_Controller{
                 $return->status=1;
                 $return->message='Success';
                 $return->result=$datas;
-            }
-            if($action=='register-update'){ die;
+            } else if($action=='register-update'){ die;
                 $post_data = $this->input->post('data');
                 $data = json_decode($post_data, TRUE);
                 $id = $data['id'];
@@ -375,8 +493,7 @@ class Login extends My_Controller{
                     $return->status=1;
                     $return->message='Success';
                 }                
-            }    
-            if($action=='register-delete'){ die;
+            } else if($action=='register-delete'){ die;
                 $id = $this->input->post('id');
                 $number = $this->input->post('number');                               
                 // $flag = $this->input->post('flag');
@@ -402,8 +519,7 @@ class Login extends My_Controller{
                     $return->status=1;
                     $return->message='Berhasil menghapus '.$number;
                 }                
-            }                     
-            if($action=='register-load'){ die;
+            } else if($action=='register-load'){ die;
                 $limit = $this->input->post('length');
                 $start = $this->input->post('start');
                 $order = $columns[$this->input->post('order')[0]['column']];
@@ -442,8 +558,7 @@ class Login extends My_Controller{
                 }
                 $return->recordsTotal = $total;
                 $return->recordsFiltered = $total;
-            }
-            if($action=='change-menu-style'){
+            } else if($action=='change-menu-style'){
                 $this->form_validation->set_rules('val', 'Value', 'required');        
                 $this->form_validation->set_message('required', '{field} wajib diisi');
                 if ($this->form_validation->run() == FALSE){

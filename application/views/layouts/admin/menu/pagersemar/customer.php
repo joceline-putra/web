@@ -128,27 +128,27 @@
                                                     </div>
                                                 </div>    
                                                 <div class="col-md-4 col-sm-12 col-xs-12">
-                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 padding-remove-left prl-2">
+                                                    <div class="col-lg-12 col-md-12 col-sm-5 col-xs-5 padding-remove-side">
                                                         <div class="form-group">
-                                                            <label class="form-label">Kode (Otomatis jika kosong)</label>
+                                                            <label class="form-label">Nomor Kartu</label>
                                                             <input id="kode" name="kode" type="text" value="" class="form-control" readonly='true'/>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-7 col-md-12 col-sm-7 col-xs-7 padding-remove-side">
+                                                    </div> 
+                                                    <!-- <div class="col-lg-7 col-md-12 col-sm-7 col-xs-7 padding-remove-side">
                                                         <div class="form-group">
                                                             <label class="form-label">Wilayah *</label>
                                                             <select id="categories" name="categories" class="form-control" disabled readonly>
                                                                 <option value="0">-- Pilih --</option>
                                                             </select>
                                                         </div>
-                                                    </div>                                                    
+                                                    </div>                                                     -->
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding-remove-side">
                                                         <div class="form-group">
-                                                            <label class="form-label">Nama Lengkap *</label>
+                                                            <label class="form-label">Nama*</label>
                                                             <input id="nama" name="nama" type="text" value="" class="form-control" readonly='true'/>
                                                         </div>
-                                                    </div>  
-                                                    <!--    
+                                                    </div>
+                                                    <!--  
                                                     <div class="col-ld-12 col-md-12 padding-remove-side">
                                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padding-remove-left">
                                                             <div class="form-group">
@@ -160,14 +160,8 @@
                                                                     <option value="PASPORT">Pasport</option>
                                                                 </select>
                                                             </div>
-                                                        </div>    
-                                                        <div class="col-lg-8 col-md-8 col-xs-8 col-sm-8 padding-remove-side prr-2">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Nomor Identitas</label>
-                                                                <input id="identity_number" name="identity_number" type="text" value="" class="form-control" readonly='true'/>
-                                                            </div>                          
                                                         </div>             
-                                                    </div> 
+                                                    </div>   
                                                     <div class="col-md-6 col-xs-12 col-sm-12 padding-remove-left">
                                                       <div class="form-group">
                                                         <label>NPWP</label>
@@ -178,7 +172,7 @@
                                                     <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side"> 
                                                         <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 padding-remove-left">
                                                             <div class="form-group">
-                                                                <label class="form-label">Telepon *</label>
+                                                                <label class="form-label">Hanphone *</label>
                                                                 <input id="telepon_1" name="telepon_1" type="text" value="" class="form-control" readonly='true'/>
                                                             </div>                          
                                                         </div>
@@ -202,15 +196,15 @@
                                                           <input id="email_2" name="email_2" type="text" value="" class="form-control" readonly='true'/>
                                                         </div>                             
                                                       </div>                          
-                                                    -->                                                   
+                                                    -->     
+                                                </div>
+                                                <div class="col-md-4 col-sm-12 col-xs-12">
                                                     <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                         <div class="form-group">
                                                             <label class="form-label">Alamat *</label>
                                                             <textarea id="alamat" name="alamat" type="text" value="" class="form-control" readonly='true' rows="4"/></textarea>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 col-sm-12 col-xs-12">
+                                                    </div>                                                    
                                                     <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                         <div class="form-group">
                                                             <label class="form-label">Status</label>
@@ -241,7 +235,7 @@
                                                                 src=""/>
                                                             -->
                                                             <a class="files_link" href="<?= site_url('upload/noimage.png'); ?>">
-                                                                <img id="files_preview" src="<?= site_url('upload/noimage.png'); ?>" class="img-responsive" height="120px" width="240px" style="margin-bottom:5px;"/>
+                                                                <img id="files_preview" src="<?= site_url('upload/noimage.png'); ?>" class="img-responsive" height="60px" width="120px" style="margin-bottom:5px;"/>
                                                             </a>
                                                             <div class="custom-file">
                                                                 <input class="form-control" id="files" name="files" type="file" tabindex="1">

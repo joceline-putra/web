@@ -75,3 +75,61 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS `fn_create_card_number`$$
+CREATE FUNCTION `fn_create_card_number`() 
+RETURNS VARCHAR(255) CHARSET latin1 COLLATE latin1_swedish_ci
+    DETERMINISTIC
+BEGIN
+    DECLARE mNUMBER VARCHAR(255);
+    DECLARE mLAST_NUMBER INT(255);
+    DECLARE mRESULT VARCHAR(255);
+    
+    SELECT IFNULL(MAX(RIGHT(`card_number`,6)),0) INTO mLAST_NUMBER
+    FROM cards
+    WHERE DATE_FORMAT(card_date_created, '%Y%m')=DATE_FORMAT(vDATE,'%Y%m')
+    AND card_type=vTYPE;
+
+      /* Generate Number */
+    IF mLAST_NUMBER = 0 THEN
+      SET @mNUMBER := '00001';
+    ELSE
+      SET mNUMBER := mLAST_NUMBER + 1; 	
+      SELECT LPAD(mNUMBER,5,0) INTO @mNUMBER;
+    END IF;
+    SET mRESULT = CONCAT('INV-',DATE_FORMAT(vDATE, '%y%m'),'-',@mNUMBER); -- INV-2206-00001
+    RETURN mRESULT;
+  END$$
+
+DELIMITER ;
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS `tr_card_before_insert`$$ 
+CREATE TRIGGER `tr_card_before_insert` BEFORE INSERT ON `cards`
+FOR EACH ROW 
+BEGIN
+    DECLARE mINIT VARCHAR(5);
+    DECLARE mNUMBER VARCHAR(255);
+    DECLARE mLAST_NUMBER INT(255);
+    DECLARE mRESULT VARCHAR(255);
+
+    SELECT LEFT(NEW.card_type,1) INTO mINIT;
+
+    SELECT IFNULL(MAX(RIGHT(`card_number`,6)),0) INTO mLAST_NUMBER
+    FROM cards
+    WHERE card_type=NEW.card_type;
+
+    /* Generate Number */
+    IF mLAST_NUMBER = 0 THEN
+      SET @mNUMBER := '000001';
+    ELSE
+      SET mNUMBER := mLAST_NUMBER + 1; 	
+      SELECT LPAD(mNUMBER,6,0) INTO @mNUMBER;
+    END IF;
+    SET mRESULT = CONCAT(mINIT,@mNUMBER);
+
+    SET NEW.card_number = mRESULT;
+    SET NEW.card_session = fn_create_session_length(8);
+END $$
+DELIMITER ;

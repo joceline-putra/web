@@ -61,7 +61,8 @@ class Kontak_model extends CI_Model
         $this->db->join('cities','contacts.contact_city_id=cities.city_id','left');
         $this->db->join('cities AS b','contacts.contact_birth_city_id=b.city_id','left');
         // $this->db->join('contacts AS p','contacts.contact_parent_id=p.contact_id','left');
-
+        $this->db->join('cards','contact_card_session=card_session','left');
+        
         $this->db->join('categories AS k','contacts.contact_category_id=k.category_id','left');                
         $this->db->join('branchs AS bb','bb.branch_id=contacts.contact_branch_id','left');                
         // $this->db->join('accounts', 'contacts.contact_account_payable_account_id=accounts.account_id','left');        
@@ -104,8 +105,9 @@ class Kontak_model extends CI_Model
 	}
     function get_kontak($id){   
         $this->db->select("contacts.*");
-        $this->db->select("ar.account_id AS receivable_account_id, ar.account_code AS receivable_account_code, ar.account_name AS receivable_account_name");
-        $this->db->select("ap.account_id AS payable_account_id, ap.account_code AS payable_account_code, ap.account_name AS payable_account_name");
+        $this->db->select("cards.*");        
+        // $this->db->select("ar.account_id AS receivable_account_id, ar.account_code AS receivable_account_code, ar.account_name AS receivable_account_name");
+        // $this->db->select("ap.account_id AS payable_account_id, ap.account_code AS payable_account_code, ap.account_name AS payable_account_name");
         $this->db->select("cities.city_name, cities.city_id");
         $this->db->select("b.city_name AS birth_city_name, b.city_id AS birth_city_id");
         $this->db->select("k.category_id AS category_id, k.category_name AS category_name");
