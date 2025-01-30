@@ -12,6 +12,13 @@
         }
         return $contact_phone;        
     }
+    function mask_middle_digits($number) { //081225518118 -> 0812****8118
+        return substr($number, 0, 4) . '****' . substr($number, -4);
+    }
+    function mask_last_digits($number) {
+        return substr($number, 0, -4) . '****';
+    }
+    
     function joe_helper(){
         return 'Hai Joe, this is helper';
     }

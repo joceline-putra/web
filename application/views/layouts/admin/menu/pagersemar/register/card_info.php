@@ -2,33 +2,84 @@
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 $branch_logo = !empty($branch['branch_logo_login']) ? $branch['branch_logo_login'] : site_url() . 'upload/branch/default_logo.png';
-// var_dump($branch_logo);die;
 
 // $return_url = $this->session->userdata('url_before');
-$message = !empty($this->session->flashdata('message')) ? $this->session->flashdata('message') : '';
-$status = !empty($this->session->flashdata('status')) ? $this->session->flashdata('status') : 0;
-$phone = !empty($this->session->flashdata('phone')) ? $this->session->flashdata('phone') : '';
+$result     = !empty($this->session->flashdata('result')) ? $this->session->flashdata('result') : '';
+$message    = !empty($this->session->flashdata('message')) ? $this->session->flashdata('message') : '';
+$status     = !empty($this->session->flashdata('status')) ? $this->session->flashdata('status') : 0;
 $return_url = !empty($this->session->flashdata('return_url')) ? $this->session->flashdata('return_url') : '';
-// var_dump($status);die;
-if ($status == 0) {
-    redirect(base_url(), 'refresh');
-}else if($status==1){
-    $v = '<i class="fas fa-check-square fa-4x" style="color:#5ac736;"></i>';
-    $v .= '<h4 style="margin-bottom:0px;">Berhasil Mendaftar</h4>';
-    $v .= '<p style="padding-top: 20px;">Silahkan cek WhatsApp yang dikirim ke <br><b style="color:#0f8fea;">'.$phone.'</b><br> untuk aktivasi pendaftaran, silahkan masukkan Kode OTP dibawah ini</p>';
-}else if($status==2){
-    $v = '<i class="fas fa-exclamation fa-4x" style="color:#c73640;"></i>';
+
+$v = '';
+if($status==1){
+    $data_url = base_url().'pagersemar/card_info/'.$result['card_session'];
+    $qrcode = 'https://api.qrserver.com/v1/create-qr-code/?size=80x80&data='.$data_url;
+// if ($status == 0) {
+    // redirect(base_url(), 'refresh');
+// }else if($status==1){
+    // $v .= '<i class="fas fa-address-card fa-4x" style=""></i>';
+    // $v .= '<h4 style="margin-bottom:0px;">Card Information</h4>';
+    // $v .= '<div class="col-md-12 col-sm-12">';
+    //     $v .= '<i class="fas fa-address-card fa-4x" style=""></i>';
+    //     $v .= '<h4 style="margin-bottom:0px;">Card Information</h4>';    
+    // $v .= '</div>';
+    $v .= '<div class="col-md-12 col-sm-12">';    
+        $v .= '<h4 style="margin-bottom:0px;">Pager Semar Member</h4>';           
+        $v .= '<img src="'.$qrcode.'" class="img-responsive" style="margin:0 auto;">';
+        $v .= '<h4 style="margin-bottom:0px;">Card Information</h4>';           
+    $v .= '</div>';
+    $v .= '<div class="col-md-12 col-sm-12">';  
+    $v .=   '<p style="padding-top: 20px;">
+                <table class="table">
+                    <tr>
+                        <td class="text-left"><b>KARTU</b></td>
+                        <td class="text-left"></td>                        
+                    </tr>                           
+                    <tr>
+                        <td class="text-left">Nomor</td>
+                        <td class="text-left">: <b>'.$result['card_number'].'</td>                        
+                    </tr>              
+                    <tr>
+                        <td class="text-left">Jenis</td>
+                        <td class="text-left">: <b>'.$result['card_type'].'</td>                        
+                    </tr>              
+                    <tr>
+                        <td class="text-left">Valid</td>
+                        <td class="text-left">: <b>'.date("d-M-Y", strtotime($result['card_date_start'])).' sd '.date("d-M-Y",strtotime($result['card_date_end'])).'</td>                        
+                    </tr>     
+                    <tr>
+                        <td class="text-left"><b>MEMBER</b></td>
+                        <td class="text-left"></td>                        
+                    </tr>                        
+                    <tr>
+                        <td class="text-left">Nama</td>
+                        <td class="text-left">: <b>'.$result['contact_name'].'</td>                        
+                    </tr>
+                    <tr>
+                        <td class="text-left">Handphone</td>
+                        <td class="text-left">: <b>'.mask_last_digits($result['contact_phone_1']).'</b></td>                        
+                    </tr>                                                                                 
+                </table>
+            </p>';
+    $v .= '</div>';
+// }else if($status==2){
+    // $v = '<i class="fas fa-exclamation fa-4x" style="color:#c73640;"></i>';
+    // $v .= '<h4 style="margin-bottom:0px;">Gagal</h4>';
+    // $v .= '<p style="padding-top: 20px;">'.$message.'</p>';
+// }else if($status==3){
+    // Berhasil Mendaftar
+    // $v .= '<i class="fas fa-smile fa-4x" style="color:#318fff;"></i>';
+    // $v .= '<h4 style="margin-bottom:0px;">Sukses</h4>';
+    // $v .= '<p style="padding-top: 20px;">Berhasil aktivasi, Silahkan melanjutkan verifikasi akun anda dengan klik link dibawah ini.</p>';
+    // $v .= '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
+    //     $v .= '<a href="'.$return_url.'" target="_self" class="btn btn-success" style="width:100%;background-color:#318fff;color:white;"><i class="fas fa-check-double"></i> Verifikasi Akun</a>';
+    // $v .= '</div>';
+// }else if ($status == 4) {
+    // redirect($return_url, 'refresh');
+// }
+}else if($status==0){
+    $v .= '<i class="fas fa-exclamation fa-4x" style="color:#c73640;"></i>';
     $v .= '<h4 style="margin-bottom:0px;">Gagal</h4>';
     $v .= '<p style="padding-top: 20px;">'.$message.'</p>';
-}else if($status==3){
-    $v = '<i class="fas fa-smile fa-4x" style="color:#318fff;"></i>';
-    $v .= '<h4 style="margin-bottom:0px;">Aktivasi Sukses</h4>';
-    $v .= '<p style="padding-top: 20px;">Berhasil aktivasi, Silahkan melanjutkan verifikasi akun anda dengan klik link dibawah ini.</p>';
-    $v .= '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">';
-    $v .= '<a href="'.$return_url.'" target="_self" class="btn btn-success" style="width:100%;background-color:#318fff;color:white;"><i class="fas fa-check-double"></i> Verifikasi Akun</a>';
-    $v .= '</div>';
-}else if ($status == 4) {
-    redirect($return_url, 'refresh');
 }
 ?>
 <!DOCTYPE html>
@@ -124,7 +175,7 @@ if ($status == 0) {
     <body class="error-body no-top" style="background: #cacaca!important;">
         <div class="container-fluid">
             <div class="row login-container column-seperation" style="">
-                <div class="col-md-offset-5 col-md-3 col-xs-12 col-sm-12" 
+                <div class="col-md-offset-4 col-md-4 col-xs-12 col-sm-12" 
                      style="padding: 30px;
                      background-color: #ffffff;
                      margin-bottom: 20px;
@@ -132,13 +183,14 @@ if ($status == 0) {
                      border: 4px solid #cacaca!important;">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;padding:20px 0px">
                         <!-- <img src="<?php #echo $branch_logo; ?>" class="img-responsive" style="padding-top:20px;margin:0 auto;"> -->
+                        <div class="col-md-12 col-sm-12">
                         <?php 
                         echo $v; 
                         if($status==3){
 
                         }else{
                             ?>
-                            <form action="<?php echo base_url('login/register_activation_submit'); ?>" method="post" class="login-form validate" id="form-confirmation" name="form-confirmation">
+                            <!-- <form action="<?php echo base_url('login/register_activation_submit'); ?>" method="post" class="login-form validate" id="form-confirmation" name="form-confirmation">
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-top:20px;">
                                     <div class="row">
                                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -156,17 +208,14 @@ if ($status == 0) {
                                                 <i class="fas fa-thumbs-up"></i>&nbsp;
                                                 Proses Aktivasi
                                             </button>
-                                            <!-- <button id="btnBack" class="btn pull-right" type="button" style="width: 100%;background-color:#318fff;color:white;">
-                                                <i class="fas fa-home"></i>&nbsp;
-                                                Kembali Ke Halaman Utama
-                                            </button> -->
                                         </div>
                                     </div>
                                 </div>    
-                            </form>
+                            </form> -->
                             <?php 
                         }
                         ?>
+                        </div>
                     </div>
                 </div>
             </div>

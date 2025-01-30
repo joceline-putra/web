@@ -349,7 +349,7 @@ $image_base_64 = base64_encode(ob_get_clean());
                 
                 if (next) {
                     var data = {
-                        action: 'member-card-create',
+                        action: 'card_activate',
                         card_type: $("#f_card_type").find(":selected").val(),                        
                         card_number: $("#f_card_number").val(),
                         full_name: $("#f_name").val(),
@@ -358,7 +358,7 @@ $image_base_64 = base64_encode(ob_get_clean());
                     };
                     $.ajax({
                         type: "POST",
-                        url: "<?= base_url('login/manage'); ?>",
+                        url: "<?= base_url('pagersemar'); ?>",
                         data: data,
                         dataType: 'json',
                         beforeSend: function () {
@@ -371,7 +371,7 @@ $image_base_64 = base64_encode(ob_get_clean());
                             var base_url = "<?= base_url(); ?>";
                             if (parseInt(d.status) == 1) {
                                 notif(1, d.message);
-                                var data = {activation_code: d.result.user_activation};
+                                // var data = {activation_code: d.result.user_activation};
                                 // $.redirect(d.result.return_url,data,"POST","_self");                  
                                 window.location.href = d.result.return_url;
                             } else {

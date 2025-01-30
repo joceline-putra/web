@@ -17,9 +17,9 @@ class MY_Controller extends CI_Controller{
         $this->load->library('phpmailer_lib');
 
         // $this->load->model('Kontak_model');
-        $this->load->model('Survey_model');
+        // $this->load->model('Survey_model');
         $this->load->model('Message_model');
-        $this->load->model('Device_model');
+        // $this->load->model('Device_model');
 
 		if(!$this->session->userdata()){
 			redirect(base_url("login"));

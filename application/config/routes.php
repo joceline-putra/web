@@ -13,7 +13,7 @@ $route['search']                = "search/index";
 	$route['password'] 		= "login/pages/2";
 	$route['activation'] 	= "login/pages/3";
 
-	$route['daftar'] 		= "login/pages/11";
+	$route['pagersemar/register'] 		= "pagersemar/card_register";
 	//Confirmasi Berhasil Dikirim Ke Email/WA
     // $route['register/confirmation/(:any)'] = "login/register_confirmation/$1"; //http://localhost:8888/git/jrn/register/confirmation/PSR6F7
     $route['register/confirmation'] 		= "login/register_confirmation"; //http://localhost:8888/git/jrn/register/confirmation/PSR6F7

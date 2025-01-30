@@ -130,6 +130,6 @@ BEGIN
     SET mRESULT = CONCAT(mINIT,@mNUMBER);
 
     SET NEW.card_number = mRESULT;
-    SET NEW.card_session = fn_create_session_length(8);
+    SET NEW.card_session = fn_create_session_length(20);
 END $$
 DELIMITER ;

@@ -8,16 +8,15 @@ class Test extends CI_Controller{
         parent::__construct();         
     }
     function index(){
-        $this->load->model('Attribute_model');
-        $prm = [
-            'ca_category_session' => 'A038C8',
-        ];
-        $src = 'PINTUKU';
-        $g = $this->Attribute_model->get_all_product_attr_count($prm,$src,null,null,null,'asc');
-        echo json_encode($g);
-        die;
+        $this->load->model('Card_model');
+        // $prm = [
+        // ];
+        // $src = '';
+        // $g = $this->Card_model->get_all_card($prm,$src,null,null,null,'asc');
+        // echo json_encode($g);
+        // die;
         //Plan With Query
-        $q = $this->db->query("SELECT * FROM `files` WHERE file_from_id=35");        
+        $q = $this->db->query("SELECT * FROM `contacts` LIMIT 1");        
         $d = $q->row_array(); 
         //Plan With Array
         $e = array(

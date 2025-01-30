@@ -30,11 +30,7 @@ class Login extends My_Controller{
         '6' => array(
             'title' => 'Permintaan Lupa Password Telah dikirim',
             'view' => 'layouts/admin/login/password_sent',   
-        ),
-        '11' => array(
-            'title' => 'Daftar',
-            'view' => 'layouts/admin/register/card_register',  
-        ),        
+        )
     );
     function __construct(){
         parent::__construct();
@@ -53,7 +49,10 @@ class Login extends My_Controller{
         $this->load->model('User_model');           
         $this->load->model('Aktivitas_model');           
         $this->load->model('Branch_model');
-        $this->load->model('App_package_model');
+        // $this->load->model('App_package_model');
+        $this->load->model('Card_model');  
+        $this->load->model('Kontak_model');
+
         //Get Branch
         $get_branch = $this->Branch_model->get_branch(1);
         // $this->app_name = $get_branch['branch_name'];
@@ -195,123 +194,6 @@ class Login extends My_Controller{
                             $return->message='Password & Konfirmasi Password tidak sama';
                         }
                     }
-                    if($next){
-                        // $check_exists = $this->User_model->check_data_exist_register($email,$phone);
-                        $check_exists = $this->User_model->check_data_exist(array('user_phone_1' => $phone));
-                        if($check_exists==false){
-                            // Check Data Exist Username
-                            $params_check = array(
-                                'user_username' => $generate_username             
-                            );
-                            $check_exists = $this->User_model->check_data_exist($params_check);
-                            if($check_exists==false){
-                                $set_data=$this->User_model->add_user($params);
-                                if($set_data==true){
-                                    $user_id = $set_data;
-                                    /* Start Activity */
-                                        /*
-                                        $params = array(
-                                            'activity_user_id' => $session_user_id,
-                                            'activity_branch_id' => $session_branch_id,                        
-                                            'activity_action' => 2,
-                                            'activity_table' => 'users',
-                                            'activity_table_id' => $set_data,                            
-                                            'activity_text_1' => $set_transaction,
-                                            'activity_text_2' => $generate_nomor,                        
-                                            'activity_date_created' => date('YmdHis'),
-                                            'activity_flag' => 1,
-                                            'activity_transaction' => $set_transaction,
-                                            'activity_type' => 2
-                                        );
-                                        $this->save_activity($params);
-                                        */  
-                                    /* End Activity */            
-                                    $return->status=1;
-                                    $return->message='Berhasil mendaftar';
-                                    $get_user = $this->User_model->get_user($user_id);                                 
-                                    $return->result= array(
-                                        'user_id' => $get_user['user_id'],
-                                        'user_email' => $get_user['user_email_1'],
-                                        'user_code' => $get_user['user_code'],
-                                        'user_activation' => $get_user['user_activation_code'],
-                                        'return_url' => site_url($this->folder_location['3']['view2'])
-                                    ); 
-                                    $this->session->set_flashdata('message',''.$get_user['user_phone_1'].'');
-                                    $this->session->set_flashdata('phone',''.$get_user['user_phone_1'].'');                                    
-                                    $this->session->set_flashdata('status',1);                                  
-                                    // echo json_encode($return);
-                                    $this->whatsapp_template('register-and-confirmation-otp',$get_user['user_id']);
-                                    // $this->email_template('register-and-confirmation-code',$get_user['user_id']);                                    
-                                }  
-                            }else{
-                                $return->message='Username sudah digunakan';  
-                            }
-                        }else{
-                            $return->message='Sudah Terdaftar';                    
-                        }
-                    }
-                }
-            } else if($action=='member-card-create'){ die;
-                $this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required');
-                // $this->form_validation->set_rules('email', 'Email', 'required');          
-                $this->form_validation->set_rules('code', 'Kode Telepon Negara', 'required');
-                $this->form_validation->set_rules('telepon', 'Nomor WhatsApp', 'required');
-                $this->form_validation->set_rules('password', 'Password', 'required');         
-                $this->form_validation->set_rules('password2', 'Password Konfirmasi', 'required');         
-                $this->form_validation->set_rules('captcha', 'Captcha', 'required');
-                $this->form_validation->set_message('required', '{field} wajib diisi');
-                if ($this->form_validation->run() == FALSE){
-                    $return->message = validation_errors();
-                }else{
-                    $session            = $this->session->userdata();
-                    $post = $this->input->post();
-                    // $user_code          = $this->random_code(6);
-                    // $activation_code    = $this->random_code(32);   
-                    // $user_session       = $this->random_code(20); 
-                    // $user_otp           = $this->random_number(6);  
-                    // $email = $this->lowercase($post['email']);
-                    $full_name  = $this->safe($this->sentencecase($post['full_name']));
-                    $phone      = phone_format('62',$post['phone']);
-
-                    $captcha            = !empty($post['captcha']) ? $post['captcha'] : false;        
-                    $captcha_session    = $session['captcha'];                    
-                    $generate_username = $this->generate_username($full_name);
-
-                    $params = array(
-                        'user_user_group_id' => 2,
-                        'user_fullname' => $full_name,
-                        'user_phone_1' => $this->safe($phone),
-                        'user_email_1' => $email,
-                        'user_username' => $generate_username,
-                        'user_password' => md5($post['password']),
-                        'user_theme' => 'black',
-                        'user_date_created' => date("YmdHis"),
-                        'user_date_updated' => date("YmdHis"),
-                        'user_date_activation' => '0000-00-00 00:00:00',
-                        'user_activation' => 0,
-                        'user_flag' => 0,
-                        'user_code' => $user_code,
-                        'user_activation_code' => $activation_code,
-                        'user_session' => $user_session,
-                        'user_otp' => $user_otp,
-                        'user_menu_style' => 0         
-                    );
-
-                    // Captcha check
-                    if($captcha == $captcha_session){ //Captcha Valid
-                        $return->message='Captcha sesuai dengan gambar';
-                    }else{
-                        $return->message='Captcha tidak sesuai dengan gambar';
-                        $next=false;
-                    }
-                    //Password Check
-                    if($next){
-                        if($post['password'] !== $post['password2']){
-                            $next=false;
-                            $return->message='Password & Konfirmasi Password tidak sama';
-                        }
-                    }
-
                     if($next){
                         // $check_exists = $this->User_model->check_data_exist_register($email,$phone);
                         $check_exists = $this->User_model->check_data_exist(array('user_phone_1' => $phone));
@@ -604,7 +486,7 @@ class Login extends My_Controller{
             $action='';
         }
         $return->action=$action;
-        echo json_encode($return);        
+        echo json_encode($return);
     }
     /* View / HTML*/
     function register_confirmation(){ //When register is success created
