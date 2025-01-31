@@ -62,7 +62,7 @@ class Kontak extends MY_Controller{
         $this->load->model('Menu_model');
         $this->load->model('Order_model');
         $this->load->model('Transaksi_model');
-        $this->load->model('Journal_model');                
+        // $this->load->model('Journal_model');
         // $this->load->model('Gudang_model');
         // $this->load->model('Golongan_obat_model');
         // $this->load->model('Diagnosa_model');

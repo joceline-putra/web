@@ -145,6 +145,7 @@ $image_base_64 = base64_encode(ob_get_clean());
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                         <label class="form-label" style="display: flex;">Jenis Kartu</label>
                                         <select class="form-control" id="f_card_type" name="f_card_type">
+                                            <option value="0">Pilih</option>                                            
                                             <option value="Free">Free</option>
                                             <option value="Gold">Gold</option>                                            
                                             <option value="Platinum">Platinum</option>                                            
@@ -157,15 +158,7 @@ $image_base_64 = base64_encode(ob_get_clean());
                                         <input class="form-control" id="f_card_number" name="f_card_number" type="text" required placeholder="" value="">
                                     </div>
                                 </div>        	
-                            </div>                              
-                            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                <div class="row">
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <label class="form-label">Nama</label>
-                                        <input class="form-control" id="f_name" name="f_name" type="text" placeholder="" value="" required>
-                                    </div>
-                                </div>                                        
-                            </div>                    
+                            </div>                                              
                             <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12" style="padding-left:0px;padding-right:0px;">
                                 <!-- 
                                     <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12" style="padding-left:0px;padding-right:0px;">
@@ -177,11 +170,18 @@ $image_base_64 = base64_encode(ob_get_clean());
                                         </div>
                                     </div> 
                                 -->
-                                <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12" style="padding-left:0px;padding-right:0px;">
+                                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                            <label class="form-label">Nama</label>
+                                            <input class="form-control" id="f_name" name="f_name" type="text" placeholder="" value="" required>
+                                        </div>
+                                    </div>                                        
+                                </div>                                        
+                                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" style="padding-left:0px;padding-right:0px;">
                                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <label class="form-label" style="display: flex;">Nomor WhatsApp</label>
-                                        <input class="form-control" id="f_country_code" name="f_country_code" type="text" required placeholder="" value="+62" style="width:25%;float:left;" readonly>
-                                        <input class="form-control" id="f_phone" name="f_phone" type="number" required placeholder="" value="" style="width:75%;float:left;">
+                                        <label class="form-label">Nomor WhatsApp</label>
+                                        <input class="form-control" id="f_phone" name="f_phone" type="number" required placeholder="" value="">
                                     </div>
                                 </div>      
                                 <!--      
@@ -245,13 +245,6 @@ $image_base_64 = base64_encode(ob_get_clean());
     <script>
         $(document).ready(function () {
             $("#txtfullname").focus();
-            // $("#txtfullname").val('Joceline Putra');
-            // $("#txtusername").val('joe');
-            // $("#txttelepon").val('81225518118');
-            // $("#txtemail").val('joceline.putra@gmail.com');
-            // $("#txtpassword").val('masterjoe00');
-            // $("#txtpassword2").val('masterjoe00');
-
             /*
             $('#select').select2({
                 //dropdownParent:$("#modal-id"), //If Select2 Inside Modal
@@ -309,10 +302,17 @@ $image_base_64 = base64_encode(ob_get_clean());
                 e.preventDefault();
                 var next = true;
 
-                if ($("#register-form input[name='f_card_number']").val().length == 0) {
-                    notif(0, 'Nomor Kartu belum diisi');
-                    $("#f_card_number").focus();
+                if ($("#register-form select[name='f_card_type']").find(":selected").val() == 0) {
+                    notif(0, 'Jenis Kartu belum dipilih');
                     next = false;
+                }
+                
+                if (next) {
+                    if ($("#register-form input[name='f_card_number']").val().length == 0) {
+                        notif(0, 'Nomor Kartu belum diisi');
+                        $("#f_card_number").focus();
+                        next = false;
+                    }
                 }
 
                 if (next) {
@@ -330,14 +330,6 @@ $image_base_64 = base64_encode(ob_get_clean());
                         next = false;
                     }
                 }
-
-                if (next) {
-                    // if ($("#register-form input[name='email']").val().length == 0) {
-                    //     notif(0, 'Email belum diisi');
-                    //     $("#txtemail").focus();
-                    //     next = false;
-                    // }
-                }              
 
                 if (next) {
                     if ($("#register-form input[name='captcha']").val().length == 0) {
@@ -377,8 +369,6 @@ $image_base_64 = base64_encode(ob_get_clean());
                             } else {
                                 notif(0, d.message);
                                 $('#btnRegister').addClass('btn-primary');
-                                $("#register-form input[name='password']").val('');
-                                $("#register-form input[name='password2']").val('');
                                 $('#btnRegister').html('<i class="fas fa-hand-point-right"></i> Daftar');
                                 $('#btnRegister').prop('disabled', false);
                             }
@@ -386,8 +376,6 @@ $image_base_64 = base64_encode(ob_get_clean());
                         error: function (xhr, Status, err) {
                             notif(0, 'Error');
                             $('#btnRegister').addClass('btn-primary');
-                            $("#register-form input[name='password']").val('');
-                            $("#register-form input[name='password2']").val('');
                             $("#register-form input[name='captcha']").val('');                            
                             $('#btnRegister').html('<i class="fas fa-hand-point-right"></i> Daftar');
                             $('#btnRegister').prop('disabled', false);

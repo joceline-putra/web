@@ -91,26 +91,34 @@ class Pagersemar extends MY_Controller{
                             $card_session = $get_card['card_session'];
     
                             $params = array(
-                                'contact_branch_id' => !empty($post['contact_branch_id']) ? intval($post['contact_branch_id']) : null,
+                                'contact_branch_id' => !empty($session_branch_id) ? intval($session_branch_id) : null,
+                                'contact_user_id' => !empty($session_user_id) ? intval($session_user_id) : null,
                                 'contact_type' => 2,
                                 'contact_type_name' => 'Customer',
-                                'contact_code' => !empty($post['contact_code']) ? $post['contact_code'] : null,
+                                // 'contact_code' => !empty($post['contact_code']) ? $post['contact_code'] : null,
                                 'contact_name' => $full_name,
-                                'contact_address' => !empty($post['contact_address']) ? $post['contact_address'] : null,
+                                // 'contact_address' => !empty($post['contact_address']) ? $post['contact_address'] : null,
                                 'contact_phone_1' => $this->safe($phone),
-                                'contact_email_1' => !empty($post['contact_email_1']) ? $post['contact_email_1'] : null,
+                                // 'contact_email_1' => !empty($post['contact_email_1']) ? $post['contact_email_1'] : null,
                                 'contact_date_created' => date("YmdHis"),
-                                'contact_date_updated' => !empty($post['contact_date_updated']) ? $post['contact_date_updated'] : null,
+                                // 'contact_date_updated' => !empty($post['contact_date_updated']) ? $post['contact_date_updated'] : null,
                                 'contact_flag' => 1,
                                 'contact_session' => $contact_session,
                                 'contact_card_session' => $card_session,
                             );
+                            // var_dump($params);die;
                             $save_member = $this->Kontak_model->add_kontak($params);
                             if($save_member){
+
+                                $date_now = date('YmdHis');
+                                $date = DateTime::createFromFormat('YmdHis', $date_now);
+                                $date->modify('+1 year');
+                                $date_after = $date->format('YmdHis');
+
                                 $params_card = [
                                     'card_flag' => 1,
-                                    'card_date_start' => date('YmdHis'),
-                                    'card_date_end' => date('YmdHis'),                            
+                                    'card_date_start' => $date_now,
+                                    'card_date_end' => $date_after,
                                 ];
                                 $update_card = $this->Card_model->update_card_custom(['card_session'=>$card_session],$params_card);
     
@@ -118,12 +126,12 @@ class Pagersemar extends MY_Controller{
                                     /*
                                     $params = array(
                                         'activity_user_id' => $session_user_id,
-                                        'activity_branch_id' => $session_branch_id,                        
+                                        'activity_branch_id' => $session_branch_id,
                                         'activity_action' => 2,
                                         'activity_table' => 'users',
-                                        'activity_table_id' => $set_data,                            
+                                        'activity_table_id' => $set_data,
                                         'activity_text_1' => $set_transaction,
-                                        'activity_text_2' => $generate_nomor,                        
+                                        'activity_text_2' => $generate_nomor,
                                         'activity_date_created' => date('YmdHis'),
                                         'activity_flag' => 1,
                                         'activity_transaction' => $set_transaction,
@@ -140,10 +148,11 @@ class Pagersemar extends MY_Controller{
                                     'c_session' => $get_contact['contact_session'],
                                     'return_url' => base_url('pagersemar/card_info/'.$card_session)
                                 ); 
-                                $this->session->set_flashdata('result',$get_contact);                            
-                                $this->session->set_flashdata('message',''.$get_contact['contact_phone_1'].'');
-                                $this->session->set_flashdata('phone',''.$get_contact['contact_phone_1'].'');
-                                $this->session->set_flashdata('status',1);
+                                    // $this->session->set_flashdata('result',$get_contact);                            
+                                    // $this->session->set_flashdata('message',''.$get_contact['contact_phone_1'].'');
+                                    // $this->session->set_flashdata('phone',''.$get_contact['contact_phone_1'].'');
+                                    // $this->session->set_flashdata('status',1);
+                                    
                                 // $this->whatsapp_template('register-and-confirmation-otp',$get_user['user_id']);
                             }
                         }
@@ -517,7 +526,7 @@ class Pagersemar extends MY_Controller{
         );
         $data['title']  = 'Daftar Member';
         $this->load->view($this->folder.'register/card_register',$data);
-    }        
+    }
     function card_info($card_session){
         $data['session']    = $this->session->userdata();  
         // $data['theme']      = $this->User_model->get_user($data['session']['user_data']['user_id']);
