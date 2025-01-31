@@ -463,10 +463,23 @@ class Pagersemar extends MY_Controller{
                     }                
                     break;
                 default:
-                    $return->message='No Action';
+                    $return->message = 'No Action';
                     break; 
             }
             echo json_encode($return);
+        }else{
+            $data['session']    = $this->session->userdata();  
+
+            // $data['captcha'] = $this->random_number(6);
+            // $this->session->set_userdata('captcha',$data['captcha']);
+            
+            $data['branch'] = array(
+                'branch_logo' => $this->app_logo,
+                'branch_logo_login' => $this->app_logo,
+                'branch_logo_sidebar' => $this->app_logo_sidebar          
+            );
+            $data['title']  = $this->app_name;
+            $this->load->view($this->folder.'index',$data);  
         }
     }
     function member(){
@@ -514,6 +527,11 @@ class Pagersemar extends MY_Controller{
         $this->load->view('layouts/admin/index',$data);
     }   
     function card_register(){
+        if(!$this->is_logged_in()){
+            $this->session->set_userdata('url_before',base_url(uri_string()));
+            redirect(base_url("login/return_url"));              
+        }
+
         $data['session']    = $this->session->userdata();  
 
         $data['captcha'] = $this->random_number(6);
@@ -525,8 +543,23 @@ class Pagersemar extends MY_Controller{
             'branch_logo_sidebar' => $this->app_logo_sidebar          
         );
         $data['title']  = 'Daftar Member';
-        $this->load->view($this->folder.'register/card_register',$data);
+        $this->load->view($this->folder.'register/card_register',$data);        
     }
+    function card_scan(){
+        if(!$this->is_logged_in()){
+            $this->session->set_userdata('url_before',base_url(uri_string()));
+            redirect(base_url("login/return_url"));              
+        }
+
+        $data['session']    = $this->session->userdata();  
+        $data['branch'] = array(
+            'branch_logo' => $this->app_logo,
+            'branch_logo_login' => $this->app_logo,
+            'branch_logo_sidebar' => $this->app_logo_sidebar          
+        );
+        $data['title']  = 'Scan';
+        $this->load->view($this->folder.'register/card_scan',$data);        
+    }    
     function card_info($card_session){
         $data['session']    = $this->session->userdata();  
         // $data['theme']      = $this->User_model->get_user($data['session']['user_data']['user_id']);

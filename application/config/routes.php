@@ -14,6 +14,7 @@ $route['search']                = "search/index";
 	$route['activation'] 	= "login/pages/3";
 
 	$route['pagersemar/register'] 		= "pagersemar/card_register";
+	$route['pagersemar/scan'] 		    = "pagersemar/card_scan";	
 	
 	//Confirmasi Berhasil Dikirim Ke Email/WA
     // $route['register/confirmation/(:any)'] = "login/register_confirmation/$1"; //http://localhost:8888/git/jrn/register/confirmation/PSR6F7
@@ -90,7 +91,8 @@ $route['search']                = "search/index";
 		$route['project/(:any)/(:any)'] 	= "website/project/$1/$2";	    // article/olahraga/hai-kawan
 		
 	$route['portofolio/(:any)']        	= "website/portofolio/$1";	    // article/olahraga
-	$route['portofolio/(:any)/(:any)'] 	= "website/portofolio/$1/$2";	    // article/olahraga/hai-kawan	
+	$route['portofolio/(:any)/(:any)'] 	= "website/portofolio/$1/$2";	    // article/olahraga/hai-kawan
+
     //Not Used / OLD Concept
     // $route['blog'] 					= "website/blog";
 	// $route['agent']              = "website/agent";      

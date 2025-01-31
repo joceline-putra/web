@@ -20,7 +20,7 @@ if (!empty($_COOKIE[site_url()])) {
 // var_dump($login_back);die;
 
 if (!empty($return_url)) {
-    $teks_1 = 'Akses ke dokumen';
+    $teks_1 = 'Akses ke Modul';
     $teks_2 = 'Verifikasikan bahwa ini adalah anda';
 } else {
     if ($login_back == 0) {

@@ -124,7 +124,7 @@
                         // if (row.contact_address != undefined) {
                         //     dsp += row.contact_address + '<br>';
                         // }
-                        dsp += 'Via: '+data + ' Date: '+row.contact_date_created;
+                        dsp += 'Via: '+data + ' Date: '+moment(row.contact_date_created).format("DD-MMM-YYYY, HH:mm");
                         // if (row.contact_category_id != undefined) {
                         //     dsp += '<label class="label label-inverse" style="padding:1px 4px;">' + row.category_name+'</label>';
                         // }      
