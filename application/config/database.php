@@ -6,19 +6,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-<<<<<<< HEAD
-	// 'hostname' => 'srv1365.hstgr.io',		
-	// 'username' => 'u941743752_avista_web',
-	// 'database' => 'u941743752_avista_web',
-	// 'password' => '@Sincia2573',	
-	'hostname' => 'localhost:2291',		
-=======
 		// 'hostname' => 'srv1365.hstgr.io',
 		// 'username' => 'u941743752_dolphin',
 		// 'database' => 'u941743752_dolphin',
 		// 'password' => '@Sincia2573',
 	'hostname' => 'localhost:2291',
->>>>>>> 5100c6c7a7a18dc5f1a47a0ece6900649dccb26c
 	'username' => 'joe',
 	'database' => 'web',
 	'password' => '@Master2023',
