@@ -6,14 +6,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	// 'hostname' => 'avista.id',		
+	// 'hostname' => 'srv1365.hstgr.io',		
 	// 'username' => 'u941743752_avista_web',
-	// 'password' => '@M45t3rj0300',	
 	// 'database' => 'u941743752_avista_web',
-	// 'hostname' => 'localhost',		
-	// 'username' => 'root',
-	// 'password' => '',	
-	// 'database' => 'florina',	
+	// 'password' => '@Sincia2573',	
 	'hostname' => 'localhost:2291',		
 	'username' => 'joe',
 	'database' => 'web',	
