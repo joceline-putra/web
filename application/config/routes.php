@@ -53,6 +53,7 @@ $route['search']                = "search/index";
 
 /* WEBSITE */
     // Home
+	$route['sitemap.xml'] 			= "website/sitemap";
 	$route['tentang-kami']          = "website/about";
 	$route['contact-us']            = "website/contact_us";	
 	$route['masuk']                 = "website/masuk";

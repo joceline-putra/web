@@ -757,10 +757,64 @@ class Website extends CI_Controller{
             // End of default
         } // Enf of switch()
     }
+    function sitemap(){
+        // 1.0 = Halaman beranda (Homepage)
+        // 0.8 – 0.9 = Halaman kategori penting atau artikel populer
+        // 0.5 – 0.7 = Halaman biasa (artikel, postingan blog)
+        // 0.3 – 0.4 = Halaman dengan konten jarang diperbarui (misalnya halaman kebijakan)
+        // 0.0 – 0.2 = Halaman arsip lama atau tidak terlalu penting
+
+        // always → Halaman berubah terus-menerus (misalnya: halaman berita terbaru, dashboard dinamis).
+        // hourly → Konten diperbarui setiap jam (misalnya: situs trading, cuaca).
+        // daily → Update harian (misalnya: blog aktif, portal berita).
+        // weekly → Update mingguan (misalnya: artikel reguler, katalog produk).
+        // monthly → Update bulanan (misalnya: halaman laporan bulanan, promo).
+        // yearly → Update tahunan (misalnya: kebijakan privasi, syarat & ketentuan).
+        // never → Tidak pernah berubah (misalnya: halaman arsip lama, halaman statis        
+        $data['site'] = array(         
+            array('url'=> base_url().'tentang-kami','priority'=> '0.8','frequency'=>'yearly'),
+            array('url'=> base_url().'privacy','priority'=> '0.3','frequency'=>'yearly'),
+            array('url'=> base_url().'term-of-service','priority'=> '0.4','frequency'=>'yearly')
+        );
+
+        //News
+            $get_news = $this->News_model->get_all_newss(['news_type'=>1,'news_flag'=>1],null,null,null,'news_date_created','asc');
+            foreach($get_news as $v){
+                $data['site'][] = array(
+                    'url' => base_url('blog').'/'.$v['category_url'].'/'.$v['news_url'],
+                    'priority' => '0.7',
+                    'frequency' => 'weekly'
+                );
+            }
+
+        //Gallery
+            $get_news = $this->News_model->get_all_newss(['news_type'=>6,'news_flag'=>1],null,null,null,'news_date_created','asc');
+            foreach($get_news as $v){
+                $data['site'][] = array(
+                    'url' => base_url('gallery').'/'.$v['news_url'],
+                    'priority' => '0.8',
+                    'frequency' => 'monthly'
+                );
+            }   
+            
+        //Project
+            $get_news = $this->News_model->get_all_newss(['news_type'=>5,'news_flag'=>1],null,null,null,'news_date_created','asc');
+            foreach($get_news as $v){
+                $data['site'][] = array(
+                    'url' => base_url('project').'/'.$v['news_url'],
+                    'priority' => '0.8',
+                    'frequency' => 'monthly'
+                );
+            }               
+            
+            
+        $this->load->view($this->nav['web']['layout'].'/sitemap',$data);
+    }
 
     /* Static Page */
     function contact_us(){ //Done
         // Page      
+        $data['url']            = base_url('contact-us');
         $data['_content']       = $this->nav['web']['layout'].$this->contact_us_file;
 
         // Navigation
@@ -781,7 +835,6 @@ class Website extends CI_Controller{
             $data['image']          = !empty($gi['news_image']) ? base_url().$gi['news_image'] : $this->meta['image'];            
             $data['author']         = !empty($ga['username']) ? ucwords($ga['username']) : $this->meta['author'];
             $data['sitename']       = $this->meta['sitename'];
-            $data['url']            = base_url();
             $data['favicon']        = $this->favicon;
 
         $this->load->view($this->nav['web']['index'],$data);      
@@ -1089,6 +1142,7 @@ class Website extends CI_Controller{
     /* Dynamic Page */
     function about(){ // Done
         // Page      
+            $data['url']            = base_url('tentang-kami');
             $data['_content']       = $this->nav['web']['layout'].$this->about_file;
 
         // Navigation
@@ -1114,7 +1168,7 @@ class Website extends CI_Controller{
             $data['image']          = !empty($gi['news_image']) ? base_url().$gi['news_image'] : $this->meta['image'];            
             $data['author']         = !empty($ga['username']) ? ucwords($ga['username']) : $this->meta['author'];
             $data['sitename']       = $this->meta['sitename'];
-            $data['url']            = base_url();
+            $data['url']            = base_url('tentang-kami');
             $data['favicon']        = $this->favicon;
 
         $this->load->view($this->nav['web']['index'],$data);
