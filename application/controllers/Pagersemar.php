@@ -566,7 +566,68 @@ class Pagersemar extends MY_Controller{
 
         $get_contact = $this->Card_model->get_card_custom(['card_session'=>$card_session]);     
         if($get_contact){        
-            $this->session->set_flashdata('result',$get_contact);                            
+
+            //QR
+                require_once APPPATH . 'libraries/phpqrcode/qrlib.php';
+
+                $dataa = $this->app_url.'pagersemar/card_info/'.$card_session;
+
+                // $dataa = $card_session;                
+
+                // Generate QR Code menggunakan output buffering
+                ob_start();
+                QRcode::png($dataa, null, QR_ECLEVEL_H, 10); // Gunakan EC Level 'H' untuk toleransi error lebih tinggi
+                $qrImageData = ob_get_contents();
+                ob_end_clean();
+
+                // Convert QR Code ke gambar
+                $qrImage = imagecreatefromstring($qrImageData);
+
+                // Load logo
+                $logoPath = FCPATH . 'upload/qrlogo.jpg'; // Pastikan logo ada di folder 'assets'
+                if (file_exists($logoPath)) {
+                    $logo = imagecreatefromjpeg($logoPath);
+
+                    // Hitung proporsi logo terhadap QR Code
+                    $qrWidth = imagesx($qrImage);
+                    $qrHeight = imagesy($qrImage);
+                    $logoWidth = imagesx($logo);
+                    $logoHeight = imagesy($logo);
+
+                    $logoNewWidth = $qrWidth * 0.2;  // 20% dari lebar QR Code
+                    $scale = $logoNewWidth / $logoWidth;
+                    $logoNewHeight = $logoHeight * $scale;
+
+                    // Tentukan posisi tengah
+                    $x = ($qrWidth - $logoNewWidth) / 2;
+                    $y = ($qrHeight - $logoNewHeight) / 2;
+
+                    // Tempelkan logo di tengah QR Code
+                    imagecopyresampled(
+                        $qrImage, $logo,
+                        $x, $y, 0, 0,
+                        $logoNewWidth, $logoNewHeight,
+                        $logoWidth, $logoHeight
+                    );
+                }
+
+                // Encode gambar akhir menjadi Base64
+                ob_start();
+                imagepng($qrImage);
+                $finalImage = ob_get_contents();
+                ob_end_clean();
+
+                // Hapus resource gambar untuk menghemat memori
+                imagedestroy($qrImage);
+                if (isset($logo)) {
+                    imagedestroy($logo);
+                }
+
+                $qrBase64 = base64_encode($finalImage);
+            // End QR
+
+            $this->session->set_flashdata('result',$get_contact);  
+            $this->session->set_flashdata('qr',$qrBase64);                                        
             $this->session->set_flashdata('status',1);
             $this->session->set_flashdata('message','Sukses');
         }else{

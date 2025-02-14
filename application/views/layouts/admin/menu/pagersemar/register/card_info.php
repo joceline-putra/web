@@ -8,11 +8,13 @@ $result     = !empty($this->session->flashdata('result')) ? $this->session->flas
 $message    = !empty($this->session->flashdata('message')) ? $this->session->flashdata('message') : '';
 $status     = !empty($this->session->flashdata('status')) ? $this->session->flashdata('status') : 0;
 $return_url = !empty($this->session->flashdata('return_url')) ? $this->session->flashdata('return_url') : '';
+$qrc = !empty($this->session->flashdata('qr')) ? $this->session->flashdata('qr') : '';
+
 
 $v = '';
 if($status==1){
     $data_url = base_url().'pagersemar/card_info/'.$result['card_session'];
-    $qrcode = 'https://api.qrserver.com/v1/create-qr-code/?size=80x80&data='.$data_url;
+    // $qrcode = 'https://api.qrserver.com/v1/create-qr-code/?size=80x80&data='.$data_url;
 // if ($status == 0) {
     // redirect(base_url(), 'refresh');
 // }else if($status==1){
@@ -24,7 +26,8 @@ if($status==1){
     // $v .= '</div>';
     $v .= '<div class="col-md-12 col-sm-12">';    
         $v .= '<h4 style="margin-bottom:0px;">Pager Semar Member</h4>';           
-        $v .= '<img src="'.$qrcode.'" class="img-responsive" style="margin:0 auto;">';
+        $v .= '<img src="data:image/png;base64,'.$qrc.'" class="img-responsive" style="margin:0 auto;">';
+        // $v .= '<img src="'.$qrcode.'" class="img-responsive" style="margin:0 auto;">';
         $v .= '<h4 style="margin-bottom:0px;">Card Information</h4>';           
     $v .= '</div>';
     $v .= '<div class="col-md-12 col-sm-12">';  
