@@ -224,6 +224,7 @@ class Website extends CI_Controller{
             ],
             'article_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>2,'category_flag'=>1],null,10,0,'category_name','asc'),
             'blog' => $this->News_model->get_all_newss(['news_type'=>1,'news_flag'=> 1],null,10,0,'news_id','asc'),
+            'slider' => $this->News_model->get_all_newss(['news_type'=>1,'news_position'=>2,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'project' => $this->News_model->get_all_newss(['news_type'=>5,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'gallery' => $this->News_model->get_all_newss_files(['news_type'=>6,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'portofolio' => $this->News_model->get_all_newss(['news_type'=>7,'news_flag'=> 1],null,10,0,'news_id','asc'),

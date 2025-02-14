@@ -5,11 +5,11 @@
     <div class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{'loop': false}">
 
         <?php 
-        if(count($link['blog']) > 0){
-            foreach($link['blog'] as $i => $v){
-                // echo $v['file_url'];
-                // $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
-                $simg       = base_url().'upload/banner.png';                 
+        if(count($link['slider']) > 0){
+            foreach($link['slider'] as $i => $v){
+                // echo $v['news_id'];
+                $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+                // $simg       = base_url().'upload/banner.png';                 
                 $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
                 $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
 
@@ -20,7 +20,7 @@
                     <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
                         <!-- <h4 class="text-transform-none m-b-3" style="text-align:center;color:white;"><?php echo $stitle;?></h4> -->
                         <!-- <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">.</h2> -->
-                            <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">Banner I</h2>
+                            <!-- <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;"><?php echo $stitle;?></h2> -->
                         <!-- <?php echo $scontent;?>
                         <p class="text-transform-none m-b-3" style="text-align:center;">
                             <br>
@@ -34,12 +34,12 @@
         } 
         ?>
 
-<?php 
-        if(count($link['blog']) > 0){
-            foreach($link['blog'] as $i => $v){
+    <?php 
+        if(count($link['slider']) > 0){
+            foreach($link['slider'] as $i => $v){
                 // echo $v['file_url'];
-                // $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
-                $simg       = base_url().'upload/banner.png';                 
+                $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+                // $simg       = base_url().'upload/banner.png';                 
                 $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
                 $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
 
@@ -50,7 +50,7 @@
                     <div class="banner-layer appear-animate" data-animation-name="fadeInUpShorter">
                         <!-- <h4 class="text-transform-none m-b-3" style="text-align:center;color:white;"><?php echo $stitle;?></h4> -->
                         <!-- <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">.</h2> -->
-                            <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">Banner II</h2>
+                            <!-- <h2 class="text-transform-none m-b-3" style="text-align:center;font-family:inherit;">Banner II</h2> -->
                         <!-- <?php echo $scontent;?>
                         <p class="text-transform-none m-b-3" style="text-align:center;">
                             <br>
@@ -719,162 +719,160 @@
         </section>        
     </div>
 
-
-
-        <section class="d-none promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="<?php echo base_url(); ?>upload/banner-5.png">
-            <div class="promo-banner banner container text-uppercase">
-                <div class="banner-content row align-items-center text-center">
-                    <div class="col-md-4 ml-xl-auto text-md-right appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="600">
-                        <h2 class="mb-md-0 text-white">Kunjungi Show Room Kami</h2>
-                    </div>
-                    <div class="col-md-4 col-xl-3 pb-4 pb-md-0 appear-animate" data-animation-name="fadeIn" data-animation-delay="300">
-                        <a href="https://maps.app.goo.gl/SfDAvN2keYuhirgp8" class="btn btn-dark btn-black ls-10">Petunjuk Arah</a>
-                    </div>
-                    <div class="col-md-4 mr-xl-auto text-md-left appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="600">
-                        <h4 class="mb-1 mt-1 font1 coupon-sale-text p-0 d-block ls-n-10 text-transform-none">
-                            <b>Dapatkan Penawaran Menarik</b></h4>
-                        <h5 class="mb-1 coupon-sale-text text-white ls-10 p-0"><i class="ls-0">UP TO</i><b class="text-white bg-secondary ls-n-10">10%</b> OFF</h5>
-                    </div>
+    <section class="d-none promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="<?php echo base_url(); ?>upload/banner-5.png">
+        <div class="promo-banner banner container text-uppercase">
+            <div class="banner-content row align-items-center text-center">
+                <div class="col-md-4 ml-xl-auto text-md-right appear-animate" data-animation-name="fadeInRightShorter" data-animation-delay="600">
+                    <h2 class="mb-md-0 text-white">Kunjungi Show Room Kami</h2>
                 </div>
-            </div>
-        </section>
-        <section class="d-none promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-4.jpg">
-            <div class="promo-banner banner container text-uppercase">
-                <div class="banner-content row align-items-center mx-0">
-                    <div class="col-md-9 col-sm-8">
-                        <h2 class="text-white text-uppercase text-center text-sm-left ls-n-20 mb-md-0 px-4">
-                            <b class="d-inline-block mr-3 mb-1 mb-md-0">Big Sale</b> All new fashion brands items up to 70% off
-                            <small class="text-transform-none align-middle">Online Purchases Only</small>
-                        </h2>
-                    </div>
-                    <div class="col-md-3 col-sm-4 text-center text-sm-right">
-                        <a class="btn btn-light btn-white btn-lg" href="category.html">View Sale</a>
-                    </div>
+                <div class="col-md-4 col-xl-3 pb-4 pb-md-0 appear-animate" data-animation-name="fadeIn" data-animation-delay="300">
+                    <a href="https://maps.app.goo.gl/SfDAvN2keYuhirgp8" class="btn btn-dark btn-black ls-10">Petunjuk Arah</a>
                 </div>
-            </div>
-        </section>
-
-        <!-- Kategori Produk -->
-        <div class="d-none section-elements" style="background: #ffffff;">
-            <div class="container">
-                <h5 class="text-primary">Sesuaikan Dengan Kebutuhan</h5>
-                <h2 class="mb-5 elements">Kategori Produk</h2>
-                <div class="row justify-content-center">
-                    <div class="row">
-                        <?php 
-                        $routing = base_url().$link['routing']['product'];
-                        foreach($link['product_category'] as $i => $v){
-                            $scurl       = $routing.'/'.$v['category_url'];                 
-                            $simg       = !empty($v['category_image']) ? base_url().$v['category_image'] : base_url().'upload/noimage.png'; 
-                            $stitle     = !empty($v['category_name']) ? substr($v['category_name'],0,25) : 'Untitled';
-                            $scontent   = !empty($v['category_short']) ? substr(strip_tags($v['category_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';                                                   
-                            ?>                    
-                                <div class="col-md-4">
-                                    <div class="info-box info-box-img">
-                                        <img src="<?php echo $simg; ?>" alt="info-box-image" width="800" height="524">
-                                        <div class="info-box-content" style="padding-top:20px;">
-                                            <h4><?php echo $stitle; ?></h4>
-                                            <p style="font-family:Poppins,sans-serif!important;"><?php echo $scontent; ?>
-                                                <br><br><a href="<?php echo $scurl;?>" style="color:black;">Lihat Selengkapnya <i class="fas fa-greater-than" style="font-size:1rem;color:black;"></i></a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php 
-                        }
-                        ?>
-                    </div>
+                <div class="col-md-4 mr-xl-auto text-md-left appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="600">
+                    <h4 class="mb-1 mt-1 font1 coupon-sale-text p-0 d-block ls-n-10 text-transform-none">
+                        <b>Dapatkan Penawaran Menarik</b></h4>
+                    <h5 class="mb-1 coupon-sale-text text-white ls-10 p-0"><i class="ls-0">UP TO</i><b class="text-white bg-secondary ls-n-10">10%</b> OFF</h5>
                 </div>
             </div>
         </div>
+    </section>
+    <section class="d-none promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-4.jpg">
+        <div class="promo-banner banner container text-uppercase">
+            <div class="banner-content row align-items-center mx-0">
+                <div class="col-md-9 col-sm-8">
+                    <h2 class="text-white text-uppercase text-center text-sm-left ls-n-20 mb-md-0 px-4">
+                        <b class="d-inline-block mr-3 mb-1 mb-md-0">Big Sale</b> All new fashion brands items up to 70% off
+                        <small class="text-transform-none align-middle">Online Purchases Only</small>
+                    </h2>
+                </div>
+                <div class="col-md-3 col-sm-4 text-center text-sm-right">
+                    <a class="btn btn-light btn-white btn-lg" href="category.html">View Sale</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- Tentang Kami -->
-        <div class="section-elements" style="background: #ffffff;">
-            <div class="container">
+    <!-- Kategori Produk -->
+    <div class="d-none section-elements" style="background: #ffffff;">
+        <div class="container">
+            <h5 class="text-primary">Sesuaikan Dengan Kebutuhan</h5>
+            <h2 class="mb-5 elements">Kategori Produk</h2>
+            <div class="row justify-content-center">
+                <div class="row">
+                    <?php 
+                    $routing = base_url().$link['routing']['product'];
+                    foreach($link['product_category'] as $i => $v){
+                        $scurl       = $routing.'/'.$v['category_url'];                 
+                        $simg       = !empty($v['category_image']) ? base_url().$v['category_image'] : base_url().'upload/noimage.png'; 
+                        $stitle     = !empty($v['category_name']) ? substr($v['category_name'],0,25) : 'Untitled';
+                        $scontent   = !empty($v['category_short']) ? substr(strip_tags($v['category_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';                                                   
+                        ?>                    
+                            <div class="col-md-4">
+                                <div class="info-box info-box-img">
+                                    <img src="<?php echo $simg; ?>" alt="info-box-image" width="800" height="524">
+                                    <div class="info-box-content" style="padding-top:20px;">
+                                        <h4><?php echo $stitle; ?></h4>
+                                        <p style="font-family:Poppins,sans-serif!important;"><?php echo $scontent; ?>
+                                            <br><br><a href="<?php echo $scurl;?>" style="color:black;">Lihat Selengkapnya <i class="fas fa-greater-than" style="font-size:1rem;color:black;"></i></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php 
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tentang Kami -->
+    <div class="section-elements" style="background: #ffffff;">
+        <div class="container">
+            <?php 
+            foreach($link['menu'] as $v){
+                if($v['news_id'] == 1){
+                    $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                    $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
+                    $surl       = base_url().$v['news_url'];  
+                    $simg       = !empty($v['file_url']) ? base_url().$v['file_url'] : base_url().'upload/noimage.png';                                   
+                }
+            }
+            ?>
+            <div class="row justify-content-left">
+                <div class="col-md-5">
+                    <div class="info-box info-box-img">
+                        <div class="info-box-content">
+                            <h5 class="text-primary"><?php echo $stitle; ?></h5>
+                            <div style="text-align: left;">
+                                <p><?php echo $scontent; ?></p>
+                                <br>
+                                <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $surl;?>" style="color:white;">Baca Selengkapnya</a></div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="info-box info-box-img">
+                        <img src="<?php echo $simg;?>" alt="info-box-image" style="border-radius:20px;">
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <!-- Gallery Kami -->
+    <div class="section-elements" style="background: #f1f1fd;">
+        <div class="container">
+            <h5 class="text-primary">Gallery Kami</h5>
+            <h2 class="mb-5 elements"><?php echo $link['gallery'][0]['news_title']; ?></h2>
+            <div class="row justify-content-center">
                 <?php 
-                foreach($link['menu'] as $v){
-                    if($v['news_id'] == 1){
+                if(count($link['gallery']) > 0){                         
+                    foreach($link['gallery'] as $v){
                         $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
-                        $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
-                        $surl       = base_url().$v['news_url'];  
-                        $simg       = !empty($v['file_url']) ? base_url().$v['file_url'] : base_url().'upload/noimage.png';                                   
+                        $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
+                                                    
+                        $surl   = base_url().$v['news_url'];  
+                        $simg   = base_url().$v['file_url']; 
+                        ?>
+                        <div class="col-md-4 mb-4">
+                            <div class="info-box info-box-img">
+                                <img src="<?php echo $simg;?>" style="border-radius:20px;" alt="<?php echo $stitle;?>">
+                                <div class="info-box-content">
+                                </div>
+                            </div>
+                        </div>
+                        <?php 
                     }
                 }
-                ?>
-                <div class="row justify-content-left">
-                    <div class="col-md-5">
-                        <div class="info-box info-box-img">
-                            <div class="info-box-content">
-                                <h5 class="text-primary"><?php echo $stitle; ?></h5>
-                                <div style="text-align: left;">
-                                    <p><?php echo $scontent; ?></p>
-                                    <br>
-                                    <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $surl;?>" style="color:white;">Baca Selengkapnya</a></div>
-                                </div>    
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="info-box info-box-img">
-                            <img src="<?php echo $simg;?>" alt="info-box-image" style="border-radius:20px;">
-                        </div>
-                    </div>                
-                </div>
+                ?>                              
             </div>
         </div>
-        <!-- Gallery Kami -->
-        <div class="section-elements" style="background: #f1f1fd;">
-            <div class="container">
-                <h5 class="text-primary">Gallery Kami</h5>
-                <h2 class="mb-5 elements"><?php echo $link['gallery'][0]['news_title']; ?></h2>
-                <div class="row justify-content-center">
-                    <?php 
-                    if(count($link['gallery']) > 0){                         
-                        foreach($link['gallery'] as $v){
-                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
-                            $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
-                                                        
-                            $surl   = base_url().$v['news_url'];  
-                            $simg   = base_url().$v['file_url']; 
-                            ?>
-                            <div class="col-md-4 mb-4">
-                                <div class="info-box info-box-img">
-                                    <img src="<?php echo $simg;?>" style="border-radius:20px;" alt="<?php echo $stitle;?>">
-                                    <div class="info-box-content">
-                                    </div>
-                                </div>
-                            </div>
-                            <?php 
-                        }
-                    }
-                    ?>                              
-                </div>
-            </div>
-        </div>
+    </div>
 
-        <!-- Tanya Gratis -->
-        <div class="section-elements" style="background: #ffffff;">
-            <div class="container">
-                <!-- <h4 class="elements">Bergabunglah dalam melestarikan Batik Nusantara</h4> -->
-                <!-- <p class="mb-5">Daftar sekarang untuk mendapatkan update dan promosi terbaru dari koleksi batik kami</p> -->
-                <div class="row justify-content-center">
-                    <div class="">
-                        <!-- <h3>Small</h3> -->
-                        <div class="row">
-                            <div class="col-lg-2">
+    <!-- Tanya Gratis -->
+    <div class="section-elements" style="background: #ffffff;">
+        <div class="container">
+            <!-- <h4 class="elements">Bergabunglah dalam melestarikan Batik Nusantara</h4> -->
+            <!-- <p class="mb-5">Daftar sekarang untuk mendapatkan update dan promosi terbaru dari koleksi batik kami</p> -->
+            <div class="row justify-content-center">
+                <div class="">
+                    <!-- <h3>Small</h3> -->
+                    <div class="row">
+                        <div class="col-lg-2">
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="cta-simple cta-border">
+                                <h4 class="elements">Tanya Gratis Kepada Kami</h4>
+                                <p>Konsultasikan kebutuhan anda dengan pakar kami</p>
+                                <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $link['contact_us'];?>" style="color:white;">Hubungi Kami</a></div>
                             </div>
-                            <div class="col-lg-8">
-                                <div class="cta-simple cta-border">
-                                    <h4 class="elements">Tanya Gratis Kepada Kami</h4>
-                                    <p>Konsultasikan kebutuhan anda dengan pakar kami</p>
-                                    <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $link['contact_us'];?>" style="color:white;">Hubungi Kami</a></div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                            </div>
+                        </div>
+                        <div class="col-lg-2">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
+    </div>    
 </main>
