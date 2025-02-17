@@ -388,7 +388,7 @@
         }
         return $return;
     }
-    function upload_file_array_watermark($path, $file, $compress = null,$watermark) { // NEWS.php for ALL $_FILES['?'] Array
+    function upload_file_array_watermark($path, $file, $compress = null, $watermark = null) { // NEWS.php for ALL $_FILES['?'] Array
         if(count($file) > 0){
             
             // Make Directory if Not Exists

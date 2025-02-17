@@ -11,31 +11,31 @@ if ($status == 0) {
 }
 
 // $captcha = str_split($captcha);
-$width = (strlen($captcha) * 9) + 60;
-$height = 30;
+    $width = (strlen($captcha) * 9) + 60;
+    $height = 30;
 
-$textImage = imagecreate($width, $height);
-$color = imagecolorallocate($textImage, 0, 0, 0);
-imagecolortransparent($textImage, $color);
-imagestring($textImage, 5, 35, 5, $captcha, 0xFFFFFF);
-// Increase text-font size
-imageline($textImage, 30, 45, 165, 45, $color);
+    $textImage = imagecreate($width, $height);
+    $color = imagecolorallocate($textImage, 0, 0, 0);
+    imagecolortransparent($textImage, $color);
+    imagestring($textImage, 5, 35, 5, $captcha, 0xFFFFFF);
+    // Increase text-font size
+    imageline($textImage, 30, 45, 165, 45, $color);
 
-//break lines
-$captcha = explode("\\n", $captcha);
-$lines = count($captcha);
+    //break lines
+    $captcha = explode("\\n", $captcha);
+    $lines = count($captcha);
 
-// create background image layer
-$background = imagecreatefromjpeg('https://img.freepik.com/free-vector/abstract-organic-lines-background_1017-26669.jpg?size=626&ext=jpg');
-// Merge background image and text image layers
-imagecopymerge($background, $textImage, 15, 15, 0, 0, $width, $height, 100);
+    // create background image layer
+    $background = imagecreatefromjpeg('https://img.freepik.com/free-vector/abstract-organic-lines-background_1017-26669.jpg?size=626&ext=jpg');
+    // Merge background image and text image layers
+    imagecopymerge($background, $textImage, 15, 15, 0, 0, $width, $height, 100);
 
 
-$output = imagecreatetruecolor($width, $height);
-imagecopy($output, $background, 0, 0, 20, 13, $width, $height);
+    $output = imagecreatetruecolor($width, $height);
+    imagecopy($output, $background, 0, 0, 20, 13, $width, $height);
 
-ob_start();
-imagepng($output);
+    ob_start();
+    imagepng($output);
 $image_base_64 = base64_encode(ob_get_clean());
 
 ?>
