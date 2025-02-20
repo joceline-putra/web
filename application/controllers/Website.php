@@ -134,6 +134,7 @@ class Website extends CI_Controller{
         $this->load->model('Transaksi_model');
         $this->load->model('File_model');    
         $this->load->model('Attribute_model');                
+        $this->load->model('News_model');
 
         //Set Cookie if Not Exists
         if(empty($this->input->cookie('trans_session'))){
@@ -152,20 +153,22 @@ class Website extends CI_Controller{
         $json = json_decode($b['branch_note'],true);
         // echo json_encode($json);die;
         $json_social = [];
-        foreach($json['social_media'] as $v){
-            if(strlen($v['link']) > 0){
-                if($v['name']=='facebook'){ $icon = 'bx bxl-facebook-circle';} 
-                else if($v['name']=='twitter'){ $icon = 'bx bxl-twitter';} 
-                else if($v['name']=='instagram'){ $icon = 'bx bxl-instagram';} 
-                else if($v['name']=='tiktok'){ $icon = 'bx bxl-tiktok';} 
-                else if($v['name']=='youtube'){ $icon = 'bx bxl-youtube';}                                                                
-                $json_social[] = [
-                    'name' => $v['name'], 
-                    'url' => $v['link'], 
-                    'icon' => $icon
-                ];
-            }
-        }        
+        if(!empty($json)){        
+            foreach($json['social_media'] as $v){
+                if(strlen($v['link']) > 0){
+                    if($v['name']=='facebook'){ $icon = 'bx bxl-facebook-circle';} 
+                    else if($v['name']=='twitter'){ $icon = 'bx bxl-twitter';} 
+                    else if($v['name']=='instagram'){ $icon = 'bx bxl-instagram';} 
+                    else if($v['name']=='tiktok'){ $icon = 'bx bxl-tiktok';} 
+                    else if($v['name']=='youtube'){ $icon = 'bx bxl-youtube';}                                                                
+                    $json_social[] = [
+                        'name' => $v['name'], 
+                        'url' => $v['link'], 
+                        'icon' => $icon
+                    ];
+                }
+            }        
+        }
         $a = array(
             'brand' => $b['branch_name'],
             'logo' => !empty($b['branch_logo']) ? base_url() . $b['branch_logo'] : base_url() . 'upload/branch/default_logo.png',
