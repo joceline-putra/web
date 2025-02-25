@@ -29,6 +29,8 @@ if ($status == 0) {
         <link href="<?php echo base_url(); ?>assets/core/css/custom.css" rel="stylesheet" type="text/css" />        
         <link href="<?php echo base_url(); ?>assets/core/css/webarch.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>assets/core/plugins/jconfirm-3.3.4/dist/jquery-confirm.min.css" rel="stylesheet">        
+
+   
     </head>
     <style>
         /*@font-family: 'Open Sans', sans-serif!important;*/
@@ -108,28 +110,7 @@ if ($status == 0) {
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;padding-left:0px;padding-right:0px;">
                         <img src="<?php echo $branch_logo; ?>" class="img-responsive" style="padding-top:20px;margin:0 auto;width:150px;">
                         <h4 style="margin-bottom:0px;">Registrasi Member</h4>
-                        <p>Silahkan isikan formulir dibawah ini</p>           
-                        <form action="#" method="post" class="login-form validate" id="register-form" name="register-form">
-                            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12" style="padding-left:0px;padding-right:0px;">
-                                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" style="padding-left:0px;padding-right:0px;">
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <label class="form-label" style="display: flex;">Jenis Kartu</label>
-                                        <select class="form-control" id="f_card_type" name="f_card_type">
-                                            <option value="0">Pilih</option>                                            
-                                            <option value="Free">Free</option>
-                                            <option value="Gold">Gold</option>                                            
-                                            <option value="Platinum">Platinum</option>                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12" style="padding-left:0px;padding-right:0px;">
-                                    <div class="form-group col-md-12">
-                                        <label class="form-label">Nomor Kartu</label> <span class="help"></span>
-                                        <input class="form-control" id="f_card_number" name="f_card_number" type="text" required placeholder="" value="">
-                                    </div>
-                                </div>        	
-                            </div>   
-                        </form>
+                        <p>Silahkan isikan formulir dibawah ini</p>       
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="grid simple">
@@ -138,7 +119,7 @@ if ($status == 0) {
                                     <div class="tiles white ">
                                         <div class="tiles-body">
                                             <div class="heading">
-                                                <i class="fas fa-2x fa-id-card"></i> 
+                                                <i class="fas fa-1x fa-id-card" style="top:-6px;position:relative;"></i> 
                                                 <b style="position:relative;top:-8px;">Aktivasi Kartu</b>
                                             </div>
                                         </div>
@@ -150,18 +131,18 @@ if ($status == 0) {
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="grid simple">
                             <div class="grid-body">
-                            <a href="<?php echo base_url('pagersemar/scan');?>">
+                                <a id="btn_scan" href="#"><?php #echo base_url('pagersemar/scan');?>
                                     <div class="tiles white ">
                                         <div class="tiles-body">
                                             <div class="heading">
-                                                <i class="fas fa-2x fa-qrcode"></i> 
+                                                <i class="fas fa-1x fa-qrcode" style="top:-6px;position:relative;"></i> 
                                                 <b style="position:relative;top:-8px;">Scan Kartu</b>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                        </div>
+                        </div>                  
                     </div>   
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="grid simple">
@@ -170,7 +151,7 @@ if ($status == 0) {
                                     <div class="tiles white ">
                                         <div class="tiles-body">
                                             <div class="heading">
-                                                <i class="fas fa-2x fa-sign-in-alt"></i> 
+                                                <i class="fas fa-1x fa-sign-in-alt" style="top:-6px;position:relative;"></i> 
                                                 <b style="position:relative;top:-8px;">Login</b>
                                             </div>
                                         </div>
@@ -201,148 +182,70 @@ if ($status == 0) {
         <script src="<?php echo base_url(); ?>assets/core/plugins/sweetalert2/sweetalert2.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/core/plugins/jquery.redirect.js" type="text/javascript"></script>  
         <script src="<?php echo base_url(); ?>assets/core/plugins/jconfirm-3.3.4/dist/jquery-confirm.min.js"></script>
+        <script src="https://unpkg.com/html5-qrcode"></script>     
     </body>
+    <div class="modal fade" id="modal-scanner" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="scanner-title"><b><i class="fas fa-1x fa-qrcode"></i> QRCode Scan</b></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:#888888;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background: white!important;">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-12 col-xs-12 col-sm-12 scroll-track scroll-order-item" style="padding: 0px;margin-top: 0;margin-left:0px;margin-right:0px;"> 
+                                <div id="qr-div" style="width: 100%;" class="col-md-12"></div>    
+                                <p id="qr-result" style="text-align:center;"></p>                            
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
     <script>
         $(document).ready(function () {
-            $("#txtfullname").focus();
-            /*
-            $('#select').select2({
-                //dropdownParent:$("#modal-id"), //If Select2 Inside Modal
-                placeholder: 'Pilih',
-                //width:'100%',
-                tags: true,
-                minimumInputLength: 0,
-                ajax: {
-                    type: "get",
-                    url: "<?= base_url('message/search'); ?>",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        var query = {
-                            search: params.term,
-                            tipe: 1,
-                            source: 'countries'
-                        }
-                        return query;
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: true
+            // HTML5 Scanner QR/Bar Code
+            let scannerConfig = {
+                fps: 10,
+                qrbox: {
+                    width: 250,
+                    height: 250
                 },
-                escapeMarkup: function (markup) {
-                    return markup;
-                },
-                templateResult: function (datas) { //When Select on Click
-                    if ($.isNumeric(datas.id) == true) {
-                        return datas.text;
-                    }
-                },
-                templateSelection: function (datas) { //When Option on Click
-                    if (!datas.id) {
-                        return datas.text;
-                    }
-                    //Custom Data Attribute
-                    $(datas.element).attr('data-country-phone', datas.country_phone);
-                    return datas.text;
-                }
+                rememberLastUsedCamera: true,
+                // formatsToSupport: {
+                //     QR_CODE, CODE_39
+                // }
+            };
+                // formatsToSupport: {
+                //     QR_CODE, AZTEC,
+                //     CODABAR, CODE_39, CODE_93, CODE_128,
+                //     DATA_MATRIX,
+                //     MAXICODE,
+                //     ITF,
+                //     EAN_13, EAN_8,
+                //     PDF_417, RSS_14, RSS_EXPANDED,
+                //     UPC_A, UPC_E, UPC_EAN_EXTENSION
+                // }    
+            let scanner = new Html5QrcodeScanner(
+                "qr-div", scannerConfig
+            );
+            scanner.render(scannerResult);
+            // var html5QrcodeScanner = new Html5QrcodeScanner(
+            //         "qr-reader", { fps: 10, qrbox: 250 });
+            //     html5QrcodeScanner.render(onScanSuccess);
+
+            $('#btn_scan').click(function() {
+                $("#modal-scanner").modal('show');
             });
-            $(document).on("change", "#select", function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var var_custom = $(this).find(':selected').attr('data-country-phone');
-                // alert(var_custom);
-                $("#code").val('+' + var_custom);
-                $("#txttelepon").focus();
-            });     
-            */
-            $("#register-form").on('submit', (function (e) {
-                e.preventDefault();
-                var next = true;
 
-                if ($("#register-form select[name='f_card_type']").find(":selected").val() == 0) {
-                    notif(0, 'Jenis Kartu belum dipilih');
-                    next = false;
-                }
-                
-                if (next) {
-                    if ($("#register-form input[name='f_card_number']").val().length == 0) {
-                        notif(0, 'Nomor Kartu belum diisi');
-                        $("#f_card_number").focus();
-                        next = false;
-                    }
-                }
-
-                if (next) {
-                     if($("#register-form input[name='f_name']").val().length == 0){
-                        notif(0,'Nama belum diisi');
-                        $("#f_name").focus();
-                        next = false;
-                     }
-                }
-
-                if (next) {
-                    if ($("#register-form input[name='f_phone']").val().length == 0) {
-                        notif(0, 'Nomor WhatsApp belum diisi');
-                        $("#f_phone").focus();
-                        next = false;
-                    }
-                }
-
-                if (next) {
-                    if ($("#register-form input[name='captcha']").val().length == 0) {
-                        notif(0, 'Angka belum diisi');
-                        $("#captcha").focus();
-                        next = false;
-                    }
-                }
-                
-                if (next) {
-                    var data = {
-                        action: 'card_activate',
-                        card_type: $("#f_card_type").find(":selected").val(),                        
-                        card_number: $("#f_card_number").val(),
-                        full_name: $("#f_name").val(),
-                        phone: $("#f_phone").val(),
-                        captcha: $("#captcha").val()
-                    };
-                    $.ajax({
-                        type: "POST",
-                        url: "<?= base_url('pagersemar'); ?>",
-                        data: data,
-                        dataType: 'json',
-                        beforeSend: function () {
-                            $('#btnRegister').removeClass('btn-primary');
-                            $('#btnRegister').html('<i class="fas fa-spinner"></i> Silahkan Tunggu...');
-                            $('#btnRegister').prop('disabled', true);
-                        },
-                        success: function (d) {
-                            var url_before = $("#url").val();
-                            var base_url = "<?= base_url(); ?>";
-                            if (parseInt(d.status) == 1) {
-                                notif(1, d.message);
-                                // var data = {activation_code: d.result.user_activation};
-                                // $.redirect(d.result.return_url,data,"POST","_self");                  
-                                window.location.href = d.result.return_url;
-                            } else {
-                                notif(0, d.message);
-                                $('#btnRegister').addClass('btn-primary');
-                                $('#btnRegister').html('<i class="fas fa-hand-point-right"></i> Daftar');
-                                $('#btnRegister').prop('disabled', false);
-                            }
-                        },
-                        error: function (xhr, Status, err) {
-                            notif(0, 'Error');
-                            $('#btnRegister').addClass('btn-primary');
-                            $("#register-form input[name='captcha']").val('');                            
-                            $('#btnRegister').html('<i class="fas fa-hand-point-right"></i> Daftar');
-                            $('#btnRegister').prop('disabled', false);
-                        }
-                    });
-                }
-            }));
+            function scannerResult(decodedText, decodedResult) {
+                window.open(decodedText, '_blank');
+                $("#qr-result").html(decodedText);
+            }
         });
         const Toast = Swal.mixin({
             toast: true,

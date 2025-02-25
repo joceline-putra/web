@@ -13,6 +13,7 @@ $route['search']                = "search/index";
 	$route['password'] 		= "login/pages/2";
 	$route['activation'] 	= "login/pages/3";
 
+	$route['pagersemar'] 				= "pagersemar/index";
 	$route['pagersemar/register'] 		= "pagersemar/card_register";
 	$route['pagersemar/scan'] 		    = "pagersemar/card_scan";	
 	
