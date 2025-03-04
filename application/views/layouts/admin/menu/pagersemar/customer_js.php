@@ -6,6 +6,7 @@
         var view = "<?php echo $_view; ?>";
         var url = "<?= base_url('kontak/manage'); ?>";
         var url_image = "<?= site_url('upload/noimage.png'); ?>";
+        let url_print = "<?php base_url('card'); ?>";
         var url_finance = "<?= base_url('keuangan/manage'); ?>";
         var url_print_buy = "<?= base_url('transaksi/print_history'); ?>";        
         // $("#img-preview1").attr('src', url_image);
@@ -61,8 +62,8 @@
                     d.action = 'load';
                     d.tipe = identity;
                     d.length = $("#filter_length").find(':selected').val();
-                    d.filter_flag = $("#filter_flag").find(':selected').val();
-                    d.filter_categories = $("#filter_categories").find(':selected').val();                    
+                    // d.filter_flag = $("#filter_flag").find(':selected').val();
+                    // d.filter_categories = $("#filter_categories").find(':selected').val();                    
                     d.search = {
                         value: $("#filter_search").val()
                     };
@@ -83,14 +84,15 @@
             ],
             "columns": [
                 {
-                    'data': 'contact_code',
+                    'data': 'card_number',
                     className: 'text-left',
                     render: function (data, meta, row) {
                         var dsp = '';
-                        if (row.contact_code != undefined) {
-                            // dsp += '<br><label class="label label-inverse" style="padding:1px 4px;">' + row.contact_code+'</label>';
-                            dsp += data;
-                        }                              
+                        // if (row.contact_code != undefined) {
+                        //     // dsp += '<br><label class="label label-inverse" style="padding:1px 4px;">' + row.contact_code+'</label>';
+                        //     dsp += data;
+                        // }           
+                        dsp += data+'<br>'+row.card_type;                   
                         return dsp;
                     }
                 }, {
@@ -102,7 +104,7 @@
                         // dsp += 'data-nama="' + row.contact_name + '" data-kode="' + row.contact_code + '" data-id="' + data + '" data-flag="' + row.contact_flag + '">';
                         // dsp += row.contact_name + '</a>';   
                         dsp += data;       
-                        dsp += '<br>'+row.card_number;                
+                        // dsp += '<br>'+row.card_number;                
                         return dsp;
                     }
                 }, {
@@ -140,15 +142,18 @@
                         dsp += '<span class="fas fa-edit"></span>Edit';
                         dsp += '</button>';
 
-                        if (parseInt(row.contact_flag) === 1) {
-                            dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-success"';
-                            dsp += 'data-nama="' + row.contact_name + '" data-kode="' + row.contact_code + '" data-id="' + data + '" data-flag="' + row.contact_flag + '">';
-                            dsp += '<span class="fas fa-user-check primary"></span> Aktif</button>';
-                        } else {
-                            dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-danger"';
-                            dsp += 'data-nama="' + row.contact_name + '" data-kode="' + row.contact_code + '" data-id="' + data + '" data-flag="' + row.contact_flag + '">';
-                            dsp += '<span class="fas fa-user-alt-slash danger"></span> Nonaktif</button>';
-                        }
+                        dsp += '&nbsp;<button class="btn btn_print_card btn-mini btn-primary"';
+                        dsp += 'data-card-id="'+data+'" data-card-name="'+row.card_name+'" data-card-flag="'+row.card_flag+'" data-card-session="'+row.card_session+'">';
+                        dsp += '<span class="fas fa-qrcode primary"></span> Print</button>';
+                        // if (parseInt(row.contact_flag) === 1) {
+                        //     dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-success"';
+                        //     dsp += 'data-nama="' + row.contact_name + '" data-kode="' + row.contact_code + '" data-id="' + data + '" data-flag="' + row.contact_flag + '">';
+                        //     dsp += '<span class="fas fa-user-check primary"></span> Aktif</button>';
+                        // } else {
+                        //     dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-danger"';
+                        //     dsp += 'data-nama="' + row.contact_name + '" data-kode="' + row.contact_code + '" data-id="' + data + '" data-flag="' + row.contact_flag + '">';
+                        //     dsp += '<span class="fas fa-user-alt-slash danger"></span> Nonaktif</button>';
+                        // }
 
                         return dsp;
                     }
@@ -848,7 +853,23 @@
             });
 
         });
-
+        $(document).on("click",".btn_print_card",function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log($(this));
+            // var id = $(this).attr('data-card-id');
+            var session = $(this).attr('data-card-session');
+            // if(parseInt(id) > 0){
+                var x = screen.width / 2 - 700 / 2;
+                var y = screen.height / 2 - 450 / 2;
+                // http://localhost/git/web/pagersemar/card?action=print&data=VUAMYO8S2I6X1W82B9WL
+                var print_url = url_print+'card_info/'+session;
+                var win = window.open(print_url,'Print','width=700,height=485,left=' + x + ',top=' + y + '').print();
+                //var win = window.open(print_url,'_blank');
+            // }else{
+                // notif(0,'Dokumen belum di buka');
+            // }
+        });
         //Image Croppie
         $(document).on('change', '#files', function(e) {
             if($("#files").val() == ''){

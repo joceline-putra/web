@@ -151,6 +151,16 @@ class Card_model extends CI_Model{
             return false;
         }
     }
-
+    function call_sp_card($create_session = null,$card_name = null,$card_note = null,$card_count = null,$card_initial = null) {
+        
+        $prepare = "CALL sp_create_card('$create_session','$card_name','$card_note',$card_count,'$card_initial')";
+        // var_dump($prepare);die;
+        $query = $this->db->query($prepare);
+        $result = $query->result_array();
+        mysqli_next_result($this->db->conn_id);
+        $query->free_result();
+        // log_message("debug", print_r($prepare, true));
+        return $result;
+    }  
 }
 ?>

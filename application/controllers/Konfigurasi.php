@@ -530,11 +530,11 @@ class Konfigurasi extends MY_Controller{
                             //Call SP To Setup Account & Account Map
                             $setup_result = 0;
                             if($table=='branchs'){
-                                $set_branch = $set_data;
-                                $setup = $this->set_account_from_setup_accounts_items($set_branch,$specialist);
-                                if($setup){
+                                // $set_branch = $set_data;
+                                // $setup = $this->set_account_from_setup_accounts_items($set_branch,$specialist);
+                                // if($setup){
                                     $setup_result = 1;
-                                }
+                                // }
                                 $id = $set_data;
                                 // $data = $this->Konfigurasi_model->get_data($table,$id);                            
                                 // //Save Image if Exist

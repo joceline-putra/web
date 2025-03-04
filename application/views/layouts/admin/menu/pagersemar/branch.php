@@ -145,13 +145,13 @@
                                                         <div class="col-md-7 col-xs-12 padding-remove-right">
                                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Kode <?php echo $title; ?> / Perusahaan (opsional)</label>
+                                                                    <label class="form-label">Kode <?php echo $title; ?> (opsional)</label>
                                                                     <input id="kode" name="kode" type="text" value="" class="form-control" readonly='true'/>
                                                                 </div>
                                                             </div>                              
                                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Nama <?php echo $title; ?> / Perusahaan *</label>
+                                                                    <label class="form-label">Nama <?php echo $title; ?>*</label>
                                                                     <input id="nama" name="nama" type="text" value="" class="form-control" readonly='true'/>
                                                                 </div>
                                                             </div>                          
@@ -237,12 +237,12 @@
                                                                 <option value="0">-- Pilih --</option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-lg-12 col-md-12 col-xs-12 form-group padding-remove-side">
+                                                        <!-- <div class="col-lg-12 col-md-12 col-xs-12 form-group padding-remove-side">
                                                             <label class="form-label">Kecamatan *</label>
                                                             <select id="kecamatan" name="kecamatan" class="form-control">
                                                                 <option value="0">-- Pilih --</option>
                                                             </select>
-                                                        </div>                                                                        
+                                                        </div>                                                                         -->
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>

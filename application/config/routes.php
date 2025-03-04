@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // $route['default_controller'] = 'Index/index';
-$route['default_controller']    = 'website';
+$route['default_controller']    = 'login';
 $route['404_override']          = 'website/notfound';
 $route['translate_uri_dashes']  = FALSE;
 $route['search']                = "search/index";

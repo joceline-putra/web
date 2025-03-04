@@ -178,14 +178,11 @@ class Kontak extends MY_Controller{
             switch($action){
                 case "load":
                     $columns = array(
-                        '0' => 'contact_code',
+                        '0' => 'card_number',
                         '1' => 'contact_name',                    
                         '2' => 'contact_phone_1',
-                        '3' => 'contact_email_1',
-                        '4' => 'contact_identity_number',                    
-                        '5' => 'contact_company',
-                        '6' => 'contact_address',
-                        '7' => 'contact_parent_name'
+                        '3' => 'contact_address',
+                        '4' => 'contact_date_created'
                     );
                     $limit = $this->input->post('length');
                     $start = $this->input->post('start');
@@ -206,7 +203,7 @@ class Kontak extends MY_Controller{
                         'contact_type' => intval($set_tipe)
                     );
                     if($this->input->post('filter_flag') < 100){
-                        $params['contact_flag'] = intval($this->input->post('filter_flag'));
+                        // $params['contact_flag'] = intval($this->input->post('filter_flag'));
                     }
                     if($this->input->post('filter_kontak') > 0){
                         $params['contact_parent_id'] = intval($this->input->post('filter_kontak'));

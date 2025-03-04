@@ -14,6 +14,12 @@ $qrc = !empty($this->session->flashdata('qr')) ? $this->session->flashdata('qr')
 $v = '';
 if($status==1){
     $data_url = base_url().'pagersemar/card_info/'.$result['card_session'];
+
+    if($result['card_flag']==1){
+        $periode = date("d-M-Y", strtotime($result['card_date_start'])).' sd '.date("d-M-Y",strtotime($result['card_date_end']));
+    } else {
+        $periode = '-';
+    }
     // $qrcode = 'https://api.qrserver.com/v1/create-qr-code/?size=80x80&data='.$data_url;
 // if ($status == 0) {
     // redirect(base_url(), 'refresh');
@@ -47,7 +53,7 @@ if($status==1){
                     </tr>              
                     <tr>
                         <td class="text-left">Valid</td>
-                        <td class="text-left">: <b>'.date("d-M-Y", strtotime($result['card_date_start'])).' sd '.date("d-M-Y",strtotime($result['card_date_end'])).'</td>                        
+                        <td class="text-left">: <b>'.$periode.'</td>                        
                     </tr>     
                     <tr>
                         <td class="text-left"><b>MEMBER</b></td>

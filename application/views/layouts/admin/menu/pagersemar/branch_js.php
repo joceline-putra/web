@@ -53,7 +53,7 @@
             },
             "columnDefs": [
                 {"targets": 0, "title": "Logo", "searchable": true, "orderable": true},
-                {"targets": 1, "title": "Cabang", "searchable": true, "orderable": true},
+                {"targets": 1, "title": "<?php echo $title;?>", "searchable": true, "orderable": true},
                 {"targets": 2, "title": "Kontak", "searchable": true, "orderable": true},
                 {"targets": 3, "title": "User", "searchable": true, "orderable": true},
                 {"targets": 4, "title": "Action", "searchable": false, "orderable": false}
@@ -392,93 +392,6 @@
             formCancel();
         });
         // Save Button 
-        /*
-         $(document).on("click","#btn-save",function(e) {
-         e.preventDefault();
-         var next = true;
-         var kode = $("#form-master input[name='kode']");
-         var nama = $("#form-master input[name='nama']");
-         //Contact Type
-         var type_supplier = $("#checkbox_supplier").is(':checked'), 
-         type_customer = $("#checkbox_customer").is(':checked'), 
-         type_karyawan = $("#checkbox_karyawan").is(':checked');
-         if(next==true){    
-         if($("input[id='kode']").val().length == 0){
-         notif(0,'Kode wajib diisi');
-         $("#kode").focus();
-         next=false;
-         }
-         }
-         if(next==true){
-         if($("input[id='nama']").val().length == 0){
-         notif(0,'Nama wajib diisi');
-         $("#nama").focus();
-         next=false;
-         }   
-         }
-         if(next==true){
-         if($("input[id='telepon_1']").val().length == 0){
-         notif(0,'Telepon 1 wajib diisi');
-         $("#telepon_1").focus();
-         next=false;
-         }   
-         }    
-         if(next==true){
-         if($("textarea[id='alamat']").val().length == 0){
-         notif(0,'Alamat wajib diisi');
-         $("#alamat").focus();
-         next=false;
-         }   
-         }        
-         if(next==true){
-         var prepare = {
-         tipe: $("input[id=tipe]").val(),
-         kode: $("input[id='kode']").val(),
-         nama: $("input[id='nama']").val(),
-         perusahaan: $("input[id='perusahaan']").val(),        
-         telepon_1: $("input[id='telepon_1']").val(),
-         telepon_2: $("input[id='telepon_2']").val(),
-         email_1: $("input[id='email_1']").val(),
-         email_2: $("input[id='email_2']").val(),        
-         alamat: $("textarea[id='alamat']").val(),
-         status: $("select[id='status']").find(':selected').val(),
-         handphone: $("input[id='handphone']").val(),
-         fax: $("input[id='fax']").val(),
-         npwp: $("input[id='npwp']").val(),        
-         note: $("textarea[id='note']").val(),
-         identity_type: $("select[id='identity_type']").find(':selected').val(),
-         identity_number: $("input[id='identity_number']").val(),
-         supplier: type_supplier,
-         customer: type_customer,
-         karyawan: type_karyawan        
-         }
-         var prepare_data = JSON.stringify(prepare);
-         var data = {
-         action: 'create',
-         data: prepare_data
-         };
-         $.ajax({
-         type: "POST",     
-         url: url,
-         data: data, 
-         dataType:'json',
-         cache: false,
-         beforeSend:function(){},
-         success:function(d){
-         if(parseInt(d.status)==1){
-         notif(1,d.message);
-         index.ajax.reload();
-         }else{
-         notif(0,d.message);  
-         }            
-         },
-         error:function(xhr, Status, err){
-         notif(0,'Error');
-         }
-         });
-         }
-         });  
-         */
         $(document).on("click", "#btn-save", function (e) {
             e.preventDefault();
             var next = true;
@@ -531,12 +444,12 @@
                     next = false;
                 }
             }
-            if (next == true) {
-                if ($("select[id='kecamatan']").find(":selected").val() == 0) {
-                    notif(0, 'Kecamatan harus dipilih');
-                    next = false;
-                }
-            }
+            // if (next == true) {
+            //     if ($("select[id='kecamatan']").find(":selected").val() == 0) {
+            //         notif(0, 'Kecamatan harus dipilih');
+            //         next = false;
+            //     }
+            // }
             if (next == true) {
                 var form = new FormData();
                 form.append('action', 'create');
@@ -551,7 +464,7 @@
                 form.append('user', $('#user').find(':selected').val());
                 form.append('provinsi', $('#provinsi').find(':selected').val());
                 form.append('kota', $('#kota').find(':selected').val());
-                form.append('kecamatan', $('#kecamatan').find(':selected').val());
+                // form.append('kecamatan', $('#kecamatan').find(':selected').val());
                 // form.append('with_stock', $('#with_stock').find(':selected').val());
                 // form.append('with_journal', $('#with_journal').find(':selected').val());
                 form.append('upload1', $("#files_preview").attr('data-save-img'));
@@ -667,95 +580,6 @@
             });
         });
         // Update Button
-        /*
-         $(document).on("click","#btn-update",function(e) {
-         e.preventDefault();
-         var next = true;
-         var id = $("#form-master input[name='id_dokumen']").val();
-         var kode = $("#form-master input[name='kode']");
-         var nama = $("#form-master input[name='nama']");
-         //Contact Type
-         var type_supplier = $("#checkbox_supplier").is(':checked'), 
-         type_customer = $("#checkbox_customer").is(':checked'), 
-         type_karyawan = $("#checkbox_karyawan").is(':checked');
-         if(id == ''){
-         notif(0,'ID tidak ditemukan');
-         next=false;
-         }
-         // $("input[type=checkbox]").each(function(){
-         //   var input = $(this).is(':checked');
-         //   // console.log(input);
-         //   if(input == false){
-         //   }
-         // });
-         if(kode.val().length == 0){
-         notif(0,'Kode wajib diisi');
-         kode.focus();
-         next=false;
-         }
-         if(nama.val().length == 0){
-         notif(0,'Nama wajib diisi');
-         nama.focus();
-         next=false;
-         }    
-         if(next==true){
-         var prepare = {
-         id: $("input[id=id_document]").val(),
-         tipe: $("input[id=tipe]").val(),
-         kode: $("input[id='kode']").val(),
-         nama: $("input[id='nama']").val(),
-         perusahaan: $("input[id='perusahaan']").val(),        
-         telepon_1: $("input[id='telepon_1']").val(),
-         telepon_2: $("input[id='telepon_2']").val(),
-         email_1: $("input[id='email_1']").val(),
-         email_2: $("input[id='email_2']").val(),        
-         alamat: $("textarea[id='alamat']").val(),
-         status: $("select[id='status']").find(':selected').val(),
-         handphone: $("input[id='handphone']").val(),
-         fax: $("input[id='fax']").val(),
-         npwp: $("input[id='npwp']").val(),        
-         note: $("textarea[id='note']").val(),
-         identity_type: $("select[id='identity_type']").find(':selected').val(),
-         identity_number: $("input[id='identity_number']").val(),
-         supplier: type_supplier,
-         customer: type_customer,
-         karyawan: type_karyawan
-         }
-         var prepare_data = JSON.stringify(prepare);
-         var data = {
-         action: 'update',
-         data: prepare_data
-         };
-         $.ajax({
-         type: "POST",     
-         url: url,
-         data: data,
-         cache: false,
-         dataType:"json", 
-         beforeSend:function(){},
-         success:function(d){
-         console.log(d);
-         if(parseInt(d.status)==1){
-         $("#btn-new").show();
-         $("#btn-save").hide();
-         $("#btn-update").hide();
-         $("#btn-cancel").hide();
-         $("#form-master input").val(); 
-         formMasterSetDisplay(1);      
-         notif(1,d.message);
-         index.ajax.reload();
-         }
-         else{
-         notif(0,d.message);  
-         }            
-         },
-         error:function(xhr, Status, err){
-         notif(0,'Error');
-         }
-         });
-         }
-         });
-         */
         $(document).on("click", "#btn-update", function (e) {
             e.preventDefault();
             var next = true;
@@ -817,12 +641,12 @@
                     next = false;
                 }
             }
-            if (next == true) {
-                if ($("select[id='kecamatan']").find(":selected").val() == 0) {
-                    notif(0, 'Kecamatan harus dipilih');
-                    next = false;
-                }
-            }
+            // if (next == true) {
+            //     if ($("select[id='kecamatan']").find(":selected").val() == 0) {
+            //         notif(0, 'Kecamatan harus dipilih');
+            //         next = false;
+            //     }
+            // }
             if (next == true) {
                 var form = new FormData();
                 form.append('action', 'update');
@@ -836,7 +660,7 @@
                 form.append('status', $('#status').find(':selected').val());
                 form.append('provinsi', $('#provinsi').find(':selected').val());
                 form.append('kota', $('#kota').find(':selected').val());
-                form.append('kecamatan', $('#kecamatan').find(':selected').val());
+                // form.append('kecamatan', $('#kecamatan').find(':selected').val());
                 form.append('user', $('#user').find(':selected').val());
                 // form.append('with_stock', $('#with_stock').find(':selected').val());
                 // form.append('with_journal', $('#with_journal').find(':selected').val());
@@ -987,14 +811,6 @@
             e.stopPropagation();
             $.alert('Nothing to do');
         });
-        // $('#upload1').change(function (e) {
-        //     var fileName = e.target.files[0].name;
-        //     var reader = new FileReader();
-        //     reader.onload = function (e) {
-        //         $('#img-preview1').attr('src', e.target.result);
-        //     };
-        //     reader.readAsDataURL(this.files[0]);
-        // });
         //Image Croppie
         $(document).on('change', '#files', function(e) {
             if($("#files").val() == ''){

@@ -315,16 +315,18 @@
                                                         <i class="fas fa-print"></i>
                                                         Print Data
                                                     </button>                                                                  
+                                                    <!-- 
                                                     <button id="btn-new" class="btn btn-success btn-small" type="button"
                                                             style="display: inline;">
                                                         <i class="fas fa-plus"></i>
-                                                        Buat <?php echo $title; ?> Baru
+                                                        Buat <?php #echo $title; ?> Baru
                                                     </button>
+                                                    -->
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side" style="padding-top:8px;">
-                                            <div class="col-lg-3 col-md-3 col-xs-8 col-sm-8 form-group padding-remove-right">
+                                            <!-- <div class="col-lg-3 col-md-3 col-xs-8 col-sm-8 form-group padding-remove-right">
                                                 <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                                                     <label class="form-label">Wilayah <?php echo $title; ?></label>
                                                     <select id="filter_categories" name="filter_categories" class="form-control">
@@ -341,8 +343,8 @@
                                                         <option value="0">Nonaktif</option>
                                                     </select>
                                                 </div>
-                                            </div>                          
-                                            <div class="col-lg-5 col-md-5 col-xs-12 col-sm-12 form-group padding-remove-right">
+                                            </div>                           -->
+                                            <div class="col-lg-10 col-md-10 col-xs-12 col-sm-12 form-group padding-remove-right">
                                                 <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                                                     <label class="form-label">Cari</label>
                                                     <input id="filter_search" name="filter_search" type="text" value="" class="form-control" placeholder="Pencarian" />

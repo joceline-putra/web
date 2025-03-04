@@ -15,66 +15,12 @@ $icon = 'none;';
                 <li class="start open">
                     <ul class="open sub-menu" style="display:block;">
                         <li><a href="<?php echo site_url('pagersemar/card')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Card</a></li>
-                        <li><a href="<?php echo site_url('pagersemar/member')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Member - contact 2</a></li>     
-                        <li><a href="<?php echo site_url('pagersemar/merchant')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Merchant - branch</a></li>   
-                        <li><a href="<?php echo site_url('pagersemar/user')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> User - user</a></li>                                                                      
+                        <li><a href="<?php echo site_url('pagersemar/member')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Member</a></li>     
+                        <li><a href="<?php echo site_url('pagersemar/merchant')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Merchant</a></li>   
+                        <li><a href="<?php echo site_url('pagersemar/user')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> User</a></li>                                                                      
                     </ul>
                 </li>                       
-            </li>                
-            <li class="start"> 
-                <a href="<?php echo base_url('admin'); ?>">
-                    <i class="fas fa-th"></i>
-                    <span class="title">Page</span> <span class="selected"></span>
-                </a> 
-                <li class="start open">
-                    <ul class="open sub-menu" style="display:block;">
-                        <li><a href="<?php echo site_url('blog/project')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Project</a></li>   
-                        <li><a href="<?php echo site_url('blog/gallery')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Gallery</a></li> 
-                        <li><a href="<?php echo site_url('blog/portofolio')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Portofolio</a></li>                                                                
-                        <!-- <li><a href="<?php #echo site_url('blog/team')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Team</a></li>                            -->
-                    </ul>
-                </li>
-            </li>
-            <li class="start"> 
-                <a href="<?php echo base_url('admin'); ?>">
-                    <i class="fas fa-rss"></i>
-                    <span class="title">Blogs</span> <span class="selected"></span>
-                </a> 
-                <li class="start open">
-                    <ul class="open sub-menu" style="display:block;">
-                        <li><a href="<?php echo site_url('blog/article')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Blog</a></li>
-                        <li><a href="<?php echo site_url('category/article')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Kategori Blog</a></li>                     
-                    </ul>
-                </li>
-            </li>  
-            <li class="start"> 
-                <a href="<?php echo base_url('admin'); ?>">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="title">Products</span> <span class="selected"></span>
-                </a> 
-                <li class="start open">
-                    <ul class="open sub-menu" style="display:block;">
-                        <li><a href="<?php echo site_url('blog/product')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Produk</a></li>
-                        <li><a href="<?php echo site_url('category/product')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Kategori Produk</a></li>  
-                        <!-- <li><a href="<?php echo site_url('webpage/faq')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> - FAq</a></li>                             -->
-                    </ul>
-                </li>                       
-            </li>  
-            <li class="start"> 
-                <a href="<?php echo base_url('admin'); ?>">
-                    <i class="fas fa-cogs"></i>
-                    <span class="title">Settings</span> <span class="selected"></span>
-                </a> 
-                <li class="start open">
-                    <ul class="open sub-menu" style="display:block;">
-                        <li><a href="<?php echo site_url('webpage/menu')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Halaman</a></li>                                              
-                        <li><a href="<?php echo site_url('webpage/contact')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> Kontak</a></li>
-                        <?php if($session['user_data']['user_id'] == 1) { ?>
-                        <li><a href="<?php echo site_url('webpage/user')?>"><i class="fas fa-hdd" style="display:<?php echo $icon; ?>"></i> User</a></li>
-                        <?php } ?>
-                    </ul>
-                </li>                       
-            </li>
+            </li> 
         </ul>
         <div class="clearfix"></div>
         <br><br>

@@ -520,11 +520,160 @@ class Pagersemar extends MY_Controller{
     function card(){
         $data['session']    = $this->session->userdata();  
         $data['theme']      = $this->User_model->get_user($data['session']['user_data']['user_id']);
+        // var_dump($this->input->post());
+        if ($this->input->post()) {
+            $return = new \stdClass();
+            $return->status = 0;
+            $return->message = '';
+            $return->result = '';
 
-        $data['title']  = 'Card';
-        $data['_view']  = $this->folder.'card';
-        $data['_js']    = $this->folder.'card_js';
-        $this->load->view('layouts/admin/index',$data);
+            $post = $this->input->post();
+            $get  = $this->input->get();
+            $action = !empty($this->input->post('action')) ? $this->input->post('action') : false;
+            // var_dump($action);die;
+            switch($action){
+                case "load":
+                    $columns = array(
+                        '0' => 'card_number',
+                        '1' => 'card_type',
+                        '2' => 'card_date_end',
+                        '3' => 'card_flag'
+                    );   
+
+                    $limit = $this->input->post('length');
+                    $start = $this->input->post('start');
+                    $order = $columns[$this->input->post('order')[0]['column']];
+                    $dir = $this->input->post('order')[0]['dir'];
+                    $search = [];
+                     
+                    if ($this->input->post('search')['value']) {
+                        $s = $this->input->post('search')['value'];
+                        foreach ($columns as $v) {
+                            $search[$v] = $s;
+                        }
+                    }        
+
+                    $params_datatable = array(
+                        // 'flag' => 1
+                    );   
+                    // if($session_user_group_id > 1){
+                    //     $params_datatable['branch_id'] = intval($session_branch_id);
+                    // }else{
+                    //     $params_datatable['branch_id >'] = 0;
+                    // }
+                    // if($this->input->post('filter_specialist') > 0){
+                    //     $params_datatable['branch_specialist_id'] = intval($this->input->post('filter_specialist'));
+                    // }                    
+                    // if($this->input->post('filter_province') > 0){
+                    //     $params_datatable['branch_province_id'] = intval($this->input->post('filter_province'));
+                    // }                    
+                    // if($this->input->post('filter_city') > 0){
+                    //     $params_datatable['branch_city_id'] = intval($this->input->post('filter_city'));
+                    // }                    
+                    $datas = $this->Card_model->get_all_card($params_datatable, $search, $limit, $start, $order, $dir);
+                    $datas_count = $this->Card_model->get_all_card_count($params_datatable,$search);
+                    
+                    if($datas_count > 0){ //Data exist
+                        $return->status=1; 
+                        $return->message='Loaded'; 
+                        $return->result=$datas;        
+                    }else{ 
+                        $return->status  = 0; 
+                        $return->message = 'No data'; 
+                        $return->result  = array();    
+                    }
+                    $return->recordsTotal       = $datas_count;
+                    $return->recordsFiltered    = $datas_count;
+                    $return->total_records      = $datas_count;                    
+                    $return->params             = $params_datatable;
+                    $return->search             = $search;
+                    break;
+                case "create": //Checked 
+                    $this->form_validation->set_rules('card_name', 'Jenis Kartu', 'required');
+                    $this->form_validation->set_rules('card_initial', 'Format Depan Kartu', 'required');
+                    $this->form_validation->set_rules('card_count', 'Jumlah Kartu', 'required');                                                            
+                    if ($this->form_validation->run() == FALSE){
+                        $return->message = validation_errors();
+                    }else{      
+                        $card_name    = !empty($this->input->post('card_name')) ? $this->input->post('card_name') : null;
+                        $card_initial = !empty($this->input->post('card_initial')) ? $this->input->post('card_initial') : null;   
+                        $card_count   = !empty($this->input->post('card_count')) ? $this->input->post('card_count') : null; 
+                        $card_note    = !empty($this->input->post('card_note')) ? $this->input->post('card_note') : null; 
+                        
+                        $create_session = $this->random_session(20);
+
+                        $params = [
+                            'card_type' => $card_name
+                        ];
+                        $check_exists = $this->Card_model->check_data_exist($params);
+                        if($check_exists==false){
+
+                            $set_data = $this->Card_model->call_sp_card($create_session,$card_name,$card_note,$card_count,$card_initial);
+
+                            // $set_data=$this->Card_model->add_data('branchs',$params);
+                            // if($set_data==true){
+                            //     $branch_id = $set_data;
+                            //     $get_data = $this->Branch_model->get_branch($branch_id);
+                            //     if(!empty($user)){
+                            //         $this->User_model->update_user($user,array('user_branch_id'=>$branch_id));
+                            //     }
+                            //     //Croppie Upload Image
+                            //     $post_upload = !empty($this->input->post('upload1')) ? $this->input->post('upload1') : "";
+                            //     if(strlen($post_upload) > 10){
+                            //         $upload_process = $this->file_upload_image($this->folder_upload,$post_upload);
+                            //         if($upload_process->status == 1){
+                            //             if ($get_data && $get_data['branch_id']) {
+                            //                 $params_image = array(
+                            //                     'branch_logo' => $upload_process->result['file_location'],
+                            //                     'branch_logo_sidebar' => $upload_process->result['file_location'],                                        
+                            //                 );
+                            //                 if($get_data['branch_logo'] !== 'upload/branch/default_logo.png'){
+                            //                     if (!empty($get_data['branch_logo'])) {
+                            //                         if (file_exists(FCPATH . $get_data['branch_logo'])) {
+                            //                             unlink(FCPATH . $get_data['branch_logo']);
+                            //                         }
+                            //                     }
+                            //                 }
+                            //                 $stat = $this->Branch_model->update_branch($branch_id, $params_image);
+                            //             }
+                            //         }else{
+                            //             $return->message = 'Fungsi Gambar gagal';
+                            //         }
+                            //     }
+                                //End of Croppie  
+                                //Aktivitas
+                                $params = array(
+                                    'activity_user_id' => $session['user_data']['user_id'],
+                                    'activity_action' => 2,
+                                    'activity_table' => 'branchs',
+                                    'activity_table_id' => $set_data,                            
+                                    'activity_text_1' => strtoupper($nama),
+                                    'activity_text_2' => ucwords(strtolower($nama)),                        
+                                    'activity_date_created' => date('YmdHis'),
+                                    'activity_flag' => 1
+                                );
+                                $this->save_activity($params);                
+                                $return->status=1;
+                                $return->message='Berhasil menambahkan ';
+                                $return->result= array(
+                                    'id' => $set_data,
+                                );                         
+                            // }
+                        }else{
+                            $return->message='Data sudah ada';   
+                            $return->params_check = $params_check;                 
+                        }
+                    }
+                    break;
+                                    
+            }
+            echo json_encode($return);
+        }else{        
+            $data['title']  = 'Card';
+            $data['_view']  = $this->folder.'card';
+            $data['_js']    = $this->folder.'card_js';
+            $this->load->view('layouts/admin/index',$data);
+        }
     }   
     function card_register(){
         if(!$this->is_logged_in()){
