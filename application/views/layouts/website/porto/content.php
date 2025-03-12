@@ -66,8 +66,22 @@
     </div>
 
     <div class="container">
+
+
+        <!-- Map -->
+        <section class="feature-boxes-container">
+            <div class="container appear-animate" data-animation-name="fadeInUpShorter">
+                <h2 class="section-title heading-border ls-20 border-0">Temukan Kami Di Sekitar Anda</h2>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="map" class="google-map m-0" style="height: 400px;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>     
+
         <!-- Card Info -->
-        <div class="info-boxes-slider owl-carousel owl-theme mb-2" data-owl-options="{
+        <div class="info-boxes-slider owl-carousel owl-theme mb-2 mt-5" data-owl-options="{
                 'dots': false,
                 'loop': false,
                 'responsive': {
@@ -656,18 +670,7 @@
                 </div>
             </div>
         </section>
-
-        <!-- Map -->
-        <section class="feature-boxes-container">
-            <div class="container appear-animate" data-animation-name="fadeInUpShorter">
-                <h2 class="section-title heading-border ls-20 border-0">Temukan Produk DOLPHIN Di Sekitar Anda</h2>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="map" class="google-map m-0" style="height: 400px;"></div>
-                    </div>
-                </div>
-            </div>
-        </section>      
+ 
         
         <!-- Icon -->
         <section class="feature-boxes-container">

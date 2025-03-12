@@ -205,6 +205,8 @@
         let additionalMarkers = [];            
         let infowindow;
 
+        let branchICON  = "<?php echo base_url('upload/map_icon/branch.png'); ?>";
+        let meICON      = "<?php echo base_url('upload/map_icon/me.png'); ?>";        
         let redICON     = "<?php echo base_url('upload/map_icon/red.png'); ?>";
         let greenICON   = "<?php echo base_url('upload/map_icon/green.png'); ?>";
 
@@ -273,8 +275,8 @@
             updateGeoCoder(L.latLng(position.lat,position.lng));
 
             var setIcon = L.icon({
-                iconUrl: greenICON, // Ganti dengan URL gambar ikon berwarna merah
-                iconSize: [38, 38], // Ukuran ikon
+                iconUrl: meICON, // Ganti dengan URL gambar ikon berwarna merah
+                iconSize: [64, 64], // Ukuran ikon
                 iconAnchor: [19, 38], // Titik jangkar ikon, sesuai dengan posisi ikon di peta
                 popupAnchor: [0, -38] // Titik jangkar popup, relatif terhadap titik jangkar ikon
             });
@@ -365,8 +367,14 @@
                 //     direction: 'center', // Menempatkan label di tengah lingkaran
                 //     className: 'circle-tooltip' // Menambahkan kelas CSS khusus untuk styling
                 // }).openTooltip();
-
-                marker2 = L.marker([parseFloat(v['location_lat']), parseFloat(v['location_lng'])]).addTo(map)
+                // Create a custom icon
+                var customIcon = L.icon({
+                    iconUrl: branchICON,  // Replace with your custom icon URL
+                    iconSize: [48, 48],  // Size of the icon
+                    iconAnchor: [16, 32], // Point of the icon that will correspond to the marker's location
+                    popupAnchor: [0, -32] // Point from which the popup should open relative to the iconAnchor
+                });
+                marker2 = L.marker([parseFloat(v['location_lat']), parseFloat(v['location_lng'])], { icon: customIcon }).addTo(map)
                     .bindPopup(popupContent)
                     .openPopup();                 
 
@@ -522,8 +530,8 @@
             var waktu = setTimeout("checkDashboardActivity()", 6000000);
         }
         window.onload = function() {
-            // initMap();
-            // getCircle();
+            initMap();
+            getCircle();
             // setInterval(getLocation, 60000); // Polling setiap 10 detik
             setTimeout(() => {
                 getLocation();

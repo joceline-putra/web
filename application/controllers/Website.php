@@ -209,11 +209,11 @@ class Website extends CI_Controller{
                     "city" => $b['branch_city'],
                     "office" => $b['branch_address'],                  
                 ),
-                'work_hour' => $json['working_hour'],
+                'work_hour' => !empty($json['working_hour']) ? $json['working_hour'] : null,
                 'map' => array(
-                    'longitude' => $json['map']['longitude'],
-                    'latitude' => $json['map']['latitude'],
-                    'link' => $json['map']['link']
+                    'longitude' => !empty($json['map']['longitude']) ? $json['map']['longitude'] : null,
+                    'latitude' => !empty($json['map']['latitude']) ? $json['map']['latitude'] : null,
+                    'link' => !empty($json['map']['link']) ? $json['map']['link'] : null,
                 )
             ),
             'social' => $json_social,
@@ -235,7 +235,7 @@ class Website extends CI_Controller{
             'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,10,null,'category_id','asc'),
             'products' => $this->Product_model->get_all_product(['product_flag'=>1,'product_type'=>1,'product_category_id > ' => 0],null,10,0,'product_id','asc'),
             'menu' => $this->News_model->get_all_newss(['news_type'=>0,'news_flag'=> 1],null,10,0,'news_id','asc'),
-            'newsticker' => $json['header_title']
+            'newsticker' => !empty($json['header_title']) ? $json['header_title'] : null,
         );
         // echo json_encode($a['project']);die;
         return $a;

@@ -12,7 +12,7 @@ class Webpage extends MY_Controller{
     function __construct(){
         parent::__construct();
         if(!$this->is_logged_in()){
-            redirect(base_url("login"));
+            // redirect(base_url("login"));
         }
         /*
         $this->load->helper('form');
