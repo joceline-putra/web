@@ -96,6 +96,8 @@ $route['search']                = "search/index";
 	$route['portofolio/(:any)']        	= "website/portofolio/$1";	    // article/olahraga
 	$route['portofolio/(:any)/(:any)'] 	= "website/portofolio/$1/$2";	    // article/olahraga/hai-kawan
 
+
+	$route['product/warehouse'] 			= "konfigurasi/pages/2";
     //Not Used / OLD Concept
     // $route['blog'] 					= "website/blog";
 	// $route['agent']              = "website/agent";      

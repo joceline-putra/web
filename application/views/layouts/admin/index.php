@@ -22,8 +22,9 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
     <link rel="manifest" href="<?php echo base_url();?>manifest.json">
-    <link rel="shortcut icon" href="<?php echo base_url();?>assets/webarch/favicon.png" type="image/png">
-
+    <link rel="icon" type="image/x-icon" href="<?php echo base_url();?>upload/favicon.png">
+    <link rel="shortcut icon" href="<?php echo base_url();?>upload/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="<?php echo base_url();?>upload/favicon.png">
     <!-- Mendeklarasikan warna yang muncul pada address bar Chrome versi seluler -->
     <meta name="theme-color" content="#fff" />
 

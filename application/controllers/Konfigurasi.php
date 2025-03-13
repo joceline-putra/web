@@ -75,7 +75,7 @@ class Konfigurasi extends MY_Controller{
             // $data['referensi'] = $this->Referensi_model->get_all_referensi(array('tipe'=>6));
             if($set_view){           
                 $data['identity'] = 2;            
-                $data['title'] = 'Gudang';
+                $data['title'] = 'Lokasi';
                 $data['_view'] = 'layouts/admin/menu/product/warehouse';
                 $file_js = 'layouts/admin/menu/product/warehouse_js.php';
             }else{
