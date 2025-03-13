@@ -49,9 +49,16 @@
     <?php 
         $this->load->view($this->nav['web']['css']);
     ?>
+    <style>
+       /* .gradient-bg {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom, #007bff, #000);
+        } */
+    </style>
 </head>
 
-<body>
+<body class="gradient-bg">
     <div class="page-wrapper">
         <!--
             <div class="top-notice bg-primary text-white">
