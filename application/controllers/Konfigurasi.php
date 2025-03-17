@@ -217,19 +217,25 @@ class Konfigurasi extends MY_Controller{
                     'location_name' => $nama,
                     'location_note' => $keterangan, 
                     'location_user_id' => $session_user_id,          
-                    'location_branch_id' => $session_branch_id,                                         
+                    'location_branch_id' => $session_branch_id,
                     'location_date_created' => date("YmdHis"),
                     'location_date_updated' => date("YmdHis"),
-                    'location_flag' => $status
+                    'location_flag' => $status,
+                    'location_address' => !empty($data['alamat']) ? $data['alamat'] : null,
+                    'location_lat' => !empty($data['lat']) ? $data['lat'] : null,
+                    'location_lng' => !empty($data['lng']) ? $data['lng'] : null
                 );
                 $params_update = array(
                     'location_name' => $nama,
                     'location_note' => $keterangan,
-                    'location_date_updated' => date("YmdHis"),                    
-                    'location_flag' => $status               
+                    'location_date_updated' => date("YmdHis"),
+                    'location_flag' => $status,
+                    'location_address' => !empty($data['alamat']) ? $data['alamat'] : null,                    
+                    'location_lat' => !empty($data['lat']) ? $data['lat'] : null,
+                    'location_lng' => !empty($data['lng']) ? $data['lng'] : null
                 );             
                 $params_check = array(
-                    'location_code' => $kode,
+                    'location_code' => '',
                     'location_branch_id' => $session_branch_id
                 );                        
                 $columns = array(

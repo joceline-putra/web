@@ -163,14 +163,15 @@
             <h4 class="heading-bottom-border text-uppercase mt-5">
                 Proyek Terkini
             </h4>
-            <div class="creative-grid grid row">
+            <div class="creative-grid grid row" style="margin-bottom:1240px;">
                 <?php
                 $cl = [
                     "col-md-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-400",
                     "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-300",
                     "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-600",
                     "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker order-md-1 grid-item height-300",
-                    "col-md-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-200"
+                    "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker order-md-1 grid-item height-300",                        
+                    "col-md-3 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-200"
                 ];
 
                 if(count($link['project']) > 0){
@@ -186,7 +187,7 @@
                         <div class="<?php echo $cl[$i]; ?>">
                             <a href="<?php echo $surl;?>">
                                 <figure>
-                                    <img src="<?php echo $simg; ?>" width="800" height="800" alt="category">
+                                    <!-- <img src="<?php echo $simg; ?>" width="800" height="800" alt="category"> -->
                                 </figure>
                                 <div class="category-content">
                                     <h3><?php echo $stitle;?></h3>
@@ -260,6 +261,7 @@
                 </div> -->
                 <div class="col-1 grid-col-sizer"></div>
             </div>
+            <div class="clearfix"></div>
         </section>     
 
         <!-- Produk -->

@@ -214,38 +214,33 @@
                         <a href="<?php echo $link['routing']['product'];?>">Products</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
-                                <div class="col-lg-4">
-                                    <a href="#" class="nolink">Variasi 1</a>
-                                    <ul class="submenu">
-                                        <?php 
-                                        if(!empty($link['product_category'])){
-                                            foreach($link['product_category'] as $v){ 
-                                                echo "<li><a href='".site_url().$link['routing']['product'].'/'.$v['category_url']."'>".$v['category_name']."</a></li>";
-                                            }
+                                <?php 
+                                    $groupedData = [];
+
+                                    foreach ($link['products'] as $item) {
+                                        $groupedData[$item['category_name']][] = $item;
+                                    }   
+
+                                    foreach ($groupedData as $category => $items) {
+                                        // echo "<h4 class='widget-title'>$category</h4>";
+                                        // echo "<ul class='links'>";
+                                        // foreach ($items as $item) {
+                                        //     $surl = base_url().$link['routing']['product'].'/'.$item['category_url'].'/'.$item['product_url'];
+                                        //     echo "<li><a href='$surl'>{$item['product_name']}</a></li>";
+                                        // }
+                                        // echo "</ul>";
+                                        echo '<div class="col-lg-6">';
+                                        echo '<a href="#" class="nolink">'.$category.'</a>';
+                                        echo '<ul class="submenu">';
+                                        foreach ($items as $item) {
+                                            $surl = base_url().$link['routing']['product'].'/'.$item['category_url'].'/'.$item['product_url'];
+                                            echo "<li><a href='$surl'>{$item['product_name']}</a></li>";
                                         }
-                                        foreach($link['products'] as $a => $v){ ?>
-                                            <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'].'/'.$v['product_url'];?>"><?php echo $v['product_name'];?></a></li>
-                                            <?php 
-                                        } 
-                                        ?>                                                
-                                    </ul>
-                                </div>
-                                <div class="col-lg-4">
-                                    <a href="#" class="nolink">Variasi 1</a>
-                                    <ul class="submenu">
-                                        <?php 
-                                        if(!empty($link['product_category'])){
-                                            foreach($link['product_category'] as $v){ 
-                                                echo "<li><a href='".site_url().$link['routing']['product'].'/'.$v['category_url']."'>".$v['category_name']."</a></li>";
-                                            }
-                                        }
-                                        foreach($link['products'] as $a => $v){ ?>
-                                            <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'].'/'.$v['product_url'];?>"><?php echo $v['product_name'];?></a></li>
-                                            <?php 
-                                        } 
-                                        ?>                                                
-                                    </ul>
-                                </div>
+                                        echo '</ul>';
+                                        echo '</div>';
+
+                                    } 
+                                ?>
                                 <!-- <div class="col-lg-4 p-0">
                                     <div class="menu-banner">
                                         <figure>

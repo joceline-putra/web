@@ -234,6 +234,7 @@
                     tipe: identity,
                     branch: $("select[id='branch']").find(':selected').val(),                    
                     nama: $("input[id='nama']").val(),
+                    alamat: $("input[id='alamat']").val(),
                     keterangan: $("input[id='keterangan']").val(),
                     user: $("select[id='user']").find(':selected').val(),
                     status: $("select[id='status']").find(':selected').val(),
@@ -296,6 +297,7 @@
                         $("#form-master input[name='lng']").val(d.result.location_lng);  
                         $("#form-master input[name='distance']").val(d.result.location_allow_radius);                                                
                         $("#form-master input[name='nama']").val(d.result.location_name);
+                        $("#form-master input[name='alamat']").val(d.result.location_address);
                         $("#form-master input[name='keterangan']").val(d.result.location_note);
                         // $("select[name='user']").html('');           
 
@@ -375,6 +377,7 @@
                     id: $("input[id=id_document]").val(),
                     branch: $("select[id='branch']").find(':selected').val(),                    
                     nama: $("input[id='nama']").val(),
+                    alamat: $("input[id='alamat']").val(),                    
                     keterangan: $("input[id='keterangan']").val(),
                     user: $("select[id='user']").find(':selected').val(),
                     status: $("select[id='status']").find(':selected').val(),
@@ -556,7 +559,8 @@
         var attrInput = [
             "lat","lng","distance",
             "nama",
-            "keterangan"
+            "keterangan",
+            "alamat"
         ];
 
         for (var i = 0; i <= attrInput.length; i++) {

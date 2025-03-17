@@ -351,11 +351,11 @@
                 }).addTo(map);           
                 circle.bindTooltip(v['location_id']);
 
+                // <img src="${sampleIMAGE}" alt="Sample Image" style="width:100px;margin:0 auto;">
                 var popupContent = `
                     <div class="custom-popup">
-                        <img src="${sampleIMAGE}" alt="Sample Image" style="width:100px;margin:0 auto;">
-                        <h3>${v['location_name']}</h3>
-                        <p><strong>Address:</strong> ${v['location_address']}</p>
+                        <b>${v['location_name']}</b>
+                        <p><strong>Alamat:</strong> ${v['location_address']}</p>
                         <p><strong>Kota/Kab:</strong> ${v['location_note']}</p>                        
                         <p><strong>Latitude:</strong> ${v['location_lat']}</p>
                         <p><strong>Longitude:</strong> ${v['location_lng']}</p>

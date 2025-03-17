@@ -71,6 +71,28 @@
                         </ul>
                     </div>               
                 </div>
+                
+                <div class="col-lg-3 col-sm-6">
+                    <div class="widget">
+                        <?php 
+                            $groupedData = [];
+
+                            foreach ($link['products'] as $item) {
+                                $groupedData[$item['category_name']][] = $item;
+                            }
+
+                            foreach ($groupedData as $category => $items) {
+                                echo "<h4 class='widget-title'>$category</h4>";
+                                echo "<ul class='links'>";
+                                foreach ($items as $item) {
+                                    $surl = base_url().$link['routing']['product'].'/'.$item['category_url'].'/'.$item['product_url'];
+                                    echo "<li><a href='$surl'>{$item['product_name']}</a></li>";
+                                }
+                                echo "</ul>";
+                            } ?>
+                    </div>
+                </div>
+
                 <div class="col-lg-3 col-sm-6">
                     <div class="widget">
                         <h4 class="widget-title">Produk</h4>

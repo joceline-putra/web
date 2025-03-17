@@ -722,10 +722,11 @@ class Webpage extends MY_Controller{
                 case "get_location":
                     $params = [
                         'location_branch_id' => !empty($post['branch']) ? $post['branch'] : 1,
-                        'location_flag' => 1
+                        'location_flag' => 1,
+                        'location_branch_id' => 1
                     ];
                     $return->status=1;
-                    $return->result = $this->Lokasi_model->get_all_lokasis($params,null,5,0,'location_name','asc');
+                    $return->result = $this->Lokasi_model->get_all_lokasis($params,null,null,null,'location_name','asc');
                     break;                    
                 default:
                     $return->message='No Action';
