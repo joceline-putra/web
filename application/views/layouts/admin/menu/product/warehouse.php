@@ -211,7 +211,7 @@
                                             </div>   
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
-                                                    <label class="form-label">Keterangan</label>
+                                                    <label class="form-label">Call to Action</label>
                                                     <input id="keterangan" name="keterangan" type="text" value="" class="form-control" readonly='true'/>
                                                 </div>
                                             </div>   
