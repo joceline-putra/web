@@ -70,9 +70,9 @@
                             <?php 
                             if(!empty($link['menu'])){
                                 foreach($link['menu'] as $v){
-                                    // if(($v['news_position'] == 1) or ($v['news_position'] == 3)){                                      
+                                    if(($v['news_position'] == 1) or ($v['news_position'] == 3)){                                      
                                         echo "<li><a href=".site_url().$v['news_url'].">".$v['news_title']."</a>"; 
-                                    // }
+                                    }
                                 }
                             }
                             ?>
@@ -220,7 +220,7 @@
                                     foreach ($link['products'] as $item) {
                                         $groupedData[$item['category_name']][] = $item;
                                     }   
-
+                                    echo json_encode($groupedData);die;
                                     foreach ($groupedData as $category => $items) {
                                         // echo "<h4 class='widget-title'>$category</h4>";
                                         // echo "<ul class='links'>";
