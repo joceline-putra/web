@@ -11,19 +11,22 @@
                             </li>
                             <li>
                                 <span class="contact-info-label">Telepon:</span>
-                                    <a href="tel:"><?php echo $link['contact']['phone'][0]['phone'];?></a>
-                                    <?php 
-                                    if(!empty($link['contact']['phone'][1]['phone'])){ echo '<br>';?> 
-                                        <a href="tel:<?php echo $link['contact']['phone'][1]['phone'];?>"><?php echo $link['contact']['phone'][1]['phone'];?>                       
-                                    <?php }
-                                    ?>  
+                                    <a href="tel:"><?php echo $link['contact']['phone'][0]['phone'];?></a>  
                             </li>
+                            <li>
+                                <span class="contact-info-label">WhatsApp:</span>
+                                <?php 
+                                if(!empty($link['contact']['phone'][1]['phone'])){ ?> 
+                                    <a href="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" target="_blank"><?php echo $link['contact']['phone'][1]['phone'];?>                       
+                                <?php }
+                                ?>  
+                            </li>                            
                             <li>
                                 <span class="contact-info-label">Email:</span> 
                                     <a href="#"><?php echo $link['contact']['email'][0]['email'];?>
                                     <?php 
                                     if(!empty($link['contact']['email'][1]['email'])){ echo '<br>';?> 
-                                        <a href="#"><?php echo $link['contact']['email'][1]['email'];?>                       
+                                        <a href="mailto:"><?php echo $link['contact']['email'][1]['email'];?>                       
                                     <?php }
                                     ?>                                            
                                 </span>

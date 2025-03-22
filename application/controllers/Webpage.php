@@ -727,7 +727,33 @@ class Webpage extends MY_Controller{
                     ];
                     $return->status=1;
                     $return->result = $this->Lokasi_model->get_all_lokasis($params,null,null,null,'location_name','asc');
-                    break;                    
+                    break;           
+                case "send_email":
+                    $this->form_validation->set_rules('contact_name', 'Nama', 'required');
+                    $this->form_validation->set_rules('contact_email', 'Emaik', 'required');
+                    $this->form_validation->set_rules('contact_message', 'Pesan', 'required');
+                    if ($this->form_validation->run() == FALSE){
+                        $return->message = validation_errors();
+                    }else{
+                        $email = !empty($post['contact_email']) ? $post['contact_email'] : null;
+                        $subject = !empty($post['subject']) ? $post['subject'] : null;
+                        $message = !empty($post['contact_message']) ? $post['contact_message'] : null;
+
+                        $params = array(
+                            'subject' => 'Pesan via MD',
+                            'content' => $message,
+                            'to' => $email
+                        );
+                        // var_dump($params);die();
+                        $send = $this->send_via_email($params);
+                        if($send){
+                            $return->status=1;
+                            $return->message='Berhasil mengirim email';
+                        }else{
+                            $return->message='Gagal mengirim email';
+                        }
+                    }
+                    break;         
                 default:
                     $return->message='No Action';
                     break; 
@@ -2069,6 +2095,183 @@ class Webpage extends MY_Controller{
             $this->load->view('layouts/admin/index',$data);
             $this->load->view('layouts/admin/menu/webpage/product_js.php',$data);
         }
-    }           
+    }
+
+    /* Other */
+    function send_via_whatsapp($params){ // Works
+        /* 
+            Example
+            $params = array(
+                'header' => 'Judul',	
+                'file' => 'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg',
+                'content' => 'Isi Pesan',	
+                'recipient' => array(
+                    array('number' => '6281225518118', 'name' => 'Joe'),                                                                                                                                                             
+                ),
+                'footer' => '🖥️ Pesan ini dikirim oleh System'
+            );
+        */       
+        $return             = [];
+        $return['status']   = 0;
+        
+        
+        $whatsapp_server    = $this->config->item('whatsapp_server');        
+        $whatsapp_action    = $this->config->item('whatsapp_action');  
+        $whatsapp_action_v1 = $this->config->item('whatsapp_action_v1');                 
+        $whatsapp_sender    = $this->config->item('whatsapp_sender');         
+        $whatsapp_vendor    = $this->config->item('whatsapp_vendor');
+        $whatsapp_token     = $this->config->item('whatsapp_token');
+        $whatsapp_key       = $this->config->item('whatsapp_key');
+        $whatsapp_auth      = $this->config->item('whatsapp_auth');
+
+        if(count($params) > 0){
+            $content    = $params['content'];
+            $recipient  = $params['recipient'];
+            $file       = $params['file'];
+        
+            if(count($recipient) > 0){
+                
+                $header = (strlen($params['header']) > 2) ? '*'.$params['header']."*"."\r\n\r\n" : '';
+                $footer = (strlen($params['footer']) > 2) ? "\r\n".$params['footer']."\r\n" : '';  
+                // var_dump($recipient);die;
+                for($i=0; $i<count($recipient); $i++){
+                    if($whatsapp_vendor == 'umbrella.co.id'){ die;
+                        $set_content = rawurlencode($header.$content.$footer);
+
+                        // Detect Message have a Caption
+                        if(!empty($file)){
+                            $caption = "Attachment";
+                            $url_file = '&auth='.$whatsapp_auth.'&recipient='.$recipient[$i]['number'].'&sender='.$whatsapp_sender.'&content='.$set_content.'&file='.$file;
+                            $curl = curl_init();
+                            curl_setopt_array($curl, array(
+                                CURLOPT_URL => $whatsapp_server.'devices?action=send-message'.$url_file,
+                                CURLOPT_RETURNTRANSFER => 1, CURLOPT_SSL_VERIFYHOST => FALSE, CURLOPT_SSL_VERIFYPEER => FALSE
+                            ));              
+                            $response = curl_exec($curl);                                        
+                        }else{ //Dont have a caption
+                            $url = '&auth='.$whatsapp_auth.'&recipient='.$recipient[$i]['number'].'&sender='.$whatsapp_sender.'&content='.$set_content;
+
+                            $curl = curl_init();
+                            curl_setopt_array($curl, array(
+                                CURLOPT_URL => $whatsapp_server.'devices?action=send-message'.$url,
+                                CURLOPT_RETURNTRANSFER => 1, CURLOPT_SSL_VERIFYHOST => FALSE, CURLOPT_SSL_VERIFYPEER => FALSE
+                            ));       
+                            $response = curl_exec($curl);
+                        }
+
+                        /* Result CURL / API */
+                        $get_response = json_decode($response,true);
+                        $return['status']  = $get_response['status']; // 1 / 0
+                        $return['result']  = $get_response['result']; // Result
+                        $return['message'] = $get_response['message']; // Berhasil / Gagal 
+                    }elseif($whatsapp_vendor=='wam.umbrella.co.id'){
+
+                        //Send if have Client ID
+                        if(!empty($recipient[$i]['message_device_number'])){
+                            $client = $recipient[$i]['message_device_client'];
+                            $bearer = array(
+                                'Authorization: Bearer '.$recipient[$i]['message_device_token']
+                            );
+                        }else{ //From whatsapp.php config
+                            $client = $whatsapp_key;
+                            $bearer = array(
+                                'Authorization: Bearer '.$whatsapp_token
+                            );
+                        }
+                        
+                        $set_image = '';
+                        if(!empty($params['file']) and strlen($params['file']) > 1){
+                            $set_image = $params['file'];
+                        }
+                        $curl = curl_init();
+                        curl_setopt_array($curl, array(
+                            CURLOPT_URL => $whatsapp_server.$whatsapp_action_v1['send-message'],
+                            CURLOPT_RETURNTRANSFER => 1,
+                            // CURLOPT_TIMEOUT => 0,
+                            CURLOPT_SSL_VERIFYPEER => false,
+                            CURLOPT_SSL_VERIFYHOST => false,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'POST',
+                            CURLOPT_POSTFIELDS => array(
+                                'mobile' => $this->contact_number($recipient[$i]['number']),
+                                'text' => $header.$content.$footer,
+                                'key' => $client,
+                                'image' => $set_image
+                            ),
+                            CURLOPT_HTTPHEADER => $bearer,
+                        ));
+                        $response = curl_exec($curl); 
+                        curl_close($curl);
+                        $get_response = json_decode($response, true);                        
+                        if ($get_response) {                       
+                            $return['status'] = ($get_response['success'] == true) ? 1 : 0;
+                            $return['message'] = ($return['status'] == 1) ? $get_response['message'] : $get_response['message'];
+                            $return['result'] = [];
+
+                            //Do Update if have message_id
+                            // if(!empty($recipient[$i]['message_id'])){
+                                // $this->Message_model->update_message($recipient[$i]['message_id'],array('message_flag'=>1,'message_date_sent'=>date("YmdHis")));
+                            // }
+                            // if($return['status'] == 1){
+                            //     $this->Device_model->update_device_custom_min_1(['device_client'=>$client]);         
+                            // }
+                        } else {                            
+                            $return['message'] = 'Not Connected';
+                        }                         
+                    }
+                }               
+            }else{
+                $return['message']='Penerima tidak ada';
+            }
+        }else{
+        $return['message']='Params doest exist';
+        }
+        $return['params'] = $params;
+        return $return;
+    }    
+    function send_via_email($params){ // Works
+        /*
+        $params = array(
+            'subject' => 'Judul',
+            'content' => 'Isi Pesan',
+            'to' => 'jocelline.putra@gmail.com'
+        );
+        */            
+        // $this->load->library('email');
+        $this->load->library('phpmailer_lib');
+        $send = $this->phpmailer_lib->sendMailSMTP($params['to'], $params['subject'], $params['content']);
+        $return['status'] = $send['status'];
+        $return['message'] = $send['message'];            
+        return $return;
+    }
+    function test(){
+        // $this->template_create_message('invoice_create','WhatsApp','B379B3D517ABDBB076F2','4E3A29');
+        // // $do = $this->template_send_message('MGQG87PJU1XZLE3M9OC9','Email');
+        // $do = $this->template_send_message('9SO9MQ0ZQ9ASKND7Q1OP','WhatsApp');
+
+        // $do = $this->template_create_message('invoice_create','WhatsApp','B379B3D517ABDBB076F2','4E3A29','08989900148');        
+        // $fetch_message_session = $do['result']['message_session'];
+        // $send = $this->template_send_message($fetch_message_session,'WhatsApp');
+
+        $params = array(
+            'header' => 'Judul',	
+            'file' => 'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg',
+            'content' => 'Isi Pesan',	
+            'recipient' => array(
+                array('number' => '6281225518118', 'name' => 'Joe'),                                                                                                                                                             
+            ),
+            'footer' => '🖥️ Pesan ini dikirim oleh wa.kepoo.in'
+        );
+        $ss = $this->send_via_whatsapp($params);
+        $do = $ss['status'];
+        
+        // $params = array(
+        //     'subject' => 'Judul',
+        //     'content' => 'Isi Pesan',
+        //     'to' => 'joceline.putra@gmail.com'
+        // );
+        // $do = $this->send_via_email($params);
+        var_dump($do);die;
+    }
 }
 ?>

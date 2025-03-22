@@ -179,18 +179,417 @@
     <!-- Main JS File -->
     <script src="<?php echo $asset; ?>assets/js/main.min.js"></script>
     <!-- <script>(function(){var js = "window['__CF$cv$params']={r:'7afd1b362a6789b3',m:'IF47KbX3l.N5w7LOgcq7.zZAxGSP_aJefP6i0ZouhzU-1680145269-0-AcC6/wbk2ySAMzyJHqt8/cUQ1aaAQP4NrOoLexw+7gNtRKLm2TM6y53GA1otFq9a4nx8ZgQU9m3tudiaoR8T1U4CT2RwHbCNhh7GlAWEE0yCFji0FVTS60L79eu99UU4zsyrM9hxz4V4sVdvxcnn87O8ZTe1N2n1DtEXrVgfj+EG',s:[0x6e2d9cbefd,0xfa802cad43],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../../cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible5615.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body> -->
-
+    
     <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.1.1/dist/compressor.min.js"></script>
     <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGrJzgnYt1MWEtvYpBXGYxTR_EPNl7gjE&libraries=places" type="text/javascript"></script> -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
+    <script src="<?php echo base_url();?>assets/core/plugins/sweetalert2/sweetalert2.min.js"></script>    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>        
+    <script>
+        /* Notification */
+        function notif(status, title, text = null) {
+            var titlee = title.replace(/<\/?[^>]+(>|$)/g, "");
+            if (parseInt(status) === 1) { //Success
+                Toastify({
+                    text: titlee,
+                    // className: "success",
+                    duration: 3000,
+                    destination: "",
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "center", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "#4CAF50",
+                        width:"20%",
+                    },
+                    theme:'dark',
+                onClick: function(){} // Callback after click
+                }).showToast();                    
+            } else if (parseInt(status) === 2) { //Info
+                Toastify({
+                    text: titlee,
+                    // className: "info",
+                    duration: 3000,
+                    destination: "",
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "center", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "#f7b84b",
+                        width:"20%",                            
+                    },
+                onClick: function(){} // Callback after click
+                }).showToast();                      
+            } else if (parseInt(status) === 0) { //Error only
+                Toastify({
+                    text: titlee,
+                    // className: "danger",
+                    duration: 3000,
+                    destination: "",
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "center", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "#f06548",
+                        width:"20%",
+                    },
+                onClick: function(){} // Callback after click
+                }).showToast();                         
+            }
+        }
+        function numberToLabel(num) {
+            if (num >= 1000000000) {
+                return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + ' B';
+            }
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1).replace(/\.0$/, '') + ' M';
+            }
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1).replace(/\.0$/, '') + ' k';
+            }
+            return num;
+        }   
+        function addCommas(string){
+            string += '';
+            var x = string.split('.');
+            var x1 = x[0];
+            var x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        }
+        function removeCommas(string){
+
+            return string.split(',').join("");
+        }
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        /* Confirmation */
+        function swalDelete(title,text){
+            var html = `
+                <div class="mt-3">
+                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                    <div class="mt-4 pt-2 fs-15 mx-5">
+                        <h4>${title}</h4>
+                        <p class="text-muted mx-4 mb-0">
+                            ${text} ?
+                        </p>
+                    </div>
+                </div>                
+            `;                
+            return Swal.fire({
+                // title: 'Konfirmasi',
+                html: html,
+                // text: text,
+                // icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                return new Promise((resolve, reject) => {
+                    if(result.isConfirmed){
+                        resolve(1);
+                    }else{
+                        resolve(0);
+                    }
+                });               
+            });
+        } 
+        function swalConfirm(title,text,button1,button2){
+            return Swal.fire({
+                title: title,
+                html: text,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: button1,
+                cancelButtonText: button2
+            }).then((result) => {
+                return new Promise((resolve, reject) => {
+                    if(result.isConfirmed){
+                        resolve(1);
+                    }else{
+                        resolve(0);
+                    }
+                });                    
+            });
+        }                  
+        function swalSuccess(title,text){
+            var html = `
+            <div class="mt-3">
+                <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>
+                <div class="mt-4 pt-2 fs-15"><h4>${title}</h4>
+                    <p class="text-muted mx-4 mb-0">${text}</p>
+                </div>
+            </div>`;
+            return Swal.fire({
+                // title: title,
+                // text: text,
+                html:html,
+                // icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Tutup'
+            }).then((result) => {
+                return new Promise((resolve, reject) => {
+                    if(result.isConfirmed){
+                        resolve(1);
+                    }else{
+                        resolve(0);
+                    }
+                });                    
+            });
+        } 
+        function swalSuccess2(title,text,button1){
+            var html = `
+            <div class="mt-3">
+                <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon>
+                <div class="mt-4 pt-2 fs-15"><h4>${title}</h4>
+                    <p class="text-muted mx-4 mb-0">${text}</p>
+                </div>
+            </div>`;
+            return Swal.fire({
+                // title: title,
+                // text: text,
+                html:html,
+                // icon: 'info',
+                showCancelButton: false,
+                confirmButtonColor: '#364574',
+                // cancelButtonColor: '#364574',
+                confirmButtonText: button1,
+                // cancelButtonText: 'Cancel'
+            }).then((result) => {
+                return new Promise((resolve, reject) => {
+                    if(result.isConfirmed){
+                        resolve(1);
+                    }else{
+                        resolve(0);
+                    }
+                });                    
+            });
+        }
+        function swalInput(title,text,button1,button2){
+            return Swal.fire({
+                title: title,
+                input: "text",
+                value: text,
+                inputValue: text,
+                // inputLabel: "Your email address",
+                inputPlaceholder: text,
+                showCancelButton: true, // Display a cancel button
+                confirmButtonColor: '#364574',
+                cancelButtonColor: '#ced4da',                    
+                confirmButtonText: button1, // Customize the confirm button text
+                cancelButtonText: button2, // Optional: Customize the cancel button text                    
+            }).then((result) => {
+                return new Promise((resolve, reject) => {
+                    if (result.isConfirmed) {
+                        resolve(result.value); // Resolve with the input value
+                    } else {
+                        resolve(null); // Resolve with null if canceled
+                    }
+                    // resolve(result.value);
+                });                    
+            });
+        }   
+        function swalSelect(title,text,button1,button2,arraydata){
+            // console.log(arraydata);
+            var ahtml = '';
+            for(var a=0; a<arraydata.length; a++){
+                ahtml += '<option value="'+arraydata[a]+'">'+arraydata[a]+'</option>';
+            }
+
+            var html = `
+                <div class="mt-3">
+                    <div class="mt-4 pt-2 fs-15 mx-5">
+                        <h4>${title}</h4>
+                        <p class="text-muted mx-4 mb-0">
+                            ${text} ?
+                        </p>
+                        <select id="swal-select" class="form-select swal2-input">
+                            <option value="0">Pilih</option>
+                            ${ahtml}
+                        </select>
+                    </div>
+                </div>                
+            `;                       
+
+
+            return Swal.fire({
+                // title: title,
+                html:html,
+                // input: "text",
+                // value: text,
+                // inputValue: text,
+                // // inputLabel: "Your email address",
+                // inputPlaceholder: text,
+                showCancelButton: true, // Display a cancel button
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',                    
+                confirmButtonText: button1, // Customize the confirm button text
+                cancelButtonText: button2, // Optional: Customize the cancel button text                    
+                preConfirm: () => {
+                    // Ambil nilai dari <select>
+                    const selectedValue = document.getElementById('swal-select').value;
+                    if (!selectedValue) {
+                        Swal.showValidationMessage('You need to select an option!');
+                    }
+                    return selectedValue;
+                }
+            }).then((result) => {
+                return new Promise((resolve, reject) => {
+                    if (result.isConfirmed) {
+                        resolve(result.value); // Resolve with the input value
+                    } else {
+                        resolve(0); // Resolve with null if canceled
+                    }
+                    // resolve(result.value);
+                });                    
+            });
+        }      
+        function swalSelectIndex(title,text,button1,button2,arraydata){
+            console.log(arraydata);
+            var ahtml = '';
+            for(var a=0; a<arraydata.length; a++){
+                ahtml += '<option value="'+arraydata[a]['workspace_session']+'">'+arraydata[a]['workspace_name']+'</option>';
+            }
+
+            var html = `
+                <div class="mt-3">
+                    <div class="mt-4 pt-2 fs-15 mx-5">
+                        <h4>${title}</h4>
+                        <p class="text-muted mx-4 mb-0">
+                            ${text} ?
+                        </p>
+                        <select id="swal-select" class="form-select swal2-input">
+                            <option value="0">Pilih</option>
+                            ${ahtml}
+                        </select>
+                    </div>
+                </div>                
+            `;                       
+
+
+            return Swal.fire({
+                // title: title,
+                html:html,
+                // input: "text",
+                // value: text,
+                // inputValue: text,
+                // // inputLabel: "Your email address",
+                // inputPlaceholder: text,
+                showCancelButton: true, // Display a cancel button
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',                    
+                confirmButtonText: button1, // Customize the confirm button text
+                cancelButtonText: button2, // Optional: Customize the cancel button text                    
+                preConfirm: () => {
+                    // Ambil nilai dari <select>
+                    const selectedValue = document.getElementById('swal-select').value;
+                    if (!selectedValue) {
+                        Swal.showValidationMessage('You need to select an option!');
+                    }
+                    return selectedValue;
+                }
+            }).then((result) => {
+                return new Promise((resolve, reject) => {
+                    if (result.isConfirmed) {
+                        resolve(result.value); // Resolve with the input value
+                    } else {
+                        resolve(0); // Resolve with null if canceled
+                    }
+                    // resolve(result.value);
+                });                    
+            });
+        }
+        
+        /* Confirmation JConfirm */
+        function jConfirmInput(title,text,button1,button2) {
+            let dsp     = `
+                <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
+                    <div class="form-group">
+                        <input id="confirm-input" name="confirm-input" class="form-control" value="${text}" autofocus>
+                    </div>
+                </div>
+            `;                
+            return new Promise((resolve, reject) => {
+                $.confirm({
+                    title: title,
+                    content: dsp,
+                    // columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',  
+                    // autoClose: 'button2|30000',
+                    // closeIcon: true, closeIconClass: 'fas fa-times',
+                    animation:'zoom', closeAnimation:'bottom', animateFromElement:false, useBootstrap:true,         
+                    onOpenBefore: function () {
+                        // this.$el.css('z-index', 1051); // Pastikan modal berada di atas
+                    },     
+                    onOpen: function () {
+                        this.$content.find('#confirm-input').focus();
+                    },                                  
+                    buttons: {
+                        confirm: {
+                            text: button1,
+                            btnClass: 'btn-primary',
+                            action: function () {
+                                let userInput = this.$content.find('#confirm-input').val();
+                                resolve(userInput);
+                            }
+                        },
+                        cancel: {
+                            text: button2,
+                            btnClass: 'btn-danger',                                
+                            action: function () {
+                                reject('User cancelled');
+                                // return false;
+                            }
+                        }
+                    }
+                });
+            });
+        }
+        /* Ajax */
+        function ajax(url,data){
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: data,
+                    dataType: 'json', cache: 'false', 
+                    contentType: false, processData: false,                    
+                    success: function(response) {
+                        resolve(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error ajax(): '+error);
+                        // notif(0,'Error, Please try again');
+                        reject(error);
+                    }
+                });
+            });                    
+        }
+    </script>
     <script>
     $(document).ready(function() {
         let url = "<?= base_url('webpage'); ?>";
         let url_redirect = "<?= base_url('webpage/osm'); ?>";         
         let imageRESULT;
         let vSET_TIMEOUT = 3000;
-        
+
         //Map Config
         let mapLAT      = -6.200000;
         let mapLNG      = 106.816666;
@@ -530,12 +929,19 @@
             var waktu = setTimeout("checkDashboardActivity()", 6000000);
         }
         window.onload = function() {
-            initMap();
-            getCircle();
-            // setInterval(getLocation, 60000); // Polling setiap 10 detik
-            setTimeout(() => {
-                getLocation();
-            }, 3000);
+
+            if ($('#map').length) {
+                console.log('Element with ID "apa" is found.');
+                initMap();
+                getCircle();
+                // setInterval(getLocation, 60000); // Polling setiap 10 detik
+                setTimeout(() => {
+                    getLocation();
+                }, 3000);                
+            } else {
+                console.log('Element with ID "apa" is not found.');
+            }
+
         };
         // getCircle();
         // Dashboard Scroll Activities
@@ -1098,11 +1504,59 @@
                     }
                 });      
             }       
-        });             
+        });
+
+        $(document).on("click","#btn_form_contact_send", function(e) {
+            e.preventDefault(); e.stopPropagation();
+            let next = true;
+            let formId = 0;
+            let form_id  = formId; /* From header */
+            
+            /* If id not exist, UPDATE if id exist */
+            /*
+            if ($("#form_id").val().length === 0 || parseInt($("#form_id").val()) === 0) {
+                if ($("#form_id").val().length === 0) {
+                    next = false;
+                    notif(0,'ID wajib diisi');
+                }
+            }
         
-        // $("#modal_test").modal('show');
-        // $(document).on("change","#camera_input_test", function(e){
+            if(next){
+                if ($("#form_input").val().length === 0) {
+                    next = false;
+                    notif(0,'Input_id wajib diisi');
+                }
+            }
+            
+            if(next){
+                if ($("#form_select").find(':selected').val() === 0) {
+                    next = false;
+                    notif(0,'Select_id wajib dipilih');
+                }
+            }
+            */
         
-        // });
-    });        
+            /* Prepare ajax for UPDATE */
+            /* If Form Validation Complete checked */
+            if(next){
+                var form = new FormData($("#form_contact")[0]);
+                form.append('action', 'send_email');
+                // form.append('form_id', form_id);
+        
+                ajax(url, form)
+                    .then(d => {
+                        let s = d.status; let m = d.message; let r = d.result;
+                        if(parseInt(s) == 1){
+                            notif(s,m);
+                        }else{
+                            notif(s,m);
+                        }
+                    }).catch(error => {
+                        notif(0,error);
+                    }
+                )
+            }   
+        });
+    });      
+
 </script>

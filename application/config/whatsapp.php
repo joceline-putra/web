@@ -41,7 +41,7 @@ switch($vendor){
 		// $whatsapp_sender   = '628989900149';
 		break;		
 	case "wam.umbrella.co.id":
-		$whatsapp_server   = 'https://teksmu.com/';				
+		$whatsapp_server   = 'https://wa.umbrella.co.id/';				
 		$whatsapp_sender   = '628989900149';      
 		
 		//Client ID instance.client_id

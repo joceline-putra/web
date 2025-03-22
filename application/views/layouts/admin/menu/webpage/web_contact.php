@@ -172,7 +172,7 @@
                                                         <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">                                                       
                                                             <div class="col-md-6 col-xs-6 col-sm-6 padding-remove-left">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Telepon 2</label>
+                                                                    <label class="form-label">Telepon (CTA)</label>
                                                                     <input id="telepon_2" name="telepon_2" type="text" value="" class="form-control">
                                                                 </div>                          
                                                             </div>

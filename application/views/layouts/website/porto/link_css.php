@@ -1,3 +1,6 @@
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href="<?php echo base_url();?>assets/core/plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />   
+
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="<?php echo $asset; ?>assets/css/bootstrap.min.css">
 

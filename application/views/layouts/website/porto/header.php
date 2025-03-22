@@ -89,7 +89,6 @@
                                 <a href="#" target="_blank"><span style="font-size:18px;" class="<?php echo $v['icon'];?>"></span></a>
                             <?php 
                             }
-                            
                         }
                     ?>
                 </div>
@@ -119,7 +118,7 @@
                                 <select id="cat" name="cat">
                                     <option value="product">Produk</option>
                                     <option value="blog">Blog</option>
-                                    <option value="all">Semua</option>                                    
+                                    <option value="all">Semua</option>
                                 </select>
                             </div>
                             <!-- End .select-custom -->
@@ -130,8 +129,16 @@
                 </div>
 
                 <div class="header-contact d-none d-lg-flex pl-4 pr-4">
-                    <img alt="phone" src="<?php echo $asset; ?>assets/images/phone.png" width="30" height="30" class="pb-1">
-                    <h6><span>Call us now</span><a href="tel:<?php echo $link['contact']['phone'][0]['phone'];?>" class="text-dark font1"><?php echo $link['contact']['phone'][0]['phone'];?></a></h6>
+                    <img alt="phone" src="<?php echo $asset; ?>assets/images/whatsapp.png" width="30" height="30" class="pb-1">
+                    <?php 
+                        if(!empty($link['contact']['phone'][1]['phone'])){ ?> 
+                        <h6>
+                            <span id="cta" data-v="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" style="cursor:pointer;" onclick="window.open(this.getAttribute('data-v'), '_blank');">Chat Via WhatsApp</span>
+                            <a href="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" target="_blank" class="text-dark font1"><?php echo $link['contact']['phone'][1]['phone'];?>
+                            </a>                    
+                        </h6>
+                    <?php }
+                    ?>                      
                 </div>
 
                 <!-- <a href="<?php #echo $link['signin'];?>" class="header-icon" title="login"><i class="icon-user-2"></i></a>
@@ -220,7 +227,7 @@
                                     foreach ($link['products'] as $item) {
                                         $groupedData[$item['category_name']][] = $item;
                                     }   
-                                    echo json_encode($groupedData);die;
+                                    // echo json_encode($groupedData);die;
                                     foreach ($groupedData as $category => $items) {
                                         // echo "<h4 class='widget-title'>$category</h4>";
                                         // echo "<ul class='links'>";
@@ -312,7 +319,7 @@
                             }
                             ?>
                         </ul>
-                    </li>                    
+                    </li>
                     <li class="float-right"><a href="#" class="pl-5">Jelajahi Koleksi Kami</a></li>
                 </ul>
             </nav>

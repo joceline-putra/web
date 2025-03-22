@@ -823,6 +823,20 @@ class MY_Controller extends CI_Controller{
         }
         return $return;
     }        
+
+    public function contact_number($contact_phone){ //Contact 0 / +62 to safe
+        $contact_phone = str_replace("'","",$contact_phone); //Remove ' if excel format    
+        $contact_phone = str_replace('+','',str_replace('-','',$contact_phone)); //Remove + and -
+        $contact_phone = ltrim(rtrim(trim($contact_phone))); //Remove space
+        $contact_phone = str_replace(' ','',$contact_phone);
+        $contact_phone_check = substr($contact_phone,0,1); // First char is 0
+        if($contact_phone_check == 0){
+            $contact_phone = '62'.substr($contact_phone,1,15); //To 62 81213123
+        }else{
+            $contact_phone = $contact_phone; //
+        }
+        return $contact_phone;        
+    }     
 }
 
 ?>

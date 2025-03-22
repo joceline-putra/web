@@ -15,7 +15,7 @@ class News extends MY_Controller{
     public $portofolio_width = 200;
     public $portofolio_height = 80;    
     public $allowed_file_size = 1024; // 5 MB -> 5000 KB
-    public $watermark = 'dolphindoor.co.id';
+    public $watermark = '';
     var $blog_route         = 'blog';
     var $project_route      = 'project'; 
     var $gallery_route      = 'gallery';

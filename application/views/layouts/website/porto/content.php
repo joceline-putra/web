@@ -68,6 +68,97 @@
 
     <div class="container">
 
+        <!-- Hubungi Kami -->
+        <section class="feature-boxes-container">
+            <div class="about-section" style="background: #f1f1fd;">
+                <div class="container">
+                    <h5 class="text-primary">Hubungi Kami</h5>
+                    <h2 class="elements">Subtitle</h2>
+                    <div class="row m-5">
+                        <div class="col-lg-6">
+                            <h2 class="mt-6 mb-1">Alamat Kami</h2>
+                                <p>
+                                Silahkan hubungi kami untuk pertanyaan dan kerjasama. Kami senang mendengar dari anda.
+                                <br>
+                                <address>
+                                    <i class="fas fa-map-marker"></i> Alamat<br>
+                                        <?php echo $link['contact']['address']['office'].', '.$link['contact']['address']['city'];?>
+                                        <br><br>
+                                    <i class="fas fa-inbox"></i> Email<br>
+                                        <?php 
+                                        if(!empty($link['contact']['email'][0]['email'])){ ?> 
+                                            <a href="mailto:<?php echo $link['contact']['email'][0]['email'];?>" target="_blank" class="text-dark font1"><?php echo $link['contact']['email'][0]['email'];?>
+                                            </a>  
+                                        <?php 
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?>   <br><br>
+                                    <i class="fas fa-phone"></i> Telepon<br>
+                                        <?php 
+                                        if(!empty($link['contact']['phone'][0]['phone'])){ ?> 
+                                            <a href="tel:<?php echo $link['contact']['phone'][0]['phone'];?>" target="_blank" class="text-dark font1"><?php echo $link['contact']['phone'][0]['phone'];?>
+                                            </a>  
+                                        <?php 
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?><br><br>       
+                                    <i class="fab fa-whatsapp"></i> WhatsApp<br>
+                                        <?php 
+                                        if(!empty($link['contact']['phone'][1]['phone'])){ ?> 
+                                            <a href="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" target="_blank" class="text-dark font1"><?php echo $link['contact']['phone'][1]['phone'];?>
+                                            </a>  
+                                        <?php 
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?>     
+                                </address>                        
+                                <!-- Ikuti<br>
+                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                                </p> -->
+                        </div>
+
+                        <div class="col-lg-6">
+                            <h2 class="mt-6 mb-2">Kirim Pesan</h2>
+
+                            <form id="form_contact" name="form_contact" class="mb-0" action="#">
+                                <div class="form-group">
+                                    <label class="mb-1" for="contact-name">Nama Anda
+                                        <span class="required">*</span></label>
+                                    <input id="contact_name" name="contact_name" type="text" class="form-control" required />
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-1" for="contact-phone">Nomor Telepon / WhatsApp
+                                        <span class="required">*</span></label>
+                                    <input id="contact_phone" name="contact_phone" type="email" class="form-control" required />
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-1" for="contact-email">Email
+                                        <span class="required">*</span></label>
+                                    <input id="contact_email" name="contact_email" type="email" class="form-control" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="mb-1" for="contact-message">Isi Pesan
+                                        <span class="required">*</span></label>
+                                    <textarea cols="30" rows="1" id="contact_message" class="form-control"
+                                        name="contact_message" required></textarea>
+                                </div>
+
+                                <div class="form-footer mb-0">
+                                    <button id="btn_form_contact_send" type="button" class="btn btn-dark font-weight-normal">
+                                        Kirim
+                                    </button>
+                                </div>
+                            </form>
+                        </div>                                             
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Map -->
         <section class="feature-boxes-container">
             <div class="container appear-animate" data-animation-name="fadeInUpShorter">
@@ -760,7 +851,7 @@
     </section>
 
     <!-- Kategori Produk -->
-    <div class="d-none section-elements" style="background: #ffffff;">
+    <div class="section-elements" style="background: #ffffff;">
         <div class="container">
             <h5 class="text-primary">Sesuaikan Dengan Kebutuhan</h5>
             <h2 class="mb-5 elements">Kategori Produk</h2>
@@ -794,13 +885,13 @@
     </div>
 
     <!-- Tentang Kami -->
-    <div class="d-none section-elements" style="background: #ffffff;">
+    <div class="section-elements" style="background: #ffffff;">
         <div class="container">
             <?php 
             foreach($link['menu'] as $v){
                 if($v['news_id'] == 1){
                     $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
-                    $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
+                    $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,250) : 'No description available on this blog details, please update on admin panel';   
                     $surl       = base_url().$v['news_url'];  
                     $simg       = !empty($v['file_url']) ? base_url().$v['file_url'] : base_url().'upload/noimage.png';                                   
                 }
@@ -861,7 +952,6 @@
             </div>
         </div>
     </div>
-
     <!-- Tanya Gratis -->
     <div class="section-elements" style="background: #ffffff;">
         <div class="container">
