@@ -2,8 +2,8 @@
 
 <main class="main">
 
+    <!-- Slider -->
     <div class="home-slider slide-animate owl-carousel owl-theme show-nav-hover nav-big mb-2 text-uppercase" data-owl-options="{'loop': false}">
-
         <?php 
         if(count($link['slider']) > 0){
             foreach($link['slider'] as $i => $v){
@@ -33,7 +33,6 @@
             }
         } 
         ?>
-
         <?php 
         if(count($link['slider']) > 0){
             foreach($link['slider'] as $i => $v){
@@ -63,304 +62,51 @@
             }
         } 
         ?>   
-
     </div>
 
     <div class="container">
 
-        <!-- Hubungi Kami -->
-        <section class="feature-boxes-container">
-            <div class="about-section" style="background: #f1f1fd;">
-                <div class="container">
-                    <h5 class="text-primary">Hubungi Kami</h5>
-                    <h2 class="elements">Subtitle</h2>
-                    <div class="row m-5">
-                        <div class="col-lg-6">
-                            <h2 class="mt-6 mb-1">Alamat Kami</h2>
-                                <p>
-                                Silahkan hubungi kami untuk pertanyaan dan kerjasama. Kami senang mendengar dari anda.
-                                <br>
-                                <address>
-                                    <i class="fas fa-map-marker"></i> Alamat<br>
-                                        <?php echo $link['contact']['address']['office'].', '.$link['contact']['address']['city'];?>
-                                        <br><br>
-                                    <i class="fas fa-inbox"></i> Email<br>
-                                        <?php 
-                                        if(!empty($link['contact']['email'][0]['email'])){ ?> 
-                                            <a href="mailto:<?php echo $link['contact']['email'][0]['email'];?>" target="_blank" class="text-dark font1"><?php echo $link['contact']['email'][0]['email'];?>
-                                            </a>  
-                                        <?php 
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>   <br><br>
-                                    <i class="fas fa-phone"></i> Telepon<br>
-                                        <?php 
-                                        if(!empty($link['contact']['phone'][0]['phone'])){ ?> 
-                                            <a href="tel:<?php echo $link['contact']['phone'][0]['phone'];?>" target="_blank" class="text-dark font1"><?php echo $link['contact']['phone'][0]['phone'];?>
-                                            </a>  
-                                        <?php 
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?><br><br>       
-                                    <i class="fab fa-whatsapp"></i> WhatsApp<br>
-                                        <?php 
-                                        if(!empty($link['contact']['phone'][1]['phone'])){ ?> 
-                                            <a href="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" target="_blank" class="text-dark font1"><?php echo $link['contact']['phone'][1]['phone'];?>
-                                            </a>  
-                                        <?php 
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>     
-                                </address>                        
-                                <!-- Ikuti<br>
-                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                                </p> -->
-                        </div>
-
-                        <div class="col-lg-6">
-                            <h2 class="mt-6 mb-2">Kirim Pesan</h2>
-
-                            <form id="form_contact" name="form_contact" class="mb-0" action="#">
-                                <div class="form-group">
-                                    <label class="mb-1" for="contact-name">Nama Anda
-                                        <span class="required">*</span></label>
-                                    <input id="contact_name" name="contact_name" type="text" class="form-control" required />
-                                </div>
-                                <div class="form-group">
-                                    <label class="mb-1" for="contact-phone">Nomor Telepon / WhatsApp
-                                        <span class="required">*</span></label>
-                                    <input id="contact_phone" name="contact_phone" type="email" class="form-control" required />
-                                </div>
-                                <div class="form-group">
-                                    <label class="mb-1" for="contact-email">Email
-                                        <span class="required">*</span></label>
-                                    <input id="contact_email" name="contact_email" type="email" class="form-control" required />
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="mb-1" for="contact-message">Isi Pesan
-                                        <span class="required">*</span></label>
-                                    <textarea cols="30" rows="1" id="contact_message" class="form-control"
-                                        name="contact_message" required></textarea>
-                                </div>
-
-                                <div class="form-footer mb-0">
-                                    <button id="btn_form_contact_send" type="button" class="btn btn-dark font-weight-normal">
-                                        Kirim
-                                    </button>
-                                </div>
-                            </form>
-                        </div>                                             
-                    </div>
-                </div>
+        <!-- Kategori Produk -->
+        <section class="new-products-section">
+            <div class="container">
+                <h2 class="heading-bottom-border text-center text-uppercase mt-5">
+                    Kategori Produk
+                </h2>
+                <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div class="categories-slider owl-carousel owl-theme show-nav-hover nav-outer">
+                    <?php 
+                        if(!empty($link['product_category'])){
+                            $routing = base_url().$link['routing']['product'];
+                            foreach($link['product_category'] as $v){ 
+                                $scurl       = $routing.'/'.$v['category_url'];  
+                                $simg       = !empty($v['category_image']) ? base_url().$v['category_image'] : base_url().'upload/noimage.png'; 
+                                ?>
+                                <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
+                                    <a href="<?php echo $scurl; ?>">
+                                        <figure>
+                                            <img src="<?php echo $simg; ?>" alt="category" width="280" height="240" style="width:100%;height:240px;"/>
+                                        </figure>
+                                        <div class="category-content">
+                                            <h3><?php echo $v['category_name']; ?></h3>
+                                            <span><mark class="count"><?php echo $v['category_count_data']; ?></mark> products</span>
+                                        </div>
+                                    </a>
+                                </div>                    
+                                <?php 
+                            }
+                        }
+                    ?>   
+                </div>            
             </div>
         </section>
-
-        <!-- Map -->
-        <section class="feature-boxes-container">
-            <div class="container appear-animate" data-animation-name="fadeInUpShorter">
-                <h2 class="section-title heading-border ls-20 border-0">Temukan Kami Di Sekitar Anda</h2>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="map" class="google-map m-0" style="height: 400px;"></div>
-                    </div>
-                </div>
-            </div>
-        </section>     
-
-        <!-- Card Info -->
-        <div class="info-boxes-slider owl-carousel owl-theme mb-2 mt-5" data-owl-options="{
-                'dots': false,
-                'loop': false,
-                'responsive': {
-                    '576': {
-                        'items': 2
-                    },
-                    '992': {
-                        'items': 3
-                    }
-                }
-            }">
-            <div class="info-box info-box-icon-left">
-                <i class="icon-shipping"></i>
-                <div class="info-box-content">
-                    <h4>Kualitas Nomor Satu</h4>
-                    <p class="text-body">Beli Satu / Lebih kami tetap layani dengan tulus dan sepenuh hati</p>
-                </div>
-            </div>
-            <div class="info-box info-box-icon-left">
-                <i class="icon-star-empty"></i>
-                <div class="info-box-content">
-                    <h4>Garansi Barang Terbaik</h4>
-                    <p class="text-body">100% barang dikirim setelah melalui QC dengan prosedur ketat</p>
-                </div>
-            </div>
-            <div class="info-box info-box-icon-left">
-                <i class="icon-earphones-alt"></i>
-                <div class="info-box-content">
-                    <h4>Layanan Pelanggan</h4>
-                    <p class="text-body">Tim kami akan sigap senantiasa melayani keluhan pelanggan</p>
-                </div>
-            </div>
-        </div>
-        <!-- 
-            <div class="d-none banners-container mb-2">
-                <div class="banners-slider owl-carousel owl-theme" data-owl-options="{'dots': false}">
-                    <div class="banner banner1 banner-sm-vw d-flex align-items-center appear-animate" style="background-color: #ccc;" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
-                        <figure class="w-100">
-                            <img src="<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-1.jpg" alt="banner" width="380" height="175" />
-                        </figure>
-                        <div class="banner-layer">
-                            <h3 class="m-b-2">Porto Watches</h3>
-                            <h4 class="m-b-3 text-primary"><sup class="text-dark"><del>20%</del></sup>30%<sup>OFF</sup></h4>
-                            <a href="category.html" class="btn btn-sm btn-dark">Shop Now</a>
-                        </div>
-                    </div>
-                    <div class="banner banner2 banner-sm-vw text-uppercase d-flex align-items-center appear-animate" data-animation-name="fadeInUpShorter" data-animation-delay="200">
-                        <figure class="w-100">
-                            <img src="<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-2.jpg" style="background-color: #ccc;" alt="banner" width="380" height="175" />
-                        </figure>
-                        <div class="banner-layer text-center">
-                            <div class="row align-items-lg-center">
-                                <div class="col-lg-7 text-lg-right">
-                                    <h3>Deal Promos</h3>
-                                    <h4 class="pb-4 pb-lg-0 mb-0 text-body">Starting at $99</h4>
-                                </div>
-                                <div class="col-lg-5 text-lg-left px-0 px-xl-3">
-                                    <a href="category.html" class="btn btn-sm btn-dark">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="banner banner3 banner-sm-vw d-flex align-items-center appear-animate" style="background-color: #ccc;" data-animation-name="fadeInRightShorter" data-animation-delay="500">
-                        <figure class="w-100">
-                            <img src="<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-3.jpg" alt="banner" width="380" height="175" />
-                        </figure>
-                        <div class="banner-layer text-right">
-                            <h3 class="m-b-2">Handbags</h3>
-                            <h4 class="m-b-2 text-secondary text-uppercase">Starting at $99</h4>
-                            <a href="category.html" class="btn btn-sm btn-dark">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-        -->
-
-        <!-- Proyek -->
-        <section class="creative-section mt-5">
-            <h4 class="heading-bottom-border text-uppercase mt-5">
-                Proyek Terkini
-            </h4>
-            <div class="creative-grid grid row" style="margin-bottom:1240px;">
-                <?php
-                $cl = [
-                    "col-md-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-400",
-                    "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-300",
-                    "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-600",
-                    "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker order-md-1 grid-item height-300",
-                    "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker order-md-1 grid-item height-300",                        
-                    "col-md-3 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-200"
-                ];
-
-                if(count($link['project']) > 0){
-                    $routing = base_url().$link['routing']['project'];                              
-                    foreach($link['project'] as $i => $v){
-                        $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
-                        $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
-                                                    
-                        $surl       = $routing.'/'.$v['news_url'];          
-                        $simg = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url('upload/noimage.png'); 
-                
-                        ?>
-                        <div class="<?php echo $cl[$i]; ?>">
-                            <a href="<?php echo $surl;?>">
-                                <figure>
-                                    <!-- <img src="<?php echo $simg; ?>" width="800" height="800" alt="category"> -->
-                                </figure>
-                                <div class="category-content">
-                                    <h3><?php echo $stitle;?></h3>
-                                    <span><mark class="count">5</mark> gambar</span>
-                                </div>
-                            </a>
-                        </div>
-                        <?php 
-                    }
-                }
-                ?>                
-                <!-- <div class="col-md-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-400">
-                    <a href="category.html">
-                        <figure>
-                            <img src="<?php echo $asset; ?>assets/images/categories/category-5.jpg" width="800" height="800"
-                                alt="category">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Sunglasses</h3>
-                            <span><mark class="count">5</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-300">
-                    <a href="category.html">
-                        <figure>
-                            <img src="<?php echo $asset; ?>assets/images/categories/category-6.jpg" width="400" height="400"
-                                alt="category">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Shoes</h3>
-                            <span><mark class="count">17</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-600">
-                    <a href="category.html">
-                        <figure>
-                            <img src="<?php echo $asset; ?>assets/images/categories/category-8.jpg" width="800" height="800"
-                                alt="category">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Accessories</h3>
-                            <span><mark class="count">7</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker order-md-1 grid-item height-300">
-                    <a href="category.html">
-                        <figure>
-                            <img src="<?php echo $asset; ?>assets/images/categories/category-7.jpg" width="400" height="400"
-                                alt="category">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Bags</h3>
-                            <span><mark class="count">4</mark> products</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-200">
-                    <a href="category.html">
-                        <figure>
-                            <img src="<?php echo $asset; ?>assets/images/categories/category-9.jpg" width="1000" height="1000"
-                                alt="category">
-                        </figure>
-                        <div class="category-content">
-                            <h3>Music</h3>
-                            <span><mark class="count">7</mark> products</span>
-                        </div>
-                    </a>
-                </div> -->
-                <div class="col-1 grid-col-sizer"></div>
-            </div>
-            <div class="clearfix"></div>
-        </section>     
 
         <!-- Produk -->
         <section class="new-products-section">
             <div class="container">
-                <h4 class="heading-bottom-border text-uppercase mt-5">
+                <h2 class="heading-bottom-border text-center text-uppercase mt-5">
                     Produk Terbaru
-                </h4>
+                </h2>
+                <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div class="products-slider custom-products owl-carousel owl-theme nav-outer show-nav-hover nav-image-center mb-2" data-owl-options="{
                         'dots': false,
                         'nav': true,
@@ -445,45 +191,186 @@
             </div>
         </section>   
 
-        <!-- Kategori Produk -->
-        <section class="new-products-section">
-            <div class="container">
-                <h4 class="heading-bottom-border text-uppercase mt-5">
-                    Kategori Produk
-                </h4>
-                <div class="categories-slider owl-carousel owl-theme show-nav-hover nav-outer">
-                    <?php 
-                        if(!empty($link['product_category'])){
-                            $routing = base_url().$link['routing']['product'];
-                            foreach($link['product_category'] as $v){ 
-                                $scurl       = $routing.'/'.$v['category_url'];  
-                                $simg       = !empty($v['category_image']) ? base_url().$v['category_image'] : base_url().'upload/noimage.png'; 
-                                ?>
-                                <div class="product-category appear-animate" data-animation-name="fadeInUpShorter">
-                                    <a href="<?php echo $scurl; ?>">
-                                        <figure>
-                                            <img src="<?php echo $simg; ?>" alt="category" width="280" height="240" style="width:100%;height:240px;"/>
-                                        </figure>
-                                        <div class="category-content">
-                                            <h3><?php echo $v['category_name']; ?></h3>
-                                            <span><mark class="count"><?php echo $v['category_count_data']; ?></mark> products</span>
-                                        </div>
-                                    </a>
-                                </div>                    
-                                <?php 
-                            }
-                        }
-                    ?>   
-                </div>            
+        <!-- ✅ Proyek -->
+        <section class="creative-section mt-5">
+            <h2 class="heading-bottom-border text-center text-uppercase mt-5">
+                Proyek Terkini
+            </h2>
+            <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="creative-grid grid row" style="margin-bottom:1240px;">
+                <?php
+                $cl = [
+                    "col-md-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-400",
+                    "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-300",
+                    "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-600",
+                    "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker order-md-1 grid-item height-300",
+                    "col-md-3 col-sm-6 col-12 product-category content-left-bottom hidden-count overlay-darker order-md-1 grid-item height-300",                        
+                    "col-md-3 col-12 product-category content-left-bottom hidden-count overlay-darker grid-item height-200"
+                ];
+
+                if(count($link['project']) > 0){
+                    $routing = base_url().$link['routing']['project'];                              
+                    foreach($link['project'] as $i => $v){
+                        $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                        $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
+                                                    
+                        $surl       = $routing.'/'.$v['news_url'];          
+                        $simg = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url('upload/noimage.png'); 
+                
+                        ?>
+                        <div class="<?php echo $cl[$i]; ?>">
+                            <a href="<?php echo $surl;?>">
+                                <figure>
+                                    <!-- <img src="<?php echo $simg; ?>" width="800" height="800" alt="category"> -->
+                                </figure>
+                                <div class="category-content">
+                                    <h3><?php echo $stitle;?></h3>
+                                    <span><mark class="count">5</mark> gambar</span>
+                                </div>
+                            </a>
+                        </div>
+                        <?php 
+                    }
+                }
+                ?>
+                <div class="col-1 grid-col-sizer"></div>
+            </div>
+            <div class="clearfix"></div>
+        </section>     
+
+        <!-- ✅ Hubungi Kami -->
+        <section class="feature-boxes-container mb-8" style="background-color:#f1f1fd;">
+            <div class="container p-4">
+                <h2 class="text-center">Hubungi Kami</h2>
+                <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h2 class="mt-6 mb-1">Alamat Kami</h2>
+                            <p>
+                            Silahkan hubungi kami untuk pertanyaan dan kerjasama. Kami senang mendengar dari anda.
+                            <br>
+                            <address>
+                                <i class="fas fa-map-marker"></i> Alamat<br>
+                                    <?php echo $link['contact']['address']['office'].', '.$link['contact']['address']['city'];?>
+                                    <br><br>
+                                <i class="fas fa-inbox"></i> Email<br>
+                                    <?php 
+                                    if(!empty($link['contact']['email'][0]['email'])){ ?> 
+                                        <a href="mailto:<?php echo $link['contact']['email'][0]['email'];?>" target="_blank" class="text-dark font1"><?php echo $link['contact']['email'][0]['email'];?>
+                                        </a>  
+                                    <?php 
+                                    } else {
+                                        echo '-';
+                                    }
+                                    ?>   <br><br>
+                                <i class="fas fa-phone"></i> Telepon<br>
+                                    <?php 
+                                    if(!empty($link['contact']['phone'][0]['phone'])){ ?> 
+                                        <a href="tel:<?php echo $link['contact']['phone'][0]['phone'];?>" target="_blank" class="text-dark font1"><?php echo $link['contact']['phone'][0]['phone'];?>
+                                        </a>  
+                                    <?php 
+                                    } else {
+                                        echo '-';
+                                    }
+                                    ?><br><br>       
+                                <i class="fab fa-whatsapp"></i> WhatsApp<br>
+                                    <?php 
+                                    if(!empty($link['contact']['phone'][1]['phone'])){ ?> 
+                                        <a href="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" target="_blank" class="text-dark font1"><?php echo $link['contact']['phone'][1]['phone'];?>
+                                        </a>  
+                                    <?php 
+                                    } else {
+                                        echo '-';
+                                    }
+                                    ?>     
+                            </address>                        
+                            <!-- Ikuti<br>
+                            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                            </p> -->
+                    </div>
+
+                    <div class="col-lg-6">
+                        <h2 class="mt-6 mb-2">Kirim Pesan</h2>
+
+                        <form id="form_contact" name="form_contact" class="mb-0" action="#">
+                            <div class="form-group">
+                                <label class="mb-1" for="contact-name">Nama Anda
+                                    <span class="required">*</span></label>
+                                <input id="contact_name" name="contact_name" type="text" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="mb-1" for="contact-phone">Nomor Telepon / WhatsApp
+                                    <span class="required">*</span></label>
+                                <input id="contact_phone" name="contact_phone" type="email" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="mb-1" for="contact-email">Email
+                                    <span class="required">*</span></label>
+                                <input id="contact_email" name="contact_email" type="email" class="form-control" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="mb-1" for="contact-message">Isi Pesan
+                                    <span class="required">*</span></label>
+                                <textarea cols="30" rows="1" id="contact_message" class="form-control"
+                                    name="contact_message" required></textarea>
+                            </div>
+
+                            <div class="form-footer mb-0">
+                                <button id="btn_form_contact_send" type="button" class="btn btn-dark font-weight-normal">
+                                    Kirim
+                                </button>
+                            </div>
+                        </form>
+                    </div>                                             
+                </div>
             </div>
         </section>
-                       
+
+        <!-- Portofolio -->
+        <section class="blog-section pb-0">
+            <div class="container">
+                <h2 class="heading-bottom-border text-center text-uppercase mt-5">
+                    Portofolio Terkini
+                </h2>
+                <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                <!-- <hr class="mt-0 m-b-5"> -->
+                <h4 class="heading-bottom-border text-center text-uppercase mt-5">
+                    Mereka yang Mempercayai kami
+                </h4>
+                <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="500" data-owl-options="{
+                'margin': 0}">
+                <?php 
+                    if(count($link['portofolio']) > 0){
+                        // $routing = base_url().$link['routing']['blog'];
+                        foreach($link['portofolio'] as $v){
+
+                            // $scurl       = $routing.'/'.$v['category_url'];  
+                            // $spurl       = $routing.'/'.$v['category_url'].'/'.$v['news_url'];  
+                            $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+
+                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                            $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
+                            // $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
+                            ?>  
+                            <img src="<?php echo $simg; ?>" width="130" height="56" alt="brand">
+                        <?php 
+                        }
+                    }
+                ?>
+                </div>
+                <hr class="mt-4 m-b-5">           
+            </div>
+        </section>
+
         <!-- Blog -->
         <section class="blog-section pb-0">
             <div class="container">
-                <h4 class="heading-bottom-border text-uppercase mt-5">
+                <h2 class="heading-bottom-border text-center text-uppercase mt-5">
                     Blog Terkini
-                </h4>
+                </h2>
+                <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div class="owl-carousel owl-theme appear-animate" data-animation-name="fadeIn" data-owl-options="{
                     'loop': false,
                     'margin': 20,
@@ -545,230 +432,297 @@
                         }
                     ?>          
                 </div>
-
-                <!-- <hr class="mt-0 m-b-5"> -->
-
-                <h4 class="heading-bottom-border text-uppercase mt-5">
-                    Mereka yang Mempercayai kami
-                </h4>
-                <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="500" data-owl-options="{
-                'margin': 0}">
-                <?php 
-                    if(count($link['portofolio']) > 0){
-                        // $routing = base_url().$link['routing']['blog'];
-                        foreach($link['portofolio'] as $v){
-
-                            // $scurl       = $routing.'/'.$v['category_url'];  
-                            // $spurl       = $routing.'/'.$v['category_url'].'/'.$v['news_url'];  
-                            $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
-
-                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
-                            $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
-                            // $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
-                            ?>  
-                            <img src="<?php echo $simg; ?>" width="130" height="56" alt="brand">
-                        <?php 
-                        }
-                    }
-                ?>
-                </div>
-
-                <hr class="mt-4 m-b-5">
-
-                <div class="d-none product-widgets-container row pb-2">
-                    <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="200">
-                        <h4 class="section-sub-title">Featured Products</h4>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="product.html">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-4.jpg" width="84" height="84" alt="product">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-4-2.jpg" width="84" height="84" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
-                                        S</a> </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <span class="tooltiptext tooltip-top">5.00</span>
-                                    </div>
-                                </div>
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="product.html">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-5.jpg" width="84" height="84" alt="product">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-5-2.jpg" width="84" height="84" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                </div>
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                            </div>
-                        </div>                    
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
-                        <h4 class="section-sub-title">Best Selling Products</h4>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="product.html">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-4.jpg" width="84" height="84" alt="product">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-4-2.jpg" width="84" height="84" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
-                                        S</a> </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <span class="tooltiptext tooltip-top">5.00</span>
-                                    </div>
-                                </div>
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="product.html">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-5.jpg" width="84" height="84" alt="product">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-5-2.jpg" width="84" height="84" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                </div>
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                            </div>
-                        </div>     
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
-                        <h4 class="section-sub-title">Latest Products</h4>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="product.html">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-4.jpg" width="84" height="84" alt="product">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-4-2.jpg" width="84" height="84" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
-                                        S</a> </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <span class="tooltiptext tooltip-top">5.00</span>
-                                    </div>
-                                </div>
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="product.html">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-5.jpg" width="84" height="84" alt="product">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-5-2.jpg" width="84" height="84" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                </div>
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                            </div>
-                        </div>     
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="1100">
-                        <h4 class="section-sub-title">Top Rated Products</h4>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="product.html">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-4.jpg" width="84" height="84" alt="product">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-4-2.jpg" width="84" height="84" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
-                                        S</a> </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <span class="tooltiptext tooltip-top">5.00</span>
-                                    </div>
-                                </div>
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-default left-details product-widget">
-                            <figure>
-                                <a href="product.html">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-5.jpg" width="84" height="84" alt="product">
-                                    <img src="<?php echo $asset; ?>assets/images/products/small/product-5-2.jpg" width="84" height="84" alt="product">
-                                </a>
-                            </figure>
-
-                            <div class="product-details">
-                                <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
-                                <div class="ratings-container">
-                                    <div class="product-ratings">
-                                        <span class="ratings" style="width:100%"></span>
-                                        <span class="tooltiptext tooltip-top"></span>
-                                    </div>
-                                </div>
-                                <div class="price-box">
-                                    <span class="product-price">$49.00</span>
-                                </div>
-                            </div>
-                        </div>     
-                    </div>
-                </div>
             </div>
         </section>
  
-        <!-- Icon -->
-        <section class="feature-boxes-container">
+            <!-- Map -->
+            <section class="feature-boxes-container mb-8">
+                <div class="container appear-animate" data-animation-name="fadeInUpShorter">
+                    <h2 class="text-center">Temukan Kami Di Sekitar Anda</h2>
+                    <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="map" class="google-map m-0" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    </div>
+    <!-- End of Container -->
+
+    <!-- Other Component -->
+    <section class="d-none blog-section pb-0">
+        <div class="container">
+            <h2 class="heading-bottom-border text-center text-uppercase mt-5">
+                Other Component
+            </h2>
+            <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+            <!-- Card Info -->
+            <div class="info-boxes-slider owl-carousel owl-theme mb-2 mt-2" data-owl-options="{
+                    'dots': false,
+                    'loop': false,
+                    'responsive': {
+                        '576': {
+                            'items': 2
+                        },
+                        '992': {
+                            'items': 3
+                        }
+                    }
+                }">
+                <div class="info-box info-box-icon-left">
+                    <i class="icon-shipping"></i>
+                    <div class="info-box-content">
+                        <h4>Kualitas Nomor Satu</h4>
+                        <p class="text-body">Beli Satu / Lebih kami tetap layani dengan tulus dan sepenuh hati</p>
+                    </div>
+                </div>
+                <div class="info-box info-box-icon-left">
+                    <i class="icon-star-empty"></i>
+                    <div class="info-box-content">
+                        <h4>Garansi Barang Terbaik</h4>
+                        <p class="text-body">100% barang dikirim setelah melalui QC dengan prosedur ketat</p>
+                    </div>
+                </div>
+                <div class="info-box info-box-icon-left">
+                    <i class="icon-earphones-alt"></i>
+                    <div class="info-box-content">
+                        <h4>Layanan Pelanggan</h4>
+                        <p class="text-body">Tim kami akan sigap senantiasa melayani keluhan pelanggan</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Desain Info -->                
+            <div class="banners-container mb-2">
+                <div class="banners-slider owl-carousel owl-theme" data-owl-options="{'dots': false}">
+                    <div class="banner banner1 banner-sm-vw d-flex align-items-center appear-animate" style="background-color: #ccc;" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
+                        <figure class="w-100">
+                            <img src="<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-1.jpg" alt="banner" width="380" height="175" />
+                        </figure>
+                        <div class="banner-layer">
+                            <h3 class="m-b-2">Porto Watches</h3>
+                            <h4 class="m-b-3 text-primary"><sup class="text-dark"><del>20%</del></sup>30%<sup>OFF</sup></h4>
+                            <a href="category.html" class="btn btn-sm btn-dark">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="banner banner2 banner-sm-vw text-uppercase d-flex align-items-center appear-animate" data-animation-name="fadeInUpShorter" data-animation-delay="200">
+                        <figure class="w-100">
+                            <img src="<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-2.jpg" style="background-color: #ccc;" alt="banner" width="380" height="175" />
+                        </figure>
+                        <div class="banner-layer text-center">
+                            <div class="row align-items-lg-center">
+                                <div class="col-lg-7 text-lg-right">
+                                    <h3>Deal Promos</h3>
+                                    <h4 class="pb-4 pb-lg-0 mb-0 text-body">Starting at $99</h4>
+                                </div>
+                                <div class="col-lg-5 text-lg-left px-0 px-xl-3">
+                                    <a href="category.html" class="btn btn-sm btn-dark">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner banner3 banner-sm-vw d-flex align-items-center appear-animate" style="background-color: #ccc;" data-animation-name="fadeInRightShorter" data-animation-delay="500">
+                        <figure class="w-100">
+                            <img src="<?php echo $asset; ?>assets/images/demoes/demo4/banners/banner-3.jpg" alt="banner" width="380" height="175" />
+                        </figure>
+                        <div class="banner-layer text-right">
+                            <h3 class="m-b-2">Handbags</h3>
+                            <h4 class="m-b-2 text-secondary text-uppercase">Starting at $99</h4>
+                            <a href="category.html" class="btn btn-sm btn-dark">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="product-widgets-container row pb-2">
+                <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="200">
+                    <h4 class="section-sub-title">Featured Products</h4>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="product.html">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-4.jpg" width="84" height="84" alt="product">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-4-2.jpg" width="84" height="84" alt="product">
+                            </a>
+                        </figure>
+
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
+                                    S</a> </h3>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <span class="tooltiptext tooltip-top">5.00</span>
+                                </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="product-price">$49.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="product.html">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-5.jpg" width="84" height="84" alt="product">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-5-2.jpg" width="84" height="84" alt="product">
+                            </a>
+                        </figure>
+
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <span class="tooltiptext tooltip-top"></span>
+                                </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="product-price">$49.00</span>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+
+                <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="500">
+                    <h4 class="section-sub-title">Best Selling Products</h4>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="product.html">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-4.jpg" width="84" height="84" alt="product">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-4-2.jpg" width="84" height="84" alt="product">
+                            </a>
+                        </figure>
+
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
+                                    S</a> </h3>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <span class="tooltiptext tooltip-top">5.00</span>
+                                </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="product-price">$49.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="product.html">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-5.jpg" width="84" height="84" alt="product">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-5-2.jpg" width="84" height="84" alt="product">
+                            </a>
+                        </figure>
+
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <span class="tooltiptext tooltip-top"></span>
+                                </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="product-price">$49.00</span>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="800">
+                    <h4 class="section-sub-title">Latest Products</h4>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="product.html">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-4.jpg" width="84" height="84" alt="product">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-4-2.jpg" width="84" height="84" alt="product">
+                            </a>
+                        </figure>
+
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
+                                    S</a> </h3>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <span class="tooltiptext tooltip-top">5.00</span>
+                                </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="product-price">$49.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="product.html">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-5.jpg" width="84" height="84" alt="product">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-5-2.jpg" width="84" height="84" alt="product">
+                            </a>
+                        </figure>
+
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <span class="tooltiptext tooltip-top"></span>
+                                </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="product-price">$49.00</span>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+
+                <div class="col-lg-3 col-sm-6 pb-5 pb-md-0 appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="1100">
+                    <h4 class="section-sub-title">Top Rated Products</h4>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="product.html">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-4.jpg" width="84" height="84" alt="product">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-4-2.jpg" width="84" height="84" alt="product">
+                            </a>
+                        </figure>
+
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="product.html">Blue Backpack for the Young -
+                                    S</a> </h3>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <span class="tooltiptext tooltip-top">5.00</span>
+                                </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="product-price">$49.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-default left-details product-widget">
+                        <figure>
+                            <a href="product.html">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-5.jpg" width="84" height="84" alt="product">
+                                <img src="<?php echo $asset; ?>assets/images/products/small/product-5-2.jpg" width="84" height="84" alt="product">
+                            </a>
+                        </figure>
+
+                        <div class="product-details">
+                            <h3 class="product-title"> <a href="product.html">Casual Spring Blue Shoes</a> </h3>
+                            <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <span class="tooltiptext tooltip-top"></span>
+                                </div>
+                            </div>
+                            <div class="price-box">
+                                <span class="product-price">$49.00</span>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+            </div>
             <div class="container appear-animate" data-animation-name="fadeInUpShorter">
                 <div class="row">
                     <div class="col-md-4">
@@ -813,10 +767,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>        
-    </div>
-
+            </div>                
+        </div>
+    </section>
     <section class="d-none promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="<?php echo base_url(); ?>upload/banner-5.png">
         <div class="promo-banner banner container text-uppercase">
             <div class="banner-content row align-items-center text-center">
@@ -853,8 +806,10 @@
     <!-- Kategori Produk -->
     <div class="section-elements" style="background: #ffffff;">
         <div class="container">
-            <h5 class="text-primary">Sesuaikan Dengan Kebutuhan</h5>
-            <h2 class="mb-5 elements">Kategori Produk</h2>
+            <h2 class="heading-bottom-border text-center text-uppercase mt-5">
+                Kategori Produk
+            </h2>
+            <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             <div class="row justify-content-center">
                 <div class="row">
                     <?php 
@@ -884,8 +839,42 @@
         </div>
     </div>
 
+        <!-- Gallery Kami -->
+        <div class="section-elements" style="background: #f1f1fd;">
+            <div class="container">
+                <h2 class="text-center"><?php echo (count($link['gallery'])>0) ? $link['gallery'][0]['news_title'] : ""; ?></h2>
+                <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>             
+                <div class="row justify-content-center">
+                    <?php 
+                    if(count($link['gallery']) > 0){
+                        foreach($link['gallery'] as $v){
+                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                            $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
+                                                        
+                            $surl   = base_url().$v['news_url'];  
+                            $simg   = base_url().$v['file_url']; 
+
+                            if(!empty($v['news_url']) or !empty($v['file_url'])){
+                                $simg = base_url('upload/noimage.png');
+                            }
+                            ?>
+                            <div class="col-md-4 mb-4">
+                                <div class="info-box info-box-img">
+                                    <img src="<?php echo $simg;?>" style="border-radius:20px;" alt="<?php echo $stitle;?>">
+                                    <div class="info-box-content">
+                                    </div>
+                                </div>
+                            </div>
+                            <?php 
+                        }
+                    }
+                    ?>                              
+                </div>
+            </div>
+        </div>
+
     <!-- Tentang Kami -->
-    <div class="section-elements" style="background: #ffffff;">
+    <div class="section-elements bg-dark">
         <div class="container">
             <?php 
             foreach($link['menu'] as $v){
@@ -903,9 +892,9 @@
                 <div class="col-md-5">
                     <div class="info-box info-box-img">
                         <div class="info-box-content">
-                            <h5 class="text-primary"><?php echo $stitle; ?></h5>
+                            <h2 class="text-primary text-left text-white"><?php echo $stitle; ?></h2>
                             <div style="text-align: left;">
-                                <p><?php echo $scontent; ?></p>
+                                <p class="text-white"><?php echo $scontent; ?></p>
                                 <br>
                                 <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $surl;?>" style="color:white;">Baca Selengkapnya</a></div>
                             </div>    
@@ -923,40 +912,15 @@
             ?>
         </div>
     </div>
-    <!-- Gallery Kami -->
-    <div class="section-elements" style="background: #f1f1fd;">
-        <div class="container">
-            <h5 class="text-primary">Gallery Kami</h5>
-            <h2 class="mb-5 elements"><?php echo (count($link['gallery'])>0) ? $link['gallery'][0]['news_title'] : ""; ?></h2>
-            <div class="row justify-content-center">
-                <?php 
-                if(count($link['gallery']) > 0){                         
-                    foreach($link['gallery'] as $v){
-                        $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
-                        $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this cvategory details, please update on admin panel';   
-                                                    
-                        $surl   = base_url().$v['news_url'];  
-                        $simg   = base_url().$v['file_url']; 
-                        ?>
-                        <div class="col-md-4 mb-4">
-                            <div class="info-box info-box-img">
-                                <img src="<?php echo $simg;?>" style="border-radius:20px;" alt="<?php echo $stitle;?>">
-                                <div class="info-box-content">
-                                </div>
-                            </div>
-                        </div>
-                        <?php 
-                    }
-                }
-                ?>                              
-            </div>
-        </div>
-    </div>
+
+
     <!-- Tanya Gratis -->
-    <div class="section-elements" style="background: #ffffff;">
+    <div class="section-elements bg-dark2">
         <div class="container">
             <!-- <h4 class="elements">Bergabunglah dalam melestarikan Batik Nusantara</h4> -->
             <!-- <p class="mb-5">Daftar sekarang untuk mendapatkan update dan promosi terbaru dari koleksi batik kami</p> -->
+            <h2 class="text-center text-white">Tanya Gratis</h2>
+            <p class="text-center text-white mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>             
             <div class="row justify-content-center">
                 <div class="">
                     <!-- <h3>Small</h3> -->
@@ -965,9 +929,11 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="cta-simple cta-border">
-                                <h4 class="elements">Tanya Gratis Kepada Kami</h4>
-                                <p>Konsultasikan kebutuhan anda dengan pakar kami</p>
-                                <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $link['contact_us'];?>" style="color:white;">Hubungi Kami</a></div>
+                                <h4 class="elements text-white">Tanya Gratis Kepada Kami</h4>
+                                <p class="text-white">Konsultasikan kebutuhan anda dengan pakar kami</p>
+                                <div class="btn btn-primary btn-ellipse btn-xl mt-2">
+                                    <a class="" href="<?php echo $link['contact_us'];?>" style="color:white;">Hubungi Kami</a>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-2">

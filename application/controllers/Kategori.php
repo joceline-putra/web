@@ -4,6 +4,7 @@ class Kategori extends MY_Controller{
     var $folder_upload = 'upload/category/';
     var $image_width   = 240;
     var $image_height  = 240;    
+    var $product_route = 'produk';
     var $blog_route = 'blog';
     var $project_route = 'project';    
     function __construct(){
@@ -20,6 +21,7 @@ class Kategori extends MY_Controller{
         $data['session'] = $this->session->userdata();     
         $data['theme'] = $this->User_model->get_user($data['session']['user_data']['user_id']);
         if($identity == 1){ //Kategori Produk
+            $data['_route'] = $this->product_route;            
             $params = array(
                 'category_parent_id' => 0,
                 'category_type' => 1

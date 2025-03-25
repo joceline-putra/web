@@ -8,6 +8,9 @@
         var url_image = "<?= site_url('upload/noimage.png'); ?>";
         var url_dir = "<?= base_url(); ?>";        
 
+        var blog_routing = "<?php echo $_route; ?>";
+        var url_preview = '<?php echo site_url(); ?>' + blog_routing +'/';
+
         $(".nav-tabs").find('li[class="active"]').removeClass('active');
         $(".nav-tabs").find('li[data-name="category/product"]').addClass('active');
         
@@ -215,6 +218,10 @@
                         dsp += '<span class="fas fa-edit"></span>Edit';
                         dsp += '</button>';
 
+                        dsp += '&nbsp;<button class="btn-preview btn btn-mini btn-info" data-id="' + data + '" data-url="'+row.category_url+'" data-title="'+row.category_name+'">';
+                        dsp += '<span class="fas fa-eye"></span>Preview';
+                        dsp += '</button>';                        
+
                         if (parseInt(row.category_flag) === 1) {
                             dsp += '&nbsp;<button class="btn btn-set-active btn-mini btn-success"';
                             dsp += 'data-nama="' + row.category_name + '" data-id="' + data + '" data-flag="' + row.category_flag + '">';
@@ -281,7 +288,10 @@
             $("#files_link").attr('href',url_image);
             $("#files").val('');
             $("#files_preview").attr('src',url_image);
-            $("#files_preview").attr('data-save-img','');                   
+            $("#files_preview").attr('data-save-img','');      
+            
+            $("#div-form-trans").show(300);
+            // $(this).hide();            
         });
 
         $(document).on("click","#btn-cancel", function (e) {
@@ -595,6 +605,40 @@
                 }
             });
         });
+        $(document).on("click", ".btn-preview", function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            var title = $(this).attr("data-title");
+            var urls = $(this).attr("data-url");
+            var final_url = urls;
+            $.confirm({
+                title: 'Pengalihan Halaman',
+                content: 'Anda akan diarahkan ke halaman <b>' + url_preview + urls + '</b>',
+                columnClass: 'col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1',
+                autoClose: 'button_2|10000',
+                closeIcon: true,
+                closeIconClass: 'fas fa-times',
+                buttons: {
+                    button_1: {
+                        text: 'Lanjutkan',
+                        btnClass: 'btn-primary',
+                        keys: ['enter'],
+                        action: function () {
+                            window.open(url_preview + final_url);
+                        }
+                    },
+                    button_2: {
+                        text: 'Tutup',
+                        btnClass: 'btn-danger',
+                        keys: ['Escape'],
+                        action: function () {
+                            //Close
+                        }
+                    }
+                }
+            });
+
+        });
 
         //Image Croppie
         $(document).on('change', '#files', function(e) {
@@ -650,7 +694,9 @@
             $("#btn-new").show();
             $("#btn-save").hide();
             $("#btn-update").hide();
-            $("#btn-cancel").hide();          
+            $("#btn-cancel").hide();
+
+            $("#div-form-trans").hide(300);            
         }
 
         function updateCategoryAttribute(id, selectedAttr){

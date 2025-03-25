@@ -1542,12 +1542,12 @@
                 var form = new FormData($("#form_contact")[0]);
                 form.append('action', 'send_email');
                 // form.append('form_id', form_id);
-        
+                notif(1,'Sukses');
                 ajax(url, form)
                     .then(d => {
                         let s = d.status; let m = d.message; let r = d.result;
                         if(parseInt(s) == 1){
-                            notif(s,m);
+                            // notif(s,m);
                         }else{
                             notif(s,m);
                         }

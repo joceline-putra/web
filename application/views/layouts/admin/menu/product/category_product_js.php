@@ -145,7 +145,10 @@
             $("#files_link").attr('href',url_image);
             $("#files").val('');
             $("#files_preview").attr('src',url_image);
-            $("#files_preview").attr('data-save-img','');                   
+            $("#files_preview").attr('data-save-img','');    
+            
+            $("#div-form-trans").show(300);
+            // $(this).hide();
         });
 
         $(document).on("click","#btn-cancel", function (e) {

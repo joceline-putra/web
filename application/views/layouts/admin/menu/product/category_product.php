@@ -55,59 +55,7 @@
         </div>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
-                <div class="col-md-8 col-xs-12 col-sm-12 padding-remove-left">
-                    <div class="grid simple">
-                        <div class="hidden grid-title">
-                            <div class="tools">
-                                <a href="javascript:;" class="collapse"></a>
-                                <a href="#grid-config" data-toggle="modal" class="config"></a>
-                                <a href="javascript:;" class="reload"></a>
-                                <a href="javascript:;" class="remove"></a>
-                            </div>
-                        </div>
-                        <div class="grid-body">        
-                            <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
-                                <div class="col-md-6 col-xs-12 col-sm-12" style="padding-left: 0;">
-                                    <h5><b>Data <?php echo $title; ?></b></h5>
-                                </div>
-                                <div class="col-md-6 col-xs-12 col-sm-12 padding-remove-right">
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side" style="padding-top:8px;">
-                                <div class="col-lg-2 col-md-2 col-xs-12 col-sm-12 form-group padding-remove-left">
-                                    <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
-                                        <label class="form-label">Status</label>
-                                        <select id="filter_flag" name="filter_flag" class="form-control">
-                                            <option value="100">Semua</option>
-                                            <option value="1">Aktif</option>
-                                            <option value="0">Nonaktif</option>
-                                        </select>
-                                    </div>
-                                </div>                
-                                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12 form-group padding-remove-left">
-                                    <label class="form-label">Cari</label>
-                                    <input id="filter_search" name="filter_search" type="text" value="" class="form-control" placeholder="Pencarian" />
-                                </div>                                 
-                                <div class="col-lg-2 col-md-2 col-xs-12 col-sm-12 form-group padding-remove-side">
-                                    <label class="form-label">Tampil</label>
-                                    <select id="filter_length" name="filter_length" class="form-control">
-                                        <option value="10">10 Baris</option>
-                                        <option value="25">25 Baris</option>
-                                        <option value="50">50 Baris</option>
-                                        <option value="100">100 Baris</option>
-                                    </select>
-                                </div>                   
-                            </div>              
-                            <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
-                                <div class="table-responsive">
-                                    <table id="table-data" class="table table-bordered" style="width:100%;">
-                                    </table>
-                                </div>
-                            </div>              
-                        </div>
-                    </div>
-                </div>  
-                <div class="col-md-4 col-xs-12 col-sm-12 padding-remove-left">
+                <div id="div-form-trans" style="display:none;" class="col-md-12 col-xs-12 col-sm-12 padding-remove-left">
                     <div class="grid simple">
                         <div class="hidden grid-title">
                             <div class="tools">
@@ -227,13 +175,62 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>                
+                <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-left">
+                    <div class="grid simple">
+                        <div class="hidden grid-title">
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse"></a>
+                                <a href="#grid-config" data-toggle="modal" class="config"></a>
+                                <a href="javascript:;" class="reload"></a>
+                                <a href="javascript:;" class="remove"></a>
+                            </div>
+                        </div>
+                        <div class="grid-body">        
+                            <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
+                                <div class="col-md-6 col-xs-12 col-sm-12" style="padding-left: 0;">
+                                    <h5><b>Data <?php echo $title; ?></b></h5>
+                                </div>
+                                <div class="col-md-6 col-xs-12 col-sm-12 padding-remove-right">
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side" style="padding-top:8px;">
+                                <div class="col-lg-2 col-md-2 col-xs-12 col-sm-12 form-group padding-remove-left">
+                                    <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
+                                        <label class="form-label">Status</label>
+                                        <select id="filter_flag" name="filter_flag" class="form-control">
+                                            <option value="100">Semua</option>
+                                            <option value="1">Aktif</option>
+                                            <option value="0">Nonaktif</option>
+                                        </select>
+                                    </div>
+                                </div>                
+                                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12 form-group padding-remove-left">
+                                    <label class="form-label">Cari</label>
+                                    <input id="filter_search" name="filter_search" type="text" value="" class="form-control" placeholder="Pencarian" />
+                                </div>                                 
+                                <div class="col-lg-2 col-md-2 col-xs-12 col-sm-12 form-group padding-remove-side">
+                                    <label class="form-label">Tampil</label>
+                                    <select id="filter_length" name="filter_length" class="form-control">
+                                        <option value="10">10 Baris</option>
+                                        <option value="25">25 Baris</option>
+                                        <option value="50">50 Baris</option>
+                                        <option value="100">100 Baris</option>
+                                    </select>
+                                </div>                   
+                            </div>              
+                            <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
+                                <div class="table-responsive">
+                                    <table id="table-data" class="table table-bordered" style="width:100%;">
+                                    </table>
+                                </div>
+                            </div>              
+                        </div>
+                    </div>
+                </div>  
             </div>
-
             <div class="tab-pane" id="tab2">
-
             </div>
-
         </div>	
     </div>
 </div>

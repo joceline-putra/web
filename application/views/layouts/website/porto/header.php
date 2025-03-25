@@ -18,7 +18,7 @@
 } */
 </style>
 <header class="header">
-    <div class="header-top">
+    <div class="d-none header-top">
         <div class="container">
             <div class="header-left d-none d-sm-block">
                 <p class="top-message text-uppercase"><?php echo $link['brand']; ?>, <?php echo $link['contact']['address']['office']; ?></p>
