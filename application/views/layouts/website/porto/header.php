@@ -267,6 +267,24 @@
                         </div>
                     </li>
                     <li>
+                        <a href="#">Products</a>
+                        <ul>
+                            <?php 
+                            if(!empty($link['product_category'])){
+                                foreach($link['product_category'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['product'].'/'.$v['category_url'].">".$v['category_name']."</a>"; 
+                                }
+                            }
+                            ?>
+                            <!-- <li><a href="<?php #echo $link['articles'];?>">Blog</a>
+                                <ul>
+                                    <li><a href="<?php #echo $link['article'];?>">Blog</a></li>
+                                    <li><a href="<?php #echo $link['article'];?>">Blog Post</a></li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                    </li>                    
+                    <li>
                         <a href="#">Blogs</a>
                         <ul>
                             <?php 

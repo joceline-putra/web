@@ -90,13 +90,13 @@
                                                 </div>
                                             </div>
                                         </div>          
-                                        <div class="col-lg-12 col-md-12 col-xs-12">
+                                        <!-- <div class="col-lg-12 col-md-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Attribute</label>
                                                 <select id="attribute" name="attribute" multiple="multiple" class="form-control">
                                                 </select>
                                             </div>         
-                                        </div>                                                                          
+                                        </div>                                                                           -->
                                         <div class="col-md-12 col-sm-12 col-xs-12">                                
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
@@ -110,11 +110,11 @@
                                                 <label>Parent Category</label>
                                                 <select id="parent_category" name="parent_category" class="form-control" disabled readonly>
                                                   <option value="0">No Parent Category</option>
-                                            <?php
-                                            foreach ($parent_category as $v) {
-                                                echo '<option value="' . $v['product_category_id'] . '">' . $v['product_category_name'] . '</option>';
-                                            }
-                                            ?>
+                                                <?php
+                                                // foreach ($parent_category as $v) {
+                                                    #echo '<option value="' . $v['product_category_id'] . '">' . $v['product_category_name'] . '</option>';
+                                                // }
+                                                ?>
                                                 </select>
                                               </div>
                                             </div>
@@ -128,13 +128,13 @@
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Deskripsi Singkat</label>
-                                                    <textarea id="category_short" name="category_short" type="text" class="form-control" readonly='true' rows="4"></textarea>
+                                                    <textarea id="category_short" name="category_short" type="text" class="form-control" readonly='true' rows="8"></textarea>
                                                 </div>
                                             </div>                                             
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
                                                 <div class="form-group">
                                                     <label>Deskripsi</label>
-                                                    <textarea id="category_content" name="category_content" type="text" class="form-control" readonly='true' rows="4"></textarea>
+                                                    <textarea id="category_content" name="category_content" type="text" class="form-control" readonly='true' rows="40"></textarea>
                                                 </div>
                                             </div>                                            
                                             <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">

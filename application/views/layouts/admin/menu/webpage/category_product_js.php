@@ -47,7 +47,7 @@
                 placeholder: 'Content description here!',
                 dialogsInBody:true,
                 tabsize: 4,
-                height: 350,
+                height: 400,
                 toolbar: [
                     ["font", ["bold", "italic", "underline", "clear"]],
                     ["fontname", ["fontname"]],
@@ -391,7 +391,8 @@
                 beforeSend: function () {},
                 success: function (d) {
                     if (parseInt(d.status) == 1) { /* Success Message */
-                        activeTab('tab1'); // Open/Close Tab By ID
+                        // activeTab('tab1'); // Open/Close Tab By ID
+                        $("#div-form-trans").show(300);
                         // notif(1,d.result.id);ss
                         $("#form-master input[name='id_document']").val(d.result.category_id);
                         $("#form-master input[name='nama']").val(d.result.category_name);
