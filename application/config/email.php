@@ -1,5 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+// Oh iya pak terkait ini info dri pak Danang ini pak:
+// account : no-replay@megadata.net.id
 
+// Incoming mail : mail.megadata.net.id port 993
+
+// Outgoing mail : mail.megadata.net.id port 465
 $config = array(
     'protocol' => 'smtp', // 'mail', 'sendmail', or 'smtp'
     'smtp_auth' => true,

@@ -17,6 +17,10 @@
     right: 0;
 } */
 </style>
+<?php 
+$theme = 'bg-dark2';
+$theme_text = 'text-white';
+?>
 <header class="header">
     <div class="d-none header-top">
         <div class="container">
@@ -95,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div class="header-middle sticky-header" data-sticky-options="{'mobile': true}">
+    <div class="header-middle sticky-header <?php echo $theme;?>" data-sticky-options="{'mobile': true}">
         <div class="container">
             <div class="header-left col-lg-2 w-auto pl-0">
                 <button class="mobile-menu-toggler text-primary mr-2" type="button">
@@ -128,13 +132,13 @@
                     </form>
                 </div>
 
-                <div class="header-contact d-none d-lg-flex pl-4 pr-4">
+                <div class="header-contact d-none d-lg-flex pl-4 pr-4 <?php echo $theme;?>">
                     <img alt="phone" src="<?php echo $asset; ?>assets/images/whatsapp.png" width="30" height="30" class="pb-1">
                     <?php 
                         if(!empty($link['contact']['phone'][1]['phone'])){ ?> 
                         <h6>
                             <span id="cta" data-v="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" style="cursor:pointer;" onclick="window.open(this.getAttribute('data-v'), '_blank');">Chat Via WhatsApp</span>
-                            <a href="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" target="_blank" class="text-dark font1"><?php echo $link['contact']['phone'][1]['phone'];?>
+                            <a href="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" target="_blank" class="<?php echo $theme_text;?> font1"><?php echo $link['contact']['phone'][1]['phone'];?>
                             </a>                    
                         </h6>
                     <?php }
@@ -210,15 +214,15 @@
             </div>
         </div>
     </div>
-    <div class="header-bottom sticky-header d-none d-lg-block" data-sticky-options="{'mobile': false}">
+    <div class="<?php echo $theme;?> header-bottom sticky-header d-none d-lg-block" data-sticky-options="{'mobile': false}">
         <div class="container">
             <nav class="main-nav w-100">
                 <ul class="menu">
                     <li class="active">
-                        <a href="<?php echo base_url(); ?>">Home</a>
+                        <a href="<?php echo base_url(); ?>" class="text-white">Home</a>
                     </li>
-                    <li>
-                        <a href="<?php echo $link['routing']['product'];?>">Products</a>
+                    <li class="d-none">
+                        <a href="<?php echo $link['routing']['product'];?>" class="text-white">Products</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
                                 <?php 
@@ -236,12 +240,12 @@
                                         //     echo "<li><a href='$surl'>{$item['product_name']}</a></li>";
                                         // }
                                         // echo "</ul>";
-                                        echo '<div class="col-lg-6">';
+                                        echo '<div class="col-lg-6 '.$theme.'">';
                                         echo '<a href="#" class="nolink">'.$category.'</a>';
                                         echo '<ul class="submenu">';
                                         foreach ($items as $item) {
                                             $surl = base_url().$link['routing']['product'].'/'.$item['category_url'].'/'.$item['product_url'];
-                                            echo "<li><a href='$surl'>{$item['product_name']}</a></li>";
+                                            echo "<li><a href='$surl' class=".$theme_text.">{$item['product_name']}</a></li>";
                                         }
                                         echo '</ul>';
                                         echo '</div>';
@@ -267,8 +271,8 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">Products</a>
-                        <ul>
+                        <a href="#" class="text-white">Products</a>
+                        <ul class="<?php echo $theme;?>">
                             <?php 
                             if(!empty($link['product_category'])){
                                 foreach($link['product_category'] as $v){
@@ -285,8 +289,8 @@
                         </ul>
                     </li>                    
                     <li>
-                        <a href="#">Blogs</a>
-                        <ul>
+                        <a href="#" class="text-white">Blogs</a>
+                        <ul class="<?php echo $theme;?>">
                             <?php 
                             if(!empty($link['article_category'])){
                                 foreach($link['article_category'] as $v){
@@ -303,8 +307,8 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Projects</a>
-                        <ul>
+                        <a href="#" class="text-white">Projects</a>
+                        <ul class="<?php echo $theme;?>">
                             <?php 
                             if(!empty($link['project'])){
                                 foreach($link['project'] as $v){
@@ -315,8 +319,8 @@
                         </ul>
                     </li>   
                     <li>
-                        <a href="#">Gallery</a>
-                        <ul>
+                        <a href="#" class="text-white">Gallery</a>
+                        <ul class="<?php echo $theme;?>">
                             <?php 
                             if(!empty($link['gallery'])){
                                 foreach($link['gallery'] as $v){
@@ -327,8 +331,8 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Portofolio</a>
-                        <ul>
+                        <a href="#" class="text-white">Portofolio</a>
+                        <ul class="<?php echo $theme;?>">
                             <?php 
                             if(!empty($link['portofolio'])){
                                 foreach($link['portofolio'] as $v){
@@ -338,7 +342,7 @@
                             ?>
                         </ul>
                     </li>
-                    <li class="float-right"><a href="#" class="pl-5">Jelajahi Koleksi Kami</a></li>
+                    <li class="float-right"><a href="#" class="pl-5 text-white">Tanya Kami</a></li>
                 </ul>
             </nav>
         </div>
