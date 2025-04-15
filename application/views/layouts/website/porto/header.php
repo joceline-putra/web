@@ -41,7 +41,6 @@ $theme_text = 'text-white';
                     </div>
                 </div>
                 <span class="separator"></span>
-
                 <div class="header-dropdown">
                     <a href="#"><i class="flag-id flag"></i>ID</a>
                     <div class="header-menu">
@@ -84,7 +83,6 @@ $theme_text = 'text-white';
                     </div>
                 </div>
                 <span class="separator"></span>
-
                 <div class="social-icons">
                     <?php 
                         if(!empty($link)){
@@ -128,7 +126,6 @@ $theme_text = 'text-white';
                             <!-- End .select-custom -->
                             <button class="btn icon-magnifier p-0" title="search" type="submit"></button>
                         </div>
-                        <!-- End .header-search-wrapper -->
                     </form>
                 </div>
 
@@ -221,7 +218,18 @@ $theme_text = 'text-white';
                     <li class="active">
                         <a href="<?php echo base_url(); ?>" class="text-white">Home</a>
                     </li>
-                    <li class="d-none">
+                    <?php 
+                        if(!empty($link)){
+                            foreach($link['menu'] as $v){
+                                if(($v['news_position'] == 1) or ($v['news_position'] == 3)){
+                                ?>
+                                <li><a href="<?php echo base_url().$v['news_url'];?>" class="text-white"><?php echo $v['news_title'];?></a></li>
+                                <?php 
+                                }
+                            }
+                        }
+                    ?>                    
+                    <li class="">
                         <a href="<?php echo $link['routing']['product'];?>" class="text-white">Products</a>
                         <div class="megamenu megamenu-fixed-width megamenu-3cols">
                             <div class="row">
@@ -287,7 +295,7 @@ $theme_text = 'text-white';
                                 </ul>
                             </li> -->
                         </ul>
-                    </li>                    
+                    </li>
                     <li>
                         <a href="#" class="text-white">Blogs</a>
                         <ul class="<?php echo $theme;?>">
@@ -342,7 +350,7 @@ $theme_text = 'text-white';
                             ?>
                         </ul>
                     </li>
-                    <li class="float-right"><a href="#" class="pl-5 text-white">Tanya Kami</a></li>
+                    <li class="float-right"><a href="#" id="btn_download" class="pl-5 text-white">Download Company Profile</a></li>
                 </ul>
             </nav>
         </div>

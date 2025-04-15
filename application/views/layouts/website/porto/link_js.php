@@ -15,84 +15,48 @@
             <nav class="mobile-nav">
                 <ul class="mobile-menu">
                     <li><a href="<?php echo base_url(); ?>">Home</a></li>
-                    <li>
-                        <a href="product.html">Products</a>
-                        <ul>
-                            <li>
-                                <a href="#" class="nolink">PRODUCT PAGES</a>
-                                <ul>
-                                    <li><a href="#">SIMPLE PRODUCT</a></li>
-                                    <li><a href="#">VARIABLE PRODUCT</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#" class="nolink">PRODUCT LAYOUTS</a>
-                                <ul>
-                                    <li><a href="#">EXTENDED LAYOUT</a></li>
-                                    <li><a href="#">BUILD YOUR OWN</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
+                    <?php 
+                    if(!empty($link['menu'])){
+                        foreach($link['menu'] as $v){
+                            if(($v['news_position'] == 2) or ($v['news_position'] == 3)){
+                            echo "<li><a href=".site_url().$v['news_url'].">".$v['news_title']."</a>"; 
+                            }
+                        }
+                    }
+                    ?>
+                    <!-- <li><a href="<?php #echo $link['contact_us'];?>">Contact Us</a></li>     -->
+                </ul>
+                <ul class="mobile-menu mt-2 mb-2">      
+                    <li class="open">
                         <a href="#">Produk</a>
-                        <ul>                    
+                        <ul style="display:block;">                    
                             <?php 
-                                if(!empty($link['products'])){                                
-                                    foreach($link['products'] as $a => $v){ ?>
-                                        <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'].'/'.$v['product_url'];?>"><?php echo $v['product_name'];?></a></li>
-                                        <?php 
-                                    } 
-                                }
+
+                                if(!empty($link['product_category'])){
+                                    foreach($link['product_category'] as $v){
+                                        echo "<li><a href=".site_url().$link['routing']['product'].'/'.$v['category_url'].">".$v['category_name']."</a>"; 
+                                    }
+                                }   
                             ?>
                         </ul>
+                    </li>
                     <li>
                         <a href="#">Blogs</a>
                         <ul>
                             <?php 
-                            if(!empty($link['article_category'])){
-                                foreach($link['article_category'] as $v){
-                                    echo "<li><a href=".site_url().$link['routing']['blog'].'/'.$v['category_url'].">".$v['category_name']."</a>"; 
+                            if(!empty($link['blog'])){
+                                foreach($link['blog'] as $v){
+                                    echo "<li><a href='".site_url().$link['routing']['blog'].'/'.$v['category_url']."'>".$v['news_title']."</a></li>"; 
                                 }
-                            }
+                            }                                
+                            // if(!empty($link['article_category'])){
+                            //     foreach($link['article_category'] as $v){
+                            //         echo "<li><a href=".site_url().$link['routing']['blog'].'/'.$v['category_url'].">".$v['category_name']."</a>"; 
+                            //     }
+                            // }
                             ?>
                         </ul>
-                    </li>                       
-                    <li>
-                        <a href="#">Projects</a>
-                        <ul>
-                            <?php 
-                            if(!empty($link['project'])){
-                                foreach($link['project'] as $v){
-                                    echo "<li><a href=".site_url().$link['routing']['project'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
-                                }
-                            }
-                            ?>
-                        </ul>
-                    </li>     
-                    <li>
-                        <a href="#">Gallery<span class="tip tip-hot">Baru!</span></a>
-                        <ul>
-                            <?php 
-                            if(!empty($link['gallery'])){
-                                foreach($link['gallery'] as $v){
-                                    echo "<li><a href=".site_url().$link['routing']['gallery'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
-                                }
-                            }
-                            ?>
-                        </ul>
-                    </li>                                        
-                </ul>
-
-                <ul class="mobile-menu">
-                    <?php 
-                    if(!empty($link['menu'])){
-                        foreach($link['menu'] as $v){
-                            echo "<li><a href=".site_url().$v['news_url'].">".$v['news_title']."</a>"; 
-                        }
-                    }
-                    ?>
-                    <li><a href="<?php echo $link['contact_us'];?>">Contact Us</a></li>
+                    </li>                                       
                 </ul>
             </nav>
             <form class="search-wrapper mb-2" action="#">
@@ -164,9 +128,58 @@
     -->
 
     <!-- End .newsletter-popup -->
-
+    <style>
+        #btn_chat {
+            height:40px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        #btn_chat i {
+            margin-right: 5px;
+            position:relative;
+            bottom:8px;
+            font-size:25px;            
+        }
+        #btn_chat span {
+            /* margin-right: 5px; */
+            position:relative;
+            bottom:12px;
+            font-size:18px;       
+            font-family: "Open Sans", sans-serif;     
+        }        
+        #btn_chat:hover {
+            background-color: #1DA851;
+            text-decoration: none;
+        }
+        #scroll-top{
+            bottom:82px;
+        }
+    </style>
     <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
-
+    
+    <?php 
+    if(!empty($link['contact']['phone'][1]['phone'])){ ?> 
+    <!-- <span id="cta" data-v="https://wa.me/<?php #echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" style="cursor:pointer;" onclick="window.open(this.getAttribute('data-v'), '_blank');">Chat Via WhatsApp</span>
+    </a>-->
+    <a id="btn_chat" class="text-white font1" title="Top" role="button" 
+        href="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" 
+        target="_blank">
+        <i class="ri-whatsapp-line"></i> 
+        <span>Klik Untuk Chat</span>
+    </a>
+    <?php 
+    } 
+    ?>
     <!-- Plugins JS File -->
     <!-- <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
     <script src="<?php echo $asset; ?>assets/js/jquery.min.js"></script>

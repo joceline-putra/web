@@ -77,36 +77,21 @@
                 
                 <div class="col-lg-3 col-sm-6">
                     <div class="widget">
-                        <?php 
-                            $groupedData = [];
-
-                            foreach ($link['products'] as $item) {
-                                $groupedData[$item['category_name']][] = $item;
-                            }
-
-                            foreach ($groupedData as $category => $items) {
-                                echo "<h4 class='widget-title'>$category</h4>";
-                                echo "<ul class='links'>";
-                                foreach ($items as $item) {
-                                    $surl = base_url().$link['routing']['product'].'/'.$item['category_url'].'/'.$item['product_url'];
-                                    echo "<li><a href='$surl'>{$item['product_name']}</a></li>";
-                                }
-                                echo "</ul>";
-                            } ?>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-6">
-                    <div class="widget">
                         <h4 class="widget-title">Produk</h4>
                         <ul class="links">
                         <?php 
-                            if(!empty($link['products'])){                                
+                            // if(!empty($link['products'])){                                
                                 foreach($link['products'] as $a => $v){ ?>
-                                    <li><a href="<?php echo base_url().$link['routing']['product'].'/'.$v['category_url'].'/'.$v['product_url'];?>"><?php echo $v['product_name'];?></a></li>
+                                    <!-- <li><a href="<?php #echo base_url().$link['routing']['product'].'/'.$v['category_url'].'/'.$v['product_url'];?>"><?php echo $v['product_name'];?></a></li> -->
                                     <?php 
                                 } 
-                            }
+                            // }
+
+                            if(!empty($link['product_category'])){
+                                foreach($link['product_category'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['product'].'/'.$v['category_url'].">".$v['category_name']."</a>"; 
+                                }
+                            }                            
                         ?>
                         </ul>
                     </div>  
@@ -114,15 +99,17 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="widget">
                         <h4 class="widget-title">Blog</h4>
-                        <div class="tagcloud">
+                        <!-- <div class="tagcloud"> -->
+                        <ul class="links">
                             <?php 
-                            if(!empty($link['article_category'])){
-                                foreach($link['article_category'] as $v){
-                                    echo "<a href='".site_url().$link['routing']['blog'].'/'.$v['category_url']."'>".$v['category_name']."</a>"; 
+                            if(!empty($link['blog'])){
+                                foreach($link['blog'] as $v){
+                                    echo "<li><a href='".site_url().$link['routing']['blog'].'/'.$v['category_url']."'>".$v['news_title']."</a></li>"; 
                                 }
-                            }
+                            }       
                             ?>                                    
-                        </div>
+                        <!-- </div> -->
+                        </ul>
                     </div>
                 </div>
                 <!-- <div class="col-lg-3 col-sm-6">

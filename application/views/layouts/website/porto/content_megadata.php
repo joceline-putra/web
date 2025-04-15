@@ -136,46 +136,45 @@ $theme_text = 'text-white';
         </div>
     </section> -->
 
-
-    <!-- Tentang Kami -->
-    <div class="section-elements <?php echo $theme;?>">
-        <div class="container">
-            <?php 
-            foreach($link['menu'] as $v){
-                if($v['news_id'] == 1){
-                    $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
-                    $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,250) : 'No description available on this blog details, please update on admin panel';   
-                    $surl       = base_url().$v['news_url'];  
-                    $simg       = !empty($v['file_url']) ? base_url().$v['file_url'] : base_url().'upload/noimage.png';                                   
+        <!-- Tentang Kami -->
+        <div class="d-none section-elements <?php echo $theme;?>">
+            <div class="container">
+                <?php 
+                foreach($link['menu'] as $v){
+                    if($v['news_id'] == 1){
+                        $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                        $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,250) : 'No description available on this blog details, please update on admin panel';   
+                        $surl       = base_url().$v['news_url'];  
+                        $simg       = !empty($v['file_url']) ? base_url().$v['file_url'] : base_url().'upload/noimage.png';                                   
+                    }
                 }
-            }
 
-            if((isset($stitle) && (strlen($stitle)>0))){
-            ?>
-            <div class="row justify-content-left">
-                <div class="col-md-5">
-                    <div class="info-box info-box-img">
-                        <div class="info-box-content">
-                            <h2 class="text-primary text-left text-white"><?php echo $stitle; ?></h2>
-                            <div style="text-align: left;">
-                                <p class="text-white"><?php echo $scontent; ?></p>
-                                <br>
-                                <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $surl;?>" style="color:white;">Baca Selengkapnya</a></div>
-                            </div>    
+                if((isset($stitle) && (strlen($stitle)>0))){
+                ?>
+                <div class="row justify-content-left">
+                    <div class="col-md-5">
+                        <div class="info-box info-box-img">
+                            <div class="info-box-content">
+                                <h2 class="text-primary text-left text-white"><?php echo $stitle; ?></h2>
+                                <div style="text-align: left;">
+                                    <p class="text-white"><?php echo $scontent; ?></p>
+                                    <br>
+                                    <div class="btn btn-primary btn-ellipse btn-md mt-2"><a href="<?php echo $surl;?>" style="color:white;">Baca Selengkapnya</a></div>
+                                </div>    
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-7">
+                        <div class="info-box info-box-img">
+                            <img src="<?php echo $simg;?>" alt="info-box-image" style="border-radius:20px;">
+                        </div>
+                    </div>                
                 </div>
-                <div class="col-md-7">
-                    <div class="info-box info-box-img">
-                        <img src="<?php echo $simg;?>" alt="info-box-image" style="border-radius:20px;">
-                    </div>
-                </div>                
+                <?php 
+                }   
+                ?>
             </div>
-            <?php 
-            }   
-            ?>
         </div>
-    </div>
 
     <section class="promo-section bg-dark" data-parallax="{'speed': 2, 'enableOnMobile': true}" data-image-src="<?php echo base_url('upload/banner5.png');?>">
         <!-- <div class="promo-banner banner container text-uppercase">
@@ -283,11 +282,10 @@ $theme_text = 'text-white';
     <!-- Portofolio -->
     <section class="section-elements blog-section pb-0">
         <div class="container">
-            <h2 class="heading-bottom-border text-center text-uppercase mt-5">
+            <h2 class="ext-center text-uppercase mt-5 mb-5">
             Mereka yang Mempercayai kami
             </h2>
-            <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
+            <!-- <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> -->
             <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="500" data-owl-options="{
             'margin': 0}">
             <?php 
@@ -314,7 +312,7 @@ $theme_text = 'text-white';
     </section>
 
     <!-- ✅ Hubungi Kami -->
-    <section class="section-elements feature-boxes-container mb-8 <?php echo $theme; ?>" style="">
+    <section class="d-none section-elements feature-boxes-container mb-8 <?php echo $theme; ?>" style="">
         <div class="container p-4">
             <h2 class="text-center <?php echo $theme_text; ?>">Hubungi Kami</h2>
             <p class="text-center <?php echo $theme_text; ?> mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -450,7 +448,7 @@ $theme_text = 'text-white';
     </section>
 
     <!-- Blog -->
-    <section class="blog-section pb-0">
+    <section class="d-none blog-section pb-0">
         <div class="container">
             <h2 class="heading-bottom-border text-center text-uppercase mt-5">
                 Blog Terkini
@@ -519,7 +517,6 @@ $theme_text = 'text-white';
             </div>
         </div>
     </section>
-
         
         <!-- Other Component -->
         <section class="d-none blog-section pb-0">
