@@ -1575,7 +1575,8 @@ class Website extends CI_Controller{
             }
             $view = 'product';
         }
-        // echo json_encode($category_data);die;
+        // echo json_encode($other_category);die;
+        // echo json_encode($other_count);die;
         // $final_url = site_url($this->product_routing).$final_url;
         $data['pages'] = array(
             'sitelink' => array(

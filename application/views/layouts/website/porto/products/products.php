@@ -1,4 +1,20 @@
 
+<style>
+    .p-d{
+
+    }
+    .p-d table {
+        width: auto!important;
+        border:0!important;
+    }
+    .p-d table td {
+        border:0!important;
+    }    
+    .p-d ul{
+        list-style: inside!important;
+        /* padding: 0; */
+    }
+</style>
 <main class="main about">
     <div class="page-header page-header-bg text-left"
         style="background: 50%/cover #D4E1EA url('<?php echo $asset; ?>assets/images/page-header-bg.png');">
@@ -26,6 +42,26 @@
                 <div class="sidebar-overlay"></div>
                 <aside class="col-lg-3 sidebar mobile-sidebar">
                     <div class="sidebar-wrapper" data-sticky-sidebar-options='{"offsetTop": 72}'>
+
+                        <div class="d-none widget widget-categories">
+                            <h4 class="widget-title"><?php echo $title; ?></h4>
+
+                            <ul class="list">
+                            <?php 			
+                            $source = $pages['sitelink']['categories']['other_product'];
+                            if(count($source) > 0){
+                                foreach($source as $v){
+                                    $spurl       = $v['category_url'].'/'.$v['product_url'];    
+                                    $scat       = !empty($v['product_name']) ? substr(strip_tags($v['product_name']),0,100) : '-';
+                                    ?>  
+                                <li><a href="<?php echo $spurl; ?>"><?php echo $scat; ?></a></li>
+                                <?php 
+                                }
+                            }
+                            ?>
+                            </ul>
+                        </div>
+
                         <div class="widget widget-categories">
                             <h4 class="widget-title">Produk Megadata</h4>
 
@@ -33,15 +69,8 @@
                             <?php 			
                             $source = $pages['sitelink']['categories']['result'];
                             if(count($source) > 0){
-                                // $routing = $pages['sitelink']['categories']['url'];
                                 foreach($source as $v){
-
-                                    // $scurl       = $routing;  
-                                    $spurl       = $v['category_url'];  
-                                    // $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
-
-                                    // $stitle     = !empty($v['news_title']) ? $v['news_title'] : 'Untitled';
-                                    // $scontent   = !empty($v['news_short']) ? $v['news_short'] : 'No description available on this blog details, please update on admin panel';   
+                                    $spurl       = $v['category_url'];    
                                     $scat       = !empty($v['category_name']) ? substr(strip_tags($v['category_name']),0,25) : 'Uncategory';
                                     ?>  
                                 <li><a href="<?php echo $spurl; ?>"><?php echo $scat; ?></a></li>
@@ -52,7 +81,8 @@
                             </ul>
                         </div>
 
-                        <div class="widget widget-post">
+
+                        <div class="d-none widget widget-post">
                             <h4 class="widget-title">Produk Megadata</h4>
 
                             <ul class="simple-post-list">
@@ -88,7 +118,7 @@
                         </div>
                     </div>
                 </aside>                
-                <div class="col-lg-9">
+                <div class="col-lg-9 p-d">
                     <p><?php echo $description_full; ?></p>
                 </div>
             </div>
