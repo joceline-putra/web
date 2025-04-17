@@ -97,7 +97,7 @@ $theme_text = 'text-white';
             </div>
         </div>
     </div>
-    <div class="header-middle sticky-header <?php echo $theme;?>" data-sticky-options="{'mobile': true}">
+    <div class="header-middle sticky-header d-md-block d-sm-block <?php echo $theme;?>" data-sticky-options="{'mobile': true}">
         <div class="container">
             <div class="header-left col-lg-2 w-auto pl-0">
                 <button class="mobile-menu-toggler text-primary mr-2" type="button">
@@ -106,115 +106,20 @@ $theme_text = 'text-white';
                 <a href="<?php echo $link['home']; ?>" class="logo">
                     <img src="<?php echo $link['logo']; ?>" width="111" height="44" alt="<?php echo $link['brand']; ?> Logo">
                 </a>
-                <!-- <a href="<?php echo $link['home']; ?>" style="color:red;font-weight:800;font-size:larger;">
-                    <?php echo $link['brand']; ?>
-                </a> -->
             </div>
-            <div class="header-right w-lg-max">
-                <div class="header-icon header-search header-search-inline header-search-category w-lg-max text-right mt-0">
-                    <a href="#" class="search-toggle" role="button"><i class="icon-search-3"></i></a>
-                    <form action="#" method="get">
-                        <div class="header-search-wrapper">
-                            <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required>
-                            <div class="select-custom">
-                                <select id="cat" name="cat">
-                                    <option value="product">Produk</option>
-                                    <option value="blog">Blog</option>
-                                    <option value="all">Semua</option>
-                                </select>
-                            </div>
-                            <!-- End .select-custom -->
-                            <button class="btn icon-magnifier p-0" title="search" type="submit"></button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="header-contact d-none d-lg-flex pl-4 pr-4 <?php echo $theme;?>">
-                    <img alt="phone" src="<?php echo $asset; ?>assets/images/whatsapp.png" width="30" height="30" class="pb-1">
-                    <?php 
-                        if(!empty($link['contact']['phone'][1]['phone'])){ ?> 
-                        <h6>
-                            <span id="cta" data-v="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" style="cursor:pointer;" onclick="window.open(this.getAttribute('data-v'), '_blank');">Chat Via WhatsApp</span>
-                            <a href="https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20" target="_blank" class="<?php echo $theme_text;?> font1"><?php echo $link['contact']['phone'][1]['phone'];?>
-                            </a>                    
-                        </h6>
-                    <?php }
-                    ?>                      
-                </div>
-
-                <!-- <a href="<?php #echo $link['signin'];?>" class="header-icon" title="login"><i class="icon-user-2"></i></a>
-
-                <a href="<?php #echo $link['wishlist'];?>" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a> -->
-
-                <!-- <div class="dropdown cart-dropdown">
-                    <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                        <i class="minicart-icon"></i>
-                        <span class="cart-count badge-circle">3</span>
-                    </a>
-                    <div class="cart-overlay"></div>
-                    <div class="dropdown-menu mobile-cart">
-                        <a href="#" title="Close (Esc)" class="btn-close">×</a>
-
-                        <div class="dropdownmenu-wrapper custom-scrollbar">
-                            <div class="dropdown-cart-header">Shopping Cart</div>
-                            <div class="dropdown-cart-products">
-                                <div class="product">
-                                    <div class="product-details">
-                                        <h4 class="product-title">
-                                            <a href="<?php #echo $link['product'];?>">Ultimate 3D Bluetooth Speaker</a>
-                                        </h4>
-
-                                        <span class="cart-product-info">
-                                            <span class="cart-product-qty">1</span> × $99.00
-                                        </span>
-                                    </div>
-                                    <figure class="product-image-container">
-                                        <a href="<?php #echo $link['product'];?>" class="product-image">
-                                            <img src="<?php #echo $asset; ?>assets/images/products/product-1.jpg" alt="product" width="80" height="80">
-                                        </a>
-
-                                        <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                    </figure>
-                                </div>
-                                <div class="product">
-                                    <div class="product-details">
-                                        <h4 class="product-title">
-                                            <a href="<?php #echo $link['product'];?>">Brown Women Casual HandBag</a>
-                                        </h4>
-
-                                        <span class="cart-product-info">
-                                            <span class="cart-product-qty">1</span> × $35.00
-                                        </span>
-                                    </div>
-                                    <figure class="product-image-container">
-                                        <a href="<?php #echo $link['product'];?>" class="product-image">
-                                            <img src="<?php #echo $asset; ?>assets/images/products/product-2.jpg" alt="product" width="80" height="80">
-                                        </a>
-
-                                        <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                    </figure>
-                                </div>
-                            </div>
-                            <div class="dropdown-cart-total">
-                                <span>SUBTOTAL:</span>
-
-                                <span class="cart-total-price float-right">$134.00</span>
-                            </div>
-                            <div class="dropdown-cart-action">
-                                <a href="<?php #echo $link['cart'];?>" class="btn btn-gray btn-block view-cart">View
-                                    Cart</a>
-                                <a href="<?php #echo $link['checkout'];?>" class="btn btn-dark btn-block">Checkout</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+            <div class="header-right w-lg-max">              
             </div>
         </div>
     </div>
-    <div class="<?php echo $theme;?> header-bottom sticky-header d-none d-lg-block" data-sticky-options="{'mobile': false}">
+    <div class="header-bottom sticky-header d-lg-block <?php echo $theme;?>" data-sticky-options="{'mobile': false}">
         <div class="container">
             <nav class="main-nav w-100">
                 <ul class="menu">
+                    <li>
+                        <a href="<?php echo $link['home']; ?>" class="logo">
+                            <img src="<?php echo $link['logo']; ?>" width="111" height="44" alt="<?php echo $link['brand']; ?> Logo">
+                        </a>
+                    </li>
                     <li class="active">
                         <a href="<?php echo base_url(); ?>" class="text-white">Home</a>
                     </li>
@@ -228,58 +133,9 @@ $theme_text = 'text-white';
                                 }
                             }
                         }
-                    ?>                    
-                    <li class="">
-                        <a href="<?php echo $link['routing']['product'];?>" class="text-white">Products</a>
-                        <div class="megamenu megamenu-fixed-width megamenu-3cols">
-                            <div class="row">
-                                <?php 
-                                    $groupedData = [];
-
-                                    foreach ($link['products'] as $item) {
-                                        $groupedData[$item['category_name']][] = $item;
-                                    }   
-                                    // echo json_encode($groupedData);die;
-                                    foreach ($groupedData as $category => $items) {
-                                        // echo "<h4 class='widget-title'>$category</h4>";
-                                        // echo "<ul class='links'>";
-                                        // foreach ($items as $item) {
-                                        //     $surl = base_url().$link['routing']['product'].'/'.$item['category_url'].'/'.$item['product_url'];
-                                        //     echo "<li><a href='$surl'>{$item['product_name']}</a></li>";
-                                        // }
-                                        // echo "</ul>";
-                                        echo '<div class="col-lg-6 '.$theme.'">';
-                                        echo '<a href="#" class="nolink">'.$category.'</a>';
-                                        echo '<ul class="submenu">';
-                                        foreach ($items as $item) {
-                                            $surl = base_url().$link['routing']['product'].'/'.$item['category_url'].'/'.$item['product_url'];
-                                            echo "<li><a href='$surl' class=".$theme_text.">{$item['product_name']}</a></li>";
-                                        }
-                                        echo '</ul>';
-                                        echo '</div>';
-
-                                    } 
-                                ?>
-                                <!-- <div class="col-lg-4 p-0">
-                                    <div class="menu-banner">
-                                        <figure>
-                                            <img src="<?php #echo $asset; ?>assets/images/menu-banner.jpg" width="192" height="313" alt="Menu banner">
-                                        </figure>
-                                        <div class="banner-content">
-                                            <h4>
-                                                <span class="">UP TO</span><br />
-                                                <b class="">50%</b>
-                                                <i>OFF</i>
-                                            </h4>
-                                            <a href="#" class="btn btn-sm btn-dark">SHOP NOW</a>
-                                        </div>
-                                    </div>
-                                </div> -->
-                            </div>
-                        </div>
-                    </li>
+                    ?>    
                     <li>
-                        <a href="#" class="text-white">Products</a>
+                        <a href="#" class="text-white">Produk</a>
                         <ul class="<?php echo $theme;?>">
                             <?php 
                             if(!empty($link['product_category'])){
@@ -288,69 +144,21 @@ $theme_text = 'text-white';
                                 }
                             }
                             ?>
-                            <!-- <li><a href="<?php #echo $link['articles'];?>">Blog</a>
-                                <ul>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog</a></li>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog Post</a></li>
-                                </ul>
-                            </li> -->
                         </ul>
-                    </li>
+                    </li>                  
                     <li>
-                        <a href="#" class="text-white">Blogs</a>
+                        <a href="#" class="text-white">Blog</a>
                         <ul class="<?php echo $theme;?>">
                             <?php 
-                            if(!empty($link['article_category'])){
-                                foreach($link['article_category'] as $v){
-                                    echo "<li><a href=".site_url().$link['routing']['blog'].'/'.$v['category_url'].">".$v['category_name']."</a>"; 
-                                }
-                            }
-                            ?>
-                            <!-- <li><a href="<?php #echo $link['articles'];?>">Blog</a>
-                                <ul>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog</a></li>
-                                    <li><a href="<?php #echo $link['article'];?>">Blog Post</a></li>
-                                </ul>
-                            </li> -->
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="text-white">Projects</a>
-                        <ul class="<?php echo $theme;?>">
-                            <?php 
-                            if(!empty($link['project'])){
-                                foreach($link['project'] as $v){
-                                    echo "<li><a href=".site_url().$link['routing']['project'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
+                            if(!empty($link['blog'])){
+                                foreach($link['blog'] as $v){
+                                    echo "<li><a href=".site_url().$link['routing']['blog'].'/'.$v['category_url'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
                                 }
                             }
                             ?>
                         </ul>
-                    </li>   
-                    <li>
-                        <a href="#" class="text-white">Gallery</a>
-                        <ul class="<?php echo $theme;?>">
-                            <?php 
-                            if(!empty($link['gallery'])){
-                                foreach($link['gallery'] as $v){
-                                    echo "<li><a href=".site_url().$link['routing']['gallery'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
-                                }
-                            }
-                            ?>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="text-white">Portofolio</a>
-                        <ul class="<?php echo $theme;?>">
-                            <?php 
-                            if(!empty($link['portofolio'])){
-                                foreach($link['portofolio'] as $v){
-                                    echo "<li><a href=".site_url().$link['routing']['portofolio'].'/'.$v['news_url'].">".$v['news_title']."</a>"; 
-                                }
-                            }
-                            ?>
-                        </ul>
-                    </li>
-                    <li class="float-right"><a href="#" id="btn_download" class="pl-5 text-white">Download Company Profile</a></li>
+                    </li>                      
+                    <li class="float-right"><a href="#" id="btn_download" data-url="<?php echo base_url('upload/Company-Profile-Megadata-ISP.pdf');?>" class="pl-5 text-white">Download Company Profile</a></li>
                 </ul>
             </nav>
         </div>

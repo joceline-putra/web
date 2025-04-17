@@ -339,7 +339,34 @@
                     }
                 });                    
             });
-        }                  
+        }
+        function swalConfirmDownload(title,text,image,button1,button2){
+            var html = '<div class="mt-2">';
+                html += '<img src="'+image+'" class="img-fluid" style="margin:0 auto;width:50%;">';
+                html += '<div class="mt-2 fs-15 mx-5">';
+                html += '<p class="text-muted mx-4 mb-0">';
+                html += text+' ?</p></div></div>';
+
+            return Swal.fire({
+                title: title,
+                html: html,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: button1,
+                cancelButtonText: button2
+            }).then((result) => {
+                return new Promise((resolve, reject) => {
+                    // console.log(result.value);
+                    if(result.value){
+                        resolve(1);
+                    }else{
+                        resolve(0);
+                    }
+                });                    
+            });
+        }        
         function swalSuccess(title,text){
             var html = `
             <div class="mt-3">
@@ -1519,12 +1546,10 @@
             }       
         });
 
+        // Web Ajax
         $(document).on("click","#btn_form_contact_send", function(e) {
             e.preventDefault(); e.stopPropagation();
             let next = true;
-            let formId = 0;
-            let form_id  = formId; /* From header */
-            
             /* If id not exist, UPDATE if id exist */
             /*
             if ($("#form_id").val().length === 0 || parseInt($("#form_id").val()) === 0) {
@@ -1534,42 +1559,87 @@
                 }
             }
         
+            */
             if(next){
-                if ($("#form_input").val().length === 0) {
+                if ($("#contact_name").val().length === 0) {
                     next = false;
-                    notif(0,'Input_id wajib diisi');
+                    notif(0,'Nama wajib diisi');
+                    $("#contact_name").focus();
                 }
             }
             
             if(next){
-                if ($("#form_select").find(':selected').val() === 0) {
+                if ($("#contact_phone").val().length === 0) {
                     next = false;
-                    notif(0,'Select_id wajib dipilih');
+                    notif(0,'Telepon wajib diisi');
+                    $("#contact_phone").focus();
                 }
             }
-            */
+
+            if(next){
+                if ($("#contact_email").val().length === 0) {
+                    next = false;
+                    notif(0,'Email wajib diisi');
+                    $("#contact_email").focus();
+                }
+            }
+
+            if(next){
+                if ($("#contact_message").val().length === 0) {
+                    next = false;
+                    notif(0,'Pesan wajib diisi');
+                }
+            }
         
             /* Prepare ajax for UPDATE */
             /* If Form Validation Complete checked */
             if(next){
+                $("#btn_form_contact_send").attr('disabled',true);
+                $("#btn_form_contact_send").html('<i class="fas fa-spin fa-spinner"></i> Sedang Mengirim');
+
                 var form = new FormData($("#form_contact")[0]);
                 form.append('action', 'send_email');
-                // form.append('form_id', form_id);
-                notif(1,'Sukses');
+                // form.append('name', $("#contact_name").val());
+                // form.append('email', $("#contact_email").val());
+                // form.append('phone', $("#contact_phone").val());
+                // form.append('message', $("#contact_message").val());
                 ajax(url, form)
                     .then(d => {
                         let s = d.status; let m = d.message; let r = d.result;
                         if(parseInt(s) == 1){
                             // notif(s,m);
+                            $("#form_contact")[0].reset();
                         }else{
                             notif(s,m);
                         }
+                        $("#btn_form_contact_send").removeAttr('disabled');
+                        $("#btn_form_contact_send").html('<i class="fas fa-paper-plane"></i> Kirim');                        
                     }).catch(error => {
                         notif(0,error);
+                        $("#btn_form_contact_send").removeAttr('disabled');
+                        $("#btn_form_contact_send").html('<i class="fas fa-paper-plane"></i> Kirim');
                     }
                 )
             }   
         });
+
+        $(document).on("click","#btn_download", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var sr = $(this).attr('data-url');
+            var img = 'upload/Company-Profile-Megadata-ISP.png';
+            var c = swalConfirmDownload('Download Company Profile', 'Apakah anda yakin ingin mendownload Company Profile?',img,'Download','Batal');
+            console.log(c);
+            c.then((result) => {
+                if (result == 1) {
+                    window.open(sr, '_blank');
+                    console.log('Opened in new tab');
+                } else {
+                    console.log('Cancel');
+                }
+            });
+        });
+        
     });      
 
 </script>

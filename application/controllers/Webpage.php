@@ -744,7 +744,7 @@ class Webpage extends MY_Controller{
                             'content' => $message,
                             'to' => $email
                         );
-                        // var_dump($params);die();
+                        var_dump($params);die();
                         $send = $this->send_via_email($params);
                         if($send){
                             $return->status=1;

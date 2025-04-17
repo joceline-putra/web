@@ -1,4 +1,4 @@
-<footer class="footer" style="background-color:#131739;">
+<footer class="footer bg-dark2">
     <div class="footer-middle">
         <div class="container">
             <div class="row">
@@ -6,6 +6,9 @@
                     <div class="widget">
                         <h4 class="widget-title">Kontak Kami</h4>
                         <ul class="contact-info">
+                            <li>
+                                <span class="contact-info-label"></span><?php echo $link['contact']['name']; ?>
+                            </li>
                             <li>
                                 <span class="contact-info-label">Alamat:</span><?php echo $link['contact']['address']['office'].'<br>'.$link['contact']['address']['city'].'<br>'.$link['contact']['address']['state']; ?>
                             </li>

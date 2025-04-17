@@ -196,6 +196,7 @@ class Website extends CI_Controller{
             'checkout' => site_url('checkout'),          
             'cart' => site_url('cart'),
             'contact' => array(
+                'name' => $b['branch_name'],
                 'email' => array(
                     array('name' => 'Contact 1', 'email' => $b['branch_email_1']),
                     array('name' => 'Contact 2', 'email' => $b['branch_email_2'])                    
@@ -1460,7 +1461,8 @@ class Website extends CI_Controller{
                 'category_name' => $value['category_name'],
                 'category_url' => site_url($this->product_routing).'/'.$value['category_url'],
                 'category_count_data' => $value['category_count'],
-                'category_image' => !empty($value['category_image']) ? base_url().$value['category_image'] : base_url('upload/noimage2.png')               
+                'category_image' => !empty($value['category_image']) ? base_url().$value['category_image'] : base_url('upload/noimage2.png'),               
+                'category_date_created' => $value['category_date_created']
             );
         }
 
@@ -1573,7 +1575,7 @@ class Website extends CI_Controller{
             }
             $view = 'product';
         }
-
+        // echo json_encode($category_data);die;
         // $final_url = site_url($this->product_routing).$final_url;
         $data['pages'] = array(
             'sitelink' => array(
