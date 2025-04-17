@@ -16,6 +16,12 @@
     left: 0;
     right: 0;
 } */
+.menu > li:not(:first-child) {
+    /* Add your styles here for <li> elements with children except the first one */
+    padding:20px;
+}
+    
+}
 </style>
 <?php 
 $theme = 'bg-dark2';
@@ -97,13 +103,13 @@ $theme_text = 'text-white';
             </div>
         </div>
     </div>
-    <div class="header-middle sticky-header d-md-block d-sm-block <?php echo $theme;?>" data-sticky-options="{'mobile': true}">
+    <div class="header-middle sticky-header d-lg-none <?php echo $theme;?>" data-sticky-options="{'mobile': true}">
         <div class="container">
             <div class="header-left col-lg-2 w-auto pl-0">
-                <button class="mobile-menu-toggler text-primary mr-2" type="button">
+                <button class="mobile-menu-toggler text-primary mr-2 d-lg-none" type="button">
                     <i class="fas fa-bars"></i>
                 </button>
-                <a href="<?php echo $link['home']; ?>" class="logo">
+                <a href="<?php echo $link['home']; ?>" class="logo d-lg-none">
                     <img src="<?php echo $link['logo']; ?>" width="111" height="44" alt="<?php echo $link['brand']; ?> Logo">
                 </a>
             </div>

@@ -10,7 +10,7 @@ $sidebar_logo = !empty($session['user_data']['branch']['branch_logo_sidebar']) ?
         width: 132px;*/
         /*height: 34px;*/
         /*width: 134px;      */
-        width: 174px;
+        width: 87px;
     }
     #logo-system-2{
         margin-top: 1px;
