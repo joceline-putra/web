@@ -13,11 +13,6 @@ $route['search']                = "search/index";
 	$route['register'] 		= "login/pages/1";
 	$route['password'] 		= "login/pages/2";
 	$route['activation'] 	= "login/pages/3";
-
-	$route['pagersemar'] 				= "pagersemar/index";
-	$route['pagersemar/register'] 		= "pagersemar/card_register";
-	$route['pagersemar/scan'] 		    = "pagersemar/card_scan";	
-	
 	//Confirmasi Berhasil Dikirim Ke Email/WA
     // $route['register/confirmation/(:any)'] = "login/register_confirmation/$1"; //http://localhost:8888/git/jrn/register/confirmation/PSR6F7
     $route['register/confirmation'] 		= "login/register_confirmation"; //http://localhost:8888/git/jrn/register/confirmation/PSR6F7
@@ -66,6 +61,7 @@ $route['search']                = "search/index";
 	$route['privacy']               = "website/privacy";
 	$route['term-of-service']       = "website/term";
 	$route['account']       		= "website/account";
+	$route['radio']                 = "website/radio";
 
 	// Shop
 	$route['cart']      	        = "website/cart";

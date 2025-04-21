@@ -1,4 +1,5 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
 <style>
     .note-group-select-from-files{
         display: none;
@@ -48,6 +49,7 @@
     @media (max-width: 480px) {
     }    
 </style>
+<link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet"/>
 <div class="row">
     <div class="col-md-12">
         <?php include '_navigation_product.php'; ?>
@@ -58,6 +60,10 @@
             <a href="javascript:;" class="remove"></a>
         </div>
         <div class="tab-content">
+            <div id="gjs">
+                <h1>Selamat Datang</h1>
+                <p>Silakan edit halaman ini.</p>
+            </div>            
             <div class="tab-pane active" id="tab1">
                 <div id="div-form-trans" style="display:none;" class="col-md-12 col-xs-12 col-sm-12 padding-remove-left">
                     <div class="grid simple">
@@ -204,7 +210,7 @@
                                 <a href="javascript:;" class="remove"></a>
                             </div>
                         </div>
-                        <div class="grid-body">        
+                        <div class="grid-body">                                   
                             <div class="col-md-12 col-xs-12 col-sm-12 padding-remove-side">
                                 <div class="col-md-6 col-xs-12 col-sm-12" style="padding-left: 0;">
                                     <h5><b>Data <?php echo $title; ?></b></h5>
@@ -271,3 +277,5 @@
         </div>
     </div>
 </div>
+
+<script src="https://unpkg.com/grapesjs"></script>

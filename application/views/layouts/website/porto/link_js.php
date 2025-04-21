@@ -198,7 +198,8 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <script src="<?php echo base_url();?>assets/core/plugins/sweetalert2/sweetalert2.min.js"></script>    
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>        
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>      
+    
     <script>
         /* Notification */
         function notif(status, title, text = null) {
@@ -1627,8 +1628,8 @@
             e.preventDefault();
             e.stopPropagation();
             var sr = $(this).attr('data-url');
-            var img = 'upload/Company-Profile-Megadata-ISP.png';
-            var c = swalConfirmDownload('Download Company Profile', 'Apakah anda yakin ingin mendownload Company Profile?',img,'Download','Batal');
+            var img = "<?php echo base_url(); ?>"+'upload/Company-Profile-Megadata-ISP.png';
+            var c = swalConfirmDownload('Download Company Profile', 'Apakah anda yakin ingin mendownload Company Profile',img,'Download','Batal');
             console.log(c);
             c.then((result) => {
                 if (result == 1) {
