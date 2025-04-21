@@ -17,6 +17,30 @@
         let image_width = "<?= $image_width;?>";
         let image_height = "<?= $image_height;?>"; 
 
+
+        const editor = grapesjs.init({
+            container: '#gjs',
+            height: '100%',
+            width: 'auto',
+            fromElement: true,
+            storageManager: false,
+            blockManager: {
+            appendTo: 'body'
+            }
+        });
+
+        // Tambahkan blok teks
+        editor.BlockManager.add('text-block', {
+            label: 'Teks',
+            content: '<div><p>Teks dari jQuery</p></div>'
+        });
+
+        // Tambahkan blok gambar
+        editor.BlockManager.add('image-block', {
+            label: 'Gambar',
+            content: '<img src="https://via.placeholder.com/150" />'
+        });
+                
         $(".date").datepicker({
             // defaultDate: new Date(),
             format: 'yyyy-mm-dd',
@@ -27,22 +51,22 @@
             weekStart: 1
         });
 
-        setTimeout(() => {         
-            $('#category_short').summernote({
-                placeholder: 'Content description here!',
-                dialogsInBody:true,
-                tabsize: 4,
-                height: 350,
-                toolbar: [
-                    ["font", ["bold", "italic", "underline", "clear"]],
-                    ["fontname", ["fontname"]],
-                    ['fontsize', ['fontsize']],
-                    ["style", ["color","style"]],
-                    ["para", ["ul", "ol", "paragraph","height"]],
-                    ["insert", ["table","link","picture","hr"]],
-                    ["view", ["fullscreen","codeview", "help"]],
-                ]
-            });
+        setTimeout(() => {
+            // $('#category_short').summernote({
+            //     placeholder: 'Content description here!',
+            //     dialogsInBody:true,
+            //     tabsize: 4,
+            //     height: 350,
+            //     toolbar: [
+            //         ["font", ["bold", "italic", "underline", "clear"]],
+            //         ["fontname", ["fontname"]],
+            //         ['fontsize', ['fontsize']],
+            //         ["style", ["color","style"]],
+            //         ["para", ["ul", "ol", "paragraph","height"]],
+            //         ["insert", ["table","link","picture","hr"]],
+            //         ["view", ["fullscreen","codeview", "help"]],
+            //     ]
+            // });
             $('#category_content').summernote({
                 placeholder: 'Content description here!',
                 dialogsInBody:true,
@@ -403,7 +427,8 @@
 
                         var markupSht = d.result.category_short;                
                         var markupStr = d.result.category_content;                                                
-                        $('#category_short').summernote('code', markupSht);     
+                        // $('#category_short').summernote('code', markupSht);     
+                        $("#category_short").val(markupSht);
                         $('#category_content').summernote('code', markupStr);                             
 
                         $("#btn-new").hide();
@@ -474,10 +499,10 @@
                     beforeSend: function () {},
                     success: function (d) {
                         if (parseInt(d.status) == 1) {
-                            $("#btn-new").show();
-                            $("#btn-save").hide();
-                            $("#btn-update").hide();
-                            $("#btn-cancel").hide();
+                            // $("#btn-new").show();
+                            // $("#btn-save").hide();
+                            // $("#btn-update").hide();
+                            // $("#btn-cancel").hide();
                             $("#form-master input").val();
                             formMasterSetDisplay(1);
                             notif(1, d.message);
