@@ -12,8 +12,8 @@ class News extends MY_Controller{
     public $allowed_types = 'jpg|png|jpeg';
     public $image_width = 480;
     public $image_height = 480;
-    public $portofolio_width = 200;
-    public $portofolio_height = 80;    
+    public $portofolio_width = 114;
+    public $portofolio_height = 111;    
     public $allowed_file_size = 1024; // 5 MB -> 5000 KB
     public $watermark = '';
     var $blog_route         = 'blog';

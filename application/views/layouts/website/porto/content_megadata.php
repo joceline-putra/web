@@ -157,27 +157,44 @@ $theme_text = 'text-white';
             Mereka yang Mempercayai kami
             </h2>
             <!-- <p class="text-center mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> -->
-            <div class="brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="500" data-owl-options="{
+            <div class="d-block d-sm-none brands-slider owl-carousel owl-theme images-center appear-animate" data-animation-name="fadeIn" data-animation-duration="500" data-owl-options="{
             'margin': 0}">
-            <?php 
+                <?php 
+                    if(count($link['portofolio']) > 0){
+                        foreach($link['portofolio'] as $v){
+                            $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
+                            $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
+                            $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
+                            ?>  
+                            <img src="<?php echo $simg; ?>" width="130" height="56" alt="brand">
+                        <?php 
+                        }
+                    }
+                ?>
+            </div>     
+            
+            <div class="row justify-content-center d-none d-md-flex">
+                <?php 
                 if(count($link['portofolio']) > 0){
-                    // $routing = base_url().$link['routing']['blog'];
                     foreach($link['portofolio'] as $v){
-
-                        // $scurl       = $routing.'/'.$v['category_url'];  
-                        // $spurl       = $routing.'/'.$v['category_url'].'/'.$v['news_url'];  
                         $simg       = !empty($v['news_image']) ? base_url().$v['news_image'] : base_url().'upload/noimage.png'; 
-
                         $stitle     = !empty($v['news_title']) ? substr($v['news_title'],0,25) : 'Untitled';
                         $scontent   = !empty($v['news_short']) ? substr(strip_tags($v['news_short']),0,130) : 'No description available on this blog details, please update on admin panel';   
-                        // $scat       = !empty($v['category_name']) ? $v['category_name'] : 'Uncategory';
                         ?>  
-                        <img src="<?php echo $simg; ?>" width="130" height="56" alt="brand">
+                        <div class="col-sm-3 col-md-2 col-lg-2">
+                            <div class="banner overlay-effect1 mb-3">
+                                <figure>
+                                    <img src="<?php echo $simg; ?>" alt="element-banner" style="width:70%;"></figure>
+                                <div class="banner-layer banner-layer-middle text-center">
+                                    <h3 class="text-white mb-0"></h3>
+                                </div>
+                            </div>  
+                        </div>                      
                     <?php 
                     }
                 }
-            ?>
-            </div>         
+                ?>
+            </div>            
         </div>
     </section>  
 </main>

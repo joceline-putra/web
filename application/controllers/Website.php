@@ -231,7 +231,7 @@ class Website extends CI_Controller{
             'slider' => $this->News_model->get_all_newss(['news_type'=>1,'news_position'=>2,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'project' => $this->News_model->get_all_newss(['news_type'=>5,'news_flag'=> 1],null,10,0,'news_id','asc'),
             'gallery' => $this->News_model->get_all_newss_files(['news_type'=>6,'news_flag'=> 1],null,10,0,'news_id','asc'),
-            'portofolio' => $this->News_model->get_all_newss(['news_type'=>7,'news_flag'=> 1],null,10,0,'news_id','asc'),
+            'portofolio' => $this->News_model->get_all_newss(['news_type'=>7,'news_flag'=> 1],null,null,null,'news_id','asc'),
             'team' => $this->News_model->get_all_newss(['news_type'=>8,'news_flag'=> 1],null,10,0,'news_id','asc'),                                 
             'product_category' => $this->Kategori_model->get_all_categoriess(['category_type'=>1,'category_flag'=>1],null,10,null,'category_id','asc'),
             'products' => $this->Product_model->get_all_product(['category_flag'=>1,'product_flag'=>1,'product_type'=>1,'product_category_id > ' => 0],null,null,null,'product_name','asc'),
