@@ -139,7 +139,10 @@ $theme_text = 'text-white';
                                 }
                             }
                         }
-                    ?>    
+                    ?>     
+                    <li>
+                        <a href="<?php echo base_url('coverage-area'); ?>" class="text-white">Coverage Area</a>
+                    </li>            
                     <li>
                         <a href="#" class="text-white">Produk</a>
                         <ul class="<?php echo $theme;?>">
@@ -163,7 +166,7 @@ $theme_text = 'text-white';
                             }
                             ?>
                         </ul>
-                    </li>                      
+                    </li>                             
                     <li class="float-right"><a href="#" id="btn_download" data-url="<?php echo base_url('upload/Company-Profile-Megadata-ISP.pdf');?>" class="pl-5 text-white">Download Company Profile</a></li>
                 </ul>
             </nav>

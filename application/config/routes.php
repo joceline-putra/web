@@ -62,7 +62,8 @@ $route['search']                = "search/index";
 	$route['term-of-service']       = "website/term";
 	$route['account']       		= "website/account";
 	$route['radio']                 = "website/radio";
-
+	$route['coverage-area']			= "website/coverage_area";
+    
 	// Shop
 	$route['cart']      	        = "website/cart";
 	$route['checkout']  	        = "website/checkout";
@@ -94,7 +95,7 @@ $route['search']                = "search/index";
 
 
 	$route['product/warehouse'] 			= "konfigurasi/pages/2";
-    //Not Used / OLD Concept
+	//Not Used / OLD Concept
     // $route['blog'] 					= "website/blog";
 	// $route['agent']              = "website/agent";      
 	// $route['blog/(:any)'] 							= "website/blog/$1";

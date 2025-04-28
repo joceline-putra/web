@@ -1064,6 +1064,33 @@ class Website extends CI_Controller{
     function notfound(){
         show_404();
     }
+    function coverage_area(){ //Done
+        // Page      
+        $data['url']            = base_url('coverage-area');
+        $data['_content']       = $this->nav['web']['layout'].'home/coverage_area';
+        // var_dump($data['_content']);die;
+        // Navigation
+            $data['dir']            = $this->nav;
+            $data['asset']          = $this->nav['web']['asset']['dir'].$this->nav['web']['asset']['folder'].'/';
+            $data['link']           = $this->sitelink();
+            
+        // Data
+            $gi = [];
+            $ga = [];
+
+        // Meta
+            $data['title']          = !empty($gi['news_title']) ? $gi['news_title'] : 'Coverage Area';
+            $data['short']          = !empty($gi['news_short']) ? substr(strip_tags($gi['news_short']),0,20) : $this->meta['short'];
+            $data['description']    = !empty($gi['news_content']) ? $gi['news_content'] : $this->meta['description'];
+            $data['description_full']    = !empty($gi['news_content']) ? $gi['news_content'] : $this->meta['description'];
+            $data['keywords']       = !empty($gi['news_content']) ? substr(strip_tags($gi['news_content']),0,20) : $this->meta['keywords'];
+            $data['image']          = !empty($gi['news_image']) ? base_url().$gi['news_image'] : $this->meta['image'];            
+            $data['author']         = !empty($ga['username']) ? ucwords($ga['username']) : $this->meta['author'];
+            $data['sitename']       = $this->meta['sitename'];
+            $data['favicon']        = $this->favicon;
+
+        $this->load->view($this->nav['web']['index'],$data);      
+    }
 
     function products(){ //Works //Template List HTML
         // Page    

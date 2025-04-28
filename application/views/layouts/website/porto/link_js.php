@@ -1640,7 +1640,10 @@
                 }
             });
         });
-        
+        $(document).on("click","#btn_coverage", function(e) {
+            e.preventDefault(); e.stopPropagation();
+            alert('Progress in development');
+        });
     });      
 
 </script>

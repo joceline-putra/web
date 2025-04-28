@@ -57,7 +57,7 @@
                                 }
                             }
                         ?>
-                            <!-- <li><a href="<?php echo $link['login'];?>">Masuk</a></li> -->
+                            <li><a href="<?php echo base_url('coverage-area');?>">Coverage Area</a></li>
                         </ul>
                     </div>
                     <div class="widget">
