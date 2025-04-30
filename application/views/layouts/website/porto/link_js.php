@@ -24,6 +24,7 @@
                         }
                     }
                     ?>
+                    <li><a href="<?php echo base_url('coverage-area'); ?>">Coverage Area</a></li>
                     <!-- <li><a href="<?php #echo $link['contact_us'];?>">Contact Us</a></li>     -->
                 </ul>
                 <ul class="mobile-menu mt-2 mb-2">      
