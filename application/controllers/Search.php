@@ -1125,43 +1125,103 @@ class Search extends MY_Controller{
         }                        
         echo json_encode($result);
     }
-    function select2(){
+    function s2(){ //Select2 new concept with pagination
         $source     = $this->input->get("source"); //nama table        
         $page       = $this->input->get('page');
+        $terms      = $this->input->get("search");
+
         $offset     = ($page - 1) * 5;
-        if($source=="contacts"){
-            if(!empty($terms)){
-                $query = $this->db->query("
-                    SELECT contact_id AS id, contact_code AS kode, contact_name AS nama, contact_phone_1 AS telepon, contact_address AS alamat, contact_email_1 AS email,
-                        contact_termin, IFNULL(contact_parent_id,0) AS contact_parent_id, contact_parent_name, contact_session, 
-                        IF(contact_type=1,'Supplier','Customer') AS kontak_tipe,
-                        (SELECT CONCAT(IFNULL(contact_code,''), ' - ', IFNULL(`contact_name`,''), ' ', IFNULL(`contact_phone_1`,''))) AS `text`
-                    FROM contacts
-                    WHERE contact_code LIKE '%".$terms."%' OR contact_name LIKE '%".$terms."%' OR contact_phone_1 LIKE '%".$terms."%' 
-                    AND contact_flag=1
-                ");
-            }else{
-                $query = $this->db->query("
-                    SELECT contact_id AS id, contact_code AS kode, contact_name AS nama, contact_phone_1 AS telepon, contact_address AS alamat, contact_email_1 AS email, 
-                        contact_termin, IFNULL(contact_parent_id,0) AS contact_parent_id, contact_parent_name, contact_session, 
-                        IF(contact_type=1,'Supplier','Customer') AS kontak_tipe,
-                        (SELECT CONCAT(IFNULL(contact_code,''), ' - ', IFNULL(`contact_name`,''), ' ', IFNULL(`contact_phone_1`,''))) AS `text`
-                    FROM contacts
-                    WHERE contact_flag=1 
-                    ORDER BY contact_name ASC LIMIT ".$offset.", 5
-                ");                    
-            }
-            $result = $query->result();      
+        $limit      = 5;
+        $result     = [];
+
+        switch($source){
+            case "contacts":
+                if(!empty($terms)){
+                    $query = $this->db->query("
+                        SELECT contact_id AS id, contact_code AS kode, contact_name AS nama, contact_phone_1 AS telepon, contact_address AS alamat, contact_email_1 AS email,
+                            contact_termin, IFNULL(contact_parent_id,0) AS contact_parent_id, contact_parent_name, contact_session, 
+                            IF(contact_type=1,'Supplier','Customer') AS kontak_tipe,
+                            (SELECT CONCAT(IFNULL(contact_code,''), ' - ', IFNULL(`contact_name`,''), ' ', IFNULL(`contact_phone_1`,''))) AS `text`
+                        FROM contacts
+                        WHERE contact_code LIKE '%".$terms."%' OR contact_name LIKE '%".$terms."%' OR contact_phone_1 LIKE '%".$terms."%' 
+                        AND contact_flag=1
+                    ");
+                }else{
+                    $query = $this->db->query("
+                        SELECT contact_id AS id, contact_code AS kode, contact_name AS nama, contact_phone_1 AS telepon, contact_address AS alamat, contact_email_1 AS email, 
+                            contact_termin, IFNULL(contact_parent_id,0) AS contact_parent_id, contact_parent_name, contact_session, 
+                            IF(contact_type=1,'Supplier','Customer') AS kontak_tipe,
+                            (SELECT CONCAT(IFNULL(contact_code,''), ' - ', IFNULL(`contact_name`,''), ' ', IFNULL(`contact_phone_1`,''))) AS `text`
+                        FROM contacts
+                        WHERE contact_flag=1 
+                        ORDER BY contact_name ASC LIMIT ".$offset.", 5
+                    ");                    
+                }
+
+                $result = $query->result();  
+                break;    
+            case "specialist":
+                $where = "";
+                if(!empty($terms)){
+                    $where = "WHERE specialist_name LIKE '%".$terms."%'";
+                }
+
+                // Count data first
+                $query_count    = $this->db->query("SELECT COUNT(*) AS total_records FROM branchs_specialists $where");                                
+                $result_count   = $query_count->result_array();            
+                $count_data     = !empty($result_count) ? intval($result_count[0]['total_records']) : 0;
+
+                // Running query if found data count
+                if($count_data > 0){
+                    $prepare = "SELECT specialist_id AS id, specialist_name AS nama, (SELECT CONCAT(`specialist_name`)) AS `text`
+                        FROM branchs_specialists $where ORDER BY specialist_name ASC LIMIT ".$offset.",".$limit."
+                    ";
+                    $query  = $this->db->query($prepare);
+                    $result = $query->result();
+                }
+                /*
+                    $json = array_push($result,array(
+                        'id' => "0",
+                        'nama' => '-- Ketik yg ingin di cari --',
+                        'text' => '-- Ketik yg ingin di cari --'
+                    ));     
+                */           
+                break;
+            case "locations":
+                $where = "";
+                if(!empty($terms)){
+                    $where = "WHERE location_name LIKE '%".$terms."%' AND location_flag=1";
+                }
+
+                // Count data first
+                $query_count    = $this->db->query("SELECT COUNT(*) AS total_records FROM locations $where");                                
+                $result_count   = $query_count->result_array();            
+                $count_data     = !empty($result_count) ? intval($result_count[0]['total_records']) : 0;
+
+                // Running query if found data count
+                if($count_data > 0){
+                    $prepare = "SELECT location_id AS id, location_name AS nama, (SELECT CONCAT(`location_name`)) AS `text`
+                        , location_address, location_note, location_lat, location_lng FROM locations $where ORDER BY location_name ASC LIMIT ".$offset.",".$limit."
+                    ";
+                    $query  = $this->db->query($prepare);
+                    $result = $query->result();
+                }
+                /*
+                    $json = array_push($result,array(
+                        'id' => "0",
+                        'nama' => '-- Ketik yg ingin di cari --',
+                        'text' => '-- Ketik yg ingin di cari --'
+                    ));     
+                */           
+                break;                
         }
         $ret = array(
-            'results' => $result,
-            'pagination' => array(
-                'more' => true
-            ),
-            'count_filtered' => 100,
-            'limit' => $offset.',5'
+            'data' => $result,
+            'count_filtered' => $count_data,
+            'limit' => $offset.','.$limit
         );
         echo json_encode($ret);        
     }
+
 }
 ?>

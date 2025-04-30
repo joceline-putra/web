@@ -22,9 +22,31 @@
             <h2 class="text-center">Coverage Area</h2>
             <p class="text-center mb-5">Silahkan lihat apakah area anda tercover oleh jaringan Megadata</p>
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-offset-3 col-lg-3 col-xs-12">
+                </div>
+                <div class="col-lg-6 col-xs-12">
+                    <p class="text-center">
+                        <div class="form-group">
+                            <label class="mb-1" for="contact-name">Cari Kota Anda
+                            <span class="required">*</span></label>
+                            <select id="coverage_search" name="coverage_search" class="form-control">
+                                <option value="0">Cari</option>
+                            </select>
+                        </div>
+                    </p>
+                </div>
+                </div>
+            <div class="row">
+                <!-- <div class="col-lg-4">
                     <h2 class="mt-6 mb-2">Pilih Kota Anda</h2>
                     <form id="form_coverage" name="form_contact" class="mb-0" action="#">
+                        <div class="form-group">
+                            <label class="mb-1" for="contact-name">Cari
+                            <span class="required">*</span></label>
+                            <select id="coverage_search" name="coverage_search" class="form-control">
+                                <option value="0">Cari</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label class="mb-1" for="contact-name">Provinsi
                             <span class="required">*</span></label>
@@ -35,13 +57,14 @@
                             </select>
                         </div>
                         <div class="form-group">
-                        <label class="mb-1" for="contact-name">Kota
+                            <label class="mb-1" for="contact-name">Kota
                             <span class="required">*</span></label>
                             <select id="coverage_city" name="coverage_city" class="form-control">
                                 <option value="pilihan1">Pilihan 1</option>
                                 <option value="pilihan2">Pilihan 2</option>
                                 <option value="pilihan3">Pilihan 3</option>
                             </select>
+                        </div>
                         <div class="form-group">
                             <label class="mb-1" for="contact-name">Kecamatan
                             <span class="required">*</span></label>
@@ -57,8 +80,10 @@
                             </button>
                         </div>
                     </form>
-                </div>  
-                <div class="col-lg-6">
+                </div>   -->
+                <!-- <div class="col-lg-offset-3 col-lg-3">
+                </div>
+                <div class="col-lg-3">
                     <h2 class="mt-6 mb-1">Jaringan Kami</h2>
                     <p>
                     Silahkan hubungi kami untuk pertanyaan dan kerjasama. Kami senang mendengar dari anda.
@@ -98,7 +123,7 @@
                             }
                             ?>     
                     </address> 
-                </div>                                           
+                </div>-->
             </div>
         </div>
     </section>

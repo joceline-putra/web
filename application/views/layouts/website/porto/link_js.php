@@ -189,6 +189,8 @@
     <script src="<?php echo $asset; ?>assets/js/plugins/jquery.countTo.js"></script>
     <script src="<?php echo $asset; ?>assets/js/jquery.appear.min.js"></script>
     <script src="<?php echo $asset; ?>assets/js/nouislider.min.js"></script>  
+    <script src="<?php echo base_url('assets/core/plugins/select2-4.0.8/js/select2.min.js'); ?>"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
     <!-- Main JS File -->
     <script src="<?php echo $asset; ?>assets/js/main.min.js"></script>
     <!-- <script>(function(){var js = "window['__CF$cv$params']={r:'7afd1b362a6789b3',m:'IF47KbX3l.N5w7LOgcq7.zZAxGSP_aJefP6i0ZouhzU-1680145269-0-AcC6/wbk2ySAMzyJHqt8/cUQ1aaAQP4NrOoLexw+7gNtRKLm2TM6y53GA1otFq9a4nx8ZgQU9m3tudiaoR8T1U4CT2RwHbCNhh7GlAWEE0yCFji0FVTS60L79eu99UU4zsyrM9hxz4V4sVdvxcnn87O8ZTe1N2n1DtEXrVgfj+EG',s:[0x6e2d9cbefd,0xfa802cad43],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../../cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible5615.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body> -->
@@ -332,8 +334,9 @@
                 confirmButtonText: button1,
                 cancelButtonText: button2
             }).then((result) => {
+                // console.log(result);
                 return new Promise((resolve, reject) => {
-                    if(result.isConfirmed){
+                    if(result.value===true){
                         resolve(1);
                     }else{
                         resolve(0);
@@ -558,7 +561,27 @@
                 });                    
             });
         }
-        
+        function swalHTML(html,button1){
+            return Swal.fire({
+                // title: title,
+                // text: text,
+                html:html,
+                // icon: 'info',
+                showCancelButton: false,
+                confirmButtonColor: '#364574',
+                // cancelButtonColor: '#364574',
+                confirmButtonText: button1,
+                // cancelButtonText: 'Cancel'
+            }).then((result) => {
+                return new Promise((resolve, reject) => {
+                    if(result.isConfirmed){
+                        resolve(1);
+                    }else{
+                        resolve(0);
+                    }
+                });                    
+            });
+        }
         /* Confirmation JConfirm */
         function jConfirmInput(title,text,button1,button2) {
             let dsp     = `
@@ -1630,7 +1653,7 @@
             var sr = $(this).attr('data-url');
             var img = "<?php echo base_url(); ?>"+'upload/Company-Profile-Megadata-ISP.png';
             var c = swalConfirmDownload('Download Company Profile', 'Apakah anda yakin ingin mendownload Company Profile',img,'Download','Batal');
-            console.log(c);
+            // console.log(c);
             c.then((result) => {
                 if (result == 1) {
                     window.open(sr, '_blank');
@@ -1644,6 +1667,104 @@
             e.preventDefault(); e.stopPropagation();
             alert('Progress in development');
         });
+        $('#coverage_search').select2({
+            //dropdownParent:$("#modal-id"), //If Select2 Inside Modal, $(".jconfirm-box-container") if jConfirm
+            //placeholder: '<i class="fas fa-search"></i> Search',
+            minimumInputLength: 0,
+            placeholder: {
+                id: '0',
+                text: '-- Pilih --'
+            },
+            allowClear: true,
+            ajax: {
+                type: "get",
+                url: "<?= base_url('search/s2');?>",
+                dataType: 'json',
+                delay: 250,
+                cache: true,
+                data: function (params) {
+                    let query = {
+                        page: params.page || 1,
+                        search: params.term,
+                        // tipe: 1,
+                        source: 'locations'
+                    };
+                    return query;
+                },
+                processResults: function (result, params){
+                    params.page = params.page || 1;
+                    let datas = [];
+                    $.each(result.data, function(key, val){
+                        datas.push({
+                            'id' : val.id,
+                            'text' : val.text,
+                            'address': val.location_address,
+                            'note': val.location_note,
+                            'lat': val.location_lat,
+                            'lng': val.location_lng,
+                        });
+                    });
+                    return {
+                        results: datas,
+                        pagination: {
+                            more: (params.page * 5) < result.count_filtered
+                        }
+                    };
+                }
+            },
+            escapeMarkup: function (markup) {
+                return markup; // Biarkan HTML
+            },
+            templateResult: function(datas){ //When Select on Click
+                //if (!datas.id) { return datas.text; }
+                if($.isNumeric(datas.id) == true){
+                    // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                    return datas.text;
+                }
+            },
+            templateSelection: function(datas) { //When Option on Click
+                //if (!datas.id) { return datas.text; }
+                //Custom Data Attribute
+                $(datas.element).attr('data-text', datas.text);   
+                $(datas.element).attr('data-address', datas.address);   
+                $(datas.element).attr('data-note', datas.note);                        
+                //return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                if($.isNumeric(datas.id) == true){
+                    // return '<i class="fas fa-user-check '+datas.id.toLowerCase()+'"></i> '+datas.text;
+                    return datas.text;
+                }
+            }
+        }); 
+        $(document).on("change","#coverage_search",function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            // var var_custom = $(this).find(':selected').attr('data-column');
+            var var_id = $(this).find(':selected').val();
+            var var_text = $(this).find(':selected').attr('data-text');
+            var var_address = $(this).find(':selected').attr('data-address'); 
+            var var_note = $(this).find(':selected').attr('data-note');                        
+            // console.log(var_text);
+            // var var_custom = $(this).find(':selected').attr('data-column');
+            // alert('#coverage_search on change value => '+var_custom);
+            var html = `
+                <div class="col-md-12">
+                    <b>Cabang:</b><br>${var_text}</br><br>
+                    <b>Alamat:</b><br>${var_address}</br><br>
+                    <b>Kontak:</b><br>${var_note}               
+                </div>
+            `;
+            var c = swalHTML(html, 'Tutup');
+            c.then((result) => {
+                if (result == 1) {
+                    alert('Yes');
+                }
+                else {
+                    console.log('Cancel');
+                }
+            });
+
+        });
+        
     });      
 
 </script>
