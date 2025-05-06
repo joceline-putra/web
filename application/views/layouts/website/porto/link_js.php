@@ -201,7 +201,8 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <script src="<?php echo base_url();?>assets/core/plugins/sweetalert2/sweetalert2.min.js"></script>    
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>      
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>   
+   
     
     <script>
         /* Notification */

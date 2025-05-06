@@ -110,11 +110,16 @@ $theme_text = 'text-white';
                 <button class="mobile-menu-toggler text-primary mr-2 d-lg-none" type="button">
                     <i class="fas fa-bars"></i>
                 </button>
-                <a href="<?php echo $link['home']; ?>" class="logo d-lg-none">
-                    <img src="<?php echo $link['logo']; ?>" width="111" height="44" alt="<?php echo $link['brand']; ?> Logo">
-                </a>
+
             </div>
-            <div class="header-right w-lg-max">              
+            <div class="header-right w-lg-max">       
+                <a href="<?php echo $link['home']; ?>" class="logo d-lg-none">
+                    <img src="<?php echo $link['logo']; ?>" width="111" height="44" alt="<?php echo $link['brand']; ?> Logo" style="
+                        right: 10px;
+                        top: 14px;
+                        width: 84px;
+                    ">
+                </a>                       
             </div>
         </div>
     </div>

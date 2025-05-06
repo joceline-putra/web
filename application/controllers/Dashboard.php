@@ -9,6 +9,7 @@ class Dashboard extends MY_Controller{
         if(!$this->is_logged_in()){
             redirect(base_url("login"));
         }
+        //
     }
     function manage(){
         $session = $this->session->userdata();

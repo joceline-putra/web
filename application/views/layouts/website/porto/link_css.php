@@ -11,3 +11,4 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/core/css/icons.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/core/plugins/select2-4.0.8/css/select2.min.css">
     <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css"> -->

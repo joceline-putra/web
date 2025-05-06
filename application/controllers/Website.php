@@ -1282,7 +1282,7 @@ class Website extends CI_Controller{
             $params_check = array(
                 'news_type' => 0,
                 'news_flag' => 1,
-                'news_url' => 'career'
+                'news_url' => 'karir'
             );
             $gi   = $this->News_model->get_news_by_url($params_check);
             $ga = $this->User_model->get_user($gi['news_user_id']);

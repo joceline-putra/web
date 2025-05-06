@@ -1,5 +1,5 @@
 <main class="main about">
-    <div class="page-header page-header-bg text-left"
+    <!-- <div class="page-header page-header-bg text-left"
         style="background: 50%/cover #D4E1EA url('<?php echo $asset; ?>assets/images/page-header-bg.jpg');">
         <div class="container">
             <h1><span><?php echo $link['brand'];?></span>
@@ -14,28 +14,12 @@
                 <li class="breadcrumb-item active" aria-current="page"><?php echo $title; ?></li>
             </ol>
         </div>
-    </nav>
+    </nav> -->
 
     <!-- ✅ Coverage Area -->
-    <section class="feature-boxes-container mb-8" style="background-color:#f1f1fd;">
+    <section class="feature-boxes-container mb-8" style="background-color:#2c93d0;">
         <div class="container p-4">
-            <h2 class="text-center">Coverage Area</h2>
-            <p class="text-center mb-5">Silahkan lihat apakah area anda tercover oleh jaringan Megadata</p>
-            <div class="row">
-                <div class="col-lg-offset-3 col-lg-3 col-xs-12">
-                </div>
-                <div class="col-lg-6 col-xs-12">
-                    <p class="text-center">
-                        <div class="form-group">
-                            <label class="mb-1" for="contact-name">Cari Kota Anda
-                            <span class="required">*</span></label>
-                            <select id="coverage_search" name="coverage_search" class="form-control">
-                                <option value="0">Cari</option>
-                            </select>
-                        </div>
-                    </p>
-                </div>
-                </div>
+
             <div class="row">
                 <!-- <div class="col-lg-4">
                     <h2 class="mt-6 mb-2">Pilih Kota Anda</h2>
@@ -124,6 +108,38 @@
                             ?>     
                     </address> 
                 </div>-->
+                <section class="kenBurns-section pt-5">
+                    <h2 class="text-center">Coverage Area</h2>
+                    <p class="text-center text-white">Silahkan lihat apakah area anda tercover oleh jaringan Megadata</p>
+                    <div class="row">
+                        <div class="col-lg-offset-3 col-lg-3 col-xs-12">
+                        </div>
+                        <div class="col-lg-6 col-xs-12">
+                            <p class="text-center">
+                                <div class="form-group">
+                                    <label class="mb-1" for="contact-name">Cari Kota Anda
+                                    <span class="required">*</span></label>
+                                    <select id="coverage_search" name="coverage_search" class="form-control">
+                                        <option value="0">Cari</option>
+                                    </select>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="banner ken-banner" style="background: #e2e2e0">
+                        <figure class="kenBurnsToUp" style="animation-duration: 20s">
+                            <img class="slide-bg" src="<?php echo base_url('upload/map1.png');?>" alt="slider image" width="1200" height="575" style="background-color: #ccc;">
+                        </figure>
+                        <div class="container">
+                            <div class="banner-layer banner-layer-middle banner-layer-left">
+                                <div class="appear-animate animated fadeInLeftShorter appear-animation-visible" data-animation-name="fadeInLeftShorter" data-animation-delay="200" style="animation-duration: 1000ms;">
+                                    <h2 class="font-weight-light ls-10"></h2>
+                                    <a href="#" class="btn btn-link"><i class="icon-right-open-big"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>                   
             </div>
         </div>
     </section>
