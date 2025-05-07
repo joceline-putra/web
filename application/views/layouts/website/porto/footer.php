@@ -140,10 +140,15 @@
 
                 <div class="footer-right ml-auto mt-1 mt-sm-0">
                     <div class="payment-icons">
+                        <span style="background-image: url('<?php echo base_url('upload/web/megadata_footer.png'); ?>'); background-size: contain; background-repeat: no-repeat; display: inline-block; width: 100px; height: 50px; margin-right: 10px;"></span>
+                        <span style="background-image: url('<?php echo base_url('upload/web/streamfast_footer.png'); ?>'); background-size: contain; background-repeat: no-repeat; display: inline-block; width: 100px; height: 50px;"></span>
+                    </div>
+                    <div class="payment-icons">
                         <!-- <span class="payment-icon visa" style="background-image: url(<?php echo $asset; ?>assets/images/payments/payment-visa.svg)"></span>
                         <span class="payment-icon paypal" style="background-image: url(<?php echo $asset; ?>assets/images/payments/payment-paypal.svg)"></span>
                         <span class="payment-icon stripe" style="background-image: url(<?php echo $asset; ?>assets/images/payments/payment-stripe.png)"></span>
                         <span class="payment-icon verisign" style="background-image:  url(<?php echo $asset; ?>assets/images/payments/payment-verisign.svg)"></span> -->
+                    
                     </div>
                 </div>
             </div>
