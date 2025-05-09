@@ -17,7 +17,7 @@
     </nav> -->
 
     <!-- ✅ Coverage Area -->
-    <section class="feature-boxes-container mb-8" style="background-color:#2c93d0;">
+    <section class="feature-boxes-container" style="background-color:#2c93d0;">
         <div class="container p-4">
 
             <div class="row">
@@ -145,83 +145,51 @@
     </section>
 
 
-    <section class="gallery-section py-5">
+    <section class="gallery-section py-5 bg-dark">
         <div class="container">
-            <h2 class="text-center mb-4">Our Network Infrastructure</h2>
-            <div class="row">
-                <div class="col-md-3 col-sm-6 mb-4 text-center">
-                    <div class="bg-light p-3 rounded">
-                        <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="No Picture" class="img-fluid rounded mb-2" style="max-height: 200px;">
-                        <p class="text-muted">Network Infrastructure</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4 text-center">
-                    <div class="bg-light p-3 rounded">
-                        <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="No Picture" class="img-fluid rounded mb-2" style="max-height: 200px;">
-                        <p class="text-muted">Data Center</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4 text-center">
-                    <div class="bg-light p-3 rounded">
-                        <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="No Picture" class="img-fluid rounded mb-2" style="max-height: 200px;">
-                        <p class="text-muted">Network Connectivity</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4 text-center">
-                    <div class="bg-light p-3 rounded">
-                        <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="No Picture" class="img-fluid rounded mb-2" style="max-height: 200px;">
-                        <p class="text-muted">Server Room</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="gallery-section py-5" style="background: #f8fafc;">
-        <div class="container">
-            <h2 class="text-center mb-5 font-weight-bold">Galeri Infrastruktur & Layanan</h2>
+            <h2 class="text-center mb-5 font-weight-bold">Mengapa Pilih Megadata?</h2>
             <div class="row justify-content-center">
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card shadow border-0 h-100">
                         <div class="card-img-top bg-white d-flex align-items-center justify-content-center" style="height:200px;">
-                            <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="Jaringan Fiber Optik" style="max-height: 160px; max-width: 100%; object-fit: contain;">
+                            <span class="icon mb-2" style="font-size:12rem; color:#183153;"><i class="fa fa-globe"></i></span>
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title font-weight-bold">Jaringan Fiber Optik</h5>
-                            <p class="card-text text-muted">Jaringan backbone fiber optik berkecepatan tinggi yang menghubungkan berbagai wilayah untuk koneksi internet stabil.</p>
+                            <h5 class="card-title font-weight-bold">Jangkauan Luas</h5>
+                            <p class="card-text text-muted">Perusahaan kami hadir di seluruh Jawa untuk memastikan layanan internet berkualitas dapat diakses oleh masyarakat dan bisnis di berbagai kota dan pelosok.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card shadow border-0 h-100">
                         <div class="card-img-top bg-white d-flex align-items-center justify-content-center" style="height:200px;">
-                            <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="Data Center Modern" style="max-height: 160px; max-width: 100%; object-fit: contain;">
+                            <span class="icon mb-2" style="font-size:12rem; color:#183153;"><i class="fa fa-bolt"></i></span>
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title font-weight-bold">Data Center Modern</h5>
-                            <p class="card-text text-muted">Fasilitas data center dengan keamanan dan keandalan tinggi untuk mendukung layanan pelanggan dan bisnis.</p>
+                            <h5 class="card-title font-weight-bold">Respons Cepat</h5>
+                            <p class="card-text text-muted">Dengan cabang di berbagai wilayah, kami mampu memberikan respon teknis dan layanan pelanggan yang lebih cepat dan efisien di seluruh area Jawa.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card shadow border-0 h-100">
                         <div class="card-img-top bg-white d-flex align-items-center justify-content-center" style="height:200px;">
-                            <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="Tim Support 24/7" style="max-height: 160px; max-width: 100%; object-fit: contain;">
+                            <span class="icon mb-2" style="font-size:12rem; color:#183153;"><i class="fa fa-network-wired"></i></span>
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title font-weight-bold">Tim Support 24/7</h5>
-                            <p class="card-text text-muted">Tim profesional siap membantu pelanggan kapan saja untuk memastikan layanan berjalan lancar.</p>
+                            <h5 class="card-title font-weight-bold">Infrastruktur Andal</h5>
+                            <p class="card-text text-muted">Penyebaran infrastruktur kami di berbagai kota memastikan koneksi stabil, minim gangguan, dan kualitas layanan yang konsisten di seluruh Jawa.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card shadow border-0 h-100">
                         <div class="card-img-top bg-white d-flex align-items-center justify-content-center" style="height:200px;">
-                            <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="Layanan Internet Cepat" style="max-height: 160px; max-width: 100%; object-fit: contain;">
+                            <span class="icon mb-2" style="font-size:12rem; color:#183153;"><i class="fa fa-users"></i></span>
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title font-weight-bold">Layanan Internet Cepat</h5>
-                            <p class="card-text text-muted">Solusi internet cepat dan stabil untuk rumah, kantor, dan bisnis di seluruh Indonesia.</p>
+                            <h5 class="card-title font-weight-bold">Dekat dengan Pelanggan</h5>
+                            <p class="card-text text-muted">Kehadiran cabang di seluruh Jawa memudahkan pelanggan mendapatkan dukungan, informasi, dan solusi yang dibutuhkan secara langsung dan personal.</p>
                         </div>
                     </div>
                 </div>

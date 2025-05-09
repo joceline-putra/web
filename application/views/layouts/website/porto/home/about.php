@@ -157,7 +157,7 @@
     </section>
 
 
-    <section class="gallery-section py-5">
+    <section class="gallery-section py-5" style="background-color:#f8f9fa;">
         <div class="container">
             <h2 class="text-center mb-4">Topologi Jaringan Megadata</h2>
             <div class="row">
@@ -170,9 +170,9 @@
         </div>
     </section>
 
-    <section class="gallery-section py-5">
+    <!-- <section class="gallery-section py-5">
         <div class="container">
-            <h2 class="text-center mb-4">Our Network Infrastructure</h2>
+            <h2 class="text-center mb-4"></h2>
             <div class="row">
                 <div class="col-md-3 col-sm-6 mb-4 text-center">
                     <div class="bg-light p-3 rounded">
@@ -200,7 +200,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <div class="page-header page-header-bg text-left"
         style="background: 50%/cover #D4E1EA url('<?php echo base_url('upload/web/brave_with_innovation.png'); ?>">
     </div>    

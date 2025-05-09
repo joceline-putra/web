@@ -107,7 +107,7 @@
                             <?php 
                             if(!empty($link['blog'])){
                                 foreach($link['blog'] as $v){
-                                    echo "<li><a href='".site_url().$link['routing']['blog'].'/'.$v['category_url']."'>".$v['news_title']."</a></li>"; 
+                                    echo "<li><a href='".site_url().$link['routing']['blog'].'/'.$v['category_url'].'/'.$v['news_url']."'>".$v['news_title']."</a></li>"; 
                                 }
                             }       
                             ?>                                    
