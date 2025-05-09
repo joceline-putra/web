@@ -11,6 +11,16 @@
         var set_url = "<?php echo base_url(); ?>";        
         var newsID = 0;
 
+        // tinymce.init({
+        //     selector: '#content',
+        //     plugins: 'lists link image code table preview',
+        //     toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code preview',
+        //     height: 400
+        // });
+
+        // CKEDITOR.replace('konten');
+        // CKEDITOR.replace('ck_content');
+        
         $(".nav-tabs").find('li[class="active"]').removeClass('active');
         $(".nav-tabs").find('li[data-name="article/article"]').addClass('active');
         // console.log(view);

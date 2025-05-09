@@ -1,8 +1,8 @@
 <main class="main about">
     <div class="page-header page-header-bg text-left"
-        style="background: 50%/cover #D4E1EA url('<?php echo $asset; ?>assets/images/page-header-bg.jpg');">
+        style="background: 50%/cover #D4E1EA url('<?php echo base_url(); ?>upload/web/banner/page-header-bg.png');">
         <div class="container">
-            <h1><span><?php echo $link['brand'];?></span>
+            <h1 class="text-white"><span class="text-white"><?php echo $link['brand'];?></span>
             <?php echo $title; ?></h1>
         </div>
     </div>

@@ -56,11 +56,11 @@
 </style>
 
 <main class="main about">
-    <!-- Hero Section -->
-    <div class="about-hero">
-        <div class="container text-left">
-            <h1><span><?php echo $link['brand'];?></span> <?php echo $title; ?></h1>
-            <div class="subtitle">Mitra Solusi Digital Terpercaya untuk Bisnis Anda</div>
+    <div class="page-header page-header-bg text-left"
+        style="background: 50%/cover #D4E1EA url('<?php echo base_url(); ?>upload/web/banner/page-header-bg-1.jpg');">
+        <div class="container">
+            <h1><span><?php echo $link['brand'];?></span>
+            <?php echo $title; ?></h1>
         </div>
     </div>
 
@@ -74,7 +74,7 @@
     </nav>
     <div class="about-section">
         <div class="container">
-            <p><?php echo $description_full; ?></p>
+            <p><?php #echo $description_full; ?></p>
         </div>
     </div>
     <!-- Tentang Kami Section -->
@@ -82,16 +82,19 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 mb-4 mb-md-0">
-                    <img src="<?php echo $asset; ?>assets/images/about-company.jpg" alt="Tentang Perusahaan" class="img-fluid rounded shadow-sm w-100" style="object-fit:cover; min-height:220px;">
+                    <img src="<?php echo base_url('upload/branch/MEGADATA-ISP-1024x507.png'); ?>" alt="Tentang Perusahaan" class="img-fluid rounded shadow-sm" style="width:70%;min-height:220px;">
                 </div>
                 <div class="col-md-6">
                     <h2 class="font-weight-bold mb-3">Tentang Perusahaan</h2>
-                    <p class="mb-3">Kami adalah perusahaan teknologi informasi yang berfokus pada layanan internet, data center, dan solusi digital untuk kebutuhan bisnis modern. Dengan pengalaman dan tim profesional, kami berkomitmen memberikan layanan terbaik, infrastruktur handal, serta dukungan penuh untuk pertumbuhan bisnis Anda.</p>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fa fa-check-circle text-primary mr-2"></i> Visi: Menjadi mitra utama solusi digital di Indonesia</li>
-                        <li class="mb-2"><i class="fa fa-check-circle text-primary mr-2"></i> Misi: Memberikan layanan inovatif, cepat, dan aman</li>
-                        <li><i class="fa fa-check-circle text-primary mr-2"></i> Nilai: Integritas, Inovasi, Pelayanan</li>
-                    </ul>
+                    <p class="mb-3">
+                        PT. MEGA ARTHA LINTAS DATA dengan branding MEGADATA ISP merupakan suatu perusahaan berbasis teknologi yang menyediakan layanan jaringan akses internet dan komunikasi radio yang didirikan pada tahun 2017. MEGADATA ISP merupakan perusahaan penyedia layanan akses jaringan internet yang menangani layanan Internet Service Provider, Colocation, IT Managed Services, dan Data Center.
+                    </p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fa fa-check-circle text-primary mr-2"></i> Visi: Menjadi penyedia layanan profesional yang meningkatkan produktivitas dan efisiensi perusahaan melalui teknologi terkini dan sumber daya manusia yang berkualitas.</li>
+                            <li class="mb-2"><i class="fa fa-check-circle text-primary mr-2"></i> Misi: Memberikan layanan berkualitas dengan harga terjangkau melalui tenaga ahli, serta terus berinovasi menghadirkan akses internet cepat sesuai kebutuhan zaman.</li>
+                            <li><i class="fa fa-check-circle text-primary mr-2"></i> Nilai: Integritas, Inovasi, Pelayanan</li>
+                        </ul>
+                    </p>
                 </div>
             </div>
         </div>
@@ -104,8 +107,8 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card service-card shadow h-100">
                         <div class="card-img-top bg-white d-flex flex-column align-items-center justify-content-center pt-4" style="height:200px;">
-                            <span class="icon mb-2"><i class="fa fa-network-wired"></i></span>
-                            <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="Jaringan Fiber Optik" style="max-height: 80px; max-width: 100%; object-fit: contain;">
+                            
+                            <img src="<?php echo base_url('upload/web/about_us/istockphoto-1477214859-612x612.jpg'); ?>" alt="Jaringan Fiber Optik" style="padding:12px;">
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title font-weight-bold">Jaringan Fiber Optik</h5>
@@ -116,8 +119,8 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card service-card shadow h-100">
                         <div class="card-img-top bg-white d-flex flex-column align-items-center justify-content-center pt-4" style="height:200px;">
-                            <span class="icon mb-2"><i class="fa fa-database"></i></span>
-                            <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="Data Center Modern" style="max-height: 80px; max-width: 100%; object-fit: contain;">
+                            
+                            <img src="<?php echo base_url('upload/web/about_us/istockphoto-174865357-612x612.jpg'); ?>" alt="Data Center Modern" style="padding:12px;">
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title font-weight-bold">Data Center Modern</h5>
@@ -128,8 +131,8 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card service-card shadow h-100">
                         <div class="card-img-top bg-white d-flex flex-column align-items-center justify-content-center pt-4" style="height:200px;">
-                            <span class="icon mb-2"><i class="fa fa-headset"></i></span>
-                            <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="Tim Support 24/7" style="max-height: 80px; max-width: 100%; object-fit: contain;">
+                            
+                            <img src="<?php echo base_url('upload/web/about_us/Pelatihan-Customer-Service-dan-Call-Center.jpg'); ?>" alt="Tim Support 24/7" style="padding:12px;">
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title font-weight-bold">Tim Support 24/7</h5>
@@ -140,8 +143,8 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card service-card shadow h-100">
                         <div class="card-img-top bg-white d-flex flex-column align-items-center justify-content-center pt-4" style="height:200px;">
-                            <span class="icon mb-2"><i class="fa fa-bolt"></i></span>
-                            <img src="<?php echo base_url('upload/noimage.png'); ?>" alt="Layanan Internet Cepat" style="max-height: 80px; max-width: 100%; object-fit: contain;">
+                            
+                            <img src="<?php echo base_url('upload/web/about_us/360_F_483692442_ePcyN8IunaiTXPvIj7LGt8GUcAFJmm1m.jpg'); ?>" alt="Layanan Internet Cepat" style="padding:12px;">
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title font-weight-bold">Layanan Internet Cepat</h5>
@@ -153,7 +156,20 @@
         </div>
     </section>
 
-        
+
+    <section class="gallery-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Topologi Jaringan Megadata</h2>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 mb-4 text-center">
+                    <div class="bg-light p-3 rounded">
+                        <img src="<?php echo base_url('upload/web/about_us/topologi.png'); ?>" alt="No Picture" class="img-fluid rounded mb-2" style="margin:0 auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="gallery-section py-5">
         <div class="container">
             <h2 class="text-center mb-4">Our Network Infrastructure</h2>
@@ -185,4 +201,7 @@
             </div>
         </div>
     </section>
+    <div class="page-header page-header-bg text-left"
+        style="background: 50%/cover #D4E1EA url('<?php echo base_url('upload/web/brave_with_innovation.png'); ?>">
+    </div>    
 </main>

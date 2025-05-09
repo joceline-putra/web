@@ -6,6 +6,8 @@
 </style>
 
 <div class="row">
+
+
     <div class="col-md-12">
         <?php #include '_navigation.php'; ?>
         <div class="tab-content">
@@ -108,6 +110,20 @@
                                                     <!-- <div id="news_content"></div> -->
                                                 </div>
                                             </div>
+                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                <div class="form-group">
+                                                    <label>Tiny</label>
+                                                    <textarea id="content" name="content"></textarea>
+                                                    <!-- <div id="news_content"></div> -->
+                                                </div>
+                                            </div>    
+                                            <div class="col-lg-12 col-md-12 col-xs-12 padding-remove-side">
+                                                <div class="form-group">
+                                                    <label>CKEditor</label>
+                                                    <textarea id="ck_content" name="ck_content"></textarea>
+                                                    <!-- <div id="news_content"></div> -->
+                                                </div>
+                                            </div>                                                                                        
 
                                         </div>
                                         <div class="clearfix"></div>

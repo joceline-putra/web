@@ -52,10 +52,10 @@
 						</div><!-- End .post-content -->
 
 						<div class="post-share">
-							<h3 class="d-flex align-items-center">
+							<!-- <h3 class="d-none d-flex align-items-center">
 								<i class="fas fa-share"></i>
 								Share this post
-							</h3>
+							</h3> -->
 
 							<div class="d-none social-icons">
 								<a href="#" class="social-icon social-facebook" target="_blank"
@@ -79,7 +79,7 @@
 						</div><!-- End .post-share -->
 
 						<div class="post-author">
-							<h3><i class="far fa-user"></i>Author</h3>
+							<h3><i class="far fa-user"></i>Penulis</h3>
 
 							<figure>
 								<a href="#">
@@ -89,7 +89,7 @@
 
 							<div class="author-content">
 								<h4><a href="#"><?php echo $page['author'];?></a></h4>
-								<p>Merupakan seorang penulis blog untuk website hpl yutai, hplyutai sudah tidak perlu diragukan lagi keunggulan produknya</p>
+								<p>Merupakan seorang penulis blog untuk website yang memberikan informasi terbaru tentang berbagai topik yang berhubungan dengan <?php echo $link['brand'];?>.</p>
 							</div>
 						</div>
 
@@ -139,7 +139,7 @@
 				<hr class="mt-2 mb-1">
 
 				<div class="related-posts">
-					<h4>Related <strong>Posts</strong></h4>
+					<h4>Blog <strong>Lainny</strong></h4>
 
 					<div class="owl-carousel owl-theme related-posts-carousel" data-owl-options="{
 						'dots': false

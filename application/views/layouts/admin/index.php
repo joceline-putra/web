@@ -504,8 +504,10 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
 	<script src="<?php echo base_url();?>assets/core/plugins/base64.js" type="text/javascript"></script>  
 	<script src="<?php echo base_url();?>assets/core/plugins/jquery.redirect.js" type="text/javascript"></script>   
 	<script src="<?php echo base_url();?>assets/core/plugins/magnific-popup/jquery.magnific-popup.js" type="text/javascript"></script> 
-	<script src="<?php echo base_url();?>assets/core/plugins/ckeditor-4.22/ckeditor.js" type="text/javascript"></script>  
+	<!-- <script src="<?php echo base_url();?>assets/core/plugins/ckeditor-4.22/ckeditor.js" type="text/javascript"></script>   -->
 	<!-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js" type="text/javascript"></script>   -->
+	<!-- <script src="//cdn.ckeditor.com/4.25.1-lts/full/ckeditor.js"></script> -->
+
 	<!-- Third Party -->    
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>  
@@ -517,6 +519,31 @@ $switch_do = !empty($this->session->flashdata('switch_branch')) ?  intval($this-
 	<!-- <script src="<?php #cho base_url();?>assets/webarch/js/support_ticket.js" type="text/javascript"></script> -->
 	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+	<!-- Place the first <script> tag in your HTML's <head> -->
+	<!-- <script src="https://cdn.tiny.cloud/1/74363np22ml1f8a2125wm4wcsrb7or7opnxcstl4lhxk54rh/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> -->
+
+	<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+	<script>
+		// tinymce.init({
+		// 	selector: 'textarea',
+		// 	plugins: [
+		// 	// Core editing features
+		// 	'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+		// 	// Your account includes a free trial of TinyMCE premium features
+		// 	// Try the most popular premium features until May 23, 2025:
+		// 	'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+		// 	],
+		// 	toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+		// 	tinycomments_mode: 'embedded',
+		// 	tinycomments_author: 'Author name',
+		// 	mergetags_list: [
+		// 	{ value: 'First.Name', title: 'First Name' },
+		// 	{ value: 'Email', title: 'Email' },
+		// 	],
+		// 	ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+		// });
+	</script>
 
   	<script type="text/javascript">
 		$(document).ready(function() {
