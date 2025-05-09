@@ -1,7 +1,7 @@
 
 <script>
     $.getScript("https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js");
-    
+
     $(document).ready(function () {
         var url = "<?= base_url('news/manage'); ?>";
         // var url_image = '<?= base_url('assets/webarch/img/default-user-image.png'); ?>';

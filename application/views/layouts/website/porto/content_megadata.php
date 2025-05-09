@@ -14,7 +14,7 @@ $theme_text = 'text-white';
         }">
             <div class="banner banner3">
                 <figure>
-                    <img width="1920" height="700" src="<?php echo base_url(); ?>upload/map1.png"
+                    <img width="1920" height="700" src="<?php echo base_url(); ?>upload/web/map1.png"
                         style="background:#f6e1e8;min-height:36rem;" alt="banner" />
                     <div class="snowfall particle-effect"></div>
                 </figure>
@@ -34,7 +34,7 @@ $theme_text = 'text-white';
             </div>
             <div class="banner banner4">
                 <figure>
-                    <img width="1920" height="700" src="<?php echo base_url(); ?>upload/map2.png"
+                    <img width="1920" height="700" src="<?php echo base_url(); ?>upload/web/map2.png"
                         style="background:#f6e1e8;min-height:36rem;" alt="banner" />
                     <div class="particle-effect sparkle"></div>
                 </figure>

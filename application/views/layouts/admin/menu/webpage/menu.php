@@ -4,6 +4,7 @@
         display: none;
     }
 </style>
+
 <div class="row">
     <div class="col-md-12">
         <?php #include '_navigation.php'; ?>
