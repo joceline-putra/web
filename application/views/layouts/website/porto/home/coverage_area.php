@@ -147,7 +147,7 @@
 
     <section class="gallery-section py-5 bg-dark">
         <div class="container">
-            <h2 class="text-center mb-5 font-weight-bold">Mengapa Pilih Megadata?</h2>
+            <h2 class="text-center mb-5 font-weight-bold text-white">Mengapa Pilih Megadata?</h2>
             <div class="row justify-content-center">
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card shadow border-0 h-100">
