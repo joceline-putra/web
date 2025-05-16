@@ -653,6 +653,9 @@
     $(document).ready(function() {
         let url = "<?= base_url('webpage'); ?>";
         let url_redirect = "<?= base_url('webpage/osm'); ?>";         
+
+        let url_wa = "https://wa.me/<?php echo $link['contact']['phone'][1]['phone'];?>?text=Halo,%20saya%20tertarik%20dengan%20informasi%20produk%20Mega%20Data%20";
+        console.log(url_wa);
         let imageRESULT;
         let vSET_TIMEOUT = 3000;
 
@@ -1752,7 +1755,7 @@
                 <div class="col-md-12">
                     <b>Cabang:</b><br>${var_text}</br><br>
                     <b>Alamat:</b><br>${var_address}</br><br>
-                    <b>Kontak:</b><br>${var_note}               
+                    <br><a href="${url_wa}" target="_self" style="color: white; background-color: #25D366; padding: 10px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">Klik Untuk Chat</a>     
                 </div>
             `;
             var c = swalHTML(html, 'Tutup');

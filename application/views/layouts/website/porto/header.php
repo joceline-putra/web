@@ -18,7 +18,7 @@
 } */
 .menu > li:not(:first-child) {
     /* Add your styles here for <li> elements with children except the first one */
-    padding:20px;
+    padding:16px;
 }
     
 }

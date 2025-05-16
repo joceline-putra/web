@@ -137,7 +137,7 @@
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="mailto:hrd@mgd.com" class="btn btn-primary btn-lg"><i class="fa fa-envelope"></i> Kirim Lamaran ke hrd@mgd.com</a>
+                <a href="mailto:hrd@mgd.com" class="btn btn-primary btn-lg"><i class="fa fa-envelope"></i> Kirim Lamaran ke hrd@megadata.net.id</a>
             </div>
             <p class="text-center mt-3 text-muted">Kirimkan CV dan surat lamaran Anda ke email di atas. Hanya kandidat terpilih yang akan dihubungi.</p>
         </div>
